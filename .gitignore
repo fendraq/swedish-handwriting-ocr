@@ -1,0 +1,81 @@
+# .gitignore for Swedish Handwriting OCR Project
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# PyTorch
+*.pth
+*.pt
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Dataset files (large)
+dataset/raw_scans/*.jpg
+dataset/raw_scans/*.png
+dataset/raw_scans/*.pdf
+dataset/segmented/**/*.jpg
+dataset/segmented/**/*.png
+
+# Models (large files)
+models/checkpoints/*.pth
+models/checkpoints/*.pt
+models/final/*.pth
+models/final/*.pt
+
+# Logs
+logs/*.log
+logs/*.txt
+wandb/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# Configuration files with secrets
+config/secrets.yaml
+.env

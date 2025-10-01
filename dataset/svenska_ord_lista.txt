@@ -1,0 +1,244 @@
+# Uppdaterad ordlista för svenskt handskrifts-dataset
+
+## Grundläggande svenska ord (alla case-varianter)
+
+### Enkla ord med alla svenska bokstäver
+absolut, Absolut, ABSOLUT
+anka, Anka, ANKA
+äpple, Äpple, ÄPPLE
+öl, Öl, ÖL
+bänk, Bänk, BÄNK
+cykel, Cykel, CYKEL
+dörr, Dörr, DÖRR
+fönster, Fönster, FÖNSTER
+gåta, Gåta, GÅTA
+häst, Häst, HÄST
+idé, Idé, IDÉ
+jacka, Jacka, JACKA
+kök, Kök, KÖK
+lampa, Lampa, LAMPA
+mössa, Mössa, MÖSSA
+nöt, Nöt, NÖT
+orm, Orm, ORM
+päron, Päron, PÄRON
+räka, Räka, RÄKA
+säng, Säng, SÄNG
+tårta, Tårta, TÅRTA
+uggla, Uggla, UGGLA
+våg, Våg, VÅG
+yxa, Yxa, YXA
+zebra, Zebra, ZEBRA
+åska, Åska, ÅSKA
+äventyr, Äventyr, ÄVENTYR
+översikt, Översikt, ÖVERSIKT
+
+## Svenska förnamn
+Anna, ANNA
+Erik, ERIK
+Maria, MARIA
+Johan, JOHAN
+Astrid, ASTRID
+Gunnar, GUNNAR
+Ingrid, INGRID
+Lars, LARS
+Birgitta, BIRGITTA
+Nils, NILS
+Margareta, MARGARETA
+Carl, CARL
+Elin, ELIN
+Åsa, ÅSA
+Örjan, ÖRJAN
+Älva, ÄLVA
+
+## Svenska efternamn
+Andersson, ANDERSSON
+Johansson, JOHANSSON
+Karlsson, KARLSSON
+Nilsson, NILSSON
+Eriksson, ERIKSSON
+Larsson, LARSSON
+Olsson, OLSSON
+Persson, PERSSON
+Svensson, SVENSSON
+Gustafsson, GUSTAFSSON
+Pettersson, PETTERSSON
+Jonsson, JONSSON
+Jansson, JANSSON
+Hansson, HANSSON
+Bengtsson, BENGTSSON
+Lindgren, LINDGREN
+
+## Svenska ortsnamn
+Stockholm, STOCKHOLM
+Göteborg, GÖTEBORG
+Malmö, MALMÖ
+Uppsala, UPPSALA
+Västerås, VÄSTERÅS
+Örebro, ÖREBRO
+Linköping, LINKÖPING
+Helsingborg, HELSINGBORG
+Jönköping, JÖNKÖPING
+Norrköping, NORRKÖPING
+Lund, LUND
+Umeå, UMEÅ
+Gävle, GÄVLE
+Borås, BORÅS
+Sundsvall, SUNDSVALL
+
+## Månader och veckodagar
+januari, JANUARI
+februari, FEBRUARI
+mars, MARS
+april, APRIL
+maj, MAJ
+juni, JUNI
+juli, JULI
+augusti, AUGUSTI
+september, SEPTEMBER
+oktober, OKTOBER
+november, NOVEMBER
+december, DECEMBER
+
+måndag, MÅNDAG
+tisdag, TISDAG
+onsdag, ONSDAG
+torsdag, TORSDAG
+fredag, FREDAG
+lördag, LÖRDAG
+söndag, SÖNDAG
+
+## Formulärord och vanliga termer
+personnummer, PERSONNUMMER
+adress, ADRESS
+telefon, TELEFON
+telefonnummer, TELEFONNUMMER
+e-post, E-POST
+datum, DATUM
+födelsedatum, FÖDELSEDATUM
+postadress, POSTADRESS
+postnummer, POSTNUMMER
+ort, ORT
+kommun, KOMMUN
+län, LÄN
+arbetsgivare, ARBETSGIVARE
+yrke, YRKE
+civilstånd, CIVILSTÅND
+nationalitet, NATIONALITET
+medborgarskap, MEDBORGARSKAP
+
+## Vardagsmeningar och fraser
+Hej!
+Tack så mycket.
+Vad gör du?
+Ja, det stämmer.
+Nej, tyvärr.
+Gå dit!
+Bra jobbat!
+Hur mår du?
+Jag är glad.
+Vilket väder!
+Snälla, kom hit.
+Hej, hur är läget?
+Ha det så bra!
+Vi ses imorgon.
+Jag förstår inte.
+Kan du hjälpa mig?
+Det låter bra.
+Tack för hjälpen.
+Ursäkta mig.
+Förlåt mig.
+
+## Citat och hälsningar
+"God morgon!"
+'Hej då.'
+"Tack så mycket!"
+'Välkommen hit.'
+"Hur har du det?"
+'Kul att träffas.'
+"Vi hörs snart."
+
+## Siffror och datum
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+123, 456, 789
+2024, 2025, 2026
+2024-10-01
+01-10-2024
+10/01/2024
+1985-03-15
+19850315
+
+## Priser och mätenheter
+100 kr
+1 500 kr
+25,50 kr
+50% rabatt
+25% moms
+10 kg
+5 liter
+2 meter
+30 cm
+100 ml
+
+## E-post och webbadresser
+test@example.com
+anna.eriksson@email.se
+johan123@gmail.com
+info@företag.se
+www.example.se
+https://test.se
+
+## Specialtecken och symboler
+#hashtag
+@användarnamn
+&-tecken
+*stjärna*
+_understreck_
+abc123
+A.B.C.
+(se sidan 5)
+[viktigt]
+{exempel}
+<slutet>
+/avdelning
+\\ny rad
+
+## Skiljetecken
+– tankstreck
+— långt tankstreck
+… tre punkter
+; semikolon
+: kolon
+( ) parentes
+[ ] hakparentes
+{ } måsvinge
+"citat dubbel"
+'citat enkel'
+! utropstecken
+? frågetecken
+. punkt
+, komma
+- bindestreck
+_ understreck
+/ snedstreck
+\\ bakstreck
+% procent
+@ snabel-a
+# nummertecken
+& och-tecken
+* asterisk
+= lika med
++ plus
+< mindre än
+> större än
+
+## Svåra kombinationer
+Café & Bar
+E-mail: test@example.com
+1+1=2
+50% + 25% = 75%
+Pris: 1 250,50 kr (inkl. moms)
+Tel: +46-70-123 45 67
+www.test-sida.se/kontakt
+"Hej!", sa Anna.
+Gatan 123A, 2tr
+2024-10-01 kl. 14:30

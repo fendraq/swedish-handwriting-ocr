@@ -1,0 +1,56 @@
+# Dataset Configuration
+dataset:
+  name: "swedish_handwriting"
+  version: "1.0"
+  train_split: 0.7
+  validation_split: 0.2
+  test_split: 0.1
+  min_samples_per_word: 5
+  target_samples_per_word: 10
+  min_writers: 10
+  target_writers: 20
+
+# Image Processing
+image:
+  input_size: [384, 384]  # TrOCR standard size
+  channels: 3
+  normalize_mean: [0.485, 0.456, 0.406]  # ImageNet standards
+  normalize_std: [0.229, 0.224, 0.225]
+  max_text_length: 128
+
+# TrOCR Model Configuration
+model:
+  base_model: "microsoft/trocr-base-handwritten"
+  processor: "microsoft/trocr-base-handwritten"
+  max_length: 128
+  num_beams: 5
+  early_stopping: true
+
+# Training Configuration
+training:
+  batch_size: 8
+  learning_rate: 5e-5
+  num_epochs: 10
+  warmup_steps: 500
+  weight_decay: 0.01
+  gradient_accumulation_steps: 2
+  save_steps: 1000
+  eval_steps: 500
+  logging_steps: 100
+  dataloader_num_workers: 4
+
+# Evaluation
+evaluation:
+  metrics: ["character_accuracy", "word_accuracy", "edit_distance"]
+  generate_error_analysis: true
+  save_predictions: true
+
+# Paths
+paths:
+  dataset_root: "./dataset"
+  raw_scans: "./dataset/raw_scans"
+  segmented: "./dataset/segmented"
+  annotations: "./dataset/annotations"
+  models: "./models"
+  logs: "./logs"
+  config: "./config"
