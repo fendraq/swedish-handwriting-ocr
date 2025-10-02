@@ -3,13 +3,18 @@ from reportlab.lib.units import mm
 
 def setup_pdf_config(template_config):
     """ Setup PDF configurations from JSON. """
-    page_settings = template_config['page_settings']
-
     # Page dimensions
     width, height = A4
-    margin = page_settings['margin_mm'] * mm
-    font_size = page_settings['font_size_pt']
-    handwriting_space = page_settings['handwriting_space_mm'] * mm
+    
+    # Parse margin (remove 'mm' suffix and convert to float)
+    margin_str = template_config['margin'].replace('mm', '')
+    margin = float(margin_str) * mm
+    
+    font_size = template_config['font_size']
+    
+    # Parse handwriting_space (remove 'mm' suffix and convert to float)
+    handwriting_space_str = template_config['handwriting_space'].replace('mm', '')
+    handwriting_space = float(handwriting_space_str) * mm
 
     # Calculate usable area
     usable_width = width - (2 * margin)
