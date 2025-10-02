@@ -1,0 +1,217 @@
+{
+  "dataset_info": {
+    "name": "Swedish Handwriting Training Dataset",
+    "version": "1.0",
+    "created": "2025-10-01",
+    "description": "Comprehensive Swedish word collection for handwriting OCR training",
+    "total_categories": 11,
+    "estimated_total_items": 800
+  },
+  "categories": {
+    "basic_words": {
+      "description": "Simple Swedish words covering all Swedish letters",
+      "template_layout": "3_words_per_row",
+      "difficulty": "easy",
+      "items": [
+        {"base": "äpple", "variants": ["äpple", "Äpple", "ÄPPLE"]},
+        {"base": "öl", "variants": ["öl", "Öl", "ÖL"]},
+        {"base": "bänk", "variants": ["bänk", "Bänk", "BÄNK"]},
+        {"base": "cykel", "variants": ["cykel", "Cykel", "CYKEL"]},
+        {"base": "dörr", "variants": ["dörr", "Dörr", "DÖRR"]},
+        {"base": "fönster", "variants": ["fönster", "Fönster", "FÖNSTER"]},
+        {"base": "gåta", "variants": ["gåta", "Gåta", "GÅTA"]},
+        {"base": "häst", "variants": ["häst", "Häst", "HÄST"]},
+        {"base": "idé", "variants": ["idé", "Idé", "IDÉ"]},
+        {"base": "jacka", "variants": ["jacka", "Jacka", "JACKA"]},
+        {"base": "kök", "variants": ["kök", "Kök", "KÖK"]},
+        {"base": "mössa", "variants": ["mössa", "Mössa", "MÖSSA"]},
+        {"base": "nöt", "variants": ["nöt", "Nöt", "NÖT"]},
+        {"base": "päron", "variants": ["päron", "Päron", "PÄRON"]},
+        {"base": "räka", "variants": ["räka", "Räka", "RÄKA"]},
+        {"base": "säng", "variants": ["säng", "Säng", "SÄNG"]},
+        {"base": "tårta", "variants": ["tårta", "Tårta", "TÅRTA"]},
+        {"base": "uggla", "variants": ["uggla", "Uggla", "UGGLA"]},
+        {"base": "våg", "variants": ["våg", "Våg", "VÅG"]},
+        {"base": "yxa", "variants": ["yxa", "Yxa", "YXA"]},
+        {"base": "åska", "variants": ["åska", "Åska", "ÅSKA"]},
+        {"base": "äventyr", "variants": ["äventyr", "Äventyr", "ÄVENTYR"]},
+        {"base": "översikt", "variants": ["översikt", "Översikt", "ÖVERSIKT"]}
+      ]
+    },
+    "first_names": {
+      "description": "Common Swedish first names",
+      "template_layout": "4_words_per_row",
+      "difficulty": "easy",
+      "items": [
+        {"base": "Anna", "variants": ["Anna", "ANNA"]},
+        {"base": "Erik", "variants": ["Erik", "ERIK"]},
+        {"base": "Maria", "variants": ["Maria", "MARIA"]},
+        {"base": "Johan", "variants": ["Johan", "JOHAN"]},
+        {"base": "Astrid", "variants": ["Astrid", "ASTRID"]},
+        {"base": "Gunnar", "variants": ["Gunnar", "GUNNAR"]},
+        {"base": "Ingrid", "variants": ["Ingrid", "INGRID"]},
+        {"base": "Lars", "variants": ["Lars", "LARS"]},
+        {"base": "Birgitta", "variants": ["Birgitta", "BIRGITTA"]},
+        {"base": "Nils", "variants": ["Nils", "NILS"]},
+        {"base": "Margareta", "variants": ["Margareta", "MARGARETA"]},
+        {"base": "Carl", "variants": ["Carl", "CARL"]},
+        {"base": "Elin", "variants": ["Elin", "ELIN"]},
+        {"base": "Åsa", "variants": ["Åsa", "ÅSA"]},
+        {"base": "Örjan", "variants": ["Örjan", "ÖRJAN"]},
+        {"base": "Älva", "variants": ["Älva", "ÄLVA"]}
+      ]
+    },
+    "last_names": {
+      "description": "Common Swedish surnames",
+      "template_layout": "3_words_per_row",
+      "difficulty": "easy",
+      "items": [
+        {"base": "Andersson", "variants": ["Andersson", "ANDERSSON"]},
+        {"base": "Johansson", "variants": ["Johansson", "JOHANSSON"]},
+        {"base": "Karlsson", "variants": ["Karlsson", "KARLSSON"]},
+        {"base": "Nilsson", "variants": ["Nilsson", "NILSSON"]},
+        {"base": "Eriksson", "variants": ["Eriksson", "ERIKSSON"]},
+        {"base": "Larsson", "variants": ["Larsson", "LARSSON"]},
+        {"base": "Olsson", "variants": ["Olsson", "OLSSON"]}
+      ]
+    },
+    "places": {
+      "description": "Swedish cities and places",
+      "template_layout": "3_words_per_row",
+      "difficulty": "easy",
+      "items": [
+        {"base": "Stockholm", "variants": ["Stockholm", "STOCKHOLM"]},
+        {"base": "Göteborg", "variants": ["Göteborg", "GÖTEBORG"]},
+        {"base": "Malmö", "variants": ["Malmö", "MALMÖ"]},
+        {"base": "Uppsala", "variants": ["Uppsala", "UPPSALA"]},
+        {"base": "Västerås", "variants": ["Västerås", "VÄSTERÅS"]},
+        {"base": "Örebro", "variants": ["Örebro", "ÖREBRO"]},
+        {"base": "Linköping", "variants": ["Linköping", "LINKÖPING"]},
+        {"base": "Helsingborg", "variants": ["Helsingborg", "HELSINGBORG"]},
+        {"base": "Jönköping", "variants": ["Jönköping", "JÖNKÖPING"]},
+        {"base": "Norrköping", "variants": ["Norrköping", "NORRKÖPING"]},
+        {"base": "Lund", "variants": ["Lund", "LUND"]},
+        {"base": "Umeå", "variants": ["Umeå", "UMEÅ"]},
+        {"base": "Gävle", "variants": ["Gävle", "GÄVLE"]},
+        {"base": "Borås", "variants": ["Borås", "BORÅS"]},
+        {"base": "Sundsvall", "variants": ["Sundsvall", "SUNDSVALL"]}
+      ]
+    },
+    "time_expressions": {
+      "description": "Months and weekdays",
+      "template_layout": "3_words_per_row",
+      "difficulty": "easy",
+      "subcategories": {
+        "months": [
+          {"base": "januari", "variants": ["januari", "JANUARI"]},
+          {"base": "februari", "variants": ["februari", "FEBRUARI"]},
+          {"base": "mars", "variants": ["mars", "MARS"]},
+          {"base": "april", "variants": ["april", "APRIL"]},
+          {"base": "maj", "variants": ["maj", "MAJ"]},
+          {"base": "juni", "variants": ["juni", "JUNI"]},
+          {"base": "juli", "variants": ["juli", "JULI"]},
+          {"base": "augusti", "variants": ["augusti", "AUGUSTI"]},
+          {"base": "september", "variants": ["september", "SEPTEMBER"]},
+          {"base": "oktober", "variants": ["oktober", "OKTOBER"]},
+          {"base": "november", "variants": ["november", "NOVEMBER"]},
+          {"base": "december", "variants": ["december", "DECEMBER"]}
+        ],
+        "weekdays": [
+          {"base": "måndag", "variants": ["måndag", "MÅNDAG"]},
+          {"base": "tisdag", "variants": ["tisdag", "TISDAG"]},
+          {"base": "onsdag", "variants": ["onsdag", "ONSDAG"]},
+          {"base": "torsdag", "variants": ["torsdag", "TORSDAG"]},
+          {"base": "fredag", "variants": ["fredag", "FREDAG"]},
+          {"base": "lördag", "variants": ["lördag", "LÖRDAG"]},
+          {"base": "söndag", "variants": ["söndag", "SÖNDAG"]}
+        ]
+      }
+    },
+    "form_terms": {
+      "description": "Common form and administrative terms",
+      "template_layout": "2_words_per_row",
+      "difficulty": "medium",
+      "items": [
+        {"base": "personnummer", "variants": ["personnummer", "PERSONNUMMER"]},
+        {"base": "adress", "variants": ["adress", "ADRESS"]},
+        {"base": "telefon", "variants": ["telefon", "TELEFON"]},
+        {"base": "telefonnummer", "variants": ["telefonnummer", "TELEFONNUMMER"]},
+        {"base": "e-post", "variants": ["e-post", "E-POST"]},
+        {"base": "datum", "variants": ["datum", "DATUM"]},
+        {"base": "födelsedatum", "variants": ["födelsedatum", "FÖDELSEDATUM"]},
+        {"base": "postadress", "variants": ["postadress", "POSTADRESS"]},
+        {"base": "postnummer", "variants": ["postnummer", "POSTNUMMER"]},
+        {"base": "ort", "variants": ["ort", "ORT"]},
+        {"base": "kommun", "variants": ["kommun", "KOMMUN"]},
+        {"base": "län", "variants": ["län", "LÄN"]},
+        {"base": "arbetsgivare", "variants": ["arbetsgivare", "ARBETSGIVARE"]},
+        {"base": "yrke", "variants": ["yrke", "YRKE"]},
+        {"base": "civilstånd", "variants": ["civilstånd", "CIVILSTÅND"]},
+        {"base": "nationalitet", "variants": ["nationalitet", "NATIONALITET"]},
+        {"base": "medborgarskap", "variants": ["medborgarskap", "MEDBORGARSKAP"]}
+      ]
+    },
+    "sentences": {
+      "description": "Common phrases and sentences",
+      "template_layout": "1_sentence_per_row",
+      "difficulty": "medium",
+      "items": [
+        {"text": "Hej!", "type": "greeting", "punctuation": true},
+        {"text": "Tack så mycket.", "type": "courtesy", "punctuation": true},
+        {"text": "Vad gör du?", "type": "question", "punctuation": true},
+        {"text": "Ja, det stämmer.", "type": "confirmation", "punctuation": true},
+        {"text": "Nej, tyvärr.", "type": "denial", "punctuation": true},
+        {"text": "Gå dit!", "type": "command", "punctuation": true},
+        {"text": "Bra jobbat!", "type": "praise", "punctuation": true},
+        {"text": "Hur mår du?", "type": "question", "punctuation": true},
+        {"text": "Jag är glad.", "type": "statement", "punctuation": true},
+        {"text": "Vilket väder!", "type": "exclamation", "punctuation": true},
+        {"text": "Snälla, kom hit.", "type": "request", "punctuation": true},
+        {"text": "Hej, hur är läget?", "type": "greeting", "punctuation": true},
+        {"text": "Ha det så bra!", "type": "farewell", "punctuation": true},
+        {"text": "Vi ses imorgon.", "type": "farewell", "punctuation": true},
+        {"text": "Jag förstår inte.", "type": "statement", "punctuation": true},
+        {"text": "Kan du hjälpa mig?", "type": "question", "punctuation": true},
+        {"text": "Det låter bra.", "type": "agreement", "punctuation": true},
+        {"text": "Tack för hjälpen.", "type": "courtesy", "punctuation": true},
+        {"text": "Ursäkta mig.", "type": "apology", "punctuation": true},
+        {"text": "Förlåt mig.", "type": "apology", "punctuation": true}
+      ]
+    },
+    "quotes": {
+      "description": "Text with quotation marks",
+      "template_layout": "1_quote_per_row",
+      "difficulty": "hard",
+      "items": [
+        {"text": "\"God morgon!\"", "quote_type": "double"},
+        {"text": "'Hej då.'", "quote_type": "single"},
+        {"text": "\"Tack så mycket!\"", "quote_type": "double"},
+        {"text": "'Välkommen hit.'", "quote_type": "single"},
+        {"text": "\"Hur har du det?\"", "quote_type": "double"},
+        {"text": "'Kul att träffas.'", "quote_type": "single"},
+        {"text": "\"Vi hörs snart.\"", "quote_type": "double"}
+      ]
+    }
+  },
+  "template_config": {
+    "page_settings": {
+      "size": "A4",
+      "margin_mm": 20,
+      "font_size_pt": 12,
+      "handwriting_space_mm": 15
+    },
+    "layout_options": {
+      "1_item_per_row": {"items_per_row": 1, "suitable_for": ["complex_combinations", "digital_expressions"]},
+      "2_words_per_row": {"items_per_row": 2, "suitable_for": ["form_terms", "long_words"]},
+      "3_words_per_row": {"items_per_row": 3, "suitable_for": ["basic_words", "places", "time_expressions"]},
+      "4_words_per_row": {"items_per_row": 4, "suitable_for": ["first_names", "short_words"]},
+      "1_sentence_per_row": {"items_per_row": 1, "suitable_for": ["sentences", "quotes"]}
+    },
+    "difficulty_levels": {
+      "easy": {"description": "Simple words, basic case variations"},
+      "medium": {"description": "Longer words, punctuation, numbers"},
+      "hard": {"description": "Special characters, quotes, emails"},
+      "very_hard": {"description": "Complex combinations, real-world scenarios"}
+    }
+  }
+}

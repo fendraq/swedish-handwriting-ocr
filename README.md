@@ -47,7 +47,7 @@ pip install -r requirements.txt
 
 ## Dataset Generation
 
-See `dataset/svenska_ord_lista.txt` for a comprehensive list of Swedish words, phrases, and special characters to be used for data collection.
+See `dataset/svenska_ord_lista.txt` or `swedish_words.json` for a comprehensive list of Swedish words, phrases, and special characters to be used for data collection.
 
 ### Phase 1: Data Collection
 - Create templates based on the word list
