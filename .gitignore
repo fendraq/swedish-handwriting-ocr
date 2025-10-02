@@ -38,11 +38,8 @@ venv.bak/
 .ipynb_checkpoints
 
 # Dataset files (large)
-dataset/raw_scans/*.jpg
-dataset/raw_scans/*.png
-dataset/raw_scans/*.pdf
-dataset/segmented/**/*.jpg
-dataset/segmented/**/*.png
+dataset/
+
 
 # Models (large files)
 models/checkpoints/*.pth

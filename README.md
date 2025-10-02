@@ -51,11 +51,23 @@ See `dataset/svenska_ord_lista.txt` or `swedish_words.json` for a comprehensive 
 
 ### Phase 1: Data Collection
 - Create templates based on the word list
+```bash
+python generate_templates.py
+```
 - Collect handwriting from at least 10-20 different writers
 - Scan or photograph completed forms
 
 ### Phase 2: Data Processing
 - Segment scanned documents into individual words
+```bash
+cd /home/fendraq/wsl_projects/swedish_handwritten_ocr/scripts/data_processing
+
+python segment_images.py \
+  --metadata "../../dataset/templates/generated_templates/complete_template_metadata.json" \
+  --images "/path/to/your/scanned/images" \
+  --output "../../dataset/segmented_words" \
+  --writer-id "writer_001"
+```
 - Create annotations and quality control
 - Split into training, validation, and test sets
 
