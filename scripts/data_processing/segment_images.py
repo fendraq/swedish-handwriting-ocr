@@ -45,6 +45,19 @@ def validate_inputs(args):
     print(f"  Output: {args.output}")
     print(f"  Writer ID: {args.writer_id}")
 
+    # Handle reference detection options
+    if args.no_references:
+        args.use_references = False
+
+    # Set default visualization output
+    if args.visualize and not args.viz_output:
+        args.viz_output = str(Path(args.output).parent / (Path(args.output).name + "_vizualizations"))
+
+    print("Configuration:")
+    print(f" Use reference markers: {args.use_references}")
+    if args.visualize:
+        print(f" Visualization output: {args.viz_output}")
+
 def main():
     """
     Main funktion for image segmentation
@@ -82,6 +95,30 @@ def main():
         default="writer_001",
         help="Identifier for the person who wrote this (default: writer_001)"
     )
+
+    parser.add_argument(
+        "--use-references",
+        action="store_true",
+        default=True,
+        help="Use reference markers for coordinate transformation (default:True)"
+    )
+
+    parser.add_argument(
+        "--no-references",
+        action="store_true",
+        help="Disable reference marker detection, use simple coordinates conversion"
+    )
+
+    parser.add_argument(
+        "--visualize",
+        action="store_true",
+        help="Generate visualization images showing detexted markers and segmentation regions"
+    )
+
+    parser.add_argument(
+        "--viz-output",
+        help="Directory for visualization images (default: same as aoutput + '_visualizations')"
+    )
     
     args = parser.parse_args()
 
@@ -92,7 +129,13 @@ def main():
         print("STARTING IMAGE SEGMENTATION")
         print("="*50)
 
-        segmenter = ImageSegmenter(args.metadata, args.output)
+        segmenter = ImageSegmenter(
+            args.metadata, 
+            args.output,
+            use_references=args.use_references,
+            enable_visualization=args.visualize,
+            viz_output=args.viz_output
+        )
 
         results = segmenter.segment_multiple_pages(args.images, args.writer_id)
 

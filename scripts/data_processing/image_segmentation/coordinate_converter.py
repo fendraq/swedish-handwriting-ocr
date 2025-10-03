@@ -1,5 +1,8 @@
+import cv2
 import json
+import numpy as np
 from typing import List, Tuple
+from .reference_detector import ReferenceDetector
 
 def load_metadata(metadata_path: str) -> dict:
     """ 
@@ -93,3 +96,172 @@ def get_words_for_page(metadata, page_number):
     page_words = [word for word in words_list if word['page'] == page_number]
 
     return page_words
+
+def transform_coordinates_with_references(image_path: str, metadata: dict) -> List[List[int]]:
+    """
+    Transform PDF coordinates to image coordinates using reference markers.
+
+    Args:
+        image_path: Path to scanned image
+        metadata: Metadata dictionary with reference system and word coordinates
+
+    Returns: 
+        List of transformed [x1, y1, x2, y2] coordinates
+    """
+
+    image = cv2.imread(image_path)
+    if image is None:
+        raise ValueError(f"Could not load image: {image_path}")
+    
+    # Initiate reference detector
+    ref_detector = ReferenceDetector(
+        marker_radius_mm=metadata['reference_system']['circle_radius_mm']
+    )
+
+    # Detect reference markers in image
+    detected_markers = ref_detector.detect_circular_markers(image_path)
+
+    if len(detected_markers) < 2:
+        print(f"Warning: Only {len(detected_markers)} markers detected. Falling back to simple conversion")
+        words_coords = []
+        img_h, img_w = image.shape[:2]
+        for word in metadata['words']:
+            coords = pdf_to_pixel_coordinates(word['position'], img_w, img_h)
+            words_coords.append(list(coords))
+        return words_coords
+    
+    pdf_markers = metadata['reference_system']['reference_markers']
+
+    try:
+        # Calculate transformation matrix
+        transformation_matrix = ref_detector.calculate_transformation(detected_markers, pdf_markers)
+
+        # Transform all word coordinates
+        transformed_coords = []
+        for word in metadata['words']:
+            pdf_coords = word['position']
+
+            pdf_points = np.float32([
+                [pdf_coords[0], pdf_coords[1]],  # top-left
+                [pdf_coords[2], pdf_coords[1]],  # top-right
+                [pdf_coords[2], pdf_coords[3]],  # bottom-right
+                [pdf_coords[0], pdf_coords[3]]   # bottom-left
+            ])
+
+            # Apply transformation
+            if transformation_matrix.shape == (3, 3):
+                img_points = cv2.perspectiveTransform(
+                    pdf_points.reshape( -1, 1, 2),
+                    transformation_matrix
+                ).reshape(-1, 2)
+            else:
+                img_points = cv2.transform(
+                    pdf_points.reshape(-1, 1, 2),
+                    transformation_matrix
+                ).reshape(-1, 2)
+            
+            # Get bounding box of transformed rectangle
+            x_coords = img_points[:, 0]
+            y_coords = img_points[:, 1]
+
+            x1, x2 = int(min(x_coords)), int(max(x_coords))
+            y1, y2 = int(min(y_coords)), int(max(y_coords))
+
+            # Ensure coordinates are within image bounds
+            h, w = image.shape[:2]
+            x1, x2 = max(0, x1), min(w, x2)
+            y1, y2 = max(0, y1), min(h, y2)
+
+            transformed_coords.append([x1, y1, x2, y2])
+
+        print(f"Successfully transformed {len(transformed_coords)} word coordinates using reference markers")
+        return transformed_coords
+    
+    except Exception as e:
+        print(f"Error in reference-based transformation: {e}")
+        print("Falling back to simple coordinate conversion")
+        words_coords = []
+        img_h, img_w = image.shape[:2]
+        for word in metadata['words']:
+            coords = pdf_to_pixel_coordinates(word['position'], img_w, img_h)
+            words_coords.append(list(coords))
+        return words_coords
+    
+
+def visualize_transformation(image_path: str, metadata: dict, output_path: str = None) -> np.ndarray:
+    """
+    Visualize detected reference markers and transformed coordinates.
+
+    Args:
+        image_path: Path to scanned image
+        metadata: Metadata dictionary
+        output_path: Optional path to save visualization
+
+    Returns:
+        Image with visualizations
+    """
+
+    image = cv2.imread(image_path)
+    if image is None:
+        raise ValueError(f"Could not load image {image_path}")
+
+    # Detect and visualize reference markers
+    ref_detector = ReferenceDetector(
+        marker_radius_mm=metadata['reference_system']['circle_radius_mm']
+    )
+
+    detected_markers = ref_detector.detect_circular_markers(image_path)
+    vis_image = ref_detector.visualize_detected_markers(image, detected_markers)
+    
+    # Get transformed coordinates
+    try:
+        transformed_coords = transform_coordinates_with_references(image_path, metadata)
+
+        # Draw word regions
+        for i, coords in enumerate(transformed_coords):
+            x1, y1, x2, y2 = coords
+            cv2.rectangle(vis_image, (x1, y1), (x2, y2), (0, 255, 255), 2)
+            cv2.putText(vis_image, f"{i}", (x1, y1-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 1)
+
+        print(f"Drew {len(transformed_coords)} word regions")
+
+    except Exception as e: 
+        print(f"Could not transform coordinates: {e}")
+
+    if output_path:
+        cv2.imwrite(output_path, vis_image)
+        print(f"Visualization saved on {output_path}")
+
+    return vis_image
+
+def get_coordinates_with_fallback(image_path: str, metadata: dict, use_references: bool = True) -> List[List[int]]:
+    """
+    Get coordinates using reference markers with fallback to simple conversion.
+
+    Args:
+        image_path: Path to scanned image
+        metadata: Metadata dictionary
+        use_references: Wether to try reference marker detection first
+
+    Returns:
+        List of [x1, y1, x2, y2] coordinates
+    """
+
+    if use_references and 'reference_system' in metadata:
+        try:
+            return transform_coordinates_with_references(image_path, metadata)
+        except Exception as e:
+            print(f"Reference-based transformation failed: {e}")
+            print("Falling back to simple coordinate conversion")
+
+    # Fallback to simple convesion
+    image = cv2.imread(image_path)
+    if image is None:
+        raise ValueError(f"Could not load image: {image_path}")
+    
+    words_coords = []
+    img_h, img_w = image.shape[:2]
+    for word in metadata['words']:
+        coords = pdf_to_pixel_coordinates(word['position'], img_w, img_h)
+        words_coords.append(list(coords))
+    return words_coords

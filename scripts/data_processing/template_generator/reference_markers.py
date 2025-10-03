@@ -14,7 +14,7 @@ class ReferenceMarkerGenerator:
         self.margin = margin
 
         # Define marker positions
-        offset = 10*mm
+        offset = 13*mm
         self.markers = {
             'top_left': (offset, page_height - offset),
             'top_right': (page_width - offset, page_height - offset),
@@ -86,7 +86,9 @@ class ReferenceMarkerGenerator:
         """Get the reference origin point (top-left marker)."""
         return self.markers['top_left']
     
+    
     def validate_marker_positions(self):
+        # Configure later  together with layout details in layout_calculation
         """Validate that the markers don't overlap with content area."""
         content_left = self.margin
         content_right = self.page_width - self.margin
@@ -97,9 +99,9 @@ class ReferenceMarkerGenerator:
 
         for marker_id, (x, y) in self.markers.items():
             # Check if marker is too close to content area
-            if abs(x - content_left) < 15*mm or abs(x - content_right) < 15*mm:
+            if abs(x - content_left) < 8*mm or abs(x - content_right) < 8*mm:
                 warnings.append(f"Marker {marker_id} may be too close to content area")
-            if abs(y - content_top) < 15*mm or abs(y - content_bottom) < 15*mm:
+            if abs(y - content_top) < 8*mm or abs(y - content_bottom) < 8*mm:
                 warnings.append(f" Marker {marker_id} may be too close to content area")
 
         return warnings
