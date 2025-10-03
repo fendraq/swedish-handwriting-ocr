@@ -62,11 +62,7 @@ python generate_templates.py
 ```bash
 cd /home/fendraq/wsl_projects/swedish_handwritten_ocr/scripts/data_processing
 
-python segment_images.py \
-  --metadata "../../dataset/templates/generated_templates/complete_template_metadata.json" \
-  --images "/path/to/your/scanned/images" \
-  --output "../../dataset/segmented_words" \
-  --writer-id "writer_001"
+python python segment_images.py --metadata "../../dataset/templates/generated_templates/complete_template_metadata.json" --images "../../dataset/raw_scans" --output "../../dataset/segmented_words" --writer-id "writer_001"
 ```
 - Create annotations and quality control
 - Split into training, validation, and test sets

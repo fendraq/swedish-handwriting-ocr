@@ -39,6 +39,9 @@ venv.bak/
 
 # Dataset files (large)
 dataset/
+dataset/*
+dataset/**/*
+/templates/generated_templates/
 
 
 # Models (large files)

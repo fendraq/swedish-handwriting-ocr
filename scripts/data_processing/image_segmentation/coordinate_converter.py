@@ -1,5 +1,5 @@
 import json
-from typing import Dict, List, Tuple
+from typing import List, Tuple
 
 def load_metadata(metadata_path: str) -> dict:
     """ 

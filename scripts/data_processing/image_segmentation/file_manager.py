@@ -117,11 +117,11 @@ def generate_segmentation_report(results: Dict[str, List[str]], output_dir: str)
     with open(report_path, 'w', encoding='utf-8') as f:
         json.dump(summary, f, indent=2, ensure_ascii=False)
 
-    print(f"\n=== SEGMENTATION REPORT ===")
+    print("\n=== SEGMENTATION REPORT ===")
     print(f"Total source images: {summary['total_source_images']}")
     print(f"Total segmented words: {summary['total_segmented_words']}")
     print(f"Average words per image: {summary['average_words_per_image']:.1f}")
-    print(f"\nWords per category:")
+    print("\nWords per category:")
     for category, count in category_counts.items():
         print(f"  {category}: {count}")
     print(f"\nReport saved to: {report_path}")

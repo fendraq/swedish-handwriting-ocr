@@ -39,7 +39,7 @@ def validate_inputs(args):
         print(f"Error: No JPG files found in {args.images}")
         sys.exit(1)
     
-    print(f"Validation passed:")
+    print("Validation passed:")
     print(f"  Metadata: {args.metadata}")
     print(f"  Images: {args.images} ({len(jpg_files)} JPG files)")
     print(f"  Output: {args.output}")

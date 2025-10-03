@@ -5,6 +5,7 @@ import json
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
+from .reference_markers import ReferenceMarkerGenerator
 
 def create_template_pdf(all_items, output_dir, pdf_config):
     """ Create a template for PDF with all categories, each category as section """
@@ -12,20 +13,39 @@ def create_template_pdf(all_items, output_dir, pdf_config):
     filename = f"{output_dir}/swedish_handwriting_template.pdf"
     c = canvas.Canvas(filename, pagesize=A4)
 
+    marker_gen = ReferenceMarkerGenerator(
+        pdf_config['page_width'],
+        pdf_config['page_height'],
+        pdf_config['margin']
+    )
+
+    # Validate marker positions
+    warnings = marker_gen.validate_marker_positions()
+    if warnings:
+        for warning in warnings:
+            print(f"Warning: {warning}")
+
     # Position tracking
     current_row = 0
     current_col = 0
     page_number = 1
     metadata= []
     current_layout = None
+    first_page_markers_drawn = False
 
     for item in all_items:
+        if not first_page_markers_drawn:
+            marker_gen.draw_markers(c)
+            first_page_markers_drawn = True
+
         if item.get('is_header', False):
             if current_row > 0:
                 c.showPage()
                 page_number += 1
                 current_row = 0
                 current_col = 0
+
+            marker_gen.draw_markers(c)
 
             header_y = pdf_config['page_height'] - pdf_config['margin']
             c.setFont("Helvetica-Bold", 16)
@@ -57,6 +77,7 @@ def create_template_pdf(all_items, output_dir, pdf_config):
             page_number += 1
             current_row = 0
             current_col = 0
+            first_page_markers_drawn = False
 
         # Calculate position
         x = pdf_config['margin'] + (current_col * item_width)
@@ -95,16 +116,26 @@ def create_template_pdf(all_items, output_dir, pdf_config):
 
     # Save metadata for segmentation
     metadata_file = f"{output_dir}/complete_template_metadata.json"
+
+    all_words_coords = [word['position'] for word in metadata]
+    relative_coords = marker_gen.calculate_relative_coordinates(all_words_coords)
+
+    for i, word in enumerate(metadata):
+        word['relative_position'] = relative_coords[i]
+
+    metadata_structure = {
+        'pdf_file': filename,
+        'total_words': len(metadata),
+        'total_pages': page_number,
+        'categories': list(set(item['category'] for item in metadata)),
+        'reference_system': marker_gen.get_marker_metadata(),
+        'words': metadata
+    }
     with open(metadata_file, 'w', encoding='utf-8') as f:
-        json.dump({
-            'pdf_file': filename,
-            'total_words': len(metadata),
-            'total_pages': page_number,
-            'categories': list(set(item['category'] for item in metadata)),
-            'words': metadata
-        }, f, indent=2, ensure_ascii=False)
+        json.dump(metadata_structure, f, indent=2, ensure_ascii=False)
 
     print(f"Metadata saved: {metadata_file}")
+    print(f"Reference markers added to all {page_number} pages")
     return filename, metadata_file
 
 

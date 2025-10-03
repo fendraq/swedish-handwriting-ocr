@@ -27,7 +27,7 @@ class ImageSegmenter:
 
         self.output_paths = None
 
-        print(f"ImageSegmenter initialized:")
+        print("ImageSegmenter initialized:")
         print(f"  Total words in metadata: {self.metadata['total_words']}")
         print(f"  Categories: {self.categories}")
     
