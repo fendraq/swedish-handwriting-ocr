@@ -125,16 +125,22 @@ def transform_coordinates_with_references(image_path: str, metadata: dict, targe
     # Detect reference markers in image
     detected_markers = ref_detector.detect_circular_markers(image_path)
 
+    print(f"DEBUG: Detected markers in image: {detected_markers}")
+    print(f"DEBUG: Expected markers from PDF: {metadata['reference_system']['reference_markers']}")
+
     # Auto-correct image rotation if markers are detected
     if len(detected_markers) >= 2:
         try:
             pdf_markers = metadata['reference_system']['reference_markers']
             corrected_image, corrected_markers, rotation_applied = auto_correct_image_orientation(
-                image_path, detected_markers, pdf_markers, rotation_threshold=0.3
+                image_path, detected_markers, pdf_markers, rotation_threshold=0.1  # Change for smaller rotation
             )
 
+            print(f"DEBUG: Rotation applied: {rotation_applied:.3f} degrees")
+            print(f"DEBUG: Rotation threshold check: abs({rotation_applied:.3f}) > 0.1 = {abs(rotation_applied) > 0.1}")
+
             # Replace original image with corrected version if rotation was applied
-            if abs(rotation_applied) > 1:
+            if abs(rotation_applied) > 0.1:  # Change for smaller rotation
                 cv2.imwrite(image_path, corrected_image)
                 print(f"Applied {rotation_applied:.2f} degrees rotation correction and saved to {image_path}")
 
@@ -143,6 +149,9 @@ def transform_coordinates_with_references(image_path: str, metadata: dict, targe
                 
                 # Reload the corrected image for coordinate transformation
                 image = corrected_image
+                print(f"DEBUG: Using corrected markers: {corrected_markers}")
+            else:
+                print(f"DEBUG: Rotation {rotation_applied:.3f} too small, no correction applied")
 
         except Exception as e:
             print(f"Warning: Auto-rotation failed: {e}, continuing with original image")

@@ -93,8 +93,8 @@ def detect_rotation_angle(detected_markers: dict, expected_markers: dict) -> flo
         angle_detected = math.atan2(detected_dy, detected_dx)
         angle_expected = math.atan2(expected_dy, expected_dx)
 
-        # Calculate correction angle - negate to get proper rotation direction
-        rotation_angle = -math.degrees(angle_detected - angle_expected)
+        # Calculate correction angle - positive for clockwise rotation
+        rotation_angle = math.degrees(angle_detected - angle_expected)
 
         print(f"DEBUG: Horizontal line rotation: {rotation_angle:.3f}")
         return rotation_angle
@@ -108,8 +108,8 @@ def detect_rotation_angle(detected_markers: dict, expected_markers: dict) -> flo
         angle_detected = math.atan2(detected_dy, detected_dx)
         angle_expected = math.atan2(expected_dy, expected_dx)
 
-        # Calculate correction angle - negate to get proper rotation direction
-        rotation_angle = -math.degrees(angle_detected - angle_expected)
+        # Calculate correction angle - positive for clockwise rotation
+        rotation_angle = math.degrees(angle_detected - angle_expected)
 
         print(f"DEBUG: Vertical line rotation: {rotation_angle:.3f}")
         return rotation_angle
