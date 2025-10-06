@@ -12,15 +12,22 @@ swedish_handwritten_ocr/
 │   └── config.yaml              # Configuration file for training and dataset
 ├── dataset/
 │   ├── svenska_ord_lista.txt    # Updated word list for data collection
-│   ├── raw_scans/               # Original scanned documents
-│   ├── segmented/               # Segmented word images
-│   │   ├── train/
-│   │   ├── validation/
-│   │   └── test/
+│   ├── swedish_words.json       # Comprehensive Swedish vocabulary with categories
+│   ├── raw_scans/               # Original scanned documents (JPG format)
+│   ├── segmented_words/         # Segmented word images organized by writer
+│   │   ├── writer_001/
+│   │   ├── writer_002/
+│   │   └── ...
+│   ├── segmented_words_visualizations/  # Debug visualizations showing marker detection
 │   ├── annotations/             # Metadata and labels
-│   └── templates/               # Templates for data collection
+│   └── templates/               # Generated templates for data collection
+│       └── generated_templates/ # PDF templates with metadata
 ├── scripts/
 │   ├── data_processing/         # Data processing scripts
+│   │   ├── generate_templates.py           # Generate PDF templates
+│   │   ├── segment_images.py               # Segment scanned images
+│   │   ├── template_generator/             # PDF generation modules
+│   │   └── image_segmentation/             # Image processing modules
 │   ├── training/                # Training scripts
 │   └── evaluation/              # Evaluation scripts
 ├── models/
@@ -47,7 +54,7 @@ pip install -r requirements.txt
 
 ## Dataset Generation
 
-See `dataset/svenska_ord_lista.txt` or `swedish_words.json` for a comprehensive list of Swedish words, phrases, and special characters to be used for data collection.
+The project uses `dataset/swedish_words.json` containing 150+ categorized Swedish words optimized for handwriting recognition, including funeral/burial terminology with focus on Swedish characters (å, ä, ö).
 
 ### Phase 1: Data Collection
 - Create templates based on the word list
@@ -56,8 +63,13 @@ cd /home/fendraq/wsl_projects/swedish_handwritten_ocr/scripts/data_processing
 
 python generate_templates.py
 ```
-- Collect handwriting from at least 10-20 different writers
-- Scan or photograph completed forms
+- Templates include:
+    - Instruction text: "Skanna in i jpg-format och skriv innanför linjerna"
+    - Page numbers for correct scanning order
+    - Reference markers for automatic coordinate transformation
+    - Optimized line thickness (0.5 pt) for minimal margin requirements
+- Print templates and distribute to 10-20 different writers
+- Important: Scan completed forms as JPG files in correct page order (Sida 1, Sida 2, etc.)
 
 ### Phase 2: Data Processing
 - Segment scanned documents into individual words
@@ -66,8 +78,24 @@ cd /home/fendraq/wsl_projects/swedish_handwritten_ocr/scripts/data_processing
 
 python segment_images.py --metadata "../../dataset/templates/generated_templates/complete_template_metadata.json" --images "../../dataset/raw_scans" --output "../../dataset/segmented_words" --writer-id "writer_001" --visualize
 ```
-- Create annotations and quality control
-- Split into training, validation, and test sets
+#### Segmentation Features:
+- **Dynamic image analysis**: Automatically detects DPI and adjusts parameters accordingly
+- **Reference marker detection**: Uses circular markers for precise coordinate transformation
+- **Adaptive parameters**: Automatically scales detection based on actual image resolution (200 DPI vs 300 DPI)
+- **Smart margin control**: 6-pixel inward margin to remove border artifacts from segmented words
+- **Fallback mode**: Functions with simple coordinate conversion when markers aren't detected
+- **Visualization support**: Generate debug images showing detected markers and segmentation regions
+
+#### Segmentation Options:
+- `--use-references`: Enable reference marker detection (default: True)
+- `--no-references`: Disable markers, use simple coordinate conversion
+- `--visualize`: Generate visualization images for debugging
+- `--viz-output`: Custom directory for visualization output
+
+#### File Organization:
+- Segmented images organized by writer: `dataset/segmented_words/writer_001/`
+- Each image named: `{category}_{word_id}_{writer_id}.jpg`
+- Visualization images: `dataset/segmented_words_visualizations/`
 
 ### Phase 3: Model Training
 - Fine-tune TrOCR on Swedish handwriting data
@@ -84,8 +112,16 @@ Upcoming scripts for:
 
 ## Features
 
-- **Comprehensive Swedish vocabulary**: Covers all Swedish characters (å, ä, ö), names, places, dates, and form-specific terminology
-- **Automated segmentation**: Scripts to extract individual words from scanned pages
-- **TrOCR integration**: Fine-tuning pipeline using Microsoft's TrOCR model
-- **Quality control**: Validation and error analysis tools
-- **Production ready**: Configurable pipeline suitable for deployment
+- **Comprehensive Swedish vocabulary**: 150+ categorized words covering Swedish characters (å, ä, ö), names, places, dates, and funeral/burial terminology
+- **Intelligent template generation**: PDF templates with reference markers, page numbers, and scanning instructions
+- **Advanced image segmentation**: 
+  - Automatic DPI detection and parameter adaptation
+  - Reference marker detection for precise coordinate mapping
+  - Dynamic margin adjustment (6px inward) to remove border artifacts
+  - Fallback coordinate transformation when markers aren't available
+- **Quality assurance**:
+  - Visualization tools for debugging marker detection
+  - Consistent font rendering across all template text
+  - Optimized line thickness (0.5pt) for clean segmentation
+- **Production ready**: Configurable pipeline suitable for large-scale dataset generation
+- **TrOCR integration**: Fine-tuning pipeline using Microsoft's TrOCR model (upcoming)
