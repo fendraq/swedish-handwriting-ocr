@@ -3,6 +3,7 @@ import json
 import numpy as np
 from typing import List, Tuple
 from .reference_detector import ReferenceDetector
+from .image_processor import auto_correct_image_orientation
 
 def load_metadata(metadata_path: str) -> dict:
     """ 
@@ -97,13 +98,14 @@ def get_words_for_page(metadata, page_number):
 
     return page_words
 
-def transform_coordinates_with_references(image_path: str, metadata: dict) -> List[List[int]]:
+def transform_coordinates_with_references(image_path: str, metadata: dict, target_page: int) -> List[List[int]]:
     """
     Transform PDF coordinates to image coordinates using reference markers.
 
     Args:
         image_path: Path to scanned image
         metadata: Metadata dictionary with reference system and word coordinates
+        target_page: Page number to process
 
     Returns: 
         List of transformed [x1, y1, x2, y2] coordinates
@@ -113,6 +115,8 @@ def transform_coordinates_with_references(image_path: str, metadata: dict) -> Li
     if image is None:
         raise ValueError(f"Could not load image: {image_path}")
     
+    page_words = get_words_for_page(metadata, target_page)
+    
     # Initiate reference detector
     ref_detector = ReferenceDetector(
         marker_radius_mm=metadata['reference_system']['circle_radius_mm']
@@ -121,11 +125,33 @@ def transform_coordinates_with_references(image_path: str, metadata: dict) -> Li
     # Detect reference markers in image
     detected_markers = ref_detector.detect_circular_markers(image_path)
 
+    # Auto-correct image rotation if markers are detected
+    if len(detected_markers) >= 2:
+        try:
+            pdf_markers = metadata['reference_system']['reference_markers']
+            corrected_image, corrected_markers, rotation_applied = auto_correct_image_orientation(
+                image_path, detected_markers, pdf_markers, rotation_threshold=0.3
+            )
+
+            # Replace original image with corrected version if rotation was applied
+            if abs(rotation_applied) > 1:
+                cv2.imwrite(image_path, corrected_image)
+                print(f"Applied {rotation_applied:.2f} degrees rotation correction and saved to {image_path}")
+
+                # Use corrected markers for transformation
+                detected_markers = corrected_markers
+                
+                # Reload the corrected image for coordinate transformation
+                image = corrected_image
+
+        except Exception as e:
+            print(f"Warning: Auto-rotation failed: {e}, continuing with original image")
+
     if len(detected_markers) < 2:
         print(f"Warning: Only {len(detected_markers)} markers detected. Falling back to simple conversion")
         words_coords = []
         img_h, img_w = image.shape[:2]
-        for word in metadata['words']:
+        for word in page_words:
             coords = pdf_to_pixel_coordinates(word['position'], img_w, img_h)
             words_coords.append(list(coords))
         return words_coords
@@ -138,7 +164,7 @@ def transform_coordinates_with_references(image_path: str, metadata: dict) -> Li
 
         # Transform all word coordinates
         transformed_coords = []
-        for word in metadata['words']:
+        for word in page_words:
             pdf_coords = word['position']
 
             pdf_points = np.float32([
@@ -182,13 +208,13 @@ def transform_coordinates_with_references(image_path: str, metadata: dict) -> Li
         print("Falling back to simple coordinate conversion")
         words_coords = []
         img_h, img_w = image.shape[:2]
-        for word in metadata['words']:
+        for word in page_words:
             coords = pdf_to_pixel_coordinates(word['position'], img_w, img_h)
             words_coords.append(list(coords))
         return words_coords
     
 
-def visualize_transformation(image_path: str, metadata: dict, output_path: str = None) -> np.ndarray:
+def visualize_transformation(image_path: str, metadata: dict, output_path: str = None, target_page: int = None) -> np.ndarray:
     """
     Visualize detected reference markers and transformed coordinates.
 
@@ -196,6 +222,7 @@ def visualize_transformation(image_path: str, metadata: dict, output_path: str =
         image_path: Path to scanned image
         metadata: Metadata dictionary
         output_path: Optional path to save visualization
+        target_page: Page number to visualize (1-indexed), None for all pages
 
     Returns:
         Image with visualizations
@@ -215,7 +242,7 @@ def visualize_transformation(image_path: str, metadata: dict, output_path: str =
     
     # Get transformed coordinates
     try:
-        transformed_coords = transform_coordinates_with_references(image_path, metadata)
+        transformed_coords = transform_coordinates_with_references(image_path, metadata, target_page)
 
         # Draw word regions
         for i, coords in enumerate(transformed_coords):
@@ -234,7 +261,7 @@ def visualize_transformation(image_path: str, metadata: dict, output_path: str =
 
     return vis_image
 
-def get_coordinates_with_fallback(image_path: str, metadata: dict, use_references: bool = True) -> List[List[int]]:
+def get_coordinates_with_fallback(image_path: str, metadata: dict, use_references: bool = True, target_page: int = None) -> List[List[int]]:
     """
     Get coordinates using reference markers with fallback to simple conversion.
 
@@ -242,6 +269,7 @@ def get_coordinates_with_fallback(image_path: str, metadata: dict, use_reference
         image_path: Path to scanned image
         metadata: Metadata dictionary
         use_references: Wether to try reference marker detection first
+        target_page: Page number to filter words for (1-indexed)
 
     Returns:
         List of [x1, y1, x2, y2] coordinates
@@ -249,7 +277,7 @@ def get_coordinates_with_fallback(image_path: str, metadata: dict, use_reference
 
     if use_references and 'reference_system' in metadata:
         try:
-            return transform_coordinates_with_references(image_path, metadata)
+            return transform_coordinates_with_references(image_path, metadata, target_page)
         except Exception as e:
             print(f"Reference-based transformation failed: {e}")
             print("Falling back to simple coordinate conversion")
@@ -259,9 +287,12 @@ def get_coordinates_with_fallback(image_path: str, metadata: dict, use_reference
     if image is None:
         raise ValueError(f"Could not load image: {image_path}")
     
+    # Filter words for target page
+    page_words = get_words_for_page(metadata, target_page)
+    
     words_coords = []
     img_h, img_w = image.shape[:2]
-    for word in metadata['words']:
+    for word in page_words:
         coords = pdf_to_pixel_coordinates(word['position'], img_w, img_h)
         words_coords.append(list(coords))
     return words_coords

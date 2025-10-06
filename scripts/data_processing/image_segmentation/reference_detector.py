@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from typing import Dict, Tuple, List, Optional
+from typing import Dict, Tuple, List
 import math
 from PIL import Image
 

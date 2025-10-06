@@ -47,8 +47,8 @@ def calculate_layout(category_data, pdf_config):
     item_width = pdf_config['usable_width'] / items_per_row
 
     # Estimate rows per page
-    row_height = pdf_config['handwriting_space'] + (pdf_config['font_size'] *2)
-    max_rows = int(pdf_config['usable_height'] / row_height)
+    row_height = pdf_config['handwriting_space'] + (pdf_config['font_size'] *1.5)
+    max_rows = int(pdf_config['usable_height'] / row_height) - 1
 
     layout = {
         'items_per_row': items_per_row,

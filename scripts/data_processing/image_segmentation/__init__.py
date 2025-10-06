@@ -5,6 +5,7 @@ from .coordinate_converter import get_coordinates_with_fallback
 
 from pathlib import Path
 from typing import Dict, List
+import re
 
 class ImageSegmenter:
     """
@@ -40,32 +41,32 @@ class ImageSegmenter:
     
     def segment_single_page(self, image_path: str, page_number: int, writer_id: str) -> List[str]:
         """
-        Segmenterar en enda skannad sida.
+        Segment one scanned page.
         
         Args:
-            image_path: Sökväg till skannad bild
-            page_number: Vilken sida (1, 2, 3...)
-            writer_id: Skribent-ID
+            image_path: path to image
+            page_number: page number (1, 2, 3...)
+            writer_id: Writer-ID
             
         Returns:
-            Lista med sökvägar till segmenterade ordbilder
+            List with path to segmented word images 
         """
-        # 1. Load picture
-        image = load_scanned_image(image_path)
-        img_height, img_width = image.shape[:2]
-        
-        # 2. Collect words of page
+        # 1. Collect words of page (before loading image)
         page_words = get_words_for_page(self.metadata, page_number)
         
-        # 3. Get all coordinates
+        # 2. Get all coordinates (this may apply rotation and save corrected image)
         if self.use_references:
             try:
-                all_coords = get_coordinates_with_fallback(image_path, self.metadata, use_references=True)
+                all_coords = get_coordinates_with_fallback(image_path, self.metadata, use_references=True, target_page=page_number)
             except Exception as e:
                 print(f"Reference detection failed: {e}, using simple conversion")
                 all_coords = None
         else: 
             all_coords = None
+
+        # 3. Load picture AFTER coordinate transformation (to get rotated image if applied)
+        image = load_scanned_image(image_path)
+        img_height, img_width = image.shape[:2]
 
         segmented_files = []
         
@@ -108,21 +109,43 @@ class ImageSegmenter:
         print(f"Segmented {len(segmented_files)} words from page {page_number}")
         return segmented_files
     
-    def segment_multiple_pages(self, images_dir: str, writer_id: str = "writer_001") -> Dict[str, List[str]]:
+    def extract_page_number_from_filename(self, filename: str) -> int:
         """
-        Segmenterar alla bilder i en mapp.
+        Extract page number from filename based on pattern _X or _XX 
         
         Args:
-            images_dir: Mapp med skannade bilder
-            writer_id: Skribent-ID
+            filename: Filnamn (t.ex. "dokument_3.jpg", "scan_01.jpg")
             
         Returns:
-            Dictionary med source_image -> [segmented_files]
+            Page number (int), or None if no number is found
         """
-        # 1. Skapa output-struktur
+        # remove file extension
+        name_without_ext = Path(filename).stem
+        
+        # Find pattern _XX eller _X in the end of filename
+        match = re.search(r'_(\d+)$', name_without_ext)
+        
+        if match:
+            return int(match.group(1))
+        else:
+            print(f"Warning: Could not extract page number from filename '{filename}'")
+            return None
+    
+    def segment_multiple_pages(self, images_dir: str, writer_id: str = "writer_001") -> Dict[str, List[str]]:
+        """
+        Segment all images in a folder.
+        
+        Args:
+            images_dir: Folder with scanned images
+            writer_id: Writer-ID
+            
+        Returns:
+            Dictionary with source_image -> [segmented_files]
+        """
+        # 1. Create output-structure
         self.output_paths = create_output_structure(self.output_dir, writer_id, self.categories)
         
-        # 2. Hitta alla JPG-filer
+        # 2. Find all JPG-images
         images_path = Path(images_dir)
         image_files = list(images_path.glob("*.jpg")) + list(images_path.glob("*.JPG"))
         
@@ -130,15 +153,20 @@ class ImageSegmenter:
             print(f"No JPG images found in {images_dir}")
             return {}
         
-        # Sortera för förutsägbar ordning
+        # Sort
         image_files = sorted(image_files)
         print(f"Found {len(image_files)} images to process")
         
         results = {}
         
-        # 3. För varje bild
-        for i, image_file in enumerate(image_files):
-            page_number = i + 1  # Första bilden = sida 1
+        # 3. For every image - extract filename
+        for image_file in image_files:
+            page_number = self.extract_page_number_from_filename(image_file.name)
+            
+            if page_number is None:
+                print(f"Skipping {image_file.name} - could not determine page number")
+                continue
+                
             print(f"\nProcessing page {page_number}: {image_file.name}")
             
             try:
@@ -149,7 +177,7 @@ class ImageSegmenter:
                 print(f"Error processing {image_file}: {e}")
                 results[str(image_file)] = []
         
-        # 5. Generera rapport
+        # 5. Generate report
         generate_segmentation_report(results, self.output_dir)
         
         return results
