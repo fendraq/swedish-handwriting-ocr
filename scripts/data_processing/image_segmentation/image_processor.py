@@ -21,13 +21,14 @@ def load_scanned_image(image_path: str) -> np.ndarray:
     
     return image
 
-def extract_word_region(image: np.ndarray, coords: tuple) -> np.ndarray:
+def extract_word_region(image: np.ndarray, coords: tuple, margin_px: int = 6) -> np.ndarray:
     """
-    Cuts a rectangular region of image
+    Cuts a rectangular region of image with a margin
 
     Args:
         image: Fullsize image as NumPy array
         coords: (x1, y1, x2, y2) pixel coordinates
+        margin_px: set margin from printed lines in rectangle
     Returns:
         Cut word region as NumPy array
 
@@ -36,6 +37,11 @@ def extract_word_region(image: np.ndarray, coords: tuple) -> np.ndarray:
     """
 
     x1, y1, x2, y2 = coords
+    x1 += margin_px
+    y1 += margin_px
+    x2 -= margin_px
+    y2 -= margin_px
+
     word_image = image[y1:y2, x1:x2]
 
     if word_image.size == 0:
