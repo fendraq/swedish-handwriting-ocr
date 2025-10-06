@@ -36,6 +36,28 @@ def create_template_pdf(all_items, output_dir, pdf_config):
     for item in all_items:
         if not first_page_markers_drawn:
             marker_gen.draw_markers(c)
+
+            # Add page number at bottom of page
+            page_num_text = f"Sida {page_number}"
+            page_num_y = pdf_config['margin'] / 2  # Längst ner
+            page_num_x = pdf_config['page_width'] - pdf_config['margin'] - c.stringWidth(page_num_text, "Helvetica", 10)
+
+            c.setFont("Helvetica", 10)
+            c.drawString(page_num_x, page_num_y, page_num_text)
+            c.setFont("Helvetica", pdf_config['font_size'])
+
+            instruction_text = "Skanna in i jpg-format och skriv innanför linjerna"
+            instruction_y = pdf_config['page_height'] - (pdf_config['margin'] / 2)
+            c.setFont("Helvetica", 10)
+
+            # Calculate text width and center it
+            text_width = c.stringWidth(instruction_text, "Helvetica", 10)
+            page_width = pdf_config['page_width']
+            x_centered = (page_width - text_width) / 2
+
+            c.drawString(x_centered, instruction_y, instruction_text)
+            c.setFont("Helvetica", pdf_config['font_size'])  # Reset font
+
             first_page_markers_drawn = True
 
         if item.get('is_header', False):
@@ -46,6 +68,15 @@ def create_template_pdf(all_items, output_dir, pdf_config):
                 current_col = 0
 
             marker_gen.draw_markers(c)
+
+            # Add page number at bottom of page
+            page_num_text = f"Sida {page_number}"
+            page_num_y = pdf_config['margin'] / 2  # Längst ner
+            page_num_x = pdf_config['page_width'] - pdf_config['margin'] - c.stringWidth(page_num_text, "Helvetica", 10)
+
+            c.setFont("Helvetica", 10)
+            c.drawString(page_num_x, page_num_y, page_num_text)
+            c.setFont("Helvetica", pdf_config['font_size'])
 
             header_y = pdf_config['page_height'] - pdf_config['margin']
             c.setFont("Helvetica-Bold", 16)
@@ -84,6 +115,7 @@ def create_template_pdf(all_items, output_dir, pdf_config):
         y = pdf_config['page_height'] - pdf_config['margin'] - (current_row * row_height)
 
         # Draw reference area
+        c.setFont('Helvetica', pdf_config['font_size'])
         c.drawString(x, y, text)
 
         # Draw handwriting area
@@ -91,7 +123,9 @@ def create_template_pdf(all_items, output_dir, pdf_config):
         rect_y = y - pdf_config['handwriting_space']
         rect_width = item_width - 10*mm
         rect_height = pdf_config['handwriting_space'] - 5*mm
+        c.setLineWidth(0.5)
         c.rect(rect_x, rect_y, rect_width, rect_height, stroke=1, fill=0)
+        c.setLineWidth(1)
 
         # Store metadata for segmentation
         word_metadata = {
