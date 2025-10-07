@@ -3,14 +3,15 @@
 Main CLI script for generating Swedish handwriting templates.
 """
 from pathlib import Path
-from template_generator import TemplateGenerator
-from template_generator.json_parser import analyze_json_structure
+from config.paths import DocsPaths
+from .template_generator import TemplateGenerator
+from .template_generator.json_parser import analyze_json_structure
 
 def main():
     # Paths
-    json_file = "../../dataset/swedish_words_funeral.json"
-    output_dir = "../../dataset/templates/generated_templates"
-    
+    json_file = str(DocsPaths.WORD_COLLECTIONS / "swedish_words_funeral.json")
+    output_dir = str(DocsPaths.GENERATED_TEMPLATES)  
+
     # Create output directory
     Path(output_dir).mkdir(parents=True, exist_ok=True)
     

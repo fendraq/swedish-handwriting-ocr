@@ -41,8 +41,7 @@ venv.bak/
 dataset/
 dataset/*
 dataset/**/*
-/templates/generated_templates/
-
+/docs/data_collection/generated_templates
 
 # Models (large files)
 models/checkpoints/*.pth

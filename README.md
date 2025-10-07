@@ -11,17 +11,22 @@ swedish_handwritten_ocr/
 ├── config/
 │   └── config.yaml              # Configuration file for training and dataset
 ├── dataset/
-│   ├── svenska_ord_lista.txt    # Updated word list for data collection
-│   ├── swedish_words.json       # Comprehensive Swedish vocabulary with categories
-│   ├── raw_scans/               # Original scanned documents (JPG format)
+│   ├── originals/               # Original scanned documents (JPG format)
+│   │   ├── annotations/         # Metadata and labels
+│   │   ├── writer_01/
+│   │   ├── writer_02/
+│   │   └── ...
 │   ├── segmented_words/         # Segmented word images organized by writer
 │   │   ├── writer_001/
 │   │   ├── writer_002/
 │   │   └── ...
-│   ├── segmented_words_visualizations/  # Debug visualizations showing marker detection
-│   ├── annotations/             # Metadata and labels
-│   └── templates/               # Generated templates for data collection
-│       └── generated_templates/ # PDF templates with metadata
+│   ├── preprocessed/            # 384x384 processed images for TrOCR
+│   ├── splits/                  # Train/validation/test splits
+│   │   ├── train/
+│   │   ├── val/
+│   │   └── test/
+│   ├── azure_ready/             # Azure ML formatted data
+│   └── segmented_words_visualizations/  # Debug visualizations
 ├── scripts/
 │   ├── data_processing/         # Data processing scripts
 │   │   ├── generate_templates.py           # Generate PDF templates
@@ -34,6 +39,9 @@ swedish_handwritten_ocr/
 │   ├── checkpoints/             # Training checkpoints
 │   └── final/                   # Final models
 ├── docs/                        # Documentation
+│   └── data_collection/         # Data collection templates and resources
+│       ├── generated_templates/ # PDF templates with metadata
+│       └── word_collections/    # Swedish word lists and vocabularies
 └── logs/                        # Training and evaluation logs
 ```
 
@@ -54,7 +62,7 @@ pip install -r requirements.txt
 
 ## Dataset Generation
 
-The project uses `dataset/swedish_words.json` containing 150+ categorized Swedish words optimized for handwriting recognition, including funeral/burial terminology with focus on Swedish characters (å, ä, ö).
+The project uses word lists in `docs/data_collection/word_collections/` containing categorized Swedish words optimized for handwriting recognition, including funeral/burial terminology with focus on Swedish characters (å, ä, ö).
 
 ### Phase 1: Data Collection
 - Create templates based on the word list
@@ -76,7 +84,7 @@ python generate_templates.py
 ```bash
 cd /home/fendraq/wsl_projects/swedish_handwritten_ocr/scripts/data_processing
 
-python segment_images.py --metadata "../../dataset/templates/generated_templates/complete_template_metadata.json" --images "../../dataset/raw_scans" --output "../../dataset/segmented_words" --writer-id "writer_001" --visualize
+python segment_images.py --metadata "../../docs/data_collection/generated_templates/complete_template_metadata.json" --images "../../dataset/originals" --output "../../dataset/segmented_words" --writer-id "writer_001" --visualize
 ```
 #### Segmentation Features:
 - **Dynamic image analysis**: Automatically detects DPI and adjusts parameters accordingly

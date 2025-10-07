@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Tuple, Union
 import os
 import logging
+from config.paths import DatasetPaths, ensure_dir
 
 class ImagePreprocessor:
     """

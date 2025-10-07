@@ -48,8 +48,8 @@ evaluation:
 # Paths
 paths:
   dataset_root: "./dataset"
-  raw_scans: "./dataset/raw_scans"
-  segmented: "./dataset/segmented"
+  raw_scans: "./dataset/originals"
+  segmented: "./dataset/splits"
   annotations: "./dataset/annotations"
   models: "./models"
   logs: "./logs"

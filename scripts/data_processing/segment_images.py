@@ -7,7 +7,8 @@ Usage:
     python segment_images.py --metadata path/to/metadata.json --images path/to/images --output path/to/output --writer-id writer_001
 """
 
-from image_segmentation import ImageSegmenter
+from .image_segmentation import ImageSegmenter
+from config.paths import DocsPaths, DatasetPaths, get_template_metadata
 import argparse
 import sys
 from pathlib import Path
@@ -68,7 +69,8 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
         Examples:
-        python segment_images.py --metadata ../../dataset/templates/generated_templates/complete_template_metadata.json --images /path/to/scanned/images --output ../../dataset/segmented_words --writer-id writer_001
+        python segment_images.py --metadata {str(get_template_metadata())}
+        --images {str(DatasetPaths.ORIGINALS)} --output {str(DatasetPaths.SEGMENTED_WORDS)} --writer-id writer_001        
         """
     )
 
@@ -167,5 +169,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-    # '../../../dataset/templates/generated_templates/complete_tempate_metadata.json'
