@@ -7,7 +7,7 @@ Usage:
     python segment_images.py --metadata path/to/metadata.json --images path/to/images --output path/to/output --writer-id writer_001
 """
 
-from .image_segmentation import ImageSegmenter
+from . import ImageSegmenter
 from config.paths import DocsPaths, DatasetPaths, get_template_metadata
 import argparse
 import sys

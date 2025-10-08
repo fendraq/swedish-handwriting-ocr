@@ -4,8 +4,8 @@ Main CLI script for generating Swedish handwriting templates.
 """
 from pathlib import Path
 from config.paths import DocsPaths
-from .template_generator import TemplateGenerator
-from .template_generator.json_parser import analyze_json_structure
+from . import TemplateGenerator
+from .json_parser import analyze_json_structure
 
 def main():
     # Paths

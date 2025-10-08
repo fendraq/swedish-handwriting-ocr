@@ -28,12 +28,17 @@ swedish_handwritten_ocr/
 │   ├── azure_ready/             # Azure ML formatted data
 │   └── segmented_words_visualizations/  # Debug visualizations
 ├── scripts/
-│   ├── data_processing/         # Data processing scripts
-│   │   ├── generate_templates.py           # Generate PDF templates
-│   │   ├── segment_images.py               # Segment scanned images
-│   │   ├── template_generator/             # PDF generation modules
-│   │   └── image_segmentation/             # Image processing modules
-│   ├── training/                # Training scripts
+│   ├── data_processing/         # Data processing and orchestration
+│   │   ├── orchestrator/        # Main pipeline orchestration
+│   │   │   ├── main.py         # Complete data processing pipeline
+│   │   │   ├── data_detector.py # Detect new writers in dataset
+│   │   │   └── version_manager.py # Handle dataset versioning
+│   │   ├── template_generator/  # PDF template generation
+│   │   │   └── generate_templates.py # Generate handwriting templates
+│   │   ├── image_segmentation/  # Image processing and segmentation
+│   │   │   └── segment_images.py # Segment scanned images
+│   │   └── data_preparation/    # Data formatting utilities
+│   ├── training/                # Model training scripts
 │   └── evaluation/              # Evaluation scripts
 ├── models/
 │   ├── checkpoints/             # Training checkpoints
@@ -69,7 +74,7 @@ The project uses word lists in `docs/data_collection/word_collections/` containi
 ```bash
 cd /home/fendraq/wsl_projects/swedish_handwritten_ocr
 
-python -m scripts.data_processing.generate_templates
+python -m scripts.data_processing.template_generator.generate_templates
 ```
 - Templates include:
     - Instruction text: "Skanna in i jpg-format och skriv innanför linjerna"
@@ -84,7 +89,15 @@ python -m scripts.data_processing.generate_templates
 ```bash
 cd /home/fendraq/wsl_projects/swedish_handwritten_ocr
 
-python -m scripts.data_processing.segment_images --metadata "docs/data_collection/generated_templates/complete_template_metadata.json" --images "dataset/originals/writer_001" --output "dataset/segmented_words" --writer-id "writer_001" --visualize
+python -m scripts.data_processing.image_segmentation.segment_images --metadata "docs/data_collection/generated_templates/complete_template_metadata.json" --images "dataset/originals/writer_001" --output "dataset/segmented_words" --writer-id "writer_001" --visualize
+```
+
+### Phase 2.1: Complete Data Pipeline (Recommended)
+- Process all data from raw scans to TrOCR-ready format
+```bash
+cd /home/fendraq/wsl_projects/swedish_handwritten_ocr
+
+python -m scripts.data_processing.orchestrator.main --auto-detect
 ```
 #### Segmentation Features:
 - **Dynamic image analysis**: Automatically detects DPI and adjusts parameters accordingly
@@ -114,9 +127,12 @@ All scripts must be run from the project root directory using Python module synt
 # Always run from project root
 cd /home/fendraq/wsl_projects/swedish_handwritten_ocr
 
-# Use -m flag for module execution
-python -m scripts.data_processing.generate_templates
-python -m scripts.data_processing.segment_images [options]
+# Main orchestrator (recommended)
+python -m scripts.data_processing.orchestrator.main --auto-detect
+
+# Individual pipeline modules (for debugging)
+python -m scripts.data_processing.template_generator.generate_templates
+python -m scripts.data_processing.image_segmentation.segment_images [options]
 ```
 
 **Path Management:**
