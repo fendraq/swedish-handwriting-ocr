@@ -67,9 +67,9 @@ The project uses word lists in `docs/data_collection/word_collections/` containi
 ### Phase 1: Data Collection
 - Create templates based on the word list
 ```bash
-cd /home/fendraq/wsl_projects/swedish_handwritten_ocr/scripts/data_processing
+cd /home/fendraq/wsl_projects/swedish_handwritten_ocr
 
-python generate_templates.py
+python -m scripts.data_processing.generate_templates
 ```
 - Templates include:
     - Instruction text: "Skanna in i jpg-format och skriv innanför linjerna"
@@ -82,9 +82,9 @@ python generate_templates.py
 ### Phase 2: Data Processing
 - Segment scanned documents into individual words
 ```bash
-cd /home/fendraq/wsl_projects/swedish_handwritten_ocr/scripts/data_processing
+cd /home/fendraq/wsl_projects/swedish_handwritten_ocr
 
-python segment_images.py --metadata "../../docs/data_collection/generated_templates/complete_template_metadata.json" --images "../../dataset/originals" --output "../../dataset/segmented_words" --writer-id "writer_001" --visualize
+python -m scripts.data_processing.segment_images --metadata "docs/data_collection/generated_templates/complete_template_metadata.json" --images "dataset/originals/writer_001" --output "dataset/segmented_words" --writer-id "writer_001" --visualize
 ```
 #### Segmentation Features:
 - **Dynamic image analysis**: Automatically detects DPI and adjusts parameters accordingly
@@ -105,18 +105,27 @@ python segment_images.py --metadata "../../docs/data_collection/generated_templa
 - Each image named: `{category}_{word_id}_{writer_id}.jpg`
 - Visualization images: `dataset/segmented_words_visualizations/`
 
+## Important Usage Notes
+
+**Command Execution:**
+All scripts must be run from the project root directory using Python module syntax:
+
+```bash
+# Always run from project root
+cd /home/fendraq/wsl_projects/swedish_handwritten_ocr
+
+# Use -m flag for module execution
+python -m scripts.data_processing.generate_templates
+python -m scripts.data_processing.segment_images [options]
+```
+
+**Path Management:**
+The project uses centralized path configuration in `config/paths.py`. All file paths are relative to the project root, ensuring compatibility with Azure ML and other deployment environments.
+
 ### Phase 3: Model Training
 - Fine-tune TrOCR on Swedish handwriting data
-- Evaluate performance
+- Evaluate performance  
 - Optimize hyperparameters
-
-## Usage
-
-Upcoming scripts for:
-- Segmentation of scanned documents
-- Training TrOCR model
-- Evaluation and error analysis
-- Inference on new images
 
 ## Features
 

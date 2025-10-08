@@ -16,8 +16,8 @@ class DatasetPaths:
     ORIGINALS_ANNOTATIONS = ORIGINALS / "annotations"
     
     # Processing stages
-    SEGMENTED_WORDS = DATASET_ROOT / "segmented_words"
-    PREPROCESSED = DATASET_ROOT / "preprocessed"
+    SEGMENTED_WORDS = DATASET_ROOT / "segmented_words" # Legacy - to be removed
+    PREPROCESSED = DATASET_ROOT / "preprocessed" # Legacy - to be removed
     
     # Splits
     SPLITS = DATASET_ROOT / "splits"
@@ -25,8 +25,13 @@ class DatasetPaths:
     VAL = SPLITS / "val"
     TEST = SPLITS / "test"
     
+    # Processed data
+    TROCR_READY_DATA = DATASET_ROOT / "trocr_ready_data"
+    CURRENT_VERSION = TROCR_READY_DATA / "current"
+    LOGS = PROJECT_ROOT / "logs"  # Pipeline logs
+
     # Azure ready
-    AZURE_READY = DATASET_ROOT / "azure_ready"
+    AZURE_READY = DATASET_ROOT / "azure_ready" # Legacy - to be removed
 
 # Documentation paths 
 class DocsPaths:
@@ -64,3 +69,15 @@ def get_writer_segmented_dir(writer_id: str) -> Path:
 def get_template_metadata() -> Path:
     """Get path to complete template metadata."""
     return DocsPaths.GENERATED_TEMPLATES / "complete_template_metadata.json"
+
+def get_version_dir(version: str) -> Path:
+    """Get specific version directory in trocr_ready_data."""
+    return DatasetPaths.TROCR_READY_DATA / version
+
+def get_latest_version() -> Path:
+    """Get current/latest version directory."""
+    return DatasetPaths.CURRENT_VERSION
+
+def get_version_images(version: str) -> Path:
+    """Get images directory for specific version."""
+    return DatasetPaths.TROCR_READY_DATA / version / "images"
