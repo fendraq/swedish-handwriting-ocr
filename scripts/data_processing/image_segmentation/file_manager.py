@@ -4,29 +4,25 @@ from pathlib import Path
 from typing import Dict, List
 import re
 import numpy as np
+from config.paths import ensure_dir
 
-def create_output_structure(base_path: str, writer_id: str, categories: List[str]) -> Dict[str, str]:
+def create_output_structure(base_path: str, writer_id: str = None, categories: List[str] = None) -> str:
     """
-    Creates file structure of categories
+    Creates flat output structure for TrOCR-ready images.
 
     Args:
-        base_path: Folder for segmented images
-        writer_id: Identification of the writer (e.g. "writer_001")
+        base_path: Base output directory ( trocr_ready_data/vX)
+        writer_id: Not used in flat strucure (Keep for compatibiliity)
+        categories: Not used in flat strucure (Keep for compatibiliity)
 
-    Returns: Dictionary with categories -> path mapping
+    Returns:
+        Path to images directory
     """
     base = Path(base_path)
+    images_dir = base / 'images'
+    ensure_dir(images_dir)
 
-    writer_dir = base / writer_id
-    writer_dir.mkdir(parents=True, exist_ok=True)
-
-    category_paths = {}
-    for category in categories:
-        category_dir = writer_dir / category
-        category_dir.mkdir(parents=True, exist_ok=True)
-        category_paths[category] = str(category_dir)
-
-    return category_paths
+    return str(images_dir)
 
 def clean_filename(text: str) -> str:
     """
@@ -54,17 +50,18 @@ def clean_filename(text: str) -> str:
     
     return clean_text
 
-def save_word_segment(image: np.ndarray, text: str, category: str, writer_id: str, word_id:str, output_paths: Dict[str, str]) -> str:
+def save_word_segment(image: np.ndarray, text: str, category: str, writer_id: str, word_id: str, output_path: str, page_number: int = None) -> str:
     """
-    Saves JPG-image + TXT-label.
+    Saves JPG-image + TXT-label in flat structure with extended naming.
 
     Args:
         image: Word region as NumPy array
         text: Text label of word
-        category: Category
+        category: Category (saved in txt but not filename)
         writer_id: Writer id
         word_id: Unique word-ID from Meta data
-        output_paths: Path from create_output_structure()
+        output_path: Path to images directory 
+        page_number: Page number for filename
 
     Returns:
         Path to saved image file
@@ -72,16 +69,19 @@ def save_word_segment(image: np.ndarray, text: str, category: str, writer_id: st
 
     clean_text = clean_filename(text)
 
-    base_filename = f"{writer_id}_{word_id}_{clean_text}"
+    if page_number is not None:
+        base_filename = f"{writer_id}_page{page_number:02d}_{word_id}_{clean_text}"
+    else: 
+        base_filename = f"{writer_id}_{word_id}_{clean_text}"
+    
+    images_dir = Path(output_path)
 
-    category_dir = Path(output_paths[category])
-
-    jpg_path = category_dir / f"{base_filename}.jpg"
+    jpg_path = images_dir / f"{base_filename}.jpg"
     success = cv2.imwrite(str(jpg_path), image)
     if not success:
         raise ValueError(f"Failed to save image: {jpg_path}")
-
-    txt_path = category_dir / f"{base_filename}.txt"
+    
+    txt_path = images_dir / f"{base_filename}.txt"
     with open(txt_path, 'w', encoding='utf-8') as f:
         f.write(text)
 
@@ -95,20 +95,11 @@ def generate_segmentation_report(results: Dict[str, List[str]], output_dir: str)
         results: Dict with source_image -> [list of segmented filese]
         output_dir: Folder for report save
     """
-
     total_words = sum(len(word_list) for word_list in results.values())
-
-    category_counts = {}
-    for word_list in results.values():
-        for word_file in word_list:
-            word_path = Path(word_file)
-            category = word_path.parent.name
-            category_counts[category] = category_counts.get(category, 0) +1
 
     summary = {
         "total_source_images": len(results),
         "total_segmented_words": total_words,
-        "words_per_category": category_counts,
         "average_words_per_image": total_words / len(results) if results else 0,
         "source_files": list(results.keys())
     }
@@ -121,7 +112,4 @@ def generate_segmentation_report(results: Dict[str, List[str]], output_dir: str)
     print(f"Total source images: {summary['total_source_images']}")
     print(f"Total segmented words: {summary['total_segmented_words']}")
     print(f"Average words per image: {summary['average_words_per_image']:.1f}")
-    print("\nWords per category:")
-    for category, count in category_counts.items():
-        print(f"  {category}: {count}")
     print(f"\nReport saved to: {report_path}")

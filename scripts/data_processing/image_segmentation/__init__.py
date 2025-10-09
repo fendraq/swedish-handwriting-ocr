@@ -2,6 +2,7 @@ from .coordinate_converter import get_words_for_page, load_metadata, pdf_to_pixe
 from .image_processor import load_scanned_image, extract_word_region, enhance_word_image
 from .file_manager import create_output_structure, save_word_segment, generate_segmentation_report
 from .coordinate_converter import get_coordinates_with_fallback
+from ..data_preparation.image_preprocessing import ImagePreprocessor
 
 from pathlib import Path
 from typing import Dict, List
@@ -31,6 +32,7 @@ class ImageSegmenter:
         self.enable_visualization = enable_visualization
         self.viz_output = viz_output
         self.output_paths = None
+        self.preprocessor = ImagePreprocessor(target_size=384)
 
         print("ImageSegmenter initialized:")
         print(f"  Total words in metadata: {self.metadata['total_words']}")
@@ -89,15 +91,18 @@ class ImageSegmenter:
                 
                 # Enhancing image (volontary)
                 enhanced_word = enhance_word_image(word_region)
+
+                preprocessed_word = self.preprocessor.preprocess_single_image(enhanced_word)
                 
                 # Saving word image
                 saved_path = save_word_segment(
-                    enhanced_word,
+                    preprocessed_word, 
                     word_data['text'],
                     word_data['category'],
                     writer_id,
                     word_data['word_id'],
-                    self.output_paths
+                    self.output_paths,
+                    page_number
                 )
                 
                 segmented_files.append(saved_path)

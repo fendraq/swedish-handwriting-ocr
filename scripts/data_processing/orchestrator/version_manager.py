@@ -48,7 +48,7 @@ def get_latest_version_number() -> Optional[str]:
     logger.info(f"Latest version found: {latest_version}")
     return latest_version
 
-def create_new_version(writers: List[str], description: str = "") -> str:
+def create_new_version(writers: List[str] = None, description: str = "") -> Path:
     """
     Create a new version ditrectory with metadata.
 
@@ -57,7 +57,7 @@ def create_new_version(writers: List[str], description: str = "") -> str:
         description: Optional description of this version
 
     Returns:
-        New version string (e.g., 'v2')
+        Path to new version directory
     """
 
     # Ensure trocr_ready_data directory exists
@@ -72,6 +72,10 @@ def create_new_version(writers: List[str], description: str = "") -> str:
 
     new_version = f"v{new_version_num}"
     new_version_path = DatasetPaths.TROCR_READY_DATA / new_version
+
+    if writers is None:
+        from .data_detector import detect_new_writers
+        writers = detect_new_writers()
 
     logger.info(f"Creating new version {new_version}")
 
@@ -94,7 +98,8 @@ def create_new_version(writers: List[str], description: str = "") -> str:
         json.dump(metadata, f, indent=2, ensure_ascii=False)
 
     logger.info(f"Created version {new_version} with {len(writers)} writers")
-    return new_version
+    return new_version_path
+
 def  copy_existing_data(from_version: str, to_version: str) -> bool:
     """
     Copy existing processed data from previous version to new version
