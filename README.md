@@ -30,9 +30,13 @@ swedish_handwritten_ocr/
 ├── scripts/
 │   ├── data_processing/         # Data processing and orchestration
 │   │   ├── orchestrator/        # Main pipeline orchestration
-│   │   │   ├── main.py         # Complete data processing pipeline
-│   │   │   ├── data_detector.py # Detect new writers in dataset
-│   │   │   └── version_manager.py # Handle dataset versioning
+│   │   │   ├── main.py             # Complete data processing pipeline
+│   │   │   ├── data_detector.py    # Detect new writers in dataset
+│   │   │   ├── version_manager.py  # Handle dataset versioning
+│   │   │   ├── segmentation_runner.py # Segmentation pipeline wrapper
+│   │   │   ├── annotation_creator.py  # Ground truth annotation generator
+│   │   │   ├── dataset_splitter.py    # Stratified train/val/test splitting
+│   │   │   └── augmentation_manager.py # Data augmentation pipeline
 │   │   ├── template_generator/  # PDF template generation
 │   │   │   └── generate_templates.py # Generate handwriting templates
 │   │   ├── image_segmentation/  # Image processing and segmentation
@@ -104,22 +108,38 @@ python -m scripts.data_processing.orchestrator.main --auto-detect
 - Automated orchestrator pipeline for TrOCR training data
 ```bash
 python -m scripts.data_processing.orchestrator.segmentation_runner
-python -m scripts.data_processing.orchestrator.annotation_creator
+python -m scripts.data_processing.orchestrator.annotation_creator  
+python -m scripts.data_processing.orchestrator.dataset_splitter
+python -m scripts.data_processing.orchestrator.augmentation_manager
 ```
 
 #### New Orchestrator Features:
 - **Flat output structure**: `trocr_ready_data/vX/images/` instead of category folders
 - **384x384 preprocessing**: Integrated during segmentation
 - **Automatic annotations**: Creates `annotations.json` from filename metadata
+- **Stratified dataset splitting**: 70/15/15 train/val/test splits with writer balancing
+- **Data augmentation**: Rotation (±5°), blur (σ 0.3-0.8), brightness/contrast (±15%)
 - **Filename format**: `{writer_id}_{page}_{word_id}_{text}.jpg`
 - **Version management**: Incremental dataset versions
+
+#### Complete Pipeline Modules:
+1. **segmentation_runner.py**: Converts raw scans to 384x384 segmented words
+2. **annotation_creator.py**: Extracts ground truth from filenames → `annotations.json`
+3. **dataset_splitter.py**: Creates stratified train/val/test splits → JSONL files
+4. **augmentation_manager.py**: Applies data augmentation for training robustness
 
 #### Output Structure:
 ```
 trocr_ready_data/
 ├── v1/
-│   ├── images/           # All 384x384 segmented images
-│   └── annotations.json  # Ground truth annotations
+│   ├── images/                    # All 384x384 segmented images  
+│   ├── images_augmented/          # Augmented training images
+│   ├── annotations.json           # Ground truth annotations
+│   ├── annotations_augmented.json # Combined original + augmented annotations
+│   ├── train.jsonl               # Training split (TrOCR format)
+│   ├── val.jsonl                 # Validation split
+│   ├── test.jsonl                # Test split
+│   └── augmentation_config.json  # Augmentation parameters
 ```
 #### Segmentation Features:
 - **Dynamic image analysis**: Automatically detects DPI and adjusts parameters accordingly
@@ -174,6 +194,15 @@ The project uses centralized path configuration in `config/paths.py`. All file p
   - Reference marker detection for precise coordinate mapping
   - Dynamic margin adjustment (6px inward) to remove border artifacts
   - Fallback coordinate transformation when markers aren't available
+- **Intelligent data pipeline**:
+  - Automated annotation generation from filename metadata
+  - Stratified dataset splitting ensuring writer balance and word representation
+  - Configurable data augmentation (rotation, blur, brightness/contrast)
+  - Version-controlled dataset management with incremental updates
+- **TrOCR optimization**:
+  - 384x384 preprocessing integrated in segmentation pipeline
+  - JSONL output format compatible with HuggingFace datasets
+  - Separate augmented data for training robustness
 - **Quality assurance**:
   - Visualization tools for debugging marker detection
   - Consistent font rendering across all template text
