@@ -99,6 +99,28 @@ cd /home/fendraq/wsl_projects/swedish_handwritten_ocr
 
 python -m scripts.data_processing.orchestrator.main --auto-detect
 ```
+
+### Phase 2.2: TrOCR-Ready Data Generation
+- Automated orchestrator pipeline for TrOCR training data
+```bash
+python -m scripts.data_processing.orchestrator.segmentation_runner
+python -m scripts.data_processing.orchestrator.annotation_creator
+```
+
+#### New Orchestrator Features:
+- **Flat output structure**: `trocr_ready_data/vX/images/` instead of category folders
+- **384x384 preprocessing**: Integrated during segmentation
+- **Automatic annotations**: Creates `annotations.json` from filename metadata
+- **Filename format**: `{writer_id}_{page}_{word_id}_{text}.jpg`
+- **Version management**: Incremental dataset versions
+
+#### Output Structure:
+```
+trocr_ready_data/
+├── v1/
+│   ├── images/           # All 384x384 segmented images
+│   └── annotations.json  # Ground truth annotations
+```
 #### Segmentation Features:
 - **Dynamic image analysis**: Automatically detects DPI and adjusts parameters accordingly
 - **Reference marker detection**: Uses circular markers for precise coordinate transformation
