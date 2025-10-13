@@ -1,3 +1,4 @@
+import argparse
 import logging
 import sys
 from pathlib import Path
@@ -5,8 +6,8 @@ from typing import Optional, List, Dict, Any
 import json
 from datetime import datetime
 import shutil
-import argparse
 
+from config.paths import DatasetPaths, get_template_metadata
 from .data_detector import detect_new_writers
 from .version_manager import create_new_version, get_latest_version_number
 from .segmentation_runner import run_segmentation_for_multiple_writers
@@ -19,9 +20,9 @@ logger = logging.getLogger(__name__)
 class PipelineConfig:
     """ Configuration for complete pipeline execution """
     def __init__(self):
-        self.originals_dir = Path('dataset/originals')
-        self.trocr_ready_dir = Path('trocr_ready_data')
-        self.metadata_file = Path('docs/data_collection/generated_templates/complete_template_metadata.json')
+        self.originals_dir = DatasetPaths.ORIGINALS
+        self.trocr_ready_dir = DatasetPaths.TROCR_READY_DATA
+        self.metadata_file = get_template_metadata()
 
         # Pipeline settings
         self.auto_detect = True
@@ -138,10 +139,7 @@ class PipelineRunner:
             logger.info(f"Using manually specified writers: {writers}")
         elif self.config.auto_detect:
             # Auto-detect new writers
-            self.new_writers = detect_new_writers(
-                originals_dir=self.config.originals_dir,
-                trocr_ready_dir=self.config.trocr_ready_data
-            )
+            self.new_writers = detect_new_writers()
             logger.info(f"Auto-detected new writers: {self.new_writers}")
         else:
             raise ValueError("No writers specified and auto-detect is disabled")
@@ -164,18 +162,19 @@ class PipelineRunner:
         logger.info("Step 2: Creating new version...")
         step_start = datetime.now()
 
+        # Get latest version
+        latest_version = get_latest_version_number()
         if not dry_run:
             # Get latest version and create new one
-            latest_version = get_latest_version_number(self.config.trocr_ready_data)
-            self.current_version = create_new_version(
-                trocr_ready_dir=self.config.trocr_ready_data,
-                copy_from_previous=True if latest_version > 0 else False
-            )
+            self.current_version = create_new_version(writers=self.new_writers, description='Auto-generated version')
             logger.info(f"Created version: v{self.current_version}")
         else:
             # Simulate version creation
-            latest_version = get_latest_version_number(self.config.trocr_ready_data)
-            self.current_version = latest_version + 1
+            if latest_version:
+                version_num = int(latest_version[1:])
+                self.current_version = version_num + 1
+            else:
+                self.current_version = 1
             logger.info(f"[DRY RUN] Would create version: v{self.current_version}")
 
         # Update report
@@ -200,15 +199,15 @@ class PipelineRunner:
             }
             return
         
-        version_dir = self.config.trocr_ready_data / f"v{self.current_version}"
+        version_dir = self.config.trocr_ready_dir / f"v{self.current_version}"
 
         if not dry_run:
             # Run segmentation for new writers
             segmentation_report = run_segmentation_for_multiple_writers(
-                writers=self.new_writers,
-                originals_dir=self.config.originals_dir,
+                writers_data=self.new_writers,
                 output_dir=version_dir / "images",
-                metadata_file=self.config.metadata_file
+                enable_references=True,
+                enable_visualization=True
             )
 
             total_images = sum(result.get('total_images', 0) for result in segmentation_report.values()) ##
@@ -230,7 +229,7 @@ class PipelineRunner:
         logger.info("Step 4: Creating annotations")
         step_start = datetime.now()
 
-        version_dir = self.config.trocr_ready_data / f"v{self.current_version}"
+        version_dir = self.config.trocr_ready_dir / f"v{self.current_version}"
         images_dir = version_dir / "images"
 
         if not dry_run:
@@ -270,7 +269,7 @@ class PipelineRunner:
         logger.info("Step 5: Applying data augmentation")
         step_start = datetime.now()
 
-        version_dir = self.config.trocr_ready_data / f"v{self.current_version}"
+        version_dir = self.config.trocr_ready_dir / f"v{self.current_version}"
 
         if not dry_run:
             # Apply augmentation to all images in version
@@ -308,7 +307,7 @@ class PipelineRunner:
         logger.info("Step 6: Creating dataset splits")
         step_start = datetime.now()
 
-        version_dir = self.config.trocr_ready_data / f"v{self.current_version}"
+        version_dir = self.config.trocr_ready_dir / f"v{self.current_version}"
 
         # Use augmented annotations if available, otherwise use regular annotations
         if self.config.apply_augmentation:
@@ -360,7 +359,7 @@ class PipelineRunner:
         logger.info("Step 7: Validating results and cleanup...")
         step_start = datetime.now()
 
-        version_dir = self.config.trocr_ready_data / f"v{self.current_version}"
+        version_dir = self.config.trocr_ready_dir / f"v{self.current_version}"
         validation_results = {}
 
         if not dry_run:
@@ -412,12 +411,12 @@ class PipelineRunner:
 
     def _cleanup_old_versions(self) -> None:
         """ Remove old versions, keep only the latest N versions """
-        if not self.config.trocr_ready_data.exists():
+        if not self.config.trocr_ready_dir.exists():
             return
         
         # Find all version directories
         version_dirs = []
-        for path in self.config.trocr_ready_data.iterdir():
+        for path in self.config.trocr_ready_dir.iterdir():
             if path.is_dir() and path.name.startswith('v') and path.name[1:].isdigit():
                 version_num = int(path.name[1:])
                 version_dirs.append((version_num, path))
@@ -450,7 +449,7 @@ def main():
     config.apply_augmentation = not args.no_augmentation
     config.keep_versions = args.keep_versions
 
-    # Parse writers if specifierd
+    # Parse writers if specified
     writers = None
     if args.writers:
         writers = [w.strip() for w in args.writers.split(',')]

@@ -52,6 +52,7 @@ models/final/*.pt
 # Logs
 logs/*.log
 logs/*.txt
+logs/
 wandb/
 
 # IDE
