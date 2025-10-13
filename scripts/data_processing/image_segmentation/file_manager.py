@@ -68,11 +68,20 @@ def save_word_segment(image: np.ndarray, text: str, category: str, writer_id: st
     """
 
     clean_text = clean_filename(text)
+    
+    # Extract numeric part from word_id (remove category prefix like "practical_terms_")
+    if '_' in word_id:
+        numeric_word_id = word_id.split('_')[-1]  # Get last part after underscore
+    else:
+        numeric_word_id = word_id
+
+    # Remove underscores from writer_id for clean filenames (writer_01 -> writer01)
+    clean_writer_id = writer_id.replace('_', '')
 
     if page_number is not None:
-        base_filename = f"{writer_id}_page{page_number:02d}_{word_id}_{clean_text}"
+        base_filename = f"{clean_writer_id}_page{page_number:02d}_{numeric_word_id}_{clean_text}"
     else: 
-        base_filename = f"{writer_id}_{word_id}_{clean_text}"
+        base_filename = f"{clean_writer_id}_{numeric_word_id}_{clean_text}"
     
     images_dir = Path(output_path)
 

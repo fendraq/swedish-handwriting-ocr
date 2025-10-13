@@ -142,7 +142,7 @@ def create_template_pdf(all_items, output_dir, pdf_config):
             'position': [rect_x, rect_y, rect_x + rect_width, rect_y + rect_height], 
             'category': category,
             'subcategory': item.get('subcategory', None),
-            'word_id': f"{category}_{len(metadata):03d}"
+            'word_id': f"{len(metadata):03d}"
         }
         metadata.append(word_metadata)
 

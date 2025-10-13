@@ -39,7 +39,8 @@ class AnnotationCreator:
     def parse_filename(self, filename: str) -> Dict[str, Any]:
         """
         Parse segmented image filename to extract metadata
-        Expected format: {writer_id}_{page}_{word_id}_{text}
+        Expected format: {writer_id}_page{page}_{word_id}_{text}
+        Example: writer01_page01_000_Åsa.jpg
         """
         stem = Path(filename).stem
         parts = stem.split('_')
@@ -48,7 +49,14 @@ class AnnotationCreator:
             raise ValueError(f"Invalid filename format: {filename}")
 
         writer_id = parts[0]
-        page_number = int(parts[1])
+        
+        # Extract page number from "page01" -> 1
+        page_part = parts[1]
+        if page_part.startswith('page'):
+            page_number = int(page_part[4:])  # Remove "page" prefix
+        else:
+            page_number = int(page_part)  # Fallback for old format
+        
         word_id = int(parts[2])
         text = '_'.join(parts[3:])
 

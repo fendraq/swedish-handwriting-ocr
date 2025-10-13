@@ -251,7 +251,7 @@ if __name__ == '__main__':
     print(f"Latest version: {latest}")
     
     # Test version creation
-    test_writers = ['writer_01', 'writer_02', 'writer_03']
+    test_writers = ['writer01', 'writer02', 'writer03']
     new_version = create_new_version(test_writers, "Test version creation")
     print(f"Created version: {new_version}")
     

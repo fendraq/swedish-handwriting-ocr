@@ -38,7 +38,7 @@ def run_segmentation_for_writer(
     Args:
         writer_path: Path to writer's original images directory
         output_dir: Output directory for segmented images (should be trocr_ready_data/vX/images)
-        writer_id: Writer identifier (e.g., 'writer_01')
+        writer_id: Writer identifier (e.g., 'writer01')
         enable_references: Use reference marker detection for coordinate transformation
         enable_visualization: Generate visualization images for debugging
 

@@ -166,8 +166,9 @@ class PipelineRunner:
         latest_version = get_latest_version_number()
         if not dry_run:
             # Get latest version and create new one
-            self.current_version = create_new_version(writers=self.new_writers, description='Auto-generated version')
-            logger.info(f"Created version: v{self.current_version}")
+            version_path = create_new_version(writers=self.new_writers, description='Auto-generated version')
+            self.current_version = int(version_path.name[1:])
+            logger.info(f"Created version: {self.current_version}")
         else:
             # Simulate version creation
             if latest_version:
@@ -202,10 +203,28 @@ class PipelineRunner:
         version_dir = self.config.trocr_ready_dir / f"v{self.current_version}"
 
         if not dry_run:
+            # Convert List[str] to List[Dict]
+            # Note: w is already clean (writer01), but original folder might be writer_01
+            writers_data = []
+            for w in self.new_writers:
+                # Try to find the actual folder (could be writer01 or writer_01)
+                original_folder = None
+                for folder_name in [w, f'writer_{w[6:]}']:  # Try writer01, then writer_01
+                    potential_path = self.config.originals_dir / folder_name
+                    if potential_path.exists():
+                        original_folder = folder_name
+                        break
+                
+                if original_folder is None:
+                    logger.warning(f"Could not find folder for writer {w}")
+                    continue
+                    
+                writers_data.append({'writer_id': w, 'path': self.config.originals_dir / original_folder})
+
             # Run segmentation for new writers
             segmentation_report = run_segmentation_for_multiple_writers(
-                writers_data=self.new_writers,
-                output_dir=version_dir / "images",
+                writers_data=writers_data,
+                output_dir=version_dir,
                 enable_references=True,
                 enable_visualization=True
             )
@@ -366,9 +385,9 @@ class PipelineRunner:
             # Validate files exist
             expected_files = [
                 'annotations.json',
-                'train.jsonl',
-                'val.jsonl',
-                'test.jsonl'
+                'gt_train.txt',
+                'gt_val.txt',
+                'gt_test.txt'
             ]
 
             if self.config.apply_augmentation:

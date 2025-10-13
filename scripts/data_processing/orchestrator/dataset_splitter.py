@@ -2,22 +2,26 @@ import json
 from pathlib import Path
 from typing import List, Dict, Any
 import logging
-from collections import defaultdict
-import random
 from sklearn.model_selection import train_test_split
+import random
 
 logger = logging.getLogger(__name__)
 
-class DataSplitter:
-    """ Creates stratified train/val/test splits for TrOCR training """
+class TrOCRDatasetSplitter:
+    """ 
+    Creates simple train/val/test splits in TrOCR-compatible format.
+    Based on Microsoft TrOCR standard approach from microsoft/unilm repository.
+    """
     def __init__(self, train_ratio: float = 0.7, val_ratio: float = 0.15, test_ratio: float = 0.15, random_state: int = 42):
-        if abs(train_ratio + val_ratio + test_ratio -1.0) > 1e-6:
+        if abs(train_ratio + val_ratio + test_ratio - 1.0) > 1e-6:
             raise ValueError("Split ratios must sum to 1.0")
         
         self.train_ratio = train_ratio
         self.val_ratio = val_ratio
         self.test_ratio = test_ratio
         self.random_state = random_state
+        
+        # Set random seeds for reproducible splits
         random.seed(random_state)
 
         self.annotations: List[Dict[str, Any]] = []
@@ -30,82 +34,53 @@ class DataSplitter:
 
         logger.info(f"Loaded {len(self.annotations)} annotations from {annotations_path}")
 
-    def create_stratified_splits(self) -> None:
+    def create_simple_splits(self) -> None:
         """
-        Create stratified splits ensuring:
-        1. All unique words appear in training set
-        2. Writers are balanced across splits
-        3. No data leakage between splits
+        Create simple random splits following TrOCR standard approach.
+        Uses sklearn train_test_split for clean 70/15/15 distribution.
         """
-
         if not self.annotations:
             raise ValueError("No annotations loaded. Call load_annotations() first")
         
-        # Group by unique words (ground truth text)
-        word_groups = defaultdict(list)
-        for ann in self.annotations:
-            word_groups[ann['ground_truth_text']].append(ann)
-
-        # Separate unique words (only one instance) from common words
-        unique_words = []
-        common_words = []
-
-        for word, annotations in word_groups.items():
-            if len(annotations) == 1:
-                unique_words.extend(annotations)
-            else:
-                common_words.extend(annotations)
-
-        logger.info(f"Found {len(unique_words)} unique words, {len(common_words)} common words")
-
-        # All unique words go to training set
-        train_split = unique_words.copy()
-
-        # Split common words using stratified approach by writer
-        if common_words:
-            writers = [ann['writer_id'] for ann in common_words]
-
-            # First split: train vs (val + test)
-            train_common, temp_split = train_test_split(
-                common_words, 
-                test_size=(self.val_ratio + self.test_ratio),
-                stratify=writers,
-                random_state=self.random_state
+        # First split: separate train from (val + test)
+        train_data, temp_data = train_test_split(
+            self.annotations,
+            test_size=(self.val_ratio + self.test_ratio),
+            random_state=self.random_state,
+            shuffle=True
+        )
+        
+        # Second split: separate val from test
+        if temp_data:
+            val_data, test_data = train_test_split(
+                temp_data,
+                test_size=self.test_ratio / (self.val_ratio + self.test_ratio),
+                random_state=self.random_state,
+                shuffle=True
             )
-
-            # Second split: val vs test
-            if temp_split:
-                temp_writers = [ann['writer_id'] for ann in temp_split]
-                val_split, test_split = train_test_split(
-                    temp_split, 
-                    test_size=self.test_ratio / (self.val_ratio + self.test_ratio),
-                    stratify=temp_writers,
-                    random_state=self.random_state
-                )
-            else:
-                val_split, test_split = [], []
-
-            train_split.extend(train_common)
         else:
-            val_split, test_split = [], []
+            val_data, test_data = [], []
 
         self.splits = {
-            'train': train_split,
-            'val': val_split,
-            'test': test_split
+            'train': train_data,
+            'val': val_data,
+            'test': test_data
         }
 
-        logger.info(f"Created splits: train={len(train_split)}, val= {len(val_split)}, test= {len(test_split)}")
+        logger.info(f"Created splits: train={len(train_data)}, val={len(val_data)}, test={len(test_data)}")
 
-    def save_jsonl_splits(self, output_dir: Path) -> Dict[str, Path]:
+    def save_trocr_splits(self, output_dir: Path) -> Dict[str, Path]:
         """
-        Save train/val/test splits as JSONL files for TrOCR training
+        Save train/val/test splits in TrOCR format: gt_train.txt, gt_val.txt, gt_test.txt
+        
+        Format per line: image_path<TAB>ground_truth_text
+        Based on microsoft/unilm TrOCR data.py Receipt53K format.
         
         Returns:
             Dict mapping split names to file paths
         """
         if not self.splits:
-            raise ValueError("No splits created. Call create_stratified_splits() first")
+            raise ValueError("No splits created. Call create_simple_splits() first")
         
         output_dir = Path(output_dir)
         output_dir.mkdir(parents=True, exist_ok=True)
@@ -117,19 +92,21 @@ class DataSplitter:
                 logger.warning(f"Skipping empty {split_name} split")
                 continue
 
-            jsonl_file = output_dir / f"{split_name}.jsonl"
+            # TrOCR expects gt_<split>.txt format
+            txt_file = output_dir / f"gt_{split_name}.txt"
 
-            with open(jsonl_file, 'w', encoding='utf-8') as f:
+            with open(txt_file, 'w', encoding='utf-8') as f:
                 for annotation in annotations:
-                    # Convert to TrOCR training format
-                    trocr_format = {
-                        'image': annotation['image_path'],
-                        'text': annotation['ground_truth_text']
-                    }
-                    f.write(json.dumps(trocr_format, ensure_ascii=False) + '\n')
+                    # Format: image_path<TAB>ground_truth_text
+                    # Following microsoft/unilm Receipt53K format
+                    image_path = annotation['image_path']
+                    ground_truth = annotation['ground_truth_text']
+                    
+                    # Write tab-separated format
+                    f.write(f"{image_path}\t{ground_truth}\n")
 
-            saved_files[split_name] = jsonl_file
-            logger.info(f"Saved {len(annotations)} samples to {jsonl_file}")
+            saved_files[split_name] = txt_file
+            logger.info(f"Saved {len(annotations)} samples to {txt_file}")
 
         return saved_files
 
@@ -137,23 +114,26 @@ def create_dataset_splits(annotations_path: Path, output_dir: Path,
                           train_ratio: float = 0.7, val_ratio: float = 0.15,
                           test_ratio: float = 0.15, random_state: int = 42) -> Dict[str, Path]:
     """
-    Main function to create stratified dataset splits from annotations
+    Main function to create TrOCR-compatible dataset splits from annotations.
+    
+    Creates gt_train.txt, gt_val.txt, gt_test.txt files in the format expected
+    by Microsoft TrOCR training pipeline.
     
     Args:
         annotations_path: Path to annotations.json file
-        output_dir: Directory to save train.jsonl, val.jsonl, test.jsonl
+        output_dir: Directory to save gt_train.txt, gt_val.txt, gt_test.txt
         train_ratio: Proportion for training set (default 0.7)
-        val_ratio: Proportion for validation set (default 0.15)
+        val_ratio: Proportion for validation set (default 0.15) 
         test_ratio: Proportion for test set (default 0.15)
         random_state: Random seed for reproducible splits
         
     Returns:
-        Dictionary mapping split names to JSONL file paths
+        Dictionary mapping split names to TXT file paths
     """
-    logger.info(f"Creating dataset splits from {annotations_path}")
+    logger.info(f"Creating TrOCR dataset splits from {annotations_path}")
 
     # Create splitter instance
-    splitter = DataSplitter(
+    splitter = TrOCRDatasetSplitter(
         train_ratio=train_ratio,
         val_ratio=val_ratio,
         test_ratio=test_ratio,
@@ -162,10 +142,10 @@ def create_dataset_splits(annotations_path: Path, output_dir: Path,
 
     # Load annotations and create splits
     splitter.load_annotations(annotations_path)
-    splitter.create_stratified_splits()
+    splitter.create_simple_splits()
 
-    # Save as JSONL files
-    saved_files = splitter.save_jsonl_splits(output_dir)
+    # Save as TrOCR-compatible TXT files
+    saved_files = splitter.save_trocr_splits(output_dir)
 
-    logger.info(f"Dataset splitting complete. Files saved to {output_dir}")
+    logger.info(f"TrOCR dataset splitting complete. Files saved to {output_dir}")
     return saved_files

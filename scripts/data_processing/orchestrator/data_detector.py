@@ -31,8 +31,11 @@ def scan_originals_directory() -> List[str]:
     
     writers = []
     for item in originals_path.iterdir():
-        if item.is_dir() and item.name.startswith('writer_'):
-            writers.append(item.name)
+        if item.is_dir() and item.name.startswith('writer'):
+            # Always return clean writer names without underscores for consistency
+            # This handles both writer_01 and writer01 folder formats
+            clean_name = item.name.replace('_', '')
+            writers.append(clean_name)
 
     writers.sort()
     logger.info(f"Found {len(writers)} writers in originals: {writers}")
@@ -136,10 +139,16 @@ def validate_new_writer_data(writer_id: str) -> bool:
         True if writer has valid data, False otherwise
     """
 
-    writer_path = DatasetPaths.ORIGINALS / writer_id
-
-    if not writer_path.exists():
-        logger.error(f"Writer directory not found: {writer_path}")
+    # Try to find the actual folder (could be writer01 or writer_01)
+    writer_path = None
+    for folder_format in [writer_id, f'writer_{writer_id[6:]}']:
+        potential_path = DatasetPaths.ORIGINALS / folder_format
+        if potential_path.exists():
+            writer_path = potential_path
+            break
+    
+    if writer_path is None:
+        logger.error(f"Writer directory not found for: {writer_id}")
         return False
     
     if not writer_path.is_dir():
