@@ -5,6 +5,7 @@ from typing import Optional, List, Dict, Any
 import json
 from datetime import datetime
 import shutil
+import argparse
 
 from .data_detector import detect_new_writers
 from .version_manager import create_new_version, get_latest_version_number
@@ -427,3 +428,52 @@ class PipelineRunner:
         for version_num, version_path in versions_to_remove:
             logger.info(f"Removing old version: v{version_num}")
             shutil.rmtree(version_path)
+
+def main():
+    """ Command line interface for pipeline execution """
+    parser = argparse.ArgumentParser(description="Complete TrOCR data pipeline")
+    parser.add_argument('--auto-detect', action='store_true', default=True,
+                        help='Auto-detect new writers (default: True)')
+    parser.add_argument('--writers', type=str, 
+                        help='Comma-separated list of specific writers (e.g., writer_01,writer_02)')
+    parser.add_argument('--no-augmentation', action='store_true',
+                        help='Skip data augmentation step')
+    parser.add_argument('--dry-run', action='store_true',
+                        help='Show what would happen without executing')
+    parser.add_argument('--keep-versions', type=int, default=3,
+                        help='Number of versions to keep (default: 3)')
+    
+    args = parser.parse_args()
+
+    # Setup configuration
+    config = PipelineConfig()
+    config.apply_augmentation = not args.no_augmentation
+    config.keep_versions = args.keep_versions
+
+    # Parse writers if specifierd
+    writers = None
+    if args.writers:
+        writers = [w.strip() for w in args.writers.split(',')]
+        config.auto_detect = False
+
+    # Run pipeline
+    runner = PipelineRunner(config)
+    try:
+        report = runner.run_complete_pipeline(writers=writers, dry_run=args.dry_run)
+
+        if config.save_reports:
+            report_file = Path('logs') / f"pipeline_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+            with open(report_file, 'w', encoding='utf-8') as f:
+                json.dump(report, f, indent=2, ensure_ascii=False)
+            print(f"Pipeline report saved to: {report_file}")
+
+        print("Pipeline completed successfully!")
+
+    except Exception as e:
+        print(f"Pipeline failed: {e}")
+        return 1
+    
+    return 0
+
+if __name__ == '__main__':
+    exit(main())
