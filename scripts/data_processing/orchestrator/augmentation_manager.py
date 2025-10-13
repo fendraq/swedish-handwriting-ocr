@@ -231,13 +231,13 @@ class AugmentationManager:
 
         return cls(config)
 
-def create_augmenteed_training_data(version_dir: Path, config: AugmentationConfig = None, 
+def create_augmented_training_data(version_dir: Path, config: AugmentationConfig = None, 
                                 augmentations_per_image: int = 3) -> Tuple[Path, Path]:
     """
     Main function to create augmented training data for a version
 
     Args:
-        version_dir: Path to version directory (e.g., trocr_ready_data/v1)
+        version_dir: Path to version directory (e.g., trocr_ready_dir/v1)
         config: Augmentation configuration (uses default if None)
         augmentations_per_image: Number of augmented versions per original
         
