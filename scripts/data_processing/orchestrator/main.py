@@ -14,6 +14,7 @@ from .segmentation_runner import run_segmentation_for_multiple_writers
 from .annotation_creator import create_annotations_for_version
 from .dataset_splitter import create_dataset_splits
 from .augmentation_manager import create_augmented_training_data
+from ..utils import remove_files_batch, count_total_files, parse_writer_word_input
 
 logger = logging.getLogger(__name__)
 
@@ -100,6 +101,9 @@ class PipelineRunner:
 
             # 3 Run segmentation for new writers
             self._step_run_segmentation(dry_run, report)
+
+            # 3.5 Manual quality control of images
+            self._step_interactive_quality_control(dry_run, report)
 
             # 4 Create annotations
             self._step_create_annotations(dry_run, report)
@@ -241,6 +245,63 @@ class PipelineRunner:
             'duration_seconds': (datetime.now() - step_start).total_seconds(),
             'processed_writers': self.new_writers,
             'total_images': total_images if not dry_run else f"~{total_images} (estimated)"
+        }
+
+    def _step_interactive_quality_control(self, dry_run: bool, report: Dict[str, Any]) -> None:
+        """ Step 3.5: Interactive Quality Control for problematic images """
+        logger.info("Step 3.5: Interactive Quality Control...")
+        step_start = datetime.now()
+
+        if dry_run:
+            logger.info("[DRY RUN] Would run interactive QC")
+            report['steps']['quality_control'] = {
+            'status': 'skipped',
+            'reason': 'dry_run',
+            'duration_seconds': (datetime.now() - step_start).total_seconds()
+            }
+            return
+
+        version_dir = self.config.trocr_ready_dir / f"v{self.current_version}"
+        total_removed = 0
+        original_count = count_total_files(version_dir)
+
+        logger.info("===SEGMENTATION COMPLETE===")
+        logger.info(f"Created {original_count} segmented images")
+
+        while True:
+            user_input = input("\nInput writer:word pairs to remove (comma separated) or None to continue:\n>>> ").strip()
+
+            writer_word_pairs = parse_writer_word_input(user_input)
+            if not writer_word_pairs:
+                break
+
+            # Process removal with verbose=True for immediate feedback
+            removed_files, failed_pairs, messages = remove_files_batch(
+                writer_word_pairs, self.config.trocr_ready_dir, dry_run=False, verbose=True,
+                specific_version=self.current_version
+            )
+
+            # Count actual unique files removed (avoid duplicates in counting)
+            batch_removed = len(set(str(f) for f in removed_files))
+            total_removed += batch_removed
+
+            # Show updated statistics
+            current_count = count_total_files(version_dir)  # Re-count actual remaining files
+            logger.info(f"Statistics: {current_count} files remaining ({original_count - current_count} removed total)")
+
+            # Show failures
+            if failed_pairs:
+                failed_strings = [f"{writer}:{word}" for writer, word in failed_pairs]
+                logger.warning(f"Not found: {', '.join(failed_strings)}")
+
+        logger.info("===PROCEEDING TO FINALIZATION===")
+
+        report['steps']['quality_control'] = {
+            'status': 'completed',
+            'duration_seconds': (datetime.now() - step_start).total_seconds(),
+            'files_removed': total_removed,
+            'files_remaining': original_count - total_removed,
+            'original_count': original_count
         }
 
     def _step_create_annotations(self, dry_run: bool, report: Dict[str, Any]) -> None:

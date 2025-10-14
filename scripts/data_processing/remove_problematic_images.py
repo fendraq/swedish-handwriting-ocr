@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Script för att ta bort problematiska segmenterade bilder och alla deras augmented versioner.
+Script to remove problematic segmented images and all their augmented versions.
 
 Usage:
     python -m scripts.data_processing.remove_problematic_images --remove writer01_page08_143_EVIGHET
@@ -11,100 +11,70 @@ Usage:
 import argparse
 from pathlib import Path
 from typing import List, Tuple
-
-
-def find_all_versions(base_filename: str, search_dir: Path) -> List[Path]:
-    """
-    Hitta alla versioner av en bild (original + augmented).
-    
-    Args:
-        base_filename: Basfilnamn utan filändelse (ex: writer01_page08_143_EVIGHET)
-        search_dir: Directory att söka i
-        
-    Returns:
-        Lista med alla matchande filer
-    """
-    # Sök efter original + augmented versioner
-    patterns = [
-        f"{base_filename}.jpg",           # Original
-        f"{base_filename}_aug_*.jpg",     # Augmented versioner
-    ]
-    
-    found_files = []
-    for pattern in patterns:
-        matches = list(search_dir.glob(pattern))
-        found_files.extend(matches)
-    
-    return sorted(found_files)
+try:
+    # When run as module: python -m scripts.data_processing.remove_problematic_images
+    from .utils.quality_control import find_all_versions, remove_files_batch
+except ImportError:
+    # When run standalone: python scripts/data_processing/remove_problematic_images.py
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).parent))
+    from utils.quality_control import find_all_versions, remove_files_batch
 
 
 def list_problematic_pattern(base_filename: str, dataset_dir: Path) -> None:
-    """Lista alla filer som matchar ett pattern."""
-    print(f"\nSöker efter filer som matchar: {base_filename}")
+    """List all files matching a pattern."""
+    print(f"\nSearching for files matching: {base_filename}")
     
-    # Sök i alla versioner
+    total_found = 0
+    
+    # Search in all versions
     for version_dir in dataset_dir.glob("v*"):
-        images_dir = version_dir / "images"
-        if not images_dir.exists():
-            continue
-            
-        files = find_all_versions(base_filename, images_dir)
+        files = find_all_versions(base_filename, version_dir)
         if files:
-            print(f"\n{version_dir.name}/images/:")
+            print(f"\n{version_dir.name}/:")
             for file in files:
                 size_kb = file.stat().st_size // 1024
-                print(f"   - {file.name} ({size_kb} KB)")
+                relative_path = file.relative_to(version_dir)
+                print(f"   - {relative_path} ({size_kb} KB)")
+                total_found += 1
         else:
-            print(f"\n{version_dir.name}/images/: Inga matchande filer")
+            print(f"\n{version_dir.name}/: No matching files")
+    
+    print(f"\nTotal: {total_found} files found")
 
 
 def remove_files(base_filename: str, dataset_dir: Path, dry_run: bool = True) -> Tuple[List[Path], List[Path]]:
     """
-    Ta bort alla versioner av en problematisk bild.
+    Remove all versions of a problematic image.
+    Wrapper around remove_files_batch for backwards compatibility.
     
     Returns:
-        Tuple med (removed_files, failed_files)
+        Tuple with (removed_files, failed_files)
     """
-    removed_files = []
-    failed_files = []
+    # Convert single filename to list
+    filenames = [base_filename]
     
-    print(f"\n{'[DRY RUN] ' if dry_run else ''}Tar bort filer för: {base_filename}")
+    # Use the shared batch function
+    removed_files, failed_filenames, messages = remove_files_batch(
+        filenames, dataset_dir, dry_run=dry_run, verbose=True
+    )
     
-    # Sök i alla versioner
-    for version_dir in dataset_dir.glob("v*"):
-        images_dir = version_dir / "images"
-        if not images_dir.exists():
-            continue
-            
-        files = find_all_versions(base_filename, images_dir)
-        if not files:
-            continue
-            
-        print(f"\n{version_dir.name}/images/:")
-        for file in files:
-            try:
-                if not dry_run:
-                    file.unlink()
-                    print(f"   Removed: {file.name}")
-                else:
-                    print(f"   Would remove: {file.name}")
-                removed_files.append(file)
-            except Exception as e:
-                print(f"   Failed to remove {file.name}: {e}")
-                failed_files.append(file)
+    # Convert failed_filenames back to failed_files (empty since we handle at file level)
+    failed_files = []  # remove_files_batch handles file-level failures differently
     
     return removed_files, failed_files
 
 
 def interactive_mode(dataset_dir: Path) -> None:
-    """Interaktiv mode för att hantera problematiska bilder."""
-    print("\nInteraktiv mode för problematiska bilder")
-    print("Ange basfilnamn (utan .jpg och utan _aug_XX)")
-    print("Exempel: writer01_page08_143_EVIGHET")
-    print("Skriv 'quit' för att avsluta")
+    """Interactive mode for handling problematic images."""
+    print("\nInteractive mode for problematic images")
+    print("Enter base filename (without .jpg and without _aug_XX)")
+    print("Example: writer01_page08_143_EVIGHET")
+    print("Type 'quit' to exit")
     
     while True:
-        user_input = input("\nFilnamn att hantera: ").strip()
+        user_input = input("\nFilename to handle: ").strip()
         
         if user_input.lower() in ['quit', 'q', 'exit']:
             break
@@ -112,14 +82,14 @@ def interactive_mode(dataset_dir: Path) -> None:
         if not user_input:
             continue
             
-        # Ta bort .jpg om användaren skrev det
+        # Remove .jpg if user typed it
         base_filename = user_input.replace('.jpg', '')
         
-        # Lista först
+        # List first
         list_problematic_pattern(base_filename, dataset_dir)
         
-        # Fråga vad användaren vill göra
-        choice = input("\nVad vill du göra? [l]ista, [r]emove, [d]ry-run, [s]kip: ").lower()
+        # Ask what user wants to do
+        choice = input("\nWhat do you want to do? [l]ist, [r]emove, [d]ry-run, [s]kip: ").lower()
         
         if choice in ['r', 'remove']:
             removed, failed = remove_files(base_filename, dataset_dir, dry_run=False)
@@ -137,45 +107,45 @@ def interactive_mode(dataset_dir: Path) -> None:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Hantera problematiska segmenterade bilder och deras augmented versioner"
+        description="Handle problematic segmented images and their augmented versions"
     )
     
     parser.add_argument(
         '--remove',
         type=str,
-        help='Ta bort alla versioner av specificerat basfilnamn'
+        help='Remove all versions of specified base filename'
     )
     
     parser.add_argument(
         '--list-pattern',
         type=str,
-        help='Lista alla filer som matchar specificerat basfilnamn'
+        help='List all files matching specified base filename'
     )
     
     parser.add_argument(
         '--interactive',
         action='store_true',
-        help='Starta interaktiv mode'
+        help='Start interactive mode'
     )
     
     parser.add_argument(
         '--dry-run',
         action='store_true',
-        help='Visa vad som skulle tas bort utan att faktiskt ta bort'
+        help='Show what would be removed without actually removing'
     )
     
     parser.add_argument(
         '--dataset-dir',
         type=Path,
         default=Path('dataset/trocr_ready_data'),
-        help='Path till dataset directory (default: dataset/trocr_ready_data)'
+        help='Path to dataset directory (default: dataset/trocr_ready_data)'
     )
     
     args = parser.parse_args()
     
-    # Verifiera att dataset directory finns
+    # Verify that dataset directory exists
     if not args.dataset_dir.exists():
-        print(f"Dataset directory hittades inte: {args.dataset_dir}")
+        print(f"Dataset directory not found: {args.dataset_dir}")
         return
     
     if args.interactive:
@@ -194,8 +164,8 @@ def main():
             print(f"\nWould remove {len(removed)} files")
             print("Use without --dry-run to actually remove files")
     else:
-        print("Använd --interactive, --list-pattern, eller --remove")
-        print("Exempel: python -m scripts.data_processing.remove_problematic_images --list-pattern writer01_page08_143_EVIGHET")
+        print("Use --interactive, --list-pattern, or --remove")
+        print("Example: python -m scripts.data_processing.remove_problematic_images --list-pattern writer01_page08_143_EVIGHET")
 
 
 if __name__ == "__main__":

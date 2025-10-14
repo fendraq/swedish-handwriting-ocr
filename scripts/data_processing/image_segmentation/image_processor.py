@@ -37,11 +37,12 @@ def extract_word_region(image: np.ndarray, coords: tuple, margin_px: int = 8) ->
         ValueError: If region is empty
     """
 
+    # Margin manual settings
     x1, y1, x2, y2 = coords
     x1 += margin_px
-    y1 += margin_px
+    y1 += margin_px + 3  
     x2 -= margin_px
-    y2 -= margin_px
+    y2 -= margin_px - 3  
 
     word_image = image[y1:y2, x1:x2]
 

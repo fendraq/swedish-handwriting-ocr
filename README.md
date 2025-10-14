@@ -128,6 +128,38 @@ python -m scripts.data_processing.orchestrator.main --auto-detect --dry-run
 
 **Rationale**: Editing segmented images preserves segmentation quality while providing clean training data for TrOCR, minimizing risk of segmentation errors that could occur from editing full-page scans.
 
+#### Automated Problematic Image Removal:
+For systematic removal of problematic segmented images (including augmented versions):
+
+```bash
+cd /home/fendraq/wsl_projects/swedish_handwritten_ocr
+
+# List all versions of a problematic image (original + augmented)
+python -m scripts.data_processing.remove_problematic_images --list-pattern writer01_page08_143_EVIGHET
+
+# Dry-run to see what would be removed
+python -m scripts.data_processing.remove_problematic_images --remove writer01_page08_143_EVIGHET --dry-run
+
+# Remove problematic image and all augmented versions
+python -m scripts.data_processing.remove_problematic_images --remove writer01_page08_143_EVIGHET
+
+# Interactive mode for handling multiple problematic images
+python -m scripts.data_processing.remove_problematic_images --interactive
+```
+
+**Features:**
+- **Finds all versions**: Automatically locates original + all augmented versions (`_aug_01.jpg`, `_aug_02.jpg`, etc.)
+- **Multi-version support**: Works across all dataset versions (v1, v2, v3, etc.)
+- **Safe operation**: Dry-run mode to preview changes before execution
+- **Interactive workflow**: Step-by-step guidance for quality control decisions
+- **Pattern matching**: Handles base filename without extensions or augmentation suffixes
+
+**Usage scenarios:**
+- Remove corrupted/illegible images
+- Delete images with excessive template line interference
+- Clean up badly segmented words (cut-off text, wrong boundaries)
+- Maintain dataset quality before training
+
 ### Phase 2.1: Individual Module Testing (Advanced)
 - Run individual pipeline components for debugging
 ```bash
