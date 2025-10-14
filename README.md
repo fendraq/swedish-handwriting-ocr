@@ -103,6 +103,31 @@ python -m scripts.data_processing.orchestrator.main --writers writer_01,writer_0
 python -m scripts.data_processing.orchestrator.main --auto-detect --dry-run
 ```
 
+### Phase 2.5: Manual Image Quality Control (Critical Step)
+**Important**: After segmentation but before final training dataset creation, perform manual quality control on segmented images:
+
+#### Manual Editing Workflow:
+1. **Location**: `dataset/trocr_ready_data/vX/images/` (segmented word images)
+2. **Timing**: After segmentation, before annotation/training
+3. **Focus areas**:
+   - **Kladd/överstrykningar**: Remove crossed-out letters/words
+   - **Följande linjer**: Remove template lines that interfere with text
+   - **Otydlig text**: Flag or remove illegible samples
+   - **Överskriven text**: Keep final intended character (e.g., if 'l' is overwritten with 'r', ground truth should be 'r')
+
+#### Quality Control Guidelines:
+- **Edit segmented images**: Work on individual word images, NOT full-page scans
+- **Preserve segmentation**: Don't modify image dimensions (384x384)
+- **Ground truth consistency**: Final text should match visual intent
+- **Document changes**: Keep track of edited images for quality control
+- **Backup originals**: Maintain copies of unedited segments
+
+#### Recommended tools:
+- GIMP, Photoshop, or any image editor capable of precise editing
+- Batch processing tools for consistent operations
+
+**Rationale**: Editing segmented images preserves segmentation quality while providing clean training data for TrOCR, minimizing risk of segmentation errors that could occur from editing full-page scans.
+
 ### Phase 2.1: Individual Module Testing (Advanced)
 - Run individual pipeline components for debugging
 ```bash
@@ -133,10 +158,13 @@ python -m scripts.data_processing.image_segmentation.segment_images \
 1. **data_detector.py**: Scans originals/ directory for new writers to process
 2. **version_manager.py**: Creates new dataset version (v1, v2, etc.) with metadata
 3. **segmentation_runner.py**: Converts raw scans to 384x384 segmented word images
-4. **annotation_creator.py**: Extracts ground truth from filenames → `annotations.json`
-5. **augmentation_manager.py**: Applies optional data augmentation for training robustness
-6. **dataset_splitter.py**: Creates TrOCR-compatible train/val/test splits → `gt_*.txt` files
-7. **Validation & Cleanup**: Verifies output files and removes old dataset versions
+4. **Manual Quality Control**: Edit segmented images to remove kladd, lines, and ensure text clarity
+5. **annotation_creator.py**: Extracts ground truth from filenames → `annotations.json`
+6. **augmentation_manager.py**: Applies optional data augmentation for training robustness
+7. **dataset_splitter.py**: Creates TrOCR-compatible train/val/test splits → `gt_*.txt` files
+8. **Validation & Cleanup**: Verifies output files and removes old dataset versions
+
+**Note**: Step 4 (Manual Quality Control) should be performed on segmented images before proceeding to annotation and dataset splitting.
 
 #### Output Structure:
 ```

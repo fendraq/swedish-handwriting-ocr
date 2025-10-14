@@ -79,3 +79,6 @@ Thumbs.db
 # Configuration files with secrets
 config/secrets.yaml
 .env
+
+# Planning documents
+TrOCR_Setup_Plan.ipynb
