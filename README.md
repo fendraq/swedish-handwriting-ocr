@@ -12,20 +12,20 @@ swedish_handwritten_ocr/
 │   └── config.yaml              # Configuration file for training and dataset
 ├── dataset/
 │   ├── originals/               # Original scanned documents (JPG format)
-│   │   ├── annotations/         # Metadata and labels
+│   │   ├── annotations/         # Metadata and labels  
 │   │   ├── writer_01/
 │   │   ├── writer_02/
 │   │   └── ...
-│   ├── segmented_words/         # Segmented word images organized by writer
-│   │   ├── writer_001/
-│   │   ├── writer_002/
-│   │   └── ...
-│   ├── preprocessed/            # 384x384 processed images for TrOCR
-│   ├── splits/                  # Train/validation/test splits
-│   │   ├── train/
-│   │   ├── val/
-│   │   └── test/
-│   ├── azure_ready/             # Azure ML formatted data
+│   ├── trocr_ready_data/        # Complete TrOCR-ready datasets by version
+│   │   ├── v1/                  # Dataset version 1
+│   │   │   ├── images/          # 384x384 segmented word images
+│   │   │   ├── gt_train.txt     # Training data (tab-separated)
+│   │   │   ├── gt_val.txt       # Validation data
+│   │   │   ├── gt_test.txt      # Test data
+│   │   │   └── ...              # Metadata and config files
+│   │   └── v2/                  # Dataset version 2 (incremental updates)
+│   ├── segmented_words/         # Legacy: Individual writer segmentation (deprecated)
+│   ├── splits/                  # Legacy: Old split format (deprecated)  
 │   └── segmented_words_visualizations/  # Debug visualizations
 ├── scripts/
 │   ├── data_processing/         # Data processing and orchestration
@@ -88,58 +88,80 @@ python -m scripts.data_processing.template_generator.generate_templates
 - Print templates and distribute to 10-20 different writers
 - Important: Scan completed forms as JPG files in correct page order (Sida 1, Sida 2, etc.)
 
-### Phase 2: Data Processing
-- Segment scanned documents into individual words
+### Phase 2: Complete Data Processing Pipeline
+- Process all data from raw scans to TrOCR-ready format using the integrated orchestrator
 ```bash
 cd /home/fendraq/wsl_projects/swedish_handwritten_ocr
 
-python -m scripts.data_processing.image_segmentation.segment_images --metadata "docs/data_collection/generated_templates/complete_template_metadata.json" --images "dataset/originals/writer_001" --output "dataset/segmented_words" --writer-id "writer_001" --visualize
-```
-
-### Phase 2.1: Complete Data Pipeline (Recommended)
-- Process all data from raw scans to TrOCR-ready format
-```bash
-cd /home/fendraq/wsl_projects/swedish_handwritten_ocr
-
+# Complete pipeline (recommended)
 python -m scripts.data_processing.orchestrator.main --auto-detect
+
+# Alternative: specific writers
+python -m scripts.data_processing.orchestrator.main --writers writer_01,writer_02
+
+# Dry run to preview actions
+python -m scripts.data_processing.orchestrator.main --auto-detect --dry-run
 ```
 
-### Phase 2.2: TrOCR-Ready Data Generation
-- Automated orchestrator pipeline for TrOCR training data
+### Phase 2.1: Individual Module Testing (Advanced)
+- Run individual pipeline components for debugging
 ```bash
-python -m scripts.data_processing.orchestrator.segmentation_runner
-python -m scripts.data_processing.orchestrator.annotation_creator  
-python -m scripts.data_processing.orchestrator.dataset_splitter
-python -m scripts.data_processing.orchestrator.augmentation_manager
+cd /home/fendraq/wsl_projects/swedish_handwritten_ocr
+
+# Legacy individual segmentation (for single writer testing)
+python -m scripts.data_processing.image_segmentation.segment_images \
+    --metadata "docs/data_collection/generated_templates/complete_template_metadata.json" \
+    --images "dataset/originals/writer_01" \
+    --output "dataset/segmented_words" \
+    --writer-id "writer_01" \
+    --visualize
 ```
 
-#### New Orchestrator Features:
-- **Flat output structure**: `trocr_ready_data/vX/images/` instead of category folders
-- **384x384 preprocessing**: Integrated during segmentation
-- **Automatic annotations**: Creates `annotations.json` from filename metadata
-- **Stratified dataset splitting**: 70/15/15 train/val/test splits with writer balancing
-- **Data augmentation**: Rotation (±5°), blur (σ 0.3-0.8), brightness/contrast (±15%)
-- **Filename format**: `{writer_id}_{page}_{word_id}_{text}.jpg`
-- **Version management**: Incremental dataset versions
+#### Orchestrator Pipeline Features:
+- **Complete automation**: Auto-detects new writers and processes end-to-end
+- **TrOCR-compatible output**: Creates `gt_train.txt`, `gt_val.txt`, `gt_test.txt` files
+- **Proper dataset splitting**: 70/15/15 train/val/test distribution (not 99%/0.3%/0.6%)
+- **Flat output structure**: `trocr_ready_data/vX/images/` optimized for TrOCR training  
+- **Clean filename format**: `writer01_page01_001_text.jpg` (underscores removed from writer_id)
+- **384x384 preprocessing**: Integrated TrOCR-ready image formatting
+- **Automatic annotations**: Extracts ground truth from filename metadata
+- **Data augmentation**: Optional rotation, blur, brightness/contrast variations
+- **Version management**: Incremental dataset versions with cleanup
+- **Validation**: Ensures all expected files are created correctly
 
-#### Complete Pipeline Modules:
-1. **segmentation_runner.py**: Converts raw scans to 384x384 segmented words
-2. **annotation_creator.py**: Extracts ground truth from filenames → `annotations.json`
-3. **dataset_splitter.py**: Creates stratified train/val/test splits → JSONL files
-4. **augmentation_manager.py**: Applies data augmentation for training robustness
+#### Complete Pipeline Steps:
+1. **data_detector.py**: Scans originals/ directory for new writers to process
+2. **version_manager.py**: Creates new dataset version (v1, v2, etc.) with metadata
+3. **segmentation_runner.py**: Converts raw scans to 384x384 segmented word images
+4. **annotation_creator.py**: Extracts ground truth from filenames → `annotations.json`
+5. **augmentation_manager.py**: Applies optional data augmentation for training robustness
+6. **dataset_splitter.py**: Creates TrOCR-compatible train/val/test splits → `gt_*.txt` files
+7. **Validation & Cleanup**: Verifies output files and removes old dataset versions
 
 #### Output Structure:
 ```
 trocr_ready_data/
 ├── v1/
-│   ├── images/                    # All 384x384 segmented images  
-│   ├── images_augmented/          # Augmented training images
-│   ├── annotations.json           # Ground truth annotations
+│   ├── images/                    # All 384x384 segmented images (JPG)
+│   │   ├── writer01_page01_001_Åsa.jpg
+│   │   ├── writer01_page01_002_huvudgång.jpg
+│   │   └── ...
+│   ├── images_augmented/          # Augmented training images (optional)
+│   ├── annotations.json           # Ground truth metadata (JSON format)
 │   ├── annotations_augmented.json # Combined original + augmented annotations
-│   ├── train.jsonl               # Training split (TrOCR format)
-│   ├── val.jsonl                 # Validation split
-│   ├── test.jsonl                # Test split
-│   └── augmentation_config.json  # Augmentation parameters
+│   ├── gt_train.txt              # Training split (TrOCR tab-separated format)
+│   ├── gt_val.txt                # Validation split (15% of data)
+│   ├── gt_test.txt               # Test split (15% of data)  
+│   ├── metadata.json             # Version metadata (writers, counts, etc.)
+│   ├── augmentation_config.json  # Augmentation parameters
+│   └── segmentation_summary.json # Segmentation statistics
+```
+
+**TrOCR Format Example (gt_train.txt):**
+```
+images/writer01_page01_001_Åsa.jpg	Åsa
+images/writer01_page01_002_huvudgång.jpg	huvudgång
+images/writer01_page02_025_KAPELL.jpg	KAPELL
 ```
 #### Segmentation Features:
 - **Dynamic image analysis**: Automatically detects DPI and adjusts parameters accordingly
@@ -169,13 +191,24 @@ All scripts must be run from the project root directory using Python module synt
 # Always run from project root
 cd /home/fendraq/wsl_projects/swedish_handwritten_ocr
 
-# Main orchestrator (recommended)
+# Main orchestrator pipeline (recommended)
 python -m scripts.data_processing.orchestrator.main --auto-detect
 
-# Individual pipeline modules (for debugging)
+# Alternative command options:
+python -m scripts.data_processing.orchestrator.main --writers writer_01,writer_02 --no-augmentation
+python -m scripts.data_processing.orchestrator.main --auto-detect --dry-run --keep-versions 5
+
+# Individual modules (for development/debugging)
 python -m scripts.data_processing.template_generator.generate_templates
 python -m scripts.data_processing.image_segmentation.segment_images [options]
 ```
+
+**Orchestrator Command Options:**
+- `--auto-detect`: Automatically detect new writers in dataset/originals/
+- `--writers writer_01,writer_02`: Process specific writers only  
+- `--no-augmentation`: Skip data augmentation step
+- `--dry-run`: Preview actions without executing
+- `--keep-versions N`: Keep N most recent dataset versions (default: 3)
 
 **Path Management:**
 The project uses centralized path configuration in `config/paths.py`. All file paths are relative to the project root, ensuring compatibility with Azure ML and other deployment environments.
@@ -201,8 +234,9 @@ The project uses centralized path configuration in `config/paths.py`. All file p
   - Version-controlled dataset management with incremental updates
 - **TrOCR optimization**:
   - 384x384 preprocessing integrated in segmentation pipeline
-  - JSONL output format compatible with HuggingFace datasets
-  - Separate augmented data for training robustness
+  - Tab-separated gt_*.txt format following Microsoft TrOCR standard
+  - Proper 70/15/15 train/validation/test distribution for robust model training
+  - Clean filename format (writer01 vs writer_01) for reliable parsing
 - **Quality assurance**:
   - Visualization tools for debugging marker detection
   - Consistent font rendering across all template text
