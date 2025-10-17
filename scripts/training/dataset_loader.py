@@ -10,6 +10,8 @@ import torch
 from torch.utils.data import Dataset
 from PIL import Image
 from transformers import TrOCRProcessor
+from config.paths import DatasetPaths
+from scripts.data_processing.orchestrator.version_manager import get_latest_version_number
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -36,8 +38,17 @@ class SwedishHandwritingDataset(Dataset):
             image_base_path: Optional[str] = None,
             dry_run: bool = False
     ):
+        if image_base_path is None:
+            latest_version = get_latest_version_number()
+            if latest_version is None:
+                raise FileNotFoundError("No version directory found")
+            self.image_base_path = DatasetPaths.TROCR_READY_DATA / latest_version
+            logger.info(f"Using latest version: {latest_version} at {self.image_base_path}")
+        else:
+            self.image_base_path = Path(image_base_path)
+
         self.gt_file_path = Path(gt_file_path)
-        self.image_base_path = Path(image_base_path) if image_base_path else None
+
         self.dry_run = dry_run
 
         # Load or create TrOCR processor
