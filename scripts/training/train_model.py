@@ -9,6 +9,7 @@ from dataset_loader import SwedishHandwritingDataset
 from config.paths import DatasetPaths
 from scripts.data_processing.orchestrator.version_manager import get_latest_version_number
 from datetime import datetime
+from evaluation.metrics import compute_metrics
 
 class TrainingConfig:
     # Model settings
@@ -132,15 +133,15 @@ def train_model(args):
         eval_steps=config.eval_steps,
         save_steps=config.save_steps,
         logging_steps=config.logging_steps,
-        predict_with_generate=True,  # KRITISKT för text generation
+        predict_with_generate=True,  # Critical for text generation
         fp16=config.fp16,
         dataloader_num_workers=config.dataloader_num_workers,
         load_best_model_at_end=True,
-        metric_for_best_model="eval_loss",  # Kommer ändras till eval_cer när metrics.py är klar
+        metric_for_best_model="eval_cer",  
         greater_is_better=False,
         report_to="wandb" if args.wandb else None,
         run_name=f"trocr-swedish-{datetime.now().strftime('%Y%m%d_%H%M%S')}",
-        remove_unused_columns=False,  # Viktigt för custom datasets
+        remove_unused_columns=False,  # Important for custom datasets
     )
 
     # Initialize WandB if requested (Seq2SeqTrainer hanterar resten)
@@ -165,7 +166,7 @@ def train_model(args):
         train_dataset=train_dataset,
         eval_dataset=val_dataset,
         tokenizer=processor.tokenizer,  
-        # compute_metrics=compute_metrics,  # TODO: Implementera i metrics.py
+        compute_metrics=compute_metrics
     )
 
     # Train with automatic optimizations
