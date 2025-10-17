@@ -132,7 +132,7 @@ def  copy_existing_data(from_version: str, to_version: str) -> bool:
         for image_file in from_images.iterdir():
             if image_file.is_file() and image_file.suffix.lower() in ['.jpg', '.jpeg', 'png']:
                 dest_file = to_images / image_file.name
-                if not dest_file.exist():
+                if not dest_file.exists():
                     shutil.copy2(image_file, dest_file)
                     copied_count += 1
                 else:
@@ -196,7 +196,7 @@ def update_current_symlink(version: str) -> bool:
         version: Version to point to (e.g., 'v2')
 
     Returns:
-        True if sucessful, False if faild
+        True if successful, False if faild
     """
 
     version_path = DatasetPaths.TROCR_READY_DATA / version

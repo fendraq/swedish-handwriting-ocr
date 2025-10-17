@@ -9,7 +9,7 @@ import shutil
 
 from config.paths import DatasetPaths, get_template_metadata
 from .data_detector import detect_new_writers
-from .version_manager import create_new_version, get_latest_version_number
+from .version_manager import create_new_version, get_latest_version_number, copy_existing_data
 from .segmentation_runner import run_segmentation_for_multiple_writers
 from .annotation_creator import create_annotations_for_version
 from .dataset_splitter import create_dataset_splits
@@ -173,6 +173,15 @@ class PipelineRunner:
             version_path = create_new_version(writers=self.new_writers, description='Auto-generated version')
             self.current_version = int(version_path.name[1:])
             logger.info(f"Created version: {self.current_version}")
+
+            # Copy existing data from previous version
+            if latest_version and latest_version != f"v{self.current_version}":
+                logger.info(f"Copying existing data from {latest_version} to v{self.current_version}")
+                copy_success = copy_existing_data(latest_version, f"v{self.current_version}")
+                if copy_success:
+                    logger.info("Successfully copied existing data from previous version")
+                else:
+                    logger.warning("Failed to copy existing data from previous version")
         else:
             # Simulate version creation
             if latest_version:
