@@ -44,10 +44,7 @@ dataset/**/*
 /docs/data_collection/generated_templates
 
 # Models (large files)
-models/checkpoints/*.pth
-models/checkpoints/*.pt
-models/final/*.pth
-models/final/*.pt
+models/
 
 # Logs
 logs/*.log

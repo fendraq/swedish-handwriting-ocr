@@ -42,8 +42,12 @@ swedish_handwritten_ocr/
 │   │   ├── image_segmentation/  # Image processing and segmentation
 │   │   │   └── segment_images.py # Segment scanned images
 │   │   └── data_preparation/    # Data formatting utilities
-│   ├── training/                # Model training scripts
-│   └── evaluation/              # Evaluation scripts
+│   ├── training/                # TrOCR model training pipeline
+│   │   ├── train_model.py          # Main training script with Azure ML support
+│   │   ├── dataset_loader.py       # Swedish handwriting dataset loader
+│   │   └── evaluation/
+│   │       └── metrics.py          # Comprehensive Swedish OCR metrics
+│   └── evaluation/              # Model evaluation and testing scripts
 ├── models/
 │   ├── checkpoints/             # Training checkpoints
 │   └── final/                   # Final models
@@ -274,9 +278,91 @@ python -m scripts.data_processing.image_segmentation.segment_images [options]
 The project uses centralized path configuration in `config/paths.py`. All file paths are relative to the project root, ensuring compatibility with Azure ML and other deployment environments.
 
 ### Phase 3: Model Training
-- Fine-tune TrOCR on Swedish handwriting data
-- Evaluate performance  
-- Optimize hyperparameters
+
+The project includes a complete TrOCR fine-tuning pipeline with Azure ML compatibility, comprehensive metrics evaluation, and intelligent path management.
+
+#### Training Pipeline Features:
+- **HuggingFace Seq2SeqTrainer**: Optimized training loop with automatic mixed-precision and gradient accumulation
+- **Swedish-specific metrics**: Character Error Rate (CER), Word Error Rate (WER), BLEU, and Swedish character accuracy (å, ä, ö)
+- **Azure ML ready**: Intelligent environment detection for seamless cloud deployment
+- **WandB integration**: Experiment tracking and performance monitoring
+- **Comprehensive evaluation**: Multi-metric evaluation optimized for Swedish handwriting recognition
+
+#### Quick Start Training:
+
+```bash
+cd /home/fendraq/wsl_projects/swedish_handwritten_ocr
+
+# Dry run with small dataset (recommended first test)
+python -m scripts.training.train_model --dry_run --epochs 1
+
+# Full training with WandB logging
+python -m scripts.training.train_model --epochs 10 --wandb
+
+# Custom training parameters
+python -m scripts.training.train_model --batch_size 8 --epochs 5 --learning_rate 1e-5
+```
+
+#### Training Configuration:
+- **Base model**: microsoft/trocr-base-handwritten
+- **Batch size**: 16 (with gradient accumulation for effective batch size of 32)
+- **Learning rate**: 5e-5 with warmup
+- **Mixed precision**: FP16 for Azure GPU optimization
+- **Evaluation strategy**: Every 200 steps with CER-based best model selection
+
+#### Azure ML Deployment:
+
+The training pipeline automatically detects Azure ML environments and adapts paths accordingly:
+
+```bash
+# Local development (automatic detection)
+python -m scripts.training.train_model --epochs 10
+
+# Azure ML (automatic detection via environment variables)
+# No code changes needed - paths.py handles environment detection
+```
+
+**Azure ML Environment Variables Detected:**
+- `AZUREML_RUN_ID`
+- `AZUREML_EXPERIMENT_ID` 
+- `AZUREML_DATAREFERENCE_data`
+
+#### Metrics and Evaluation:
+
+The training pipeline includes comprehensive Swedish handwriting metrics:
+
+1. **Character Error Rate (CER)**: Core metric for OCR evaluation
+2. **Word Error Rate (WER)**: Word-level accuracy measurement
+3. **BLEU Score**: Text generation quality assessment
+4. **Swedish Character Accuracy**: Specialized metric for å, ä, ö recognition
+5. **Exact Match Accuracy**: Perfect prediction percentage
+
+**Metrics Output Example:**
+```
+eval_cer: 0.0234
+eval_wer: 0.1250  
+eval_bleu: 0.8567
+eval_swedish_chars: 0.9234
+eval_exact_match: 0.7890
+```
+
+#### Model Output:
+Trained models are saved with version information and timestamps:
+```
+models/
+└── trocr-swedish-handwriting-v3-20241017_143052/
+    ├── final_model/          # Complete model and tokenizer
+    │   ├── pytorch_model.bin
+    │   ├── config.json
+    │   └── tokenizer files
+    └── checkpoints/          # Training checkpoints
+```
+
+#### Path Management:
+The training system uses intelligent path detection from `config/paths.py`:
+- **Local development**: Uses dataset versions from `dataset/trocr_ready_data/`
+- **Azure ML**: Automatically detects mounted data and adjusts paths
+- **Version management**: Always uses latest dataset version automatically
 
 ## Features
 
@@ -302,4 +388,6 @@ The project uses centralized path configuration in `config/paths.py`. All file p
   - Consistent font rendering across all template text
   - Optimized line thickness (0.5pt) for clean segmentation
 - **Production ready**: Configurable pipeline suitable for large-scale dataset generation
-- **TrOCR integration**: Fine-tuning pipeline using Microsoft's TrOCR model (upcoming)
+- **Complete TrOCR pipeline**: Production-ready fine-tuning with Azure ML compatibility
+- **Intelligent path management**: Automatic environment detection for local and cloud deployment
+- **Advanced metrics evaluation**: Swedish-specific accuracy measurements for å, ä, ö characters
