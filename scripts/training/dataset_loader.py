@@ -60,8 +60,14 @@ class SwedishHandwritingDataset(Dataset):
 
         # Load and validate dataset
         self.data = self._load_gt_file()
-        original_count = sum(1 for line in open(self.gt_file_path, 'r') if line.strip())
-        augmented_count = len(self.data) - original_count
+
+        if self.dry_run:
+            # For dry_run, count from loaded data (tuples of (Path, str))
+            original_count = len([item for item in self.data if not str(item[0]).endswith('_aug')])
+            augmented_count = len([item for item in self.data if str(item[0]).endswith('_aug')])
+        else:
+            original_count = sum(1 for line in open(self.gt_file_path, 'r') if line.strip())
+            augmented_count = len(self.data) - original_count
 
         self._validate_dataset()
 

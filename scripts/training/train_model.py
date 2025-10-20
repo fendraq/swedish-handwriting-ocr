@@ -1,15 +1,17 @@
 import torch
-from transformers import TrOCRForCausalLM, TrOCRProcessor
+from transformers import VisionEncoderDecoderModel, TrOCRProcessor
 from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments
 import logging
 import argparse
 from pathlib import Path
 import wandb
-from dataset_loader import SwedishHandwritingDataset
+from .dataset_loader import SwedishHandwritingDataset
 from config.paths import DatasetPaths
 from scripts.data_processing.orchestrator.version_manager import get_latest_version_number
 from datetime import datetime
-from evaluation.metrics import compute_metrics
+from .evaluation.metrics import create_compute_metrics
+from .data_collator import TrOCRDataCollator
+import os
 
 class TrainingConfig:
     # Model settings
@@ -89,16 +91,18 @@ def train_model(args):
     config.logger.info(f"Using device: {device}")
 
     # Load model and processor
-    model = TrOCRForCausalLM.from_pretrained(config.model_name)
-    processor = TrOCRProcessor.from_pretrained(config.model_name)
+    model = VisionEncoderDecoderModel.from_pretrained(config.model_name)
+    processor = TrOCRProcessor.from_pretrained(config.model_name, use_fast=True)
     
     # Configure model for Swedish handwriting
     model.config.decoder_start_token_id = processor.tokenizer.cls_token_id
     model.config.pad_token_id = processor.tokenizer.pad_token_id
     model.config.eos_token_id = processor.tokenizer.sep_token_id
-    model.config.max_length = 64
-    model.config.early_stopping = True
-    model.config.num_beams = 4
+
+    # Configure generation settings
+    model.generation_config.max_length = 64
+    model.generation_config.early_stopping = True
+    model.generation_config.num_beams = 4
     
     model.to(device)
 
@@ -117,6 +121,8 @@ def train_model(args):
         dry_run=args.dry_run
     )
 
+    data_collator = TrOCRDataCollator(processor=processor)
+
     config.logger.info(f"Training samples: {len(train_dataset)}")
     config.logger.info(f"Validation samples: {len(val_dataset)}")
 
@@ -129,7 +135,7 @@ def train_model(args):
         learning_rate=config.learning_rate,
         num_train_epochs=config.num_epochs,
         warmup_steps=config.warmup_steps,
-        evaluation_strategy="steps",
+        eval_strategy="steps",
         eval_steps=config.eval_steps,
         save_steps=config.save_steps,
         logging_steps=config.logging_steps,
@@ -165,8 +171,9 @@ def train_model(args):
         args=training_args,
         train_dataset=train_dataset,
         eval_dataset=val_dataset,
-        tokenizer=processor.tokenizer,  
-        compute_metrics=compute_metrics
+        data_collator=data_collator,
+        processing_class=processor,  
+        compute_metrics=create_compute_metrics(processor.tokenizer)
     )
 
     # Train with automatic optimizations
