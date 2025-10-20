@@ -11,7 +11,6 @@ from scripts.data_processing.orchestrator.version_manager import get_latest_vers
 from datetime import datetime
 from .evaluation.metrics import create_compute_metrics
 from .data_collator import TrOCRDataCollator
-import os
 
 class TrainingConfig:
     # Model settings

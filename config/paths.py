@@ -97,6 +97,17 @@ def debug_paths():
 DOCS_ROOT = PROJECT_ROOT / "docs"
 SCRIPTS_ROOT = PROJECT_ROOT / "scripts"
 CONFIG_ROOT = PROJECT_ROOT / "config"
+MODELS_ROOT = PROJECT_ROOT / "models"
+
+# Model Paths
+class ModelPaths:
+    ROOT = MODELS_ROOT
+
+    # Trained models directory
+    TRAINED_MODELS = MODELS_ROOT
+
+    # Current/latest model (auto-detection)
+    LATEST_MODEL = None
 
 # Dataset paths
 class DatasetPaths:
@@ -172,3 +183,16 @@ def get_latest_version() -> Path:
 def get_version_images(version: str) -> Path:
     """Get images directory for specific version."""
     return DatasetPaths.TROCR_READY_DATA / version / "images"
+
+def get_latest_model() -> Path:
+    """Get latest trained model directory"""
+    if not ModelPaths.ROOT.exists():
+        raise FileNotFoundError(f"Models directory not found: {ModelPaths.ROOT}")
+
+    model_dirs = [d for d in ModelPaths.ROOT.iterdir()
+                  if d.is_dir() and d.name.startswith("trocr-swedish-handwriting")]
+
+    if not model_dirs:
+        raise FileNotFoundError("No trained models found")
+
+    return max(model_dirs, key=lambda x: x.stat().st_mtime)
