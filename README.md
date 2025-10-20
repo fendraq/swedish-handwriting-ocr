@@ -283,8 +283,9 @@ The project includes a complete TrOCR fine-tuning pipeline with Azure ML compati
 
 #### Training Pipeline Features:
 - **HuggingFace Seq2SeqTrainer**: Optimized training loop with automatic mixed-precision and gradient accumulation
-- **Swedish-specific metrics**: Character Error Rate (CER), Word Error Rate (WER), BLEU, and Swedish character accuracy (å, ä, ö)
-- **Azure ML ready**: Intelligent environment detection for seamless cloud deployment
+- **Custom TrOCR Data Collator**: Handles pixel_values (images) + labels (text tokens) format
+- **Swedish-specific metrics**: Character Error Rate (CER), Word Error Rate (WER), BLEU evaluation
+- **VisionEncoderDecoderModel**: Based on Microsoft documentation
 - **WandB integration**: Experiment tracking and performance monitoring
 - **Comprehensive evaluation**: Multi-metric evaluation optimized for Swedish handwriting recognition
 
@@ -293,7 +294,7 @@ The project includes a complete TrOCR fine-tuning pipeline with Azure ML compati
 ```bash
 cd /home/fendraq/wsl_projects/swedish_handwritten_ocr
 
-# Dry run with small dataset (recommended first test)
+# Dry run with small dataset (10 samples)
 python -m scripts.training.train_model --dry_run --epochs 1
 
 # Full training with WandB logging
@@ -303,14 +304,38 @@ python -m scripts.training.train_model --epochs 10 --wandb
 python -m scripts.training.train_model --batch_size 8 --epochs 5 --learning_rate 1e-5
 ```
 
-#### Training Configuration:
-- **Base model**: microsoft/trocr-base-handwritten
+#### Training Validation Results:
+- ✅ **Data loading**: Successfully loads gt_train.txt and gt_val.txt
+- ✅ **Custom collator**: TrOCRDataCollator handles vision-to-text data correctly  
+- ✅ **Model training**: VisionEncoderDecoderModel trains without ValueError
+- ✅ **Model saving**: Trained models saved to `models/trocr-swedish-handwriting-v3-*/final_model/`
+- ✅ **Metrics integration**: CER, WER, BLEU metrics configured for evaluation
+- ✅ **No critical warnings**: Fixed image processor and generation config warnings
+
+#### Training Configuration (Validated):
+- **Base model**: microsoft/trocr-base-handwritten (✅ Working)
+- **Architecture**: VisionEncoderDecoderModel (updated from TrOCRForCausalLM)
 - **Batch size**: 16 (with gradient accumulation for effective batch size of 32)
 - **Learning rate**: 5e-5 with warmup
-- **Mixed precision**: FP16 for Azure GPU optimization
+- **Mixed precision**: FP16 enabled with use_fast=True for TrOCRProcessor
 - **Evaluation strategy**: Every 200 steps with CER-based best model selection
+- **Data collation**: Custom TrOCRDataCollator for pixel_values + labels format
 
-#### Azure ML Deployment:
+#### Trained Models Available:
+Current trained models ready for evaluation:
+```
+models/
+├── trocr-swedish-handwriting-v3-20251020_091130/
+│   ├── final_model/              # ✅ Complete trained model (1.3GB)
+│   │   ├── model.safetensors     # Model weights
+│   │   ├── config.json           # Model configuration  
+│   │   ├── tokenizer.json        # Swedish tokenizer
+│   │   └── preprocessor_config.json
+│   └── checkpoint-1/             # Training checkpoint
+└── (other training runs...)
+```
+
+#### Azure ML Deployment (Ready):
 
 The training pipeline automatically detects Azure ML environments and adapts paths accordingly:
 
