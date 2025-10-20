@@ -389,6 +389,110 @@ The training system uses intelligent path detection from `config/paths.py`:
 - **Azure ML**: Automatically detects mounted data and adjusts paths
 - **Version management**: Always uses latest dataset version automatically
 
+### Phase 4: Model Evaluation
+
+The project includes a comprehensive evaluation system that automatically adapts to your environment for optimal testing workflow.
+
+#### Environment-Aware Evaluation:
+
+**Local Development (Single Image Testing):**
+```bash
+cd /home/fendraq/wsl_projects/swedish_handwritten_ocr
+
+# Basic evaluation (auto-detects latest model)
+python -m scripts.evaluation.evaluate_model
+
+# Specify custom model
+python -m scripts.evaluation.evaluate_model --model-path models/specific-model
+
+# Force CPU usage
+python -m scripts.evaluation.evaluate_model --device cpu
+```
+
+**Azure ML (Full Test Split Evaluation):**
+```bash
+# Same command - automatically detects Azure environment
+python -m scripts.evaluation.evaluate_model --output evaluation_results.json
+```
+
+#### Evaluation Features:
+
+**Local Mode (Development):**
+- **Random test image**: Automatically selects random image from test set
+- **Ground truth comparison**: Shows prediction vs actual text
+- **Quick feedback**: Perfect for development and debugging
+- **Simple output**: Clean comparison without overwhelming metrics
+
+**Azure Mode (Production):**
+- **Full test split**: Evaluates entire test dataset
+- **Comprehensive metrics**: CER, WER, BLEU, Swedish character accuracy, exact match
+- **Progress tracking**: Real-time progress updates during evaluation
+- **Detailed results**: Per-image predictions with ground truth comparison
+- **Export capability**: Save results to JSON for analysis
+
+#### Example Outputs:
+
+**Local Evaluation Output:**
+```
+=== LOCAL EVALUATION ===
+Image: writer01_page02_089_begravning.jpg
+Predicted: 'begravning'
+Ground Truth: 'begravning'
+Match: ✓
+```
+
+**Azure Evaluation Metrics:**
+```
+=== EVALUATION RESULTS ===
+CER: 0.0234
+WER: 0.1250
+BLEU: 0.8567
+Swedish chars accuracy: 0.9234
+Exact match accuracy: 0.7890
+```
+
+#### Command Options:
+
+```bash
+# Basic usage
+python -m scripts.evaluation.evaluate_model
+
+# Specify model path
+python -m scripts.evaluation.evaluate_model --model-path models/my-model
+
+# Device selection
+python -m scripts.evaluation.evaluate_model --device cuda    # Force GPU
+python -m scripts.evaluation.evaluate_model --device cpu     # Force CPU
+python -m scripts.evaluation.evaluate_model --device auto    # Auto-detect (default)
+
+# Save results to file
+python -m scripts.evaluation.evaluate_model --output results.json
+```
+
+#### Evaluation Metrics:
+
+1. **Character Error Rate (CER)**: Percentage of character-level errors
+2. **Word Error Rate (WER)**: Percentage of word-level errors  
+3. **BLEU Score**: Text generation quality (0-1, higher is better)
+4. **Swedish Character Accuracy**: Specific accuracy for å, ä, ö characters
+5. **Exact Match Accuracy**: Percentage of perfectly predicted texts
+
+#### Auto-Detection Features:
+
+- **Environment detection**: Automatically adapts behavior for local vs Azure ML
+- **Model auto-detection**: Uses latest trained model if none specified
+- **Device auto-selection**: Chooses optimal device (GPU if available, CPU fallback)
+- **Dataset auto-loading**: Finds test images and ground truth automatically
+- **Ground truth loading**: Automatically locates `gt_test.txt` files
+
+#### Integration with Training:
+
+The evaluation system seamlessly integrates with the training pipeline:
+- **Uses same metrics**: Consistent CER, WER, BLEU calculations as training
+- **Same data format**: Works with ground truth files from orchestrator pipeline
+- **Version compatibility**: Automatically works with latest dataset versions
+- **Model compatibility**: Evaluates any model trained with the training pipeline
+
 ## Features
 
 - **Comprehensive Swedish vocabulary**: 150+ categorized words covering Swedish characters (å, ä, ö), names, places, dates, and funeral/burial terminology
