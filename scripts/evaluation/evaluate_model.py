@@ -10,7 +10,8 @@ from pathlib import Path
 import json
 import logging
 from datetime import datetime
-from config.paths import detect_project_environment, get_latest_model, PROJECT_ROOT, DatasetPaths, get_latest_version
+from config.paths import detect_project_environment, get_latest_model, PROJECT_ROOT, DatasetPaths
+from scripts.data_processing.orchestrator.version_manager import get_latest_version_number
 from scripts.training.evaluation.metrics import (
     cer_metric, wer_metric, bleu_metric,
     clean_text, compute_swedish_accuracy, log_sample_predictions
@@ -32,10 +33,11 @@ class TrOCRModelEvaluator:
         """
         # Detect environment
         self.env_type, self.project_root = detect_project_environment()
-        self.device = self._setup_device(device)
 
         # Initialize logging
         self.logger = logging.getLogger(__name__)
+        
+        self.device = self._setup_device(device)
 
         # Auto-detect model path if not provided
         if model_path is None:
@@ -99,9 +101,12 @@ class TrOCRModelEvaluator:
             Path: Path to latest model directory
         """
         try:
-            latest_model = get_latest_model()
-            self.logger.info(f"Auto-detected latest model: {latest_model.name}")
-            return latest_model
+            latest_model_dir = get_latest_model()
+
+            final_model_path = latest_model_dir / 'final_model'
+            self.logger.info(f"Auto-detected latest model: {latest_model_dir.name}/final_model")
+            return final_model_path
+        
         except FileNotFoundError as e:
             self.logger.error(f"Failed to find model: {e}")
             raise
@@ -112,6 +117,7 @@ class TrOCRModelEvaluator:
     def _load_model_and_processor(self):
         """
         Load TrOCR model and processor from model path.
+        Handles both pytorch_model.bin and safetensors formats.
 
         Returns:
             tuple: (model, processor)
@@ -119,8 +125,25 @@ class TrOCRModelEvaluator:
         try:
             self.logger.info(f"Loading model from {self.model_path}")
 
-            # Load model
-            model = VisionEncoderDecoderModel.from_pretrained(self.model_path)
+            # Check what model formats are available
+            pytorch_model = self.model_path / "pytorch_model.bin"
+            safetensors_model = self.model_path / "model.safetensors"
+            
+            if pytorch_model.exists():
+                self.logger.info("Found pytorch_model.bin - using for broad compatibility")
+                model = VisionEncoderDecoderModel.from_pretrained(
+                    self.model_path, 
+                    local_files_only=True
+                )
+            elif safetensors_model.exists():
+                self.logger.info("Found model.safetensors - using modern format")
+                model = VisionEncoderDecoderModel.from_pretrained(
+                    self.model_path,
+                    local_files_only=True
+                )
+            else:
+                raise FileNotFoundError(f"No model file found in {self.model_path}")
+                
             model.to(self.device)
             model.eval()
 
@@ -136,50 +159,25 @@ class TrOCRModelEvaluator:
             self.logger.error(f"Failed to load model: {e}")
             raise
 
-    def _load_ground_truth(self) -> dict:
+    def _load_test_data(self) -> list[tuple[Path, str]]:
         """
-        Load ground truth data from gt_test.txt file
+        Load test data from gt_test.txt (same pattern as dataset_loader)
 
         Returns:
-            dict: {image_path: ground_truth_text}
+            list[tuple[Path, str]]: List of (image_path, ground_truth) pairs
         """
-        try:
-            # Find gt_text.txt file in current version
-            latest_version_path = get_latest_version()
-            gt_file = latest_version_path / 'gt_test.txt'
-
-            if not gt_file.exists():
-                raise FileNotFoundError(f"Ground truth file not found: {gt_file}")
-
-            self.logger.info(f"Loading ground truth from: {gt_file}")
-
-            ground_truth = {}
-            with open(gt_file, 'r', encoding='utf-8') as f:
-                for line_num, line in enumerate(f, 1):
-                    line = line.strip()
-                    if not line:
-                        continue
-
-                    try: 
-                        image_path, gt_text = line.split('\t', 1)
-                        if not Path(image_path).is_absolute():
-                            image_path = str(latest_version_path / 'images' / image_path)
-
-                        ground_truth[image_path] = gt_text
-
-                    except ValueError:
-                        self.logger.warning(f"Skipping invalid line {line_num}: {line}")
-                        continue
-
-            self.logger.info(f"Loaded {len(ground_truth)} ground truth entries")
-            return ground_truth
+        latest_version = get_latest_version_number()
+        image_base_path = DatasetPaths.TROCR_READY_DATA / latest_version
+        gt_file = image_base_path / 'gt_test.txt'
         
-        except Exception as e:
-            self.logger.error(f"Failed to load ground truth: {e}")
-            raise
-
-
-            
+        data = []
+        with open(gt_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                img_path_str, text = line.strip().split('\t', 1)
+                img_path = image_base_path / img_path_str  # Absolut path
+                data.append((img_path, text))
+        
+        return data            
 
     def predict_single_image(self, image_path: str) -> str:
         """
@@ -220,45 +218,25 @@ class TrOCRModelEvaluator:
 
     def get_evaluation_data(self):
         """
-        Get evaluation data based on environment
-        Local: Random single test image
-        Azure: All test data paths
+        Get evaluation data from gt_test.txt
+        Local: Random single test entry
+        Azure: All test data entries
 
-        Returns:
-            str or list: Single image path (local) or list of paths (Azure)
+        Returns: 
+            tuple or list: (Path, str) tuple (local) or list of (Path, str) tuples (Azure)
         """
-        try:
-            # Look for test images in processed data
-            test_images_dir = DatasetPaths.CURRENT_VERSION / 'images'
-            if not test_images_dir.exists():
-                test_images_dir = DatasetPaths.TEST
+        test_data = self._load_test_data()
 
-            if not test_images_dir.exists():
-                raise FileNotFoundError(f"Test data directory not found: {test_images_dir}")
-
-            # Find all image files
-            image_extensions = ['.jpg', '.jpeg', '.png', '.bmp', '.tiff']
-            test_images = [
-                f for f in test_images_dir.iterdir()
-                if f.is_file() and f.suffix.lower() in image_extensions
-            ]
-
-            if not test_images:
-                raise FileNotFoundError("No test images found")
-
-            if self.env_type == 'local':
-                # Random single image for local testing
-                selected_image = random.choice(test_images)
-                self.logger.info(f"Selected random test image: {selected_image.name}")
-                return str(selected_image)
-            else:
-                # All images for Azure evaluation
-                self.logger.info(f"Found {len(test_images)} test images for evaluation")
-                return [str(img) for img in test_images]
-
-        except Exception as e:
-            self.logger.error(f"Failed to get evaluation data: {e}")
-            raise
+        if self.env_type == 'local':
+            # Random entry from test split
+            selected_entry = random.choice(test_data)
+            image_path, gt_text = selected_entry
+            self.logger.info(f"Selected random test image: {image_path.name}")
+            return selected_entry
+        else:
+            # All test data when Azure
+            self.logger.info(f"Found {len(test_data)} test entries for evaluation")
+            return test_data
 
     def evaluate_test_split(self) -> dict:
         """
@@ -269,15 +247,11 @@ class TrOCRModelEvaluator:
         """        
         try:
             self.logger.info("=== FULL EVALUATION MODE ===")
-            # Load ground truth data
-            ground_truth = self._load_ground_truth()
             
             # Get all test images
-            test_images = self.get_evaluation_data()
-            if isinstance(test_images, str):
-                test_images = [test_images]
+            test_data = self.get_evaluation_data()
 
-            self.logger.info(f"Starting evaluation on {len(test_images)} test images")
+            self.logger.info(f"Starting evaluation on {len(test_data)} test entries")
 
             # Prepare for metrics calculation
             predictions_list = []
@@ -286,15 +260,10 @@ class TrOCRModelEvaluator:
             
             start_time = datetime.now()
 
-            for i, image_path in enumerate(test_images):
-                try:
-                    predicted_text = self.predict_single_image(image_path)
-                    
+            for i, (image_path, gt_text) in enumerate(test_data):
+                try:                    
                     # Get corresponding ground truth
-                    gt_text = ground_truth.get(image_path)
-                    if gt_text is None:
-                        self.logger.warning(f"No ground truth found for {image_path}")
-                        continue
+                    predicted_text = self.predict_single_image(str(image_path))
                     
                     # Clean texts for metrics
                     clean_pred = clean_text(predicted_text)
@@ -304,8 +273,8 @@ class TrOCRModelEvaluator:
                     references_list.append(clean_gt)
                     
                     detailed_results.append({
-                        'image_path': image_path,
-                        'image_name': Path(image_path).name,
+                        'image_path': str(image_path),
+                        'image_name': image_path.name,
                         'predicted_text': predicted_text,
                         'ground_truth': gt_text,
                         'clean_prediction': clean_pred,
@@ -313,9 +282,9 @@ class TrOCRModelEvaluator:
                     })
 
                     # Progress logging
-                    if (i + 1) % max(1, len(test_images) // 10) == 0:
-                        progress = (i + 1) / len(test_images) * 100
-                        self.logger.info(f"Progress: {progress:.1f}% ({i + 1}/{len(test_images)})")
+                    if (i + 1) % max(1, len(test_data) // 10) == 0:
+                        progress = (i + 1) / len(test_data) * 100
+                        self.logger.info(f"Progress: {progress:.1f}% ({i + 1}/{len(test_data)})")
 
                 except Exception as e:
                     self.logger.error(f"Failed to process {image_path}: {e}")
@@ -348,10 +317,10 @@ class TrOCRModelEvaluator:
             
             results = {
                 'evaluation_summary': {
-                    'total_images': len(test_images),
+                    'total_images': len(test_data),
                     'successful_evaluations': len(predictions_list),
                     'processing_time': processing_time,
-                    'avg_time_per_image': processing_time / len(test_images) if test_images else 0,
+                    'avg_time_per_image': processing_time / len(test_data) if test_data else 0,
                     'start_time': start_time.isoformat(),
                     'end_time': end_time.isoformat()
                 },
@@ -392,21 +361,17 @@ class TrOCRModelEvaluator:
             dict: Simple comparison results
         """
         try:
-            # Get random test image
-            image_path = self.get_evaluation_data()  # Returns single path for local
-            
-            # Load ground truth
-            ground_truth = self._load_ground_truth()
-            gt_text = ground_truth.get(image_path, "[NO GROUND TRUTH FOUND]")
+            # Get random test entry (both image path and ground truth)
+            image_path, gt_text = self.get_evaluation_data()
             
             # Get prediction
-            predicted_text = self.predict_single_image(image_path)
+            predicted_text = self.predict_single_image(str(image_path))
             
             # Simple comparison
             results = {
                 'mode': 'local_evaluation',
-                'image_name': Path(image_path).name,
-                'image_path': image_path,
+                'image_name': image_path.name,  
+                'image_path': str(image_path),
                 'predicted_text': predicted_text,
                 'ground_truth': gt_text,
                 'match': predicted_text.strip().upper() == gt_text.strip().upper()
@@ -414,7 +379,7 @@ class TrOCRModelEvaluator:
             
             # Simple logging output
             self.logger.info("=== LOCAL EVALUATION ===")
-            self.logger.info(f"Image: {Path(image_path).name}")
+            self.logger.info(f"Image: {image_path.name}")
             self.logger.info(f"Predicted: '{predicted_text}'")
             self.logger.info(f"Ground Truth: '{gt_text}'")
             self.logger.info(f"Match: {'✓' if results['match'] else '✗'}")

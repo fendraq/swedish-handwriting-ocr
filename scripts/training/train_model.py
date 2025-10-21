@@ -182,11 +182,27 @@ def train_model(args):
     
     trainer.train()
     
-    # Save final model
+    # Save final model in multiple formats for compatibility
     final_model_path = config.output_dir / "final_model"
+    config.logger.info(f"Saving model in multiple formats to {final_model_path}")
+
+    # Save as pytorch_model.bin (broad compatibility)
     trainer.save_model(str(final_model_path))
+    trainer.model.save_pretrained(str(final_model_path), safe_serialization=False)
+    config.logger.info("✓ Saved pytorch_model.bin format")
+
+    # Save as safetensors (modern secure format)
+    safetensors_path = final_model_path / "safetensors_version"
+    trainer.model.save_pretrained(str(safetensors_path), safe_serialization=True)
+    config.logger.info("✓ Saved safetensors format")
+
+    # Save processor (compatible with both formats)
     processor.save_pretrained(str(final_model_path))
-    config.logger.info(f"Final model saved to {final_model_path}")
+    config.logger.info("✓ Saved processor configuration")
+
+    config.logger.info(f"Final model saved in both formats to {final_model_path}")
+    config.logger.info(f"Primary format: {final_model_path}")
+    config.logger.info(f"Safetensors format: {safetensors_path}")
 
     # Finish WandB
     if args.wandb:
