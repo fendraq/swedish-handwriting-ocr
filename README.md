@@ -1,6 +1,6 @@
-# Swedish Handwriting OCR Project
+# Swedish Handwriting OCR
 
-A project for training a TrOCR model for Swedish handwritten text recognition, specifically designed for form processing applications.
+A production-ready system for training and deploying TrOCR models for Swedish handwritten text recognition. The system provides comprehensive tools for data collection, preprocessing, model training, and evaluation with Azure ML compatibility.
 
 ## Project Structure
 
@@ -58,86 +58,134 @@ swedish_handwritten_ocr/
 └── logs/                        # Training and evaluation logs
 ```
 
-## Setup
+## Quick Start
 
-1. Create and activate virtual environment:
+### Prerequisites
+- Python 3.8+
+- CUDA-compatible GPU (recommended for training)
+- 8GB RAM minimum
+
+### Installation
 ```bash
+# Clone and setup environment
+git clone <repository-url>
+cd swedish_handwritten_ocr
 python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# or
-venv\Scripts\activate     # Windows
-```
-
-2. Install dependencies:
-```bash
+source venv/bin/activate  # Linux/macOS
+# venv\Scripts\activate   # Windows
 pip install -r requirements.txt
 ```
 
-## Dataset Generation
-
-The project uses word lists in `docs/data_collection/word_collections/` containing categorized Swedish words optimized for handwriting recognition, including funeral/burial terminology with focus on Swedish characters (å, ä, ö).
-
-### Phase 1: Data Collection
-- Create templates based on the word list
+### Basic Usage
 ```bash
-cd /home/fendraq/wsl_projects/swedish_handwritten_ocr
-
-python -m scripts.data_processing.template_generator.generate_templates
-```
-- Templates include:
-    - Instruction text: "Skanna in i jpg-format och skriv innanför linjerna"
-    - Page numbers for correct scanning order
-    - Reference markers for automatic coordinate transformation
-    - Optimized line thickness (0.5 pt) for minimal margin requirements
-- Print templates and distribute to 10-20 different writers
-- Important: Scan completed forms as JPG files in correct page order (Sida 1, Sida 2, etc.)
-
-### Phase 2: Complete Data Processing Pipeline
-- Process all data from raw scans to TrOCR-ready format using the integrated orchestrator
-```bash
-cd /home/fendraq/wsl_projects/swedish_handwritten_ocr
-
-# Complete pipeline (recommended)
+# Generate training data from scanned forms
 python -m scripts.data_processing.orchestrator.main --auto-detect
 
-# Alternative: specific writers
+# Train TrOCR model on Swedish handwriting
+python -m scripts.training.train_model --epochs 10 --wandb
+
+# Evaluate trained model performance
+python -m scripts.evaluation.evaluate_model
+```
+
+## System Components
+
+### Data Processing Pipeline
+**Location**: `scripts/data_processing/`
+
+**Core Components**:
+- **Template Generation**: Creates handwriting collection forms with reference markers
+- **Image Segmentation**: Automatically processes scanned documents into individual word images
+- **Quality Control**: Interactive and automated tools for dataset curation
+- **Data Orchestration**: End-to-end pipeline from raw scans to TrOCR-ready datasets
+
+### Training Pipeline
+**Location**: `scripts/training/`
+
+**Features**:
+- **HuggingFace Integration**: Seq2SeqTrainer with automatic mixed-precision training
+- **Swedish Optimization**: Custom metrics and tokenization for Swedish characters (å, ä, ö)
+- **Azure ML Support**: Automatic environment detection for cloud deployment
+- **Model Persistence**: Complete model saving with tokenizer and configuration
+
+### Evaluation System
+**Location**: `scripts/evaluation/`
+
+**Capabilities**:
+- **Multi-metric Assessment**: CER, WER, BLEU, and Swedish-specific accuracy
+- **Environment Awareness**: Adapts between local development and production evaluation
+- **Ground Truth Validation**: Comprehensive test split evaluation with proper data isolation
+- **Error Analysis**: Detailed performance analysis and failure pattern identification
+
+## Data Collection and Processing
+
+The system uses curated Swedish word collections in `docs/data_collection/word_collections/` containing categorized vocabulary optimized for handwriting recognition, including specialized terminology with focus on Swedish characters (å, ä, ö).
+
+### Phase 1: Template Generation and Data Collection
+**Generate handwriting collection templates:**
+```bash
+python -m scripts.data_processing.template_generator.generate_templates
+```
+
+**Template features:**
+- Instruction text: "Skanna in i jpg-format och skriv innanför linjerna"
+- Page numbers for correct scanning order
+- Reference markers for automatic coordinate transformation
+- Optimized line thickness (0.5 pt) for minimal margin requirements
+
+**Collection workflow:**
+1. Print generated templates
+2. Distribute to 10-20 different writers
+3. Scan completed forms as JPG files in correct page order (Sida 1, Sida 2, etc.)
+
+### Phase 2: Automated Data Processing
+**Run the complete processing pipeline:**
+```bash
+# Comprehensive pipeline (recommended)
+python -m scripts.data_processing.orchestrator.main --auto-detect
+
+# Process specific writers
 python -m scripts.data_processing.orchestrator.main --writers writer_01,writer_02
 
-# Dry run to preview actions
+# Preview actions without execution
 python -m scripts.data_processing.orchestrator.main --auto-detect --dry-run
 ```
 
-### Phase 2.5: Manual Image Quality Control (Critical Step)
-**Important**: After segmentation but before final training dataset creation, perform manual quality control on segmented images:
+**Pipeline capabilities:**
+- **Complete automation**: Auto-detects new writers and processes end-to-end
+- **TrOCR-compatible output**: Creates `gt_train.txt`, `gt_val.txt`, `gt_test.txt` files
+- **Proper dataset splitting**: 70/15/15 train/val/test distribution
+- **Flat output structure**: `trocr_ready_data/vX/images/` optimized for TrOCR training
+- **Clean filename format**: `writer01_page01_001_text.jpg` format
+- **384x384 preprocessing**: Integrated TrOCR-ready image formatting
+- **Automatic annotations**: Extracts ground truth from filename metadata
+- **Data augmentation**: Optional rotation, blur, brightness/contrast variations
+- **Version management**: Incremental dataset versions with cleanup
+- **Validation**: Ensures all expected files are created correctly
 
-#### Manual Editing Workflow:
+### Phase 2.5: Quality Control (Critical Step)
+After segmentation but before final training dataset creation, perform quality control on segmented images:
+
+**Manual Editing Workflow:**
 1. **Location**: `dataset/trocr_ready_data/vX/images/` (segmented word images)
 2. **Timing**: After segmentation, before annotation/training
 3. **Focus areas**:
-   - **Kladd/överstrykningar**: Remove crossed-out letters/words
-   - **Följande linjer**: Remove template lines that interfere with text
-   - **Otydlig text**: Flag or remove illegible samples
-   - **Överskriven text**: Keep final intended character (e.g., if 'l' is overwritten with 'r', ground truth should be 'r')
+   - **Crossed-out text**: Remove kladd/överstrykningar
+   - **Template lines**: Remove following lines that interfere with text
+   - **Illegible text**: Flag or remove unclear samples
+   - **Overwritten text**: Keep final intended character
 
-#### Quality Control Guidelines:
-- **Edit segmented images**: Work on individual word images, NOT full-page scans
-- **Preserve segmentation**: Don't modify image dimensions (384x384)
+**Quality Control Guidelines:**
+- **Edit segmented images**: Work on individual word images, not full-page scans
+- **Preserve segmentation**: Maintain 384x384 dimensions
 - **Ground truth consistency**: Final text should match visual intent
 - **Document changes**: Keep track of edited images for quality control
 - **Backup originals**: Maintain copies of unedited segments
 
-#### Recommended tools:
-- GIMP, Photoshop, or any image editor capable of precise editing
-- Batch processing tools for consistent operations
+**Recommended tools:** GIMP, Photoshop, or any image editor capable of precise editing
 
-**Rationale**: Editing segmented images preserves segmentation quality while providing clean training data for TrOCR, minimizing risk of segmentation errors that could occur from editing full-page scans.
-
-#### Automated Problematic Image Removal:
-For systematic removal of problematic segmented images (including augmented versions):
-
+**Automated Problematic Image Removal:**
 ```bash
-cd /home/fendraq/wsl_projects/swedish_handwritten_ocr
-
 # List all versions of a problematic image (original + augmented)
 python -m scripts.data_processing.remove_problematic_images --list-pattern writer01_page08_143_EVIGHET
 
@@ -151,24 +199,18 @@ python -m scripts.data_processing.remove_problematic_images --remove writer01_pa
 python -m scripts.data_processing.remove_problematic_images --interactive
 ```
 
-**Features:**
-- **Finds all versions**: Automatically locates original + all augmented versions (`_aug_01.jpg`, `_aug_02.jpg`, etc.)
+**Removal features:**
+- **Finds all versions**: Automatically locates original + all augmented versions
 - **Multi-version support**: Works across all dataset versions (v1, v2, v3, etc.)
 - **Safe operation**: Dry-run mode to preview changes before execution
 - **Interactive workflow**: Step-by-step guidance for quality control decisions
 - **Pattern matching**: Handles base filename without extensions or augmentation suffixes
 
-**Usage scenarios:**
-- Remove corrupted/illegible images
-- Delete images with excessive template line interference
-- Clean up badly segmented words (cut-off text, wrong boundaries)
-- Maintain dataset quality before training
+### Advanced: Individual Module Testing
 
-### Phase 2.1: Individual Module Testing (Advanced)
-- Run individual pipeline components for debugging
+For debugging or development purposes, run individual pipeline components:
+
 ```bash
-cd /home/fendraq/wsl_projects/swedish_handwritten_ocr
-
 # Legacy individual segmentation (for single writer testing)
 python -m scripts.data_processing.image_segmentation.segment_images \
     --metadata "docs/data_collection/generated_templates/complete_template_metadata.json" \
@@ -178,31 +220,24 @@ python -m scripts.data_processing.image_segmentation.segment_images \
     --visualize
 ```
 
-#### Orchestrator Pipeline Features:
-- **Complete automation**: Auto-detects new writers and processes end-to-end
-- **TrOCR-compatible output**: Creates `gt_train.txt`, `gt_val.txt`, `gt_test.txt` files
-- **Proper dataset splitting**: 70/15/15 train/val/test distribution (not 99%/0.3%/0.6%)
-- **Flat output structure**: `trocr_ready_data/vX/images/` optimized for TrOCR training  
-- **Clean filename format**: `writer01_page01_001_text.jpg` (underscores removed from writer_id)
-- **384x384 preprocessing**: Integrated TrOCR-ready image formatting
-- **Automatic annotations**: Extracts ground truth from filename metadata
-- **Data augmentation**: Optional rotation, blur, brightness/contrast variations
-- **Version management**: Incremental dataset versions with cleanup
-- **Validation**: Ensures all expected files are created correctly
+**Orchestrator Command Options:**
+- `--auto-detect`: Automatically detect new writers in dataset/originals/
+- `--writers writer_01,writer_02`: Process specific writers only
+- `--no-augmentation`: Skip data augmentation step
+- `--dry-run`: Preview actions without executing
+- `--keep-versions N`: Keep N most recent dataset versions (default: 3)
 
-#### Complete Pipeline Steps:
+**Pipeline Processing Steps:**
 1. **data_detector.py**: Scans originals/ directory for new writers to process
 2. **version_manager.py**: Creates new dataset version (v1, v2, etc.) with metadata
 3. **segmentation_runner.py**: Converts raw scans to 384x384 segmented word images
-4. **Manual Quality Control**: Edit segmented images to remove kladd, lines, and ensure text clarity
-5. **annotation_creator.py**: Extracts ground truth from filenames → `annotations.json`
+4. **Manual Quality Control**: Edit segmented images to remove problematic content
+5. **annotation_creator.py**: Extracts ground truth from filenames to annotations.json
 6. **augmentation_manager.py**: Applies optional data augmentation for training robustness
-7. **dataset_splitter.py**: Creates TrOCR-compatible train/val/test splits → `gt_*.txt` files
+7. **dataset_splitter.py**: Creates TrOCR-compatible train/val/test splits to gt_*.txt files
 8. **Validation & Cleanup**: Verifies output files and removes old dataset versions
 
-**Note**: Step 4 (Manual Quality Control) should be performed on segmented images before proceeding to annotation and dataset splitting.
-
-#### Output Structure:
+**Dataset Output Structure:**
 ```
 trocr_ready_data/
 ├── v1/
@@ -215,7 +250,7 @@ trocr_ready_data/
 │   ├── annotations_augmented.json # Combined original + augmented annotations
 │   ├── gt_train.txt              # Training split (TrOCR tab-separated format)
 │   ├── gt_val.txt                # Validation split (15% of data)
-│   ├── gt_test.txt               # Test split (15% of data)  
+│   ├── gt_test.txt               # Test split (15% of data)
 │   ├── metadata.json             # Version metadata (writers, counts, etc.)
 │   ├── augmentation_config.json  # Augmentation parameters
 │   └── segmentation_summary.json # Segmentation statistics
@@ -227,7 +262,7 @@ images/writer01_page01_001_Åsa.jpg	Åsa
 images/writer01_page01_002_huvudgång.jpg	huvudgång
 images/writer01_page02_025_KAPELL.jpg	KAPELL
 ```
-#### Segmentation Features:
+**Segmentation Features:**
 - **Dynamic image analysis**: Automatically detects DPI and adjusts parameters accordingly
 - **Reference marker detection**: Uses circular markers for precise coordinate transformation
 - **Adaptive parameters**: Automatically scales detection based on actual image resolution (200 DPI vs 300 DPI)
@@ -235,26 +270,17 @@ images/writer01_page02_025_KAPELL.jpg	KAPELL
 - **Fallback mode**: Functions with simple coordinate conversion when markers aren't detected
 - **Visualization support**: Generate debug images showing detected markers and segmentation regions
 
-#### Segmentation Options:
+**Segmentation Options:**
 - `--use-references`: Enable reference marker detection (default: True)
 - `--no-references`: Disable markers, use simple coordinate conversion
 - `--visualize`: Generate visualization images for debugging
 - `--viz-output`: Custom directory for visualization output
 
-#### File Organization:
-- Segmented images organized by writer: `dataset/segmented_words/writer_001/`
-- Each image named: `{category}_{word_id}_{writer_id}.jpg`
-- Visualization images: `dataset/segmented_words_visualizations/`
-
 ## Important Usage Notes
 
-**Command Execution:**
 All scripts must be run from the project root directory using Python module syntax:
 
 ```bash
-# Always run from project root
-cd /home/fendraq/wsl_projects/swedish_handwritten_ocr
-
 # Main orchestrator pipeline (recommended)
 python -m scripts.data_processing.orchestrator.main --auto-detect
 
@@ -267,21 +293,13 @@ python -m scripts.data_processing.template_generator.generate_templates
 python -m scripts.data_processing.image_segmentation.segment_images [options]
 ```
 
-**Orchestrator Command Options:**
-- `--auto-detect`: Automatically detect new writers in dataset/originals/
-- `--writers writer_01,writer_02`: Process specific writers only  
-- `--no-augmentation`: Skip data augmentation step
-- `--dry-run`: Preview actions without executing
-- `--keep-versions N`: Keep N most recent dataset versions (default: 3)
-
-**Path Management:**
 The project uses centralized path configuration in `config/paths.py`. All file paths are relative to the project root, ensuring compatibility with Azure ML and other deployment environments.
 
-### Phase 3: Model Training
+## Model Training
 
-The project includes a complete TrOCR fine-tuning pipeline with Azure ML compatibility, comprehensive metrics evaluation, and intelligent path management.
+The system includes a complete TrOCR fine-tuning pipeline with Azure ML compatibility, comprehensive metrics evaluation, and intelligent path management.
 
-#### Training Pipeline Features:
+### Training Pipeline Features
 - **HuggingFace Seq2SeqTrainer**: Optimized training loop with automatic mixed-precision and gradient accumulation
 - **Custom TrOCR Data Collator**: Handles pixel_values (images) + labels (text tokens) format
 - **Swedish-specific metrics**: Character Error Rate (CER), Word Error Rate (WER), BLEU evaluation
@@ -289,11 +307,9 @@ The project includes a complete TrOCR fine-tuning pipeline with Azure ML compati
 - **WandB integration**: Experiment tracking and performance monitoring
 - **Comprehensive evaluation**: Multi-metric evaluation optimized for Swedish handwriting recognition
 
-#### Quick Start Training:
+### Quick Start Training
 
 ```bash
-cd /home/fendraq/wsl_projects/swedish_handwritten_ocr
-
 # Dry run with small dataset (10 samples)
 python -m scripts.training.train_model --dry_run --epochs 1
 
@@ -304,16 +320,8 @@ python -m scripts.training.train_model --epochs 10 --wandb
 python -m scripts.training.train_model --batch_size 8 --epochs 5 --learning_rate 1e-5
 ```
 
-#### Training Validation Results:
-- ✅ **Data loading**: Successfully loads gt_train.txt and gt_val.txt
-- ✅ **Custom collator**: TrOCRDataCollator handles vision-to-text data correctly  
-- ✅ **Model training**: VisionEncoderDecoderModel trains without ValueError
-- ✅ **Model saving**: Trained models saved to `models/trocr-swedish-handwriting-v3-*/final_model/`
-- ✅ **Metrics integration**: CER, WER, BLEU metrics configured for evaluation
-- ✅ **No critical warnings**: Fixed image processor and generation config warnings
-
-#### Training Configuration (Validated):
-- **Base model**: microsoft/trocr-base-handwritten (✅ Working)
+### Training Configuration (Validated)
+- **Base model**: microsoft/trocr-base-handwritten
 - **Architecture**: VisionEncoderDecoderModel (updated from TrOCRForCausalLM)
 - **Batch size**: 16 (with gradient accumulation for effective batch size of 32)
 - **Learning rate**: 5e-5 with warmup
@@ -321,22 +329,21 @@ python -m scripts.training.train_model --batch_size 8 --epochs 5 --learning_rate
 - **Evaluation strategy**: Every 200 steps with CER-based best model selection
 - **Data collation**: Custom TrOCRDataCollator for pixel_values + labels format
 
-#### Trained Models Available:
+### Trained Models Available
 Current trained models ready for evaluation:
 ```
 models/
 ├── trocr-swedish-handwriting-v3-20251020_091130/
-│   ├── final_model/              # ✅ Complete trained model (1.3GB)
+│   ├── final_model/              # Complete trained model (1.3GB)
 │   │   ├── model.safetensors     # Model weights
-│   │   ├── config.json           # Model configuration  
+│   │   ├── config.json           # Model configuration
 │   │   ├── tokenizer.json        # Swedish tokenizer
 │   │   └── preprocessor_config.json
 │   └── checkpoint-1/             # Training checkpoint
 └── (other training runs...)
 ```
 
-#### Azure ML Deployment (Ready):
-
+### Azure ML Deployment
 The training pipeline automatically detects Azure ML environments and adapts paths accordingly:
 
 ```bash
@@ -349,11 +356,10 @@ python -m scripts.training.train_model --epochs 10
 
 **Azure ML Environment Variables Detected:**
 - `AZUREML_RUN_ID`
-- `AZUREML_EXPERIMENT_ID` 
+- `AZUREML_EXPERIMENT_ID`
 - `AZUREML_DATAREFERENCE_data`
 
-#### Metrics and Evaluation:
-
+### Training Metrics and Evaluation
 The training pipeline includes comprehensive Swedish handwriting metrics:
 
 1. **Character Error Rate (CER)**: Core metric for OCR evaluation
@@ -365,13 +371,13 @@ The training pipeline includes comprehensive Swedish handwriting metrics:
 **Metrics Output Example:**
 ```
 eval_cer: 0.0234
-eval_wer: 0.1250  
+eval_wer: 0.1250
 eval_bleu: 0.8567
 eval_swedish_chars: 0.9234
 eval_exact_match: 0.7890
 ```
 
-#### Model Output:
+### Model Output Structure
 Trained models are saved with version information and timestamps:
 ```
 models/
@@ -383,22 +389,19 @@ models/
     └── checkpoints/          # Training checkpoints
 ```
 
-#### Path Management:
 The training system uses intelligent path detection from `config/paths.py`:
 - **Local development**: Uses dataset versions from `dataset/trocr_ready_data/`
 - **Azure ML**: Automatically detects mounted data and adjusts paths
 - **Version management**: Always uses latest dataset version automatically
 
-### Phase 4: Model Evaluation
+## Model Evaluation
 
-The project includes a comprehensive evaluation system that automatically adapts to your environment for optimal testing workflow.
+The system includes a comprehensive evaluation framework that automatically adapts to your environment for optimal testing workflow.
 
-#### Environment-Aware Evaluation:
+### Environment-Aware Evaluation
 
 **Local Development (Single Image Testing):**
 ```bash
-cd /home/fendraq/wsl_projects/swedish_handwritten_ocr
-
 # Basic evaluation (auto-detects latest model)
 python -m scripts.evaluation.evaluate_model
 
@@ -415,30 +418,30 @@ python -m scripts.evaluation.evaluate_model --device cpu
 python -m scripts.evaluation.evaluate_model --output evaluation_results.json
 ```
 
-#### Evaluation Features:
+### Evaluation Features
 
 **Local Mode (Development):**
-- **Random test image**: Automatically selects random image from test set
-- **Ground truth comparison**: Shows prediction vs actual text
+- **Random test image**: Selects random image from gt_test.txt (proper test split)
+- **Ground truth comparison**: Shows prediction vs actual text with guaranteed matching
 - **Quick feedback**: Perfect for development and debugging
 - **Simple output**: Clean comparison without overwhelming metrics
 
 **Azure Mode (Production):**
-- **Full test split**: Evaluates entire test dataset
+- **Full test split**: Evaluates entire test dataset from gt_test.txt
 - **Comprehensive metrics**: CER, WER, BLEU, Swedish character accuracy, exact match
 - **Progress tracking**: Real-time progress updates during evaluation
 - **Detailed results**: Per-image predictions with ground truth comparison
 - **Export capability**: Save results to JSON for analysis
 
-#### Example Outputs:
+### Example Outputs
 
 **Local Evaluation Output:**
 ```
 === LOCAL EVALUATION ===
-Image: writer01_page02_089_begravning.jpg
-Predicted: 'begravning'
-Ground Truth: 'begravning'
-Match: ✓
+Image: writer05_page02_036_Björk.jpg
+Predicted: 'Bronze'
+Ground Truth: 'Björk'
+Match: ✗
 ```
 
 **Azure Evaluation Metrics:**
@@ -451,7 +454,7 @@ Swedish chars accuracy: 0.9234
 Exact match accuracy: 0.7890
 ```
 
-#### Command Options:
+### Command Options
 
 ```bash
 # Basic usage
@@ -469,15 +472,15 @@ python -m scripts.evaluation.evaluate_model --device auto    # Auto-detect (defa
 python -m scripts.evaluation.evaluate_model --output results.json
 ```
 
-#### Evaluation Metrics:
+### Evaluation Metrics
 
 1. **Character Error Rate (CER)**: Percentage of character-level errors
-2. **Word Error Rate (WER)**: Percentage of word-level errors  
+2. **Word Error Rate (WER)**: Percentage of word-level errors
 3. **BLEU Score**: Text generation quality (0-1, higher is better)
 4. **Swedish Character Accuracy**: Specific accuracy for å, ä, ö characters
 5. **Exact Match Accuracy**: Percentage of perfectly predicted texts
 
-#### Auto-Detection Features:
+### Auto-Detection Features
 
 - **Environment detection**: Automatically adapts behavior for local vs Azure ML
 - **Model auto-detection**: Uses latest trained model if none specified
@@ -485,19 +488,22 @@ python -m scripts.evaluation.evaluate_model --output results.json
 - **Dataset auto-loading**: Finds test images and ground truth automatically
 - **Ground truth loading**: Automatically locates `gt_test.txt` files
 
-#### Integration with Training:
+### Integration with Training
 
 The evaluation system seamlessly integrates with the training pipeline:
 - **Uses same metrics**: Consistent CER, WER, BLEU calculations as training
 - **Same data format**: Works with ground truth files from orchestrator pipeline
+- **Same path resolution**: Follows identical pattern as dataset_loader for guaranteed compatibility
+- **Proper test isolation**: Only evaluates images from gt_test.txt (never train/val data)
 - **Version compatibility**: Automatically works with latest dataset versions
 - **Model compatibility**: Evaluates any model trained with the training pipeline
 
-## Features
+## System Features
 
-- **Comprehensive Swedish vocabulary**: 150+ categorized words covering Swedish characters (å, ä, ö), names, places, dates, and funeral/burial terminology
+### Data Processing Capabilities
+- **Comprehensive Swedish vocabulary**: 150+ categorized words covering Swedish characters (å, ä, ö), names, places, dates, and specialized terminology
 - **Intelligent template generation**: PDF templates with reference markers, page numbers, and scanning instructions
-- **Advanced image segmentation**: 
+- **Advanced image segmentation**:
   - Automatic DPI detection and parameter adaptation
   - Reference marker detection for precise coordinate mapping
   - Dynamic margin adjustment (6px inward) to remove border artifacts
@@ -507,16 +513,20 @@ The evaluation system seamlessly integrates with the training pipeline:
   - Stratified dataset splitting ensuring writer balance and word representation
   - Configurable data augmentation (rotation, blur, brightness/contrast)
   - Version-controlled dataset management with incremental updates
-- **TrOCR optimization**:
-  - 384x384 preprocessing integrated in segmentation pipeline
-  - Tab-separated gt_*.txt format following Microsoft TrOCR standard
-  - Proper 70/15/15 train/validation/test distribution for robust model training
-  - Clean filename format (writer01 vs writer_01) for reliable parsing
+
+### TrOCR Optimization
+- **384x384 preprocessing**: Integrated in segmentation pipeline
+- **Tab-separated format**: gt_*.txt files following Microsoft TrOCR standard
+- **Proper data distribution**: 70/15/15 train/validation/test splits for robust model training
+- **Clean filename format**: writer01 format for reliable parsing
 - **Quality assurance**:
   - Visualization tools for debugging marker detection
   - Consistent font rendering across all template text
   - Optimized line thickness (0.5pt) for clean segmentation
-- **Production ready**: Configurable pipeline suitable for large-scale dataset generation
+
+### Production Ready Features
+- **Configurable pipeline**: Suitable for large-scale dataset generation
 - **Complete TrOCR pipeline**: Production-ready fine-tuning with Azure ML compatibility
 - **Intelligent path management**: Automatic environment detection for local and cloud deployment
 - **Advanced metrics evaluation**: Swedish-specific accuracy measurements for å, ä, ö characters
+- **Environment awareness**: Seamless transition between development and production environments
