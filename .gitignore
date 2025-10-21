@@ -79,3 +79,6 @@ config/secrets.yaml
 
 # Planning documents
 TrOCR_Setup_Plan.ipynb
+
+# Azure config
+.azureml

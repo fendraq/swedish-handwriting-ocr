@@ -1,0 +1,10 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
+code: .
+command: echo "Swedish Handwriting OCR project uploaded successfully" && echo "Files:" && find . -name "*.py" | head -10 && echo "Dataset versions:" && ls dataset/trocr_ready_data/ 2>/dev/null || echo "Dataset not included"
+environment: azureml:AzureML-sklearn-1.0-ubuntu20.04-py38-cpu@latest
+description: Upload Swedish Handwriting OCR project code to Azure ML
+display_name: swedish-handwriting-ocr-upload
+tags:
+  project: swedish-handwriting-ocr
+  purpose: code-upload

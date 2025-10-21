@@ -8,6 +8,15 @@ accelerate>=0.26.0  # Required for HuggingFace Trainer
 
 # Training utilities  
 wandb>=0.15.0
-numpy>=1.24.0
+numpy  # Use environment default (NumPy 2.x compatible)
 Pillow>=9.5.0
 pyyaml>=6.0
+
+# Data processing dependencies (orchestrator pipeline)
+scikit-learn>=1.3.0  # Required for train_test_split in dataset_splitter.py
+opencv-python>=4.8.0  # Required for cv2 in image processing modules
+matplotlib>=3.7.0  # Required for visualizations
+reportlab>=4.0.0  # Required for PDF template generation in template_generator/
+
+# Development tools (for Jupyter notebooks and development)
+jupyter>=1.0.0

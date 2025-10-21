@@ -394,6 +394,97 @@ The training system uses intelligent path detection from `config/paths.py`:
 - **Azure ML**: Automatically detects mounted data and adjusts paths
 - **Version management**: Always uses latest dataset version automatically
 
+## Azure ML Integration
+
+This project supports cloud-based training and deployment through Azure Machine Learning for scalable model development.
+
+### Setup Prerequisites
+
+```bash
+# Install Azure ML CLI and SDK
+pip install azure-ai-ml azure-cli
+
+# Authenticate with Azure
+az login
+
+# Configure Azure CLI defaults (saves typing resource group repeatedly)
+az config set defaults.group=<your-resource-group>
+
+# Verify workspace connection
+az ml workspace show --name <your-workspace-name> --output table
+```
+
+### Local to Cloud Migration
+
+**Quick Start:**
+1. **Verify Azure connection** - Test workspace access
+2. **Create compute instance** - GPU-enabled instance for training
+3. **Upload project** - Via Azure ML Studio or Git
+4. **Install dependencies** - Run `pip install -r requirements.txt` on compute instance
+5. **Test training pipeline** - Validate environment with dry run
+
+### Development Workflow
+
+**Recommended hybrid approach:**
+- **Local development** - Quick testing with small datasets
+- **Azure ML training** - Full-scale training on complete dataset
+- **Model evaluation** - Both local and cloud-based evaluation
+
+```bash
+# Local testing (quick iteration)
+python -m scripts.training.train_model --dry_run --epochs 1
+
+# Cloud training (production scale)
+az ml job create --file azure-training-job.yml --workspace-name <workspace>
+
+# Model evaluation
+python -m scripts.evaluation.evaluate_model --model-path ./models/latest/
+```
+
+### Key Features
+
+- **Automated dataset management** - Register and version control training data
+- **Scalable compute** - GPU clusters for large-scale training
+- **Experiment tracking** - Integration with WandB and Azure ML experiments
+- **Model versioning** - Automated model registration and deployment
+- **Cost optimization** - Start/stop compute instances as needed
+
+### Environment Configuration
+
+Create custom environment for TrOCR training:
+
+```yaml
+# environment.yml
+name: trocr-swedish-env
+channels:
+  - conda-forge
+  - pytorch
+dependencies:
+  - python=3.8
+  - pytorch::pytorch>=1.13.0
+  - pytorch::torchvision
+  - pip
+  - pip:
+    - transformers>=4.21.0
+    - datasets>=2.0.0
+    - pillow>=8.3.0
+    - wandb
+    - azure-ai-ml
+```
+
+### Azure ML vs Local Development
+
+| Feature | Local Development | Azure ML |
+|---------|------------------|----------|
+| **Dataset Access** | Local file system | Azure ML datastores |
+| **Training Command** | Direct Python execution | Azure ML job submission |
+| **Model Storage** | Local directory | Azure ML model registry |
+| **Compute Resources** | Local GPU | Scalable GPU clusters |
+| **Experiment Tracking** | Local logs | Azure ML + WandB integration |
+| **Cost** | Hardware ownership | Pay-per-use cloud resources |
+
+For detailed setup instructions and specific Azure configurations, see `TrOCR_Setup_Plan.ipynb`.
+
 ## Model Evaluation
 
 The system includes a comprehensive evaluation framework that automatically adapts to your environment for optimal testing workflow.
