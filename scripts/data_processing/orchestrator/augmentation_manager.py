@@ -188,21 +188,21 @@ class AugmentationManager:
                 aug_groups[original_name].append(aug_path)
 
         # Find matching original annotations and create augmented versions
-            for original_ann in original_annotations:
-                original_path = Path(original_ann['image_path'])
-                original_name = original_path.stem
+        for original_ann in original_annotations:
+            original_path = Path(original_ann['image_path'])
+            original_name = original_path.stem
 
-                if original_name in aug_groups:
-                    for aug_path in aug_groups[original_name]:
-                        aug_annotation = original_ann.copy()
-                        aug_annotation['image_path'] = str(aug_path.relative_to(aug_path.parent.parent))
-                        aug_annotation['category'] = 'word_augmented' # Mark as augmented
-                        aug_annotation['confidence'] = original_ann.get('confidence', 1.0) * 0.95 # Slightly lower confidence
+            if original_name in aug_groups:
+                for aug_path in aug_groups[original_name]:
+                    aug_annotation = original_ann.copy()
+                    aug_annotation['image_path'] = str(aug_path.relative_to(aug_path.parent.parent))
+                    aug_annotation['category'] = 'word_augmented' # Mark as augmented
+                    aug_annotation['confidence'] = original_ann.get('confidence', 1.0) * 0.95 # Slightly lower confidence
 
-                        updated_annotations.append(aug_annotation)
+                    updated_annotations.append(aug_annotation)
 
-            logger.info(f"Added {len(updated_annotations) - len(original_annotations)} augmented annotations")
-            return updated_annotations
+        logger.info(f"Added {len(updated_annotations) - len(original_annotations)} augmented annotations")
+        return updated_annotations
 
     def save_config(self, output_path: Path) -> None:
         """Save augmentation configuration to JSON file"""
