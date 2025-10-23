@@ -29,9 +29,10 @@ class TrainingConfig:
     dataloader_num_workers = 4
     
     # Evaluation settings
-    eval_steps = 200
-    save_steps = 1000
-    logging_steps = 50
+    eval_steps = 1000 # 200
+    save_steps = 3000
+    save_total_limit = 3 # Added for less hdd
+    logging_steps = 100
 
     def __init__(self):
         logging.basicConfig(
@@ -137,6 +138,7 @@ def train_model(args):
         eval_strategy="steps",
         eval_steps=config.eval_steps,
         save_steps=config.save_steps,
+        save_total_limit = config.save_total_limit, # added
         logging_steps=config.logging_steps,
         predict_with_generate=True,  # Critical for text generation
         fp16=config.fp16,
