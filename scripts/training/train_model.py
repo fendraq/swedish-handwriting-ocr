@@ -16,7 +16,7 @@ class TrainingConfig:
     # Model settings
     model_name = 'microsoft/trocr-base-handwritten'
 
-    # Training settings - Azure optimized
+    # Training settings - Cloud optimized
     batch_size = 16
     eval_batch_size = 32
     gradient_accumulation_steps = 2  # Effective batch = 32
@@ -24,7 +24,7 @@ class TrainingConfig:
     num_epochs = 10
     warmup_steps = 500
     
-    # Azure GPU optimizations
+    # Cloud GPU optimizations
     fp16 = True
     dataloader_num_workers = 4
     

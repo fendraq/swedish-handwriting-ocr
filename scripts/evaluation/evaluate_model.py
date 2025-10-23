@@ -60,7 +60,7 @@ class TrOCRModelEvaluator:
         if self.env_type == 'local':
             self.logger.info("Local environment detected - single image evaluation mode")
         else:
-            self.logger.info("Azure ML environment detected - full test split evaluation mode")
+            self.logger.info("Cloud environment detected - full test split evaluation mode")
 
     def _setup_device(self, device: str) -> str:
         """
@@ -220,10 +220,10 @@ class TrOCRModelEvaluator:
         """
         Get evaluation data from gt_test.txt
         Local: Random single test entry
-        Azure: All test data entries
+        Cloud: All test data entries
 
         Returns: 
-            tuple or list: (Path, str) tuple (local) or list of (Path, str) tuples (Azure)
+            tuple or list: (Path, str) tuple (local) or list of (Path, str) tuples (Cloud)
         """
         test_data = self._load_test_data()
 
@@ -234,7 +234,7 @@ class TrOCRModelEvaluator:
             self.logger.info(f"Selected random test image: {image_path.name}")
             return selected_entry
         else:
-            # All test data when Azure
+            # All test data when Cloud
             self.logger.info(f"Found {len(test_data)} test entries for evaluation")
             return test_data
 
@@ -394,7 +394,7 @@ class TrOCRModelEvaluator:
         """
         Main evaluation method - automatically adapts to environment.
         Local: Single random image with ground truth comparison
-        Azure: Full test split with comprehensive metrics
+        Cloud: Full test split with comprehensive metrics
         
         Returns:
             dict: Evaluation results adapted to environment

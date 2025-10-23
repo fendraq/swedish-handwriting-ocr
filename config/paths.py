@@ -3,75 +3,53 @@ import os
 
 def detect_project_environment():
     """
-    Detect if we're running locally or on Azure ML
+    Detect if we're running locally or in cloud
     
     Returns:
         tuple: (environment_type, project_root_path)
-        environment_type: 'local' | 'azure_ml' 
+        environment_type: 'local' | 'cloud' 
         project_root_path: Path to project root
     """
-
-    # Check for Azure ML environment variables
-    azure_indicators = [
-        'AZUREML_RUN_ID',
-        'AZUREML_EXPERIMENT_ID', 
-        'AZUREML_RUN_TOKEN',
-        'AZUREML_DATAREFERENCE_data'
-    ]
-
-    is_azure = any(var in os.environ for var in azure_indicators)
-
-    if is_azure:
-        current_file_parent = Path(__file__).parent.parent
-
-        # Check for mounted dataset
-        if 'AZUREML_DATAREFERENCE_data' in os.environ:
-            azure_data_mount = Path(os.environ['AZUREML_DATAREFERENCE_data'])
-
-            # If mount contains project structure (dataset/)
-            if (azure_data_mount / "dataset").exists():
-                return 'azure_ml', azure_data_mount
-            
-            # If mount IS the dataset directory
-            elif (azure_data_mount / "trocr_ready_data").exists():
-                # Create virtual project root
-                return 'azure_ml', azure_data_mount.parent
-            
-        # Fallback: use working directory on Azure
-        return 'azure_ml', current_file_parent
     
-    # Local development
-    return 'local', Path(__file__).parent.parent
+    # Check for local development indicators
+    local_indicators = [
+        # Windows paths
+        'C:\\Users\\',
+        'C:/Users/',
+        # Linux/Mac home paths  
+        '/home/',
+        '/Users/',
+        # WSL paths
+        '/mnt/c/Users/',
+    ]
+    
+    # Check current working directory and parents
+    current_path = str(Path.cwd())
+    
+    # Also check for development tools in parent directories
+    has_dev_tools = any(
+        (Path.cwd() / tool).exists() or 
+        any((parent / tool).exists() for parent in Path.cwd().parents)
+        for tool in ['.vscode', 'venv', '.git']
+    )
+    
+    is_local = any(indicator in current_path for indicator in local_indicators) or has_dev_tools
+    
+    if is_local:
+        return 'local', Path(__file__).parent.parent
+    else:
+        return 'cloud', Path(__file__).parent.parent
 
 def get_dataset_root():
     """
-    Get dataset root directory - Azure ML aware
+    Get dataset root directory - Cloud aware
     
     Returns:
         Path: Dataset root directory
     """
     env_type, project_root = detect_project_environment()
-
-    if env_type == 'azure_ml':
-        # Check for direct dataset mount
-        if 'AZUREML_DATAREFERENCE_data' in os.environ:
-            azure_data = Path(os.environ['AZUREML_DATAREFERENCE_data'])
-
-            # If Azure mount contains dataset folder
-            if (azure_data / "dataset").exists():
-                return azure_data / "dataset"
-            
-            # If Azure mount IS the dataset folder (trocr_ready_data exists)
-            elif (azure_data / "trocr_ready_data").exists():
-                return azure_data
-            
-            # Fallback
-            return azure_data
-        
-        # No direct mount, use project structure
-        return project_root / "dataset"
     
-    # Local development
+    # For both local and cloud, use standard project structure
     return project_root / "dataset"
 
 # Dynamic roots based on environment detection
@@ -87,11 +65,19 @@ def debug_paths():
     print("Paths exist check:")
     print(f"  Dataset Root exists: {DATASET_ROOT.exists()}")
     print(f"  TrOCR Ready exists: {DatasetPaths.TROCR_READY_DATA.exists()}")
-    if ENV_TYPE == 'azure_ml':
-        print("Azure ML Environment Variables:")
-        for key, value in os.environ.items():
-            if 'AZUREML' in key:
+    print(f"Current working directory: {Path.cwd()}")
+    
+    if ENV_TYPE == 'cloud':
+        print("Cloud environment detected")
+        # Show cloud-specific info if any environment variables exist
+        cloud_vars = {k: v for k, v in os.environ.items() 
+                     if any(indicator in k for indicator in ['RUNPOD', 'COLAB', 'AZUREML', 'AWS'])}
+        if cloud_vars:
+            print("Cloud environment variables:")
+            for key, value in cloud_vars.items():
                 print(f"  {key}: {value}")
+    else:
+        print("Local development environment detected")
 
 # Project root
 DOCS_ROOT = PROJECT_ROOT / "docs"
@@ -131,9 +117,6 @@ class DatasetPaths:
     TROCR_READY_DATA = DATASET_ROOT / "trocr_ready_data"
     CURRENT_VERSION = TROCR_READY_DATA / "current"
     LOGS = PROJECT_ROOT / "logs"  # Pipeline logs
-
-    # Azure ready
-    AZURE_READY = DATASET_ROOT / "azure_ready" # Legacy - to be removed
 
 # Documentation paths 
 class DocsPaths:

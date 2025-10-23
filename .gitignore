@@ -82,3 +82,6 @@ TrOCR_Setup_Plan.ipynb
 
 # Azure config
 .azureml
+
+# .tar files
+*.tar.gz
