@@ -80,6 +80,9 @@ def create_compute_metrics(processor):
         """
         predictions, labels = eval_pred
 
+        # Replace -100 in labels (used for ignored tokens during loss calculation)
+        labels = np.where(labels != -100, labels, processor.tokenizer.pad_token_id)
+
         # Decode token IDs to text
         decoded_preds = processor.batch_decode(predictions, skip_special_tokens=True)
         decoded_labels = processor.batch_decode(labels, skip_special_tokens=True)
