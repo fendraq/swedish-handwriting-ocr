@@ -112,7 +112,8 @@ class TrOCRDatasetSplitter:
 
 def create_dataset_splits(annotations_path: Path, output_dir: Path, 
                           train_ratio: float = 0.7, val_ratio: float = 0.15,
-                          test_ratio: float = 0.15, random_state: int = 42) -> Dict[str, Path]:
+                          test_ratio: float = 0.15, random_state: int = 42,
+                          use_augmented: bool = True) -> Dict[str, Path]:
     """
     Main function to create TrOCR-compatible dataset splits from annotations.
     
@@ -126,11 +127,21 @@ def create_dataset_splits(annotations_path: Path, output_dir: Path,
         val_ratio: Proportion for validation set (default 0.15) 
         test_ratio: Proportion for test set (default 0.15)
         random_state: Random seed for reproducible splits
+        use_augmented: If True, uses annotations_augmented,json
         
     Returns:
         Dictionary mapping split names to TXT file paths
     """
     logger.info(f"Creating TrOCR dataset splits from {annotations_path}")
+
+    # Use augmented annotations if requested and available
+    if use_augmented:
+        augmented_path = annotations_path.parent / "annotations_augmented.json"
+        if augmented_path.exists():
+            annotations_path = augmented_path
+            logger.info(f"Using augmented annotations: {annotations_path}")
+        else:
+            logger.warning(f"Augmented annotations not found at {augmented_path}, using original")
 
     # Create splitter instance
     splitter = TrOCRDatasetSplitter(

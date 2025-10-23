@@ -61,13 +61,9 @@ class SwedishHandwritingDataset(Dataset):
         # Load and validate dataset
         self.data = self._load_gt_file()
 
-        if self.dry_run:
-            # For dry_run, count from loaded data (tuples of (Path, str))
-            original_count = len([item for item in self.data if not str(item[0]).endswith('_aug')])
-            augmented_count = len([item for item in self.data if str(item[0]).endswith('_aug')])
-        else:
-            original_count = sum(1 for line in open(self.gt_file_path, 'r') if line.strip())
-            augmented_count = len(self.data) - original_count
+        # Count original vs augmented based on filename patterns
+        original_count = len([item for item in self.data if not str(item[0]).endswith('_aug')])
+        augmented_count = len([item for item in self.data if str(item[0]).endswith('_aug')])
 
         self._validate_dataset()
 
@@ -164,22 +160,6 @@ class SwedishHandwritingDataset(Dataset):
                         img_path = self.image_base_path / img_path
 
                     data.append((img_path, text))
-
-                    # Add augmented variants if they exist
-                    if 'images/' in img_path_str:
-                        # Convert images/file.jpg to images_augmented/file_aug_0X
-                        aug_base_path = img_path_str.replace('images/', 'images_augmented').replace('.jpg', '')
-
-                        for i in range(3): 
-                            aug_path_str = f"{aug_base_path}_aug_0{i}.jpg"
-                            aug_path = Path(aug_path_str)
-
-                            if not aug_path.is_absolute() and self.image_base_path:
-                                aug_path = self.image_base_path / aug_path
-
-                            # Only add if file exists
-                            if aug_path.exists():
-                                data.append((aug_path, text))
 
                     # Dry run: Limit to 10 first samples (not counting augmented)
                     if self.dry_run and len(data) >= 10:

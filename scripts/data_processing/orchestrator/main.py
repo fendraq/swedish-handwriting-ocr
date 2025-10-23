@@ -412,7 +412,8 @@ class PipelineRunner:
                 train_ratio=self.config.train_ratio,
                 val_ratio=self.config.val_ratio,
                 test_ratio=self.config.test_ratio,
-                random_state=42
+                random_state=42,
+                use_augmented=True
             )
 
             # Count samples in each split
