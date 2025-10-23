@@ -57,10 +57,10 @@ class TrOCRModelEvaluator:
         self.logger.info(f"Running device: {self.device}")
 
         # Set evaluation mode based on environment
-        if self.env_type == 'local':
+        """ if self.env_type == 'local':
             self.logger.info("Local environment detected - single image evaluation mode")
-        else:
-            self.logger.info("Cloud environment detected - full test split evaluation mode")
+        else: """
+        self.logger.info("Cloud environment detected - full test split evaluation mode")
 
     def _setup_device(self, device: str) -> str:
         """
@@ -227,16 +227,16 @@ class TrOCRModelEvaluator:
         """
         test_data = self._load_test_data()
 
-        if self.env_type == 'local':
+        """ if self.env_type == 'local':
             # Random entry from test split
             selected_entry = random.choice(test_data)
             image_path, gt_text = selected_entry
             self.logger.info(f"Selected random test image: {image_path.name}")
             return selected_entry
-        else:
+        else: """
             # All test data when Cloud
-            self.logger.info(f"Found {len(test_data)} test entries for evaluation")
-            return test_data
+        self.logger.info(f"Found {len(test_data)} test entries for evaluation")
+        return test_data
 
     def evaluate_test_split(self) -> dict:
         """
@@ -399,10 +399,10 @@ class TrOCRModelEvaluator:
         Returns:
             dict: Evaluation results adapted to environment
         """
-        if self.env_type == 'local':
+        """ if self.env_type == 'local':
             return self._evaluate_local()
-        else:
-            return self.evaluate_test_split()
+        else: """
+        return self.evaluate_test_split()
         
 
 if __name__ == "__main__":
