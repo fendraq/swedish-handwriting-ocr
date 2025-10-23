@@ -1,6 +1,6 @@
 # Swedish Handwriting OCR
 
-A production-ready system for training and deploying TrOCR models for Swedish handwritten text recognition. The system provides comprehensive tools for data collection, preprocessing, model training, and evaluation with Azure ML compatibility.
+A production-ready system for training and deploying TrOCR models for Swedish handwritten text recognition. The system provides comprehensive tools for data collection, preprocessing, model training, and evaluation with cloud platform compatibility.
 
 ## Project Structure
 
@@ -43,7 +43,7 @@ swedish_handwritten_ocr/
 │   │   │   └── segment_images.py # Segment scanned images
 │   │   └── data_preparation/    # Data formatting utilities
 │   ├── training/                # TrOCR model training pipeline
-│   │   ├── train_model.py          # Main training script with Azure ML support
+│   │   ├── train_model.py          # Main training script with cloud support
 │   │   ├── dataset_loader.py       # Swedish handwriting dataset loader
 │   │   └── evaluation/
 │   │       └── metrics.py          # Comprehensive Swedish OCR metrics
@@ -105,7 +105,7 @@ python -m scripts.evaluation.evaluate_model
 **Features**:
 - **HuggingFace Integration**: Seq2SeqTrainer with automatic mixed-precision training
 - **Swedish Optimization**: Custom metrics and tokenization for Swedish characters (å, ä, ö)
-- **Azure ML Support**: Automatic environment detection for cloud deployment
+- **Cloud Platform Support**: Automatic environment detection for cloud deployment
 - **Model Persistence**: Complete model saving with tokenizer and configuration
 
 ### Evaluation System
@@ -293,11 +293,11 @@ python -m scripts.data_processing.template_generator.generate_templates
 python -m scripts.data_processing.image_segmentation.segment_images [options]
 ```
 
-The project uses centralized path configuration in `config/paths.py`. All file paths are relative to the project root, ensuring compatibility with Azure ML and other deployment environments.
+The project uses centralized path configuration in `config/paths.py`. All file paths are relative to the project root, ensuring compatibility with cloud platforms and other deployment environments.
 
 ## Model Training
 
-The system includes a complete TrOCR fine-tuning pipeline with Azure ML compatibility, comprehensive metrics evaluation, and intelligent path management.
+The system includes a complete TrOCR fine-tuning pipeline with cloud platform compatibility, comprehensive metrics evaluation, and intelligent path management.
 
 ### Training Pipeline Features
 - **HuggingFace Seq2SeqTrainer**: Optimized training loop with automatic mixed-precision and gradient accumulation
@@ -343,21 +343,24 @@ models/
 └── (other training runs...)
 ```
 
-### Azure ML Deployment
-The training pipeline automatically detects Azure ML environments and adapts paths accordingly:
+### Cloud Platform Deployment
+The training pipeline automatically detects cloud environments and adapts paths accordingly:
 
 ```bash
 # Local development (automatic detection)
 python -m scripts.training.train_model --epochs 10
 
-# Azure ML (automatic detection via environment variables)
+# Cloud platforms (automatic detection)
+# Works on RunPod, Google Colab, Azure ML, AWS SageMaker, etc.
 # No code changes needed - paths.py handles environment detection
 ```
 
-**Azure ML Environment Variables Detected:**
-- `AZUREML_RUN_ID`
-- `AZUREML_EXPERIMENT_ID`
-- `AZUREML_DATAREFERENCE_data`
+**Supported Cloud Platforms:**
+- **RunPod**: GPU instances for cost-effective training
+- **Google Colab**: Free and Pro tiers with GPU access
+- **Azure ML**: Enterprise machine learning platform
+- **AWS SageMaker**: Amazon's ML training service
+- **Other cloud platforms**: Automatic detection based on environment
 
 ### Training Metrics and Evaluation
 The training pipeline includes comprehensive Swedish handwriting metrics:
@@ -391,99 +394,87 @@ models/
 
 The training system uses intelligent path detection from `config/paths.py`:
 - **Local development**: Uses dataset versions from `dataset/trocr_ready_data/`
-- **Azure ML**: Automatically detects mounted data and adjusts paths
+- **Cloud platforms**: Automatically detects cloud environment and adjusts paths
 - **Version management**: Always uses latest dataset version automatically
 
-## Azure ML Integration
+## Cloud Platform Integration
 
-This project supports cloud-based training and deployment through Azure Machine Learning for scalable model development.
+This project supports cloud-based training and deployment across multiple platforms for scalable model development.
 
-### Setup Prerequisites
+### Quick Cloud Setup
 
+**RunPod (Recommended for cost-effective GPU training):**
 ```bash
-# Install Azure ML CLI and SDK
-pip install azure-ai-ml azure-cli
+# 1. Start GPU instance with PyTorch template
+# 2. Clone project in Jupyter/terminal
+git clone https://github.com/your-username/swedish-handwriting-ocr.git
+cd swedish-handwriting-ocr
+pip install -r requirements.txt
 
-# Authenticate with Azure
-az login
-
-# Configure Azure CLI defaults (saves typing resource group repeatedly)
-az config set defaults.group=<your-resource-group>
-
-# Verify workspace connection
-az ml workspace show --name <your-workspace-name> --output table
+# 3. Upload dataset and start training
+python -m scripts.training.train_model --epochs 10
 ```
 
-### Local to Cloud Migration
+**Google Colab:**
+```bash
+# 1. Mount Google Drive and clone project
+from google.colab import drive
+drive.mount('/content/drive')
+!git clone https://github.com/your-username/swedish-handwriting-ocr.git
+%cd swedish-handwriting-ocr
+!pip install -r requirements.txt
 
-**Quick Start:**
-1. **Verify Azure connection** - Test workspace access
-2. **Create compute instance** - GPU-enabled instance for training
-3. **Upload project** - Via Azure ML Studio or Git
-4. **Install dependencies** - Run `pip install -r requirements.txt` on compute instance
-5. **Test training pipeline** - Validate environment with dry run
+# 2. Start training with GPU
+!python -m scripts.training.train_model --epochs 10
+```
 
 ### Development Workflow
 
-**Recommended hybrid approach:**
-- **Local development** - Quick testing with small datasets
-- **Azure ML training** - Full-scale training on complete dataset
-- **Model evaluation** - Both local and cloud-based evaluation
+**Recommended approach:**
+- **Local development** - Quick testing with small datasets  
+- **Cloud training** - Full-scale training on complete dataset
+- **Model evaluation** - Automatic adaptation to environment
 
 ```bash
 # Local testing (quick iteration)
 python -m scripts.training.train_model --dry_run --epochs 1
 
-# Cloud training (production scale)
-az ml job create --file azure-training-job.yml --workspace-name <workspace>
+# Cloud training (production scale - works on any cloud platform)
+python -m scripts.training.train_model --epochs 10 --wandb
 
-# Model evaluation
+# Model evaluation (adapts automatically to environment)
 python -m scripts.evaluation.evaluate_model --model-path ./models/latest/
 ```
 
+### Cloud Platform Comparison
+
+| Platform | Cost | Setup Ease | GPU Availability | Best For |
+|----------|------|------------|------------------|----------|
+| **RunPod** | Very Low ($0.40/hr A40) | Easy | Excellent | Cost-effective training |
+| **Google Colab** | Low (Free/Pro) | Very Easy | Good | Quick experiments |
+| **Azure ML** | Medium-High | Medium | Good | Enterprise integration |
+| **AWS SageMaker** | Medium-High | Medium | Excellent | AWS ecosystem |
+
 ### Key Features
 
-- **Automated dataset management** - Register and version control training data
-- **Scalable compute** - GPU clusters for large-scale training
-- **Experiment tracking** - Integration with WandB and Azure ML experiments
-- **Model versioning** - Automated model registration and deployment
-- **Cost optimization** - Start/stop compute instances as needed
+- **Universal compatibility** - Works across all major cloud platforms
+- **Automatic environment detection** - No code changes needed for different clouds
+- **Scalable compute** - GPU instances for cost-effective training
+- **Experiment tracking** - Integration with WandB and cloud-native logging
+- **Intelligent evaluation** - Adapts between local and cloud evaluation modes
 
-### Environment Configuration
+### Local vs Cloud Development
 
-Create custom environment for TrOCR training:
+| Feature | Local Development | Cloud Platforms |
+|---------|------------------|-----------------|
+| **Evaluation Mode** | Single random image | Full test dataset |
+| **Dataset Access** | Local file system | Cloud storage/upload |
+| **Training Command** | Direct Python execution | Same commands, auto-detected |
+| **Model Storage** | Local directory | Cloud instance storage |
+| **Compute Resources** | Local GPU | Cloud GPU instances |
+| **Cost** | Hardware ownership | Pay-per-use |
 
-```yaml
-# environment.yml
-name: trocr-swedish-env
-channels:
-  - conda-forge
-  - pytorch
-dependencies:
-  - python=3.8
-  - pytorch::pytorch>=1.13.0
-  - pytorch::torchvision
-  - pip
-  - pip:
-    - transformers>=4.21.0
-    - datasets>=2.0.0
-    - pillow>=8.3.0
-    - wandb
-    - azure-ai-ml
-```
-
-### Azure ML vs Local Development
-
-| Feature | Local Development | Azure ML |
-|---------|------------------|----------|
-| **Dataset Access** | Local file system | Azure ML datastores |
-| **Training Command** | Direct Python execution | Azure ML job submission |
-| **Model Storage** | Local directory | Azure ML model registry |
-| **Compute Resources** | Local GPU | Scalable GPU clusters |
-| **Experiment Tracking** | Local logs | Azure ML + WandB integration |
-| **Cost** | Hardware ownership | Pay-per-use cloud resources |
-
-For detailed setup instructions and specific Azure configurations, see `TrOCR_Setup_Plan.ipynb`.
+For detailed Azure ML specific setup, see the Azure ML section below.
 
 ## Model Evaluation
 
@@ -503,9 +494,9 @@ python -m scripts.evaluation.evaluate_model --model-path models/specific-model
 python -m scripts.evaluation.evaluate_model --device cpu
 ```
 
-**Azure ML (Full Test Split Evaluation):**
+**Cloud Platforms (Full Test Split Evaluation):**
 ```bash
-# Same command - automatically detects Azure environment
+# Same command - automatically detects cloud environment
 python -m scripts.evaluation.evaluate_model --output evaluation_results.json
 ```
 
@@ -517,7 +508,7 @@ python -m scripts.evaluation.evaluate_model --output evaluation_results.json
 - **Quick feedback**: Perfect for development and debugging
 - **Simple output**: Clean comparison without overwhelming metrics
 
-**Azure Mode (Production):**
+**Cloud Mode (Production):**
 - **Full test split**: Evaluates entire test dataset from gt_test.txt
 - **Comprehensive metrics**: CER, WER, BLEU, Swedish character accuracy, exact match
 - **Progress tracking**: Real-time progress updates during evaluation
@@ -535,7 +526,7 @@ Ground Truth: 'Björk'
 Match: ✗
 ```
 
-**Azure Evaluation Metrics:**
+**Cloud Evaluation Metrics:**
 ```
 === EVALUATION RESULTS ===
 CER: 0.0234
