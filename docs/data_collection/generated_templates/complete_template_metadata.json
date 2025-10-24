@@ -1,0 +1,6518 @@
+{
+  "pdf_file": "/home/fendraq/wsl_projects/swedish_handwritten_ocr/docs/data_collection/generated_templates/swedish_handwriting_template.pdf",
+  "total_words": 341,
+  "total_pages": 17,
+  "categories": [
+    "places_locations",
+    "emotional_terms",
+    "religious_terms",
+    "funeral_terms",
+    "practical_terms",
+    "swedish_names"
+  ],
+  "reference_system": {
+    "reference_markers": {
+      "top_left": [
+        36.85039370078741,
+        805.0393700787403
+      ],
+      "top_right": [
+        558.4251968503937,
+        805.0393700787403
+      ],
+      "bottom_left": [
+        36.85039370078741,
+        36.85039370078741
+      ],
+      "bottom_right": [
+        558.4251968503937,
+        36.85039370078741
+      ]
+    },
+    "marker_type": "circle_with_cross",
+    "circle_radius_mm": 4.0,
+    "cross_size_mm": 2.0,
+    "description": "Four corner reference markers for coordinate transformation"
+  },
+  "words": [
+    {
+      "text": "Åsa",
+      "page": 1,
+      "position": [
+        56.69291338582678,
+        621.6377952755907,
+        280.62992125984255,
+        658.4881889763782
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_000",
+      "relative_position": [
+        19.84251968503937,
+        -183.40157480314951,
+        243.77952755905514,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "ÅSA",
+      "page": 1,
+      "position": [
+        297.6377952755906,
+        621.6377952755907,
+        521.5748031496064,
+        658.4881889763782
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_001",
+      "relative_position": [
+        260.7874015748032,
+        -183.40157480314951,
+        484.72440944881896,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "Åke",
+      "page": 1,
+      "position": [
+        56.69291338582678,
+        561.1181102362207,
+        280.62992125984255,
+        597.9685039370081
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_002",
+      "relative_position": [
+        19.84251968503937,
+        -243.9212598425196,
+        243.77952755905514,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "ÅKE",
+      "page": 1,
+      "position": [
+        297.6377952755906,
+        561.1181102362207,
+        521.5748031496064,
+        597.9685039370081
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_003",
+      "relative_position": [
+        260.7874015748032,
+        -243.9212598425196,
+        484.72440944881896,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "Åsa-Lena",
+      "page": 1,
+      "position": [
+        56.69291338582678,
+        500.5984251968506,
+        280.62992125984255,
+        537.448818897638
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_004",
+      "relative_position": [
+        19.84251968503937,
+        -304.44094488188966,
+        243.77952755905514,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "ÅSA-LENA",
+      "page": 1,
+      "position": [
+        297.6377952755906,
+        500.5984251968506,
+        521.5748031496064,
+        537.448818897638
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_005",
+      "relative_position": [
+        260.7874015748032,
+        -304.44094488188966,
+        484.72440944881896,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "Märta",
+      "page": 1,
+      "position": [
+        56.69291338582678,
+        440.07874015748047,
+        280.62992125984255,
+        476.92913385826785
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_006",
+      "relative_position": [
+        19.84251968503937,
+        -364.9606299212598,
+        243.77952755905514,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "MÄRTA",
+      "page": 1,
+      "position": [
+        297.6377952755906,
+        440.07874015748047,
+        521.5748031496064,
+        476.92913385826785
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_007",
+      "relative_position": [
+        260.7874015748032,
+        -364.9606299212598,
+        484.72440944881896,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "Gösta",
+      "page": 1,
+      "position": [
+        56.69291338582678,
+        379.5590551181104,
+        280.62992125984255,
+        416.4094488188978
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_008",
+      "relative_position": [
+        19.84251968503937,
+        -425.48031496062987,
+        243.77952755905514,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "GÖSTA",
+      "page": 1,
+      "position": [
+        297.6377952755906,
+        379.5590551181104,
+        521.5748031496064,
+        416.4094488188978
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_009",
+      "relative_position": [
+        260.7874015748032,
+        -425.48031496062987,
+        484.72440944881896,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "Björn",
+      "page": 1,
+      "position": [
+        56.69291338582678,
+        319.0393700787403,
+        280.62992125984255,
+        355.8897637795277
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_010",
+      "relative_position": [
+        19.84251968503937,
+        -485.99999999999994,
+        243.77952755905514,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "BJÖRN",
+      "page": 1,
+      "position": [
+        297.6377952755906,
+        319.0393700787403,
+        521.5748031496064,
+        355.8897637795277
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_011",
+      "relative_position": [
+        260.7874015748032,
+        -485.99999999999994,
+        484.72440944881896,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "Sören",
+      "page": 1,
+      "position": [
+        56.69291338582678,
+        258.51968503937024,
+        280.62992125984255,
+        295.3700787401576
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_012",
+      "relative_position": [
+        19.84251968503937,
+        -546.51968503937,
+        243.77952755905514,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "SÖREN",
+      "page": 1,
+      "position": [
+        297.6377952755906,
+        258.51968503937024,
+        521.5748031496064,
+        295.3700787401576
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_013",
+      "relative_position": [
+        260.7874015748032,
+        -546.51968503937,
+        484.72440944881896,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "Pär",
+      "page": 1,
+      "position": [
+        56.69291338582678,
+        198.0000000000001,
+        280.62992125984255,
+        234.85039370078752
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_014",
+      "relative_position": [
+        19.84251968503937,
+        -607.0393700787401,
+        243.77952755905514,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "PÄR",
+      "page": 1,
+      "position": [
+        297.6377952755906,
+        198.0000000000001,
+        521.5748031496064,
+        234.85039370078752
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_015",
+      "relative_position": [
+        260.7874015748032,
+        -607.0393700787401,
+        484.72440944881896,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "Göran",
+      "page": 1,
+      "position": [
+        56.69291338582678,
+        137.48031496063004,
+        280.62992125984255,
+        174.33070866141745
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_016",
+      "relative_position": [
+        19.84251968503937,
+        -667.5590551181102,
+        243.77952755905514,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "GÖRAN",
+      "page": 1,
+      "position": [
+        297.6377952755906,
+        137.48031496063004,
+        521.5748031496064,
+        174.33070866141745
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_017",
+      "relative_position": [
+        260.7874015748032,
+        -667.5590551181102,
+        484.72440944881896,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "Ölver",
+      "page": 2,
+      "position": [
+        56.69291338582678,
+        742.6771653543309,
+        280.62992125984255,
+        779.5275590551183
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_018",
+      "relative_position": [
+        19.84251968503937,
+        -62.36220472440937,
+        243.77952755905514,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "ÖLVER",
+      "page": 2,
+      "position": [
+        297.6377952755906,
+        742.6771653543309,
+        521.5748031496064,
+        779.5275590551183
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_019",
+      "relative_position": [
+        260.7874015748032,
+        -62.36220472440937,
+        484.72440944881896,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "Åsa-Maj",
+      "page": 2,
+      "position": [
+        56.69291338582678,
+        682.1574803149608,
+        280.62992125984255,
+        719.0078740157483
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_020",
+      "relative_position": [
+        19.84251968503937,
+        -122.88188976377944,
+        243.77952755905514,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "ÅSA-MAJ",
+      "page": 2,
+      "position": [
+        297.6377952755906,
+        682.1574803149608,
+        521.5748031496064,
+        719.0078740157483
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_021",
+      "relative_position": [
+        260.7874015748032,
+        -122.88188976377944,
+        484.72440944881896,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "Märta-Lisa",
+      "page": 2,
+      "position": [
+        56.69291338582678,
+        621.6377952755907,
+        280.62992125984255,
+        658.4881889763782
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_022",
+      "relative_position": [
+        19.84251968503937,
+        -183.40157480314951,
+        243.77952755905514,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "MÄRTA-LISA",
+      "page": 2,
+      "position": [
+        297.6377952755906,
+        621.6377952755907,
+        521.5748031496064,
+        658.4881889763782
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_023",
+      "relative_position": [
+        260.7874015748032,
+        -183.40157480314951,
+        484.72440944881896,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "Per-Åke",
+      "page": 2,
+      "position": [
+        56.69291338582678,
+        561.1181102362207,
+        280.62992125984255,
+        597.9685039370081
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_024",
+      "relative_position": [
+        19.84251968503937,
+        -243.9212598425196,
+        243.77952755905514,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "PER-ÅKE",
+      "page": 2,
+      "position": [
+        297.6377952755906,
+        561.1181102362207,
+        521.5748031496064,
+        597.9685039370081
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_025",
+      "relative_position": [
+        260.7874015748032,
+        -243.9212598425196,
+        484.72440944881896,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "Anna-Lena",
+      "page": 2,
+      "position": [
+        56.69291338582678,
+        500.5984251968506,
+        280.62992125984255,
+        537.448818897638
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_026",
+      "relative_position": [
+        19.84251968503937,
+        -304.44094488188966,
+        243.77952755905514,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "ANNA-LENA",
+      "page": 2,
+      "position": [
+        297.6377952755906,
+        500.5984251968506,
+        521.5748031496064,
+        537.448818897638
+      ],
+      "category": "swedish_names",
+      "subcategory": "first_names",
+      "word_id": "swedish_names_027",
+      "relative_position": [
+        260.7874015748032,
+        -304.44094488188966,
+        484.72440944881896,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "Andersson",
+      "page": 2,
+      "position": [
+        56.69291338582678,
+        440.07874015748047,
+        280.62992125984255,
+        476.92913385826785
+      ],
+      "category": "swedish_names",
+      "subcategory": "surnames",
+      "word_id": "swedish_names_028",
+      "relative_position": [
+        19.84251968503937,
+        -364.9606299212598,
+        243.77952755905514,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "ANDERSSON",
+      "page": 2,
+      "position": [
+        297.6377952755906,
+        440.07874015748047,
+        521.5748031496064,
+        476.92913385826785
+      ],
+      "category": "swedish_names",
+      "subcategory": "surnames",
+      "word_id": "swedish_names_029",
+      "relative_position": [
+        260.7874015748032,
+        -364.9606299212598,
+        484.72440944881896,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "Johansson",
+      "page": 2,
+      "position": [
+        56.69291338582678,
+        379.5590551181104,
+        280.62992125984255,
+        416.4094488188978
+      ],
+      "category": "swedish_names",
+      "subcategory": "surnames",
+      "word_id": "swedish_names_030",
+      "relative_position": [
+        19.84251968503937,
+        -425.48031496062987,
+        243.77952755905514,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "JOHANSSON",
+      "page": 2,
+      "position": [
+        297.6377952755906,
+        379.5590551181104,
+        521.5748031496064,
+        416.4094488188978
+      ],
+      "category": "swedish_names",
+      "subcategory": "surnames",
+      "word_id": "swedish_names_031",
+      "relative_position": [
+        260.7874015748032,
+        -425.48031496062987,
+        484.72440944881896,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "Karlsson",
+      "page": 2,
+      "position": [
+        56.69291338582678,
+        319.0393700787403,
+        280.62992125984255,
+        355.8897637795277
+      ],
+      "category": "swedish_names",
+      "subcategory": "surnames",
+      "word_id": "swedish_names_032",
+      "relative_position": [
+        19.84251968503937,
+        -485.99999999999994,
+        243.77952755905514,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "KARLSSON",
+      "page": 2,
+      "position": [
+        297.6377952755906,
+        319.0393700787403,
+        521.5748031496064,
+        355.8897637795277
+      ],
+      "category": "swedish_names",
+      "subcategory": "surnames",
+      "word_id": "swedish_names_033",
+      "relative_position": [
+        260.7874015748032,
+        -485.99999999999994,
+        484.72440944881896,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "Ström",
+      "page": 2,
+      "position": [
+        56.69291338582678,
+        258.51968503937024,
+        280.62992125984255,
+        295.3700787401576
+      ],
+      "category": "swedish_names",
+      "subcategory": "surnames",
+      "word_id": "swedish_names_034",
+      "relative_position": [
+        19.84251968503937,
+        -546.51968503937,
+        243.77952755905514,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "STRÖM",
+      "page": 2,
+      "position": [
+        297.6377952755906,
+        258.51968503937024,
+        521.5748031496064,
+        295.3700787401576
+      ],
+      "category": "swedish_names",
+      "subcategory": "surnames",
+      "word_id": "swedish_names_035",
+      "relative_position": [
+        260.7874015748032,
+        -546.51968503937,
+        484.72440944881896,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "Björk",
+      "page": 2,
+      "position": [
+        56.69291338582678,
+        198.0000000000001,
+        280.62992125984255,
+        234.85039370078752
+      ],
+      "category": "swedish_names",
+      "subcategory": "surnames",
+      "word_id": "swedish_names_036",
+      "relative_position": [
+        19.84251968503937,
+        -607.0393700787401,
+        243.77952755905514,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "BJÖRK",
+      "page": 2,
+      "position": [
+        297.6377952755906,
+        198.0000000000001,
+        521.5748031496064,
+        234.85039370078752
+      ],
+      "category": "swedish_names",
+      "subcategory": "surnames",
+      "word_id": "swedish_names_037",
+      "relative_position": [
+        260.7874015748032,
+        -607.0393700787401,
+        484.72440944881896,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "Lind",
+      "page": 2,
+      "position": [
+        56.69291338582678,
+        137.48031496063004,
+        280.62992125984255,
+        174.33070866141745
+      ],
+      "category": "swedish_names",
+      "subcategory": "surnames",
+      "word_id": "swedish_names_038",
+      "relative_position": [
+        19.84251968503937,
+        -667.5590551181102,
+        243.77952755905514,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "LIND",
+      "page": 2,
+      "position": [
+        297.6377952755906,
+        137.48031496063004,
+        521.5748031496064,
+        174.33070866141745
+      ],
+      "category": "swedish_names",
+      "subcategory": "surnames",
+      "word_id": "swedish_names_039",
+      "relative_position": [
+        260.7874015748032,
+        -667.5590551181102,
+        484.72440944881896,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "Mäll",
+      "page": 3,
+      "position": [
+        56.69291338582678,
+        742.6771653543309,
+        280.62992125984255,
+        779.5275590551183
+      ],
+      "category": "swedish_names",
+      "subcategory": "surnames",
+      "word_id": "swedish_names_040",
+      "relative_position": [
+        19.84251968503937,
+        -62.36220472440937,
+        243.77952755905514,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "MÄLL",
+      "page": 3,
+      "position": [
+        297.6377952755906,
+        742.6771653543309,
+        521.5748031496064,
+        779.5275590551183
+      ],
+      "category": "swedish_names",
+      "subcategory": "surnames",
+      "word_id": "swedish_names_041",
+      "relative_position": [
+        260.7874015748032,
+        -62.36220472440937,
+        484.72440944881896,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "Källström",
+      "page": 3,
+      "position": [
+        56.69291338582678,
+        682.1574803149608,
+        280.62992125984255,
+        719.0078740157483
+      ],
+      "category": "swedish_names",
+      "subcategory": "surnames",
+      "word_id": "swedish_names_042",
+      "relative_position": [
+        19.84251968503937,
+        -122.88188976377944,
+        243.77952755905514,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "KÄLLSTRÖM",
+      "page": 3,
+      "position": [
+        297.6377952755906,
+        682.1574803149608,
+        521.5748031496064,
+        719.0078740157483
+      ],
+      "category": "swedish_names",
+      "subcategory": "surnames",
+      "word_id": "swedish_names_043",
+      "relative_position": [
+        260.7874015748032,
+        -122.88188976377944,
+        484.72440944881896,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "Röd",
+      "page": 3,
+      "position": [
+        56.69291338582678,
+        621.6377952755907,
+        280.62992125984255,
+        658.4881889763782
+      ],
+      "category": "swedish_names",
+      "subcategory": "surnames",
+      "word_id": "swedish_names_044",
+      "relative_position": [
+        19.84251968503937,
+        -183.40157480314951,
+        243.77952755905514,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "RÖD",
+      "page": 3,
+      "position": [
+        297.6377952755906,
+        621.6377952755907,
+        521.5748031496064,
+        658.4881889763782
+      ],
+      "category": "swedish_names",
+      "subcategory": "surnames",
+      "word_id": "swedish_names_045",
+      "relative_position": [
+        260.7874015748032,
+        -183.40157480314951,
+        484.72440944881896,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "Höglund",
+      "page": 3,
+      "position": [
+        56.69291338582678,
+        561.1181102362207,
+        280.62992125984255,
+        597.9685039370081
+      ],
+      "category": "swedish_names",
+      "subcategory": "surnames",
+      "word_id": "swedish_names_046",
+      "relative_position": [
+        19.84251968503937,
+        -243.9212598425196,
+        243.77952755905514,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "HÖGLUND",
+      "page": 3,
+      "position": [
+        297.6377952755906,
+        561.1181102362207,
+        521.5748031496064,
+        597.9685039370081
+      ],
+      "category": "swedish_names",
+      "subcategory": "surnames",
+      "word_id": "swedish_names_047",
+      "relative_position": [
+        260.7874015748032,
+        -243.9212598425196,
+        484.72440944881896,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "göteborg",
+      "page": 4,
+      "position": [
+        56.69291338582678,
+        621.6377952755907,
+        280.62992125984255,
+        658.4881889763782
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_048",
+      "relative_position": [
+        19.84251968503937,
+        -183.40157480314951,
+        243.77952755905514,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "Göteborg",
+      "page": 4,
+      "position": [
+        297.6377952755906,
+        621.6377952755907,
+        521.5748031496064,
+        658.4881889763782
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_049",
+      "relative_position": [
+        260.7874015748032,
+        -183.40157480314951,
+        484.72440944881896,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "GÖTEBORG",
+      "page": 4,
+      "position": [
+        56.69291338582678,
+        561.1181102362207,
+        280.62992125984255,
+        597.9685039370081
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_050",
+      "relative_position": [
+        19.84251968503937,
+        -243.9212598425196,
+        243.77952755905514,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "malmö",
+      "page": 4,
+      "position": [
+        297.6377952755906,
+        561.1181102362207,
+        521.5748031496064,
+        597.9685039370081
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_051",
+      "relative_position": [
+        260.7874015748032,
+        -243.9212598425196,
+        484.72440944881896,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "Malmö",
+      "page": 4,
+      "position": [
+        56.69291338582678,
+        500.5984251968506,
+        280.62992125984255,
+        537.448818897638
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_052",
+      "relative_position": [
+        19.84251968503937,
+        -304.44094488188966,
+        243.77952755905514,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "MALMÖ",
+      "page": 4,
+      "position": [
+        297.6377952755906,
+        500.5984251968506,
+        521.5748031496064,
+        537.448818897638
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_053",
+      "relative_position": [
+        260.7874015748032,
+        -304.44094488188966,
+        484.72440944881896,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "västerås",
+      "page": 4,
+      "position": [
+        56.69291338582678,
+        440.07874015748047,
+        280.62992125984255,
+        476.92913385826785
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_054",
+      "relative_position": [
+        19.84251968503937,
+        -364.9606299212598,
+        243.77952755905514,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "Västerås",
+      "page": 4,
+      "position": [
+        297.6377952755906,
+        440.07874015748047,
+        521.5748031496064,
+        476.92913385826785
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_055",
+      "relative_position": [
+        260.7874015748032,
+        -364.9606299212598,
+        484.72440944881896,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "VÄSTERÅS",
+      "page": 4,
+      "position": [
+        56.69291338582678,
+        379.5590551181104,
+        280.62992125984255,
+        416.4094488188978
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_056",
+      "relative_position": [
+        19.84251968503937,
+        -425.48031496062987,
+        243.77952755905514,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "örebro",
+      "page": 4,
+      "position": [
+        297.6377952755906,
+        379.5590551181104,
+        521.5748031496064,
+        416.4094488188978
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_057",
+      "relative_position": [
+        260.7874015748032,
+        -425.48031496062987,
+        484.72440944881896,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "Örebro",
+      "page": 4,
+      "position": [
+        56.69291338582678,
+        319.0393700787403,
+        280.62992125984255,
+        355.8897637795277
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_058",
+      "relative_position": [
+        19.84251968503937,
+        -485.99999999999994,
+        243.77952755905514,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "ÖREBRO",
+      "page": 4,
+      "position": [
+        297.6377952755906,
+        319.0393700787403,
+        521.5748031496064,
+        355.8897637795277
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_059",
+      "relative_position": [
+        260.7874015748032,
+        -485.99999999999994,
+        484.72440944881896,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "växjö",
+      "page": 4,
+      "position": [
+        56.69291338582678,
+        258.51968503937024,
+        280.62992125984255,
+        295.3700787401576
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_060",
+      "relative_position": [
+        19.84251968503937,
+        -546.51968503937,
+        243.77952755905514,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "Växjö",
+      "page": 4,
+      "position": [
+        297.6377952755906,
+        258.51968503937024,
+        521.5748031496064,
+        295.3700787401576
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_061",
+      "relative_position": [
+        260.7874015748032,
+        -546.51968503937,
+        484.72440944881896,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "VÄXJÖ",
+      "page": 4,
+      "position": [
+        56.69291338582678,
+        198.0000000000001,
+        280.62992125984255,
+        234.85039370078752
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_062",
+      "relative_position": [
+        19.84251968503937,
+        -607.0393700787401,
+        243.77952755905514,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "härjedalen",
+      "page": 4,
+      "position": [
+        297.6377952755906,
+        198.0000000000001,
+        521.5748031496064,
+        234.85039370078752
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_063",
+      "relative_position": [
+        260.7874015748032,
+        -607.0393700787401,
+        484.72440944881896,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "Härjedalen",
+      "page": 4,
+      "position": [
+        56.69291338582678,
+        137.48031496063004,
+        280.62992125984255,
+        174.33070866141745
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_064",
+      "relative_position": [
+        19.84251968503937,
+        -667.5590551181102,
+        243.77952755905514,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "HÄRJEDALEN",
+      "page": 4,
+      "position": [
+        297.6377952755906,
+        137.48031496063004,
+        521.5748031496064,
+        174.33070866141745
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_065",
+      "relative_position": [
+        260.7874015748032,
+        -667.5590551181102,
+        484.72440944881896,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "södermalm",
+      "page": 5,
+      "position": [
+        56.69291338582678,
+        742.6771653543309,
+        280.62992125984255,
+        779.5275590551183
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_066",
+      "relative_position": [
+        19.84251968503937,
+        -62.36220472440937,
+        243.77952755905514,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "Södermalm",
+      "page": 5,
+      "position": [
+        297.6377952755906,
+        742.6771653543309,
+        521.5748031496064,
+        779.5275590551183
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_067",
+      "relative_position": [
+        260.7874015748032,
+        -62.36220472440937,
+        484.72440944881896,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "SÖDERMALM",
+      "page": 5,
+      "position": [
+        56.69291338582678,
+        682.1574803149608,
+        280.62992125984255,
+        719.0078740157483
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_068",
+      "relative_position": [
+        19.84251968503937,
+        -122.88188976377944,
+        243.77952755905514,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "östermalm",
+      "page": 5,
+      "position": [
+        297.6377952755906,
+        682.1574803149608,
+        521.5748031496064,
+        719.0078740157483
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_069",
+      "relative_position": [
+        260.7874015748032,
+        -122.88188976377944,
+        484.72440944881896,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "Östermalm",
+      "page": 5,
+      "position": [
+        56.69291338582678,
+        621.6377952755907,
+        280.62992125984255,
+        658.4881889763782
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_070",
+      "relative_position": [
+        19.84251968503937,
+        -183.40157480314951,
+        243.77952755905514,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "ÖSTERMALM",
+      "page": 5,
+      "position": [
+        297.6377952755906,
+        621.6377952755907,
+        521.5748031496064,
+        658.4881889763782
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_071",
+      "relative_position": [
+        260.7874015748032,
+        -183.40157480314951,
+        484.72440944881896,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "norrköping",
+      "page": 5,
+      "position": [
+        56.69291338582678,
+        561.1181102362207,
+        280.62992125984255,
+        597.9685039370081
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_072",
+      "relative_position": [
+        19.84251968503937,
+        -243.9212598425196,
+        243.77952755905514,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "Norrköping",
+      "page": 5,
+      "position": [
+        297.6377952755906,
+        561.1181102362207,
+        521.5748031496064,
+        597.9685039370081
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_073",
+      "relative_position": [
+        260.7874015748032,
+        -243.9212598425196,
+        484.72440944881896,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "NORRKÖPING",
+      "page": 5,
+      "position": [
+        56.69291338582678,
+        500.5984251968506,
+        280.62992125984255,
+        537.448818897638
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_074",
+      "relative_position": [
+        19.84251968503937,
+        -304.44094488188966,
+        243.77952755905514,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "järfälla",
+      "page": 5,
+      "position": [
+        297.6377952755906,
+        500.5984251968506,
+        521.5748031496064,
+        537.448818897638
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_075",
+      "relative_position": [
+        260.7874015748032,
+        -304.44094488188966,
+        484.72440944881896,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "Järfälla",
+      "page": 5,
+      "position": [
+        56.69291338582678,
+        440.07874015748047,
+        280.62992125984255,
+        476.92913385826785
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_076",
+      "relative_position": [
+        19.84251968503937,
+        -364.9606299212598,
+        243.77952755905514,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "JÄRFÄLLA",
+      "page": 5,
+      "position": [
+        297.6377952755906,
+        440.07874015748047,
+        521.5748031496064,
+        476.92913385826785
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_077",
+      "relative_position": [
+        260.7874015748032,
+        -364.9606299212598,
+        484.72440944881896,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "skogskyrkogården",
+      "page": 5,
+      "position": [
+        56.69291338582678,
+        379.5590551181104,
+        280.62992125984255,
+        416.4094488188978
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_078",
+      "relative_position": [
+        19.84251968503937,
+        -425.48031496062987,
+        243.77952755905514,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "Skogskyrkogården",
+      "page": 5,
+      "position": [
+        297.6377952755906,
+        379.5590551181104,
+        521.5748031496064,
+        416.4094488188978
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_079",
+      "relative_position": [
+        260.7874015748032,
+        -425.48031496062987,
+        484.72440944881896,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "SKOGSKYRKOGÅRDEN",
+      "page": 5,
+      "position": [
+        56.69291338582678,
+        319.0393700787403,
+        280.62992125984255,
+        355.8897637795277
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_080",
+      "relative_position": [
+        19.84251968503937,
+        -485.99999999999994,
+        243.77952755905514,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "första",
+      "page": 5,
+      "position": [
+        297.6377952755906,
+        319.0393700787403,
+        521.5748031496064,
+        355.8897637795277
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_081",
+      "relative_position": [
+        260.7874015748032,
+        -485.99999999999994,
+        484.72440944881896,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "Första",
+      "page": 5,
+      "position": [
+        56.69291338582678,
+        258.51968503937024,
+        280.62992125984255,
+        295.3700787401576
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_082",
+      "relative_position": [
+        19.84251968503937,
+        -546.51968503937,
+        243.77952755905514,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "FÖRSTA",
+      "page": 5,
+      "position": [
+        297.6377952755906,
+        258.51968503937024,
+        521.5748031496064,
+        295.3700787401576
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_083",
+      "relative_position": [
+        260.7874015748032,
+        -546.51968503937,
+        484.72440944881896,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "andra",
+      "page": 5,
+      "position": [
+        56.69291338582678,
+        198.0000000000001,
+        280.62992125984255,
+        234.85039370078752
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_084",
+      "relative_position": [
+        19.84251968503937,
+        -607.0393700787401,
+        243.77952755905514,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "Andra",
+      "page": 5,
+      "position": [
+        297.6377952755906,
+        198.0000000000001,
+        521.5748031496064,
+        234.85039370078752
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_085",
+      "relative_position": [
+        260.7874015748032,
+        -607.0393700787401,
+        484.72440944881896,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "ANDRA",
+      "page": 5,
+      "position": [
+        56.69291338582678,
+        137.48031496063004,
+        280.62992125984255,
+        174.33070866141745
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_086",
+      "relative_position": [
+        19.84251968503937,
+        -667.5590551181102,
+        243.77952755905514,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "tredje",
+      "page": 5,
+      "position": [
+        297.6377952755906,
+        137.48031496063004,
+        521.5748031496064,
+        174.33070866141745
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_087",
+      "relative_position": [
+        260.7874015748032,
+        -667.5590551181102,
+        484.72440944881896,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "Tredje",
+      "page": 6,
+      "position": [
+        56.69291338582678,
+        742.6771653543309,
+        280.62992125984255,
+        779.5275590551183
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_088",
+      "relative_position": [
+        19.84251968503937,
+        -62.36220472440937,
+        243.77952755905514,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "TREDJE",
+      "page": 6,
+      "position": [
+        297.6377952755906,
+        742.6771653543309,
+        521.5748031496064,
+        779.5275590551183
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_089",
+      "relative_position": [
+        260.7874015748032,
+        -62.36220472440937,
+        484.72440944881896,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "norra",
+      "page": 6,
+      "position": [
+        56.69291338582678,
+        682.1574803149608,
+        280.62992125984255,
+        719.0078740157483
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_090",
+      "relative_position": [
+        19.84251968503937,
+        -122.88188976377944,
+        243.77952755905514,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "Norra",
+      "page": 6,
+      "position": [
+        297.6377952755906,
+        682.1574803149608,
+        521.5748031496064,
+        719.0078740157483
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_091",
+      "relative_position": [
+        260.7874015748032,
+        -122.88188976377944,
+        484.72440944881896,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "NORRA",
+      "page": 6,
+      "position": [
+        56.69291338582678,
+        621.6377952755907,
+        280.62992125984255,
+        658.4881889763782
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_092",
+      "relative_position": [
+        19.84251968503937,
+        -183.40157480314951,
+        243.77952755905514,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "södra",
+      "page": 6,
+      "position": [
+        297.6377952755906,
+        621.6377952755907,
+        521.5748031496064,
+        658.4881889763782
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_093",
+      "relative_position": [
+        260.7874015748032,
+        -183.40157480314951,
+        484.72440944881896,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "Södra",
+      "page": 6,
+      "position": [
+        56.69291338582678,
+        561.1181102362207,
+        280.62992125984255,
+        597.9685039370081
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_094",
+      "relative_position": [
+        19.84251968503937,
+        -243.9212598425196,
+        243.77952755905514,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "SÖDRA",
+      "page": 6,
+      "position": [
+        297.6377952755906,
+        561.1181102362207,
+        521.5748031496064,
+        597.9685039370081
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_095",
+      "relative_position": [
+        260.7874015748032,
+        -243.9212598425196,
+        484.72440944881896,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "östra",
+      "page": 6,
+      "position": [
+        56.69291338582678,
+        500.5984251968506,
+        280.62992125984255,
+        537.448818897638
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_096",
+      "relative_position": [
+        19.84251968503937,
+        -304.44094488188966,
+        243.77952755905514,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "Östra",
+      "page": 6,
+      "position": [
+        297.6377952755906,
+        500.5984251968506,
+        521.5748031496064,
+        537.448818897638
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_097",
+      "relative_position": [
+        260.7874015748032,
+        -304.44094488188966,
+        484.72440944881896,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "ÖSTRA",
+      "page": 6,
+      "position": [
+        56.69291338582678,
+        440.07874015748047,
+        280.62992125984255,
+        476.92913385826785
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_098",
+      "relative_position": [
+        19.84251968503937,
+        -364.9606299212598,
+        243.77952755905514,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "västra",
+      "page": 6,
+      "position": [
+        297.6377952755906,
+        440.07874015748047,
+        521.5748031496064,
+        476.92913385826785
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_099",
+      "relative_position": [
+        260.7874015748032,
+        -364.9606299212598,
+        484.72440944881896,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "Västra",
+      "page": 6,
+      "position": [
+        56.69291338582678,
+        379.5590551181104,
+        280.62992125984255,
+        416.4094488188978
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_100",
+      "relative_position": [
+        19.84251968503937,
+        -425.48031496062987,
+        243.77952755905514,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "VÄSTRA",
+      "page": 6,
+      "position": [
+        297.6377952755906,
+        379.5590551181104,
+        521.5748031496064,
+        416.4094488188978
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_101",
+      "relative_position": [
+        260.7874015748032,
+        -425.48031496062987,
+        484.72440944881896,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "gamla",
+      "page": 6,
+      "position": [
+        56.69291338582678,
+        319.0393700787403,
+        280.62992125984255,
+        355.8897637795277
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_102",
+      "relative_position": [
+        19.84251968503937,
+        -485.99999999999994,
+        243.77952755905514,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "Gamla",
+      "page": 6,
+      "position": [
+        297.6377952755906,
+        319.0393700787403,
+        521.5748031496064,
+        355.8897637795277
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_103",
+      "relative_position": [
+        260.7874015748032,
+        -485.99999999999994,
+        484.72440944881896,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "GAMLA",
+      "page": 6,
+      "position": [
+        56.69291338582678,
+        258.51968503937024,
+        280.62992125984255,
+        295.3700787401576
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_104",
+      "relative_position": [
+        19.84251968503937,
+        -546.51968503937,
+        243.77952755905514,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "nya",
+      "page": 6,
+      "position": [
+        297.6377952755906,
+        258.51968503937024,
+        521.5748031496064,
+        295.3700787401576
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_105",
+      "relative_position": [
+        260.7874015748032,
+        -546.51968503937,
+        484.72440944881896,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "Nya",
+      "page": 6,
+      "position": [
+        56.69291338582678,
+        198.0000000000001,
+        280.62992125984255,
+        234.85039370078752
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_106",
+      "relative_position": [
+        19.84251968503937,
+        -607.0393700787401,
+        243.77952755905514,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "NYA",
+      "page": 6,
+      "position": [
+        297.6377952755906,
+        198.0000000000001,
+        521.5748031496064,
+        234.85039370078752
+      ],
+      "category": "places_locations",
+      "subcategory": null,
+      "word_id": "places_locations_107",
+      "relative_position": [
+        260.7874015748032,
+        -607.0393700787401,
+        484.72440944881896,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "domprost",
+      "page": 7,
+      "position": [
+        56.69291338582678,
+        621.6377952755907,
+        280.62992125984255,
+        658.4881889763782
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_108",
+      "relative_position": [
+        19.84251968503937,
+        -183.40157480314951,
+        243.77952755905514,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "DOMPROST",
+      "page": 7,
+      "position": [
+        297.6377952755906,
+        621.6377952755907,
+        521.5748031496064,
+        658.4881889763782
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_109",
+      "relative_position": [
+        260.7874015748032,
+        -183.40157480314951,
+        484.72440944881896,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "församling",
+      "page": 7,
+      "position": [
+        56.69291338582678,
+        561.1181102362207,
+        280.62992125984255,
+        597.9685039370081
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_110",
+      "relative_position": [
+        19.84251968503937,
+        -243.9212598425196,
+        243.77952755905514,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "FÖRSAMLING",
+      "page": 7,
+      "position": [
+        297.6377952755906,
+        561.1181102362207,
+        521.5748031496064,
+        597.9685039370081
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_111",
+      "relative_position": [
+        260.7874015748032,
+        -243.9212598425196,
+        484.72440944881896,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "präst",
+      "page": 7,
+      "position": [
+        56.69291338582678,
+        500.5984251968506,
+        280.62992125984255,
+        537.448818897638
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_112",
+      "relative_position": [
+        19.84251968503937,
+        -304.44094488188966,
+        243.77952755905514,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "PRÄST",
+      "page": 7,
+      "position": [
+        297.6377952755906,
+        500.5984251968506,
+        521.5748031496064,
+        537.448818897638
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_113",
+      "relative_position": [
+        260.7874015748032,
+        -304.44094488188966,
+        484.72440944881896,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "kyrkoherde",
+      "page": 7,
+      "position": [
+        56.69291338582678,
+        440.07874015748047,
+        280.62992125984255,
+        476.92913385826785
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_114",
+      "relative_position": [
+        19.84251968503937,
+        -364.9606299212598,
+        243.77952755905514,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "KYRKOHERDE",
+      "page": 7,
+      "position": [
+        297.6377952755906,
+        440.07874015748047,
+        521.5748031496064,
+        476.92913385826785
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_115",
+      "relative_position": [
+        260.7874015748032,
+        -364.9606299212598,
+        484.72440944881896,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "psalm",
+      "page": 7,
+      "position": [
+        56.69291338582678,
+        379.5590551181104,
+        280.62992125984255,
+        416.4094488188978
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_116",
+      "relative_position": [
+        19.84251968503937,
+        -425.48031496062987,
+        243.77952755905514,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "PSALM",
+      "page": 7,
+      "position": [
+        297.6377952755906,
+        379.5590551181104,
+        521.5748031496064,
+        416.4094488188978
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_117",
+      "relative_position": [
+        260.7874015748032,
+        -425.48031496062987,
+        484.72440944881896,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "bisättning",
+      "page": 7,
+      "position": [
+        56.69291338582678,
+        319.0393700787403,
+        280.62992125984255,
+        355.8897637795277
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_118",
+      "relative_position": [
+        19.84251968503937,
+        -485.99999999999994,
+        243.77952755905514,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "BISÄTTNING",
+      "page": 7,
+      "position": [
+        297.6377952755906,
+        319.0393700787403,
+        521.5748031496064,
+        355.8897637795277
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_119",
+      "relative_position": [
+        260.7874015748032,
+        -485.99999999999994,
+        484.72440944881896,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "andakt",
+      "page": 7,
+      "position": [
+        56.69291338582678,
+        258.51968503937024,
+        280.62992125984255,
+        295.3700787401576
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_120",
+      "relative_position": [
+        19.84251968503937,
+        -546.51968503937,
+        243.77952755905514,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "ANDAKT",
+      "page": 7,
+      "position": [
+        297.6377952755906,
+        258.51968503937024,
+        521.5748031496064,
+        295.3700787401576
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_121",
+      "relative_position": [
+        260.7874015748032,
+        -546.51968503937,
+        484.72440944881896,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "gudstjänst",
+      "page": 7,
+      "position": [
+        56.69291338582678,
+        198.0000000000001,
+        280.62992125984255,
+        234.85039370078752
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_122",
+      "relative_position": [
+        19.84251968503937,
+        -607.0393700787401,
+        243.77952755905514,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "GUDSTJÄNST",
+      "page": 7,
+      "position": [
+        297.6377952755906,
+        198.0000000000001,
+        521.5748031496064,
+        234.85039370078752
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_123",
+      "relative_position": [
+        260.7874015748032,
+        -607.0393700787401,
+        484.72440944881896,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "välsignelse",
+      "page": 7,
+      "position": [
+        56.69291338582678,
+        137.48031496063004,
+        280.62992125984255,
+        174.33070866141745
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_124",
+      "relative_position": [
+        19.84251968503937,
+        -667.5590551181102,
+        243.77952755905514,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "VÄLSIGNELSE",
+      "page": 7,
+      "position": [
+        297.6377952755906,
+        137.48031496063004,
+        521.5748031496064,
+        174.33070866141745
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_125",
+      "relative_position": [
+        260.7874015748032,
+        -667.5590551181102,
+        484.72440944881896,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "orgel",
+      "page": 8,
+      "position": [
+        56.69291338582678,
+        742.6771653543309,
+        280.62992125984255,
+        779.5275590551183
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_126",
+      "relative_position": [
+        19.84251968503937,
+        -62.36220472440937,
+        243.77952755905514,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "ORGEL",
+      "page": 8,
+      "position": [
+        297.6377952755906,
+        742.6771653543309,
+        521.5748031496064,
+        779.5275590551183
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_127",
+      "relative_position": [
+        260.7874015748032,
+        -62.36220472440937,
+        484.72440944881896,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "kör",
+      "page": 8,
+      "position": [
+        56.69291338582678,
+        682.1574803149608,
+        280.62992125984255,
+        719.0078740157483
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_128",
+      "relative_position": [
+        19.84251968503937,
+        -122.88188976377944,
+        243.77952755905514,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "KÖR",
+      "page": 8,
+      "position": [
+        297.6377952755906,
+        682.1574803149608,
+        521.5748031496064,
+        719.0078740157483
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_129",
+      "relative_position": [
+        260.7874015748032,
+        -122.88188976377944,
+        484.72440944881896,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "sång",
+      "page": 8,
+      "position": [
+        56.69291338582678,
+        621.6377952755907,
+        280.62992125984255,
+        658.4881889763782
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_130",
+      "relative_position": [
+        19.84251968503937,
+        -183.40157480314951,
+        243.77952755905514,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "SÅNG",
+      "page": 8,
+      "position": [
+        297.6377952755906,
+        621.6377952755907,
+        521.5748031496064,
+        658.4881889763782
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_131",
+      "relative_position": [
+        260.7874015748032,
+        -183.40157480314951,
+        484.72440944881896,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "klockor",
+      "page": 8,
+      "position": [
+        56.69291338582678,
+        561.1181102362207,
+        280.62992125984255,
+        597.9685039370081
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_132",
+      "relative_position": [
+        19.84251968503937,
+        -243.9212598425196,
+        243.77952755905514,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "KLOCKOR",
+      "page": 8,
+      "position": [
+        297.6377952755906,
+        561.1181102362207,
+        521.5748031496064,
+        597.9685039370081
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_133",
+      "relative_position": [
+        260.7874015748032,
+        -243.9212598425196,
+        484.72440944881896,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "mässing",
+      "page": 8,
+      "position": [
+        56.69291338582678,
+        500.5984251968506,
+        280.62992125984255,
+        537.448818897638
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_134",
+      "relative_position": [
+        19.84251968503937,
+        -304.44094488188966,
+        243.77952755905514,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "MÄSSING",
+      "page": 8,
+      "position": [
+        297.6377952755906,
+        500.5984251968506,
+        521.5748031496064,
+        537.448818897638
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_135",
+      "relative_position": [
+        260.7874015748032,
+        -304.44094488188966,
+        484.72440944881896,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "kristus",
+      "page": 8,
+      "position": [
+        56.69291338582678,
+        440.07874015748047,
+        280.62992125984255,
+        476.92913385826785
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_136",
+      "relative_position": [
+        19.84251968503937,
+        -364.9606299212598,
+        243.77952755905514,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "KRISTUS",
+      "page": 8,
+      "position": [
+        297.6377952755906,
+        440.07874015748047,
+        521.5748031496064,
+        476.92913385826785
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_137",
+      "relative_position": [
+        260.7874015748032,
+        -364.9606299212598,
+        484.72440944881896,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "gud",
+      "page": 8,
+      "position": [
+        56.69291338582678,
+        379.5590551181104,
+        280.62992125984255,
+        416.4094488188978
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_138",
+      "relative_position": [
+        19.84251968503937,
+        -425.48031496062987,
+        243.77952755905514,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "GUD",
+      "page": 8,
+      "position": [
+        297.6377952755906,
+        379.5590551181104,
+        521.5748031496064,
+        416.4094488188978
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_139",
+      "relative_position": [
+        260.7874015748032,
+        -425.48031496062987,
+        484.72440944881896,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "himlen",
+      "page": 8,
+      "position": [
+        56.69291338582678,
+        319.0393700787403,
+        280.62992125984255,
+        355.8897637795277
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_140",
+      "relative_position": [
+        19.84251968503937,
+        -485.99999999999994,
+        243.77952755905514,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "HIMLEN",
+      "page": 8,
+      "position": [
+        297.6377952755906,
+        319.0393700787403,
+        521.5748031496064,
+        355.8897637795277
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_141",
+      "relative_position": [
+        260.7874015748032,
+        -485.99999999999994,
+        484.72440944881896,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "evighet",
+      "page": 8,
+      "position": [
+        56.69291338582678,
+        258.51968503937024,
+        280.62992125984255,
+        295.3700787401576
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_142",
+      "relative_position": [
+        19.84251968503937,
+        -546.51968503937,
+        243.77952755905514,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "EVIGHET",
+      "page": 8,
+      "position": [
+        297.6377952755906,
+        258.51968503937024,
+        521.5748031496064,
+        295.3700787401576
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_143",
+      "relative_position": [
+        260.7874015748032,
+        -546.51968503937,
+        484.72440944881896,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "frid",
+      "page": 8,
+      "position": [
+        56.69291338582678,
+        198.0000000000001,
+        280.62992125984255,
+        234.85039370078752
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_144",
+      "relative_position": [
+        19.84251968503937,
+        -607.0393700787401,
+        243.77952755905514,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "FRID",
+      "page": 8,
+      "position": [
+        297.6377952755906,
+        198.0000000000001,
+        521.5748031496064,
+        234.85039370078752
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_145",
+      "relative_position": [
+        260.7874015748032,
+        -607.0393700787401,
+        484.72440944881896,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "bibel",
+      "page": 8,
+      "position": [
+        56.69291338582678,
+        137.48031496063004,
+        280.62992125984255,
+        174.33070866141745
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_146",
+      "relative_position": [
+        19.84251968503937,
+        -667.5590551181102,
+        243.77952755905514,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "BIBEL",
+      "page": 8,
+      "position": [
+        297.6377952755906,
+        137.48031496063004,
+        521.5748031496064,
+        174.33070866141745
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_147",
+      "relative_position": [
+        260.7874015748032,
+        -667.5590551181102,
+        484.72440944881896,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "bön",
+      "page": 9,
+      "position": [
+        56.69291338582678,
+        742.6771653543309,
+        280.62992125984255,
+        779.5275590551183
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_148",
+      "relative_position": [
+        19.84251968503937,
+        -62.36220472440937,
+        243.77952755905514,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "BÖN",
+      "page": 9,
+      "position": [
+        297.6377952755906,
+        742.6771653543309,
+        521.5748031496064,
+        779.5275590551183
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_149",
+      "relative_position": [
+        260.7874015748032,
+        -62.36220472440937,
+        484.72440944881896,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "amen",
+      "page": 9,
+      "position": [
+        56.69291338582678,
+        682.1574803149608,
+        280.62992125984255,
+        719.0078740157483
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_150",
+      "relative_position": [
+        19.84251968503937,
+        -122.88188976377944,
+        243.77952755905514,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "AMEN",
+      "page": 9,
+      "position": [
+        297.6377952755906,
+        682.1574803149608,
+        521.5748031496064,
+        719.0078740157483
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_151",
+      "relative_position": [
+        260.7874015748032,
+        -122.88188976377944,
+        484.72440944881896,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "kyrka",
+      "page": 9,
+      "position": [
+        56.69291338582678,
+        621.6377952755907,
+        280.62992125984255,
+        658.4881889763782
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_152",
+      "relative_position": [
+        19.84251968503937,
+        -183.40157480314951,
+        243.77952755905514,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "KYRKA",
+      "page": 9,
+      "position": [
+        297.6377952755906,
+        621.6377952755907,
+        521.5748031496064,
+        658.4881889763782
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_153",
+      "relative_position": [
+        260.7874015748032,
+        -183.40157480314951,
+        484.72440944881896,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "kapell",
+      "page": 9,
+      "position": [
+        56.69291338582678,
+        561.1181102362207,
+        280.62992125984255,
+        597.9685039370081
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_154",
+      "relative_position": [
+        19.84251968503937,
+        -243.9212598425196,
+        243.77952755905514,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "KAPELL",
+      "page": 9,
+      "position": [
+        297.6377952755906,
+        561.1181102362207,
+        521.5748031496064,
+        597.9685039370081
+      ],
+      "category": "religious_terms",
+      "subcategory": null,
+      "word_id": "religious_terms_155",
+      "relative_position": [
+        260.7874015748032,
+        -243.9212598425196,
+        484.72440944881896,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "begravning",
+      "page": 10,
+      "position": [
+        56.69291338582678,
+        621.6377952755907,
+        280.62992125984255,
+        658.4881889763782
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_156",
+      "relative_position": [
+        19.84251968503937,
+        -183.40157480314951,
+        243.77952755905514,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "BEGRAVNING",
+      "page": 10,
+      "position": [
+        297.6377952755906,
+        621.6377952755907,
+        521.5748031496064,
+        658.4881889763782
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_157",
+      "relative_position": [
+        260.7874015748032,
+        -183.40157480314951,
+        484.72440944881896,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "kremering",
+      "page": 10,
+      "position": [
+        56.69291338582678,
+        561.1181102362207,
+        280.62992125984255,
+        597.9685039370081
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_158",
+      "relative_position": [
+        19.84251968503937,
+        -243.9212598425196,
+        243.77952755905514,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "KREMERING",
+      "page": 10,
+      "position": [
+        297.6377952755906,
+        561.1181102362207,
+        521.5748031496064,
+        597.9685039370081
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_159",
+      "relative_position": [
+        260.7874015748032,
+        -243.9212598425196,
+        484.72440944881896,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "jordbegravning",
+      "page": 10,
+      "position": [
+        56.69291338582678,
+        500.5984251968506,
+        280.62992125984255,
+        537.448818897638
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_160",
+      "relative_position": [
+        19.84251968503937,
+        -304.44094488188966,
+        243.77952755905514,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "JORDBEGRAVNING",
+      "page": 10,
+      "position": [
+        297.6377952755906,
+        500.5984251968506,
+        521.5748031496064,
+        537.448818897638
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_161",
+      "relative_position": [
+        260.7874015748032,
+        -304.44094488188966,
+        484.72440944881896,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "kista",
+      "page": 10,
+      "position": [
+        56.69291338582678,
+        440.07874015748047,
+        280.62992125984255,
+        476.92913385826785
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_162",
+      "relative_position": [
+        19.84251968503937,
+        -364.9606299212598,
+        243.77952755905514,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "KISTA",
+      "page": 10,
+      "position": [
+        297.6377952755906,
+        440.07874015748047,
+        521.5748031496064,
+        476.92913385826785
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_163",
+      "relative_position": [
+        260.7874015748032,
+        -364.9606299212598,
+        484.72440944881896,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "urna",
+      "page": 10,
+      "position": [
+        56.69291338582678,
+        379.5590551181104,
+        280.62992125984255,
+        416.4094488188978
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_164",
+      "relative_position": [
+        19.84251968503937,
+        -425.48031496062987,
+        243.77952755905514,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "URNA",
+      "page": 10,
+      "position": [
+        297.6377952755906,
+        379.5590551181104,
+        521.5748031496064,
+        416.4094488188978
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_165",
+      "relative_position": [
+        260.7874015748032,
+        -425.48031496062987,
+        484.72440944881896,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "gravplats",
+      "page": 10,
+      "position": [
+        56.69291338582678,
+        319.0393700787403,
+        280.62992125984255,
+        355.8897637795277
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_166",
+      "relative_position": [
+        19.84251968503937,
+        -485.99999999999994,
+        243.77952755905514,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "GRAVPLATS",
+      "page": 10,
+      "position": [
+        297.6377952755906,
+        319.0393700787403,
+        521.5748031496064,
+        355.8897637795277
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_167",
+      "relative_position": [
+        260.7874015748032,
+        -485.99999999999994,
+        484.72440944881896,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "gravvård",
+      "page": 10,
+      "position": [
+        56.69291338582678,
+        258.51968503937024,
+        280.62992125984255,
+        295.3700787401576
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_168",
+      "relative_position": [
+        19.84251968503937,
+        -546.51968503937,
+        243.77952755905514,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "GRAVVÅRD",
+      "page": 10,
+      "position": [
+        297.6377952755906,
+        258.51968503937024,
+        521.5748031496064,
+        295.3700787401576
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_169",
+      "relative_position": [
+        260.7874015748032,
+        -546.51968503937,
+        484.72440944881896,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "gravsten",
+      "page": 10,
+      "position": [
+        56.69291338582678,
+        198.0000000000001,
+        280.62992125984255,
+        234.85039370078752
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_170",
+      "relative_position": [
+        19.84251968503937,
+        -607.0393700787401,
+        243.77952755905514,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "GRAVSTEN",
+      "page": 10,
+      "position": [
+        297.6377952755906,
+        198.0000000000001,
+        521.5748031496064,
+        234.85039370078752
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_171",
+      "relative_position": [
+        260.7874015748032,
+        -607.0393700787401,
+        484.72440944881896,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "minneslund",
+      "page": 10,
+      "position": [
+        56.69291338582678,
+        137.48031496063004,
+        280.62992125984255,
+        174.33070866141745
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_172",
+      "relative_position": [
+        19.84251968503937,
+        -667.5590551181102,
+        243.77952755905514,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "MINNESLUND",
+      "page": 10,
+      "position": [
+        297.6377952755906,
+        137.48031496063004,
+        521.5748031496064,
+        174.33070866141745
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_173",
+      "relative_position": [
+        260.7874015748032,
+        -667.5590551181102,
+        484.72440944881896,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "ceremoni",
+      "page": 11,
+      "position": [
+        56.69291338582678,
+        742.6771653543309,
+        280.62992125984255,
+        779.5275590551183
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_174",
+      "relative_position": [
+        19.84251968503937,
+        -62.36220472440937,
+        243.77952755905514,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "CEREMONI",
+      "page": 11,
+      "position": [
+        297.6377952755906,
+        742.6771653543309,
+        521.5748031496064,
+        779.5275590551183
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_175",
+      "relative_position": [
+        260.7874015748032,
+        -62.36220472440937,
+        484.72440944881896,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "högtidlig",
+      "page": 11,
+      "position": [
+        56.69291338582678,
+        682.1574803149608,
+        280.62992125984255,
+        719.0078740157483
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_176",
+      "relative_position": [
+        19.84251968503937,
+        -122.88188976377944,
+        243.77952755905514,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "HÖGTIDLIG",
+      "page": 11,
+      "position": [
+        297.6377952755906,
+        682.1574803149608,
+        521.5748031496064,
+        719.0078740157483
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_177",
+      "relative_position": [
+        260.7874015748032,
+        -122.88188976377944,
+        484.72440944881896,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "själaringning",
+      "page": 11,
+      "position": [
+        56.69291338582678,
+        621.6377952755907,
+        280.62992125984255,
+        658.4881889763782
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_178",
+      "relative_position": [
+        19.84251968503937,
+        -183.40157480314951,
+        243.77952755905514,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "SJÄLARINGNING",
+      "page": 11,
+      "position": [
+        297.6377952755906,
+        621.6377952755907,
+        521.5748031496064,
+        658.4881889763782
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_179",
+      "relative_position": [
+        260.7874015748032,
+        -183.40157480314951,
+        484.72440944881896,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "gravskötsel",
+      "page": 11,
+      "position": [
+        56.69291338582678,
+        561.1181102362207,
+        280.62992125984255,
+        597.9685039370081
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_180",
+      "relative_position": [
+        19.84251968503937,
+        -243.9212598425196,
+        243.77952755905514,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "GRAVSKÖTSEL",
+      "page": 11,
+      "position": [
+        297.6377952755906,
+        561.1181102362207,
+        521.5748031496064,
+        597.9685039370081
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_181",
+      "relative_position": [
+        260.7874015748032,
+        -243.9212598425196,
+        484.72440944881896,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "kistbärare",
+      "page": 11,
+      "position": [
+        56.69291338582678,
+        500.5984251968506,
+        280.62992125984255,
+        537.448818897638
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_182",
+      "relative_position": [
+        19.84251968503937,
+        -304.44094488188966,
+        243.77952755905514,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "KISTBÄRARE",
+      "page": 11,
+      "position": [
+        297.6377952755906,
+        500.5984251968506,
+        521.5748031496064,
+        537.448818897638
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_183",
+      "relative_position": [
+        260.7874015748032,
+        -304.44094488188966,
+        484.72440944881896,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "blomsterarrangemang",
+      "page": 11,
+      "position": [
+        56.69291338582678,
+        440.07874015748047,
+        280.62992125984255,
+        476.92913385826785
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_184",
+      "relative_position": [
+        19.84251968503937,
+        -364.9606299212598,
+        243.77952755905514,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "BLOMSTERARRANGEMANG",
+      "page": 11,
+      "position": [
+        297.6377952755906,
+        440.07874015748047,
+        521.5748031496064,
+        476.92913385826785
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_185",
+      "relative_position": [
+        260.7874015748032,
+        -364.9606299212598,
+        484.72440944881896,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "krans",
+      "page": 11,
+      "position": [
+        56.69291338582678,
+        379.5590551181104,
+        280.62992125984255,
+        416.4094488188978
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_186",
+      "relative_position": [
+        19.84251968503937,
+        -425.48031496062987,
+        243.77952755905514,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "KRANS",
+      "page": 11,
+      "position": [
+        297.6377952755906,
+        379.5590551181104,
+        521.5748031496064,
+        416.4094488188978
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_187",
+      "relative_position": [
+        260.7874015748032,
+        -425.48031496062987,
+        484.72440944881896,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "bukett",
+      "page": 11,
+      "position": [
+        56.69291338582678,
+        319.0393700787403,
+        280.62992125984255,
+        355.8897637795277
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_188",
+      "relative_position": [
+        19.84251968503937,
+        -485.99999999999994,
+        243.77952755905514,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "BUKETT",
+      "page": 11,
+      "position": [
+        297.6377952755906,
+        319.0393700787403,
+        521.5748031496064,
+        355.8897637795277
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_189",
+      "relative_position": [
+        260.7874015748032,
+        -485.99999999999994,
+        484.72440944881896,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "begravningsbyrå",
+      "page": 11,
+      "position": [
+        56.69291338582678,
+        258.51968503937024,
+        280.62992125984255,
+        295.3700787401576
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_190",
+      "relative_position": [
+        19.84251968503937,
+        -546.51968503937,
+        243.77952755905514,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "BEGRAVNINGSBYRÅ",
+      "page": 11,
+      "position": [
+        297.6377952755906,
+        258.51968503937024,
+        521.5748031496064,
+        295.3700787401576
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_191",
+      "relative_position": [
+        260.7874015748032,
+        -546.51968503937,
+        484.72440944881896,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "officiant",
+      "page": 11,
+      "position": [
+        56.69291338582678,
+        198.0000000000001,
+        280.62992125984255,
+        234.85039370078752
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_192",
+      "relative_position": [
+        19.84251968503937,
+        -607.0393700787401,
+        243.77952755905514,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "OFFICIANT",
+      "page": 11,
+      "position": [
+        297.6377952755906,
+        198.0000000000001,
+        521.5748031496064,
+        234.85039370078752
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_193",
+      "relative_position": [
+        260.7874015748032,
+        -607.0393700787401,
+        484.72440944881896,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "gravrättsinnehavare",
+      "page": 11,
+      "position": [
+        56.69291338582678,
+        137.48031496063004,
+        280.62992125984255,
+        174.33070866141745
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_194",
+      "relative_position": [
+        19.84251968503937,
+        -667.5590551181102,
+        243.77952755905514,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "GRAVRÄTTSINNEHAVARE",
+      "page": 11,
+      "position": [
+        297.6377952755906,
+        137.48031496063004,
+        521.5748031496064,
+        174.33070866141745
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_195",
+      "relative_position": [
+        260.7874015748032,
+        -667.5590551181102,
+        484.72440944881896,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "färdigställning",
+      "page": 12,
+      "position": [
+        56.69291338582678,
+        742.6771653543309,
+        280.62992125984255,
+        779.5275590551183
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_196",
+      "relative_position": [
+        19.84251968503937,
+        -62.36220472440937,
+        243.77952755905514,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "FÄRDIGSTÄLLNING",
+      "page": 12,
+      "position": [
+        297.6377952755906,
+        742.6771653543309,
+        521.5748031496064,
+        779.5275590551183
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_197",
+      "relative_position": [
+        260.7874015748032,
+        -62.36220472440937,
+        484.72440944881896,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "överenskommelse",
+      "page": 12,
+      "position": [
+        56.69291338582678,
+        682.1574803149608,
+        280.62992125984255,
+        719.0078740157483
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_198",
+      "relative_position": [
+        19.84251968503937,
+        -122.88188976377944,
+        243.77952755905514,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "ÖVERENSKOMMELSE",
+      "page": 12,
+      "position": [
+        297.6377952755906,
+        682.1574803149608,
+        521.5748031496064,
+        719.0078740157483
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_199",
+      "relative_position": [
+        260.7874015748032,
+        -122.88188976377944,
+        484.72440944881896,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "kostnad",
+      "page": 12,
+      "position": [
+        56.69291338582678,
+        621.6377952755907,
+        280.62992125984255,
+        658.4881889763782
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_200",
+      "relative_position": [
+        19.84251968503937,
+        -183.40157480314951,
+        243.77952755905514,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "KOSTNAD",
+      "page": 12,
+      "position": [
+        297.6377952755906,
+        621.6377952755907,
+        521.5748031496064,
+        658.4881889763782
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_201",
+      "relative_position": [
+        260.7874015748032,
+        -183.40157480314951,
+        484.72440944881896,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "faktura",
+      "page": 12,
+      "position": [
+        56.69291338582678,
+        561.1181102362207,
+        280.62992125984255,
+        597.9685039370081
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_202",
+      "relative_position": [
+        19.84251968503937,
+        -243.9212598425196,
+        243.77952755905514,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "FAKTURA",
+      "page": 12,
+      "position": [
+        297.6377952755906,
+        561.1181102362207,
+        521.5748031496064,
+        597.9685039370081
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_203",
+      "relative_position": [
+        260.7874015748032,
+        -243.9212598425196,
+        484.72440944881896,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "avtal",
+      "page": 12,
+      "position": [
+        56.69291338582678,
+        500.5984251968506,
+        280.62992125984255,
+        537.448818897638
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_204",
+      "relative_position": [
+        19.84251968503937,
+        -304.44094488188966,
+        243.77952755905514,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "AVTAL",
+      "page": 12,
+      "position": [
+        297.6377952755906,
+        500.5984251968506,
+        521.5748031496064,
+        537.448818897638
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_205",
+      "relative_position": [
+        260.7874015748032,
+        -304.44094488188966,
+        484.72440944881896,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "undertecknad",
+      "page": 12,
+      "position": [
+        56.69291338582678,
+        440.07874015748047,
+        280.62992125984255,
+        476.92913385826785
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_206",
+      "relative_position": [
+        19.84251968503937,
+        -364.9606299212598,
+        243.77952755905514,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "UNDERTECKNAD",
+      "page": 12,
+      "position": [
+        297.6377952755906,
+        440.07874015748047,
+        521.5748031496064,
+        476.92913385826785
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_207",
+      "relative_position": [
+        260.7874015748032,
+        -364.9606299212598,
+        484.72440944881896,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "anhörig",
+      "page": 12,
+      "position": [
+        56.69291338582678,
+        379.5590551181104,
+        280.62992125984255,
+        416.4094488188978
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_208",
+      "relative_position": [
+        19.84251968503937,
+        -425.48031496062987,
+        243.77952755905514,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "ANHÖRIG",
+      "page": 12,
+      "position": [
+        297.6377952755906,
+        379.5590551181104,
+        521.5748031496064,
+        416.4094488188978
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_209",
+      "relative_position": [
+        260.7874015748032,
+        -425.48031496062987,
+        484.72440944881896,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "närmast",
+      "page": 12,
+      "position": [
+        56.69291338582678,
+        319.0393700787403,
+        280.62992125984255,
+        355.8897637795277
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_210",
+      "relative_position": [
+        19.84251968503937,
+        -485.99999999999994,
+        243.77952755905514,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "NÄRMAST",
+      "page": 12,
+      "position": [
+        297.6377952755906,
+        319.0393700787403,
+        521.5748031496064,
+        355.8897637795277
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_211",
+      "relative_position": [
+        260.7874015748032,
+        -485.99999999999994,
+        484.72440944881896,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "make",
+      "page": 12,
+      "position": [
+        56.69291338582678,
+        258.51968503937024,
+        280.62992125984255,
+        295.3700787401576
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_212",
+      "relative_position": [
+        19.84251968503937,
+        -546.51968503937,
+        243.77952755905514,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "MAKE",
+      "page": 12,
+      "position": [
+        297.6377952755906,
+        258.51968503937024,
+        521.5748031496064,
+        295.3700787401576
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_213",
+      "relative_position": [
+        260.7874015748032,
+        -546.51968503937,
+        484.72440944881896,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "maka",
+      "page": 12,
+      "position": [
+        56.69291338582678,
+        198.0000000000001,
+        280.62992125984255,
+        234.85039370078752
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_214",
+      "relative_position": [
+        19.84251968503937,
+        -607.0393700787401,
+        243.77952755905514,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "MAKA",
+      "page": 12,
+      "position": [
+        297.6377952755906,
+        198.0000000000001,
+        521.5748031496064,
+        234.85039370078752
+      ],
+      "category": "funeral_terms",
+      "subcategory": null,
+      "word_id": "funeral_terms_215",
+      "relative_position": [
+        260.7874015748032,
+        -607.0393700787401,
+        484.72440944881896,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "älskad",
+      "page": 13,
+      "position": [
+        56.69291338582678,
+        621.6377952755907,
+        200.31496062992127,
+        658.4881889763782
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_216",
+      "relative_position": [
+        19.84251968503937,
+        -183.40157480314951,
+        163.46456692913387,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "ÄLSKAD",
+      "page": 13,
+      "position": [
+        217.3228346456693,
+        621.6377952755907,
+        360.9448818897638,
+        658.4881889763782
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_217",
+      "relative_position": [
+        180.4724409448819,
+        -183.40157480314951,
+        324.09448818897636,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "saknad",
+      "page": 13,
+      "position": [
+        377.9527559055118,
+        621.6377952755907,
+        521.5748031496063,
+        658.4881889763782
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_218",
+      "relative_position": [
+        341.1023622047244,
+        -183.40157480314951,
+        484.72440944881885,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "SAKNAD",
+      "page": 13,
+      "position": [
+        56.69291338582678,
+        561.1181102362207,
+        200.31496062992127,
+        597.9685039370081
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_219",
+      "relative_position": [
+        19.84251968503937,
+        -243.9212598425196,
+        163.46456692913387,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "kär",
+      "page": 13,
+      "position": [
+        217.3228346456693,
+        561.1181102362207,
+        360.9448818897638,
+        597.9685039370081
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_220",
+      "relative_position": [
+        180.4724409448819,
+        -243.9212598425196,
+        324.09448818897636,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "KÄR",
+      "page": 13,
+      "position": [
+        377.9527559055118,
+        561.1181102362207,
+        521.5748031496063,
+        597.9685039370081
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_221",
+      "relative_position": [
+        341.1023622047244,
+        -243.9212598425196,
+        484.72440944881885,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "tacksam",
+      "page": 13,
+      "position": [
+        56.69291338582678,
+        500.5984251968506,
+        200.31496062992127,
+        537.448818897638
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_222",
+      "relative_position": [
+        19.84251968503937,
+        -304.44094488188966,
+        163.46456692913387,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "TACKSAM",
+      "page": 13,
+      "position": [
+        217.3228346456693,
+        500.5984251968506,
+        360.9448818897638,
+        537.448818897638
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_223",
+      "relative_position": [
+        180.4724409448819,
+        -304.44094488188966,
+        324.09448818897636,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "sörjer",
+      "page": 13,
+      "position": [
+        377.9527559055118,
+        500.5984251968506,
+        521.5748031496063,
+        537.448818897638
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_224",
+      "relative_position": [
+        341.1023622047244,
+        -304.44094488188966,
+        484.72440944881885,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "SÖRJER",
+      "page": 13,
+      "position": [
+        56.69291338582678,
+        440.07874015748047,
+        200.31496062992127,
+        476.92913385826785
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_225",
+      "relative_position": [
+        19.84251968503937,
+        -364.9606299212598,
+        163.46456692913387,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "högtidligt",
+      "page": 13,
+      "position": [
+        217.3228346456693,
+        440.07874015748047,
+        360.9448818897638,
+        476.92913385826785
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_226",
+      "relative_position": [
+        180.4724409448819,
+        -364.9606299212598,
+        324.09448818897636,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "HÖGTIDLIGT",
+      "page": 13,
+      "position": [
+        377.9527559055118,
+        440.07874015748047,
+        521.5748031496063,
+        476.92913385826785
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_227",
+      "relative_position": [
+        341.1023622047244,
+        -364.9606299212598,
+        484.72440944881885,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "stilla",
+      "page": 13,
+      "position": [
+        56.69291338582678,
+        379.5590551181104,
+        200.31496062992127,
+        416.4094488188978
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_228",
+      "relative_position": [
+        19.84251968503937,
+        -425.48031496062987,
+        163.46456692913387,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "STILLA",
+      "page": 13,
+      "position": [
+        217.3228346456693,
+        379.5590551181104,
+        360.9448818897638,
+        416.4094488188978
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_229",
+      "relative_position": [
+        180.4724409448819,
+        -425.48031496062987,
+        324.09448818897636,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "vördnad",
+      "page": 13,
+      "position": [
+        377.9527559055118,
+        379.5590551181104,
+        521.5748031496063,
+        416.4094488188978
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_230",
+      "relative_position": [
+        341.1023622047244,
+        -425.48031496062987,
+        484.72440944881885,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "VÖRDNAD",
+      "page": 13,
+      "position": [
+        56.69291338582678,
+        319.0393700787403,
+        200.31496062992127,
+        355.8897637795277
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_231",
+      "relative_position": [
+        19.84251968503937,
+        -485.99999999999994,
+        163.46456692913387,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "glädje",
+      "page": 13,
+      "position": [
+        217.3228346456693,
+        319.0393700787403,
+        360.9448818897638,
+        355.8897637795277
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_232",
+      "relative_position": [
+        180.4724409448819,
+        -485.99999999999994,
+        324.09448818897636,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "GLÄDJE",
+      "page": 13,
+      "position": [
+        377.9527559055118,
+        319.0393700787403,
+        521.5748031496063,
+        355.8897637795277
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_233",
+      "relative_position": [
+        341.1023622047244,
+        -485.99999999999994,
+        484.72440944881885,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "vänskap",
+      "page": 13,
+      "position": [
+        56.69291338582678,
+        258.51968503937024,
+        200.31496062992127,
+        295.3700787401576
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_234",
+      "relative_position": [
+        19.84251968503937,
+        -546.51968503937,
+        163.46456692913387,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "VÄNSKAP",
+      "page": 13,
+      "position": [
+        217.3228346456693,
+        258.51968503937024,
+        360.9448818897638,
+        295.3700787401576
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_235",
+      "relative_position": [
+        180.4724409448819,
+        -546.51968503937,
+        324.09448818897636,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "förevigt",
+      "page": 13,
+      "position": [
+        377.9527559055118,
+        258.51968503937024,
+        521.5748031496063,
+        295.3700787401576
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_236",
+      "relative_position": [
+        341.1023622047244,
+        -546.51968503937,
+        484.72440944881885,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "FÖREVIGT",
+      "page": 13,
+      "position": [
+        56.69291338582678,
+        198.0000000000001,
+        200.31496062992127,
+        234.85039370078752
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_237",
+      "relative_position": [
+        19.84251968503937,
+        -607.0393700787401,
+        163.46456692913387,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "minne",
+      "page": 13,
+      "position": [
+        217.3228346456693,
+        198.0000000000001,
+        360.9448818897638,
+        234.85039370078752
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_238",
+      "relative_position": [
+        180.4724409448819,
+        -607.0393700787401,
+        324.09448818897636,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "MINNE",
+      "page": 13,
+      "position": [
+        377.9527559055118,
+        198.0000000000001,
+        521.5748031496063,
+        234.85039370078752
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_239",
+      "relative_position": [
+        341.1023622047244,
+        -607.0393700787401,
+        484.72440944881885,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "tack",
+      "page": 13,
+      "position": [
+        56.69291338582678,
+        137.48031496063004,
+        200.31496062992127,
+        174.33070866141745
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_240",
+      "relative_position": [
+        19.84251968503937,
+        -667.5590551181102,
+        163.46456692913387,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "TACK",
+      "page": 13,
+      "position": [
+        217.3228346456693,
+        137.48031496063004,
+        360.9448818897638,
+        174.33070866141745
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_241",
+      "relative_position": [
+        180.4724409448819,
+        -667.5590551181102,
+        324.09448818897636,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "vila",
+      "page": 13,
+      "position": [
+        377.9527559055118,
+        137.48031496063004,
+        521.5748031496063,
+        174.33070866141745
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_242",
+      "relative_position": [
+        341.1023622047244,
+        -667.5590551181102,
+        484.72440944881885,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "VILA",
+      "page": 14,
+      "position": [
+        56.69291338582678,
+        742.6771653543309,
+        200.31496062992127,
+        779.5275590551183
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_243",
+      "relative_position": [
+        19.84251968503937,
+        -62.36220472440937,
+        163.46456692913387,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "frid",
+      "page": 14,
+      "position": [
+        217.3228346456693,
+        742.6771653543309,
+        360.9448818897638,
+        779.5275590551183
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_244",
+      "relative_position": [
+        180.4724409448819,
+        -62.36220472440937,
+        324.09448818897636,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "FRID",
+      "page": 14,
+      "position": [
+        377.9527559055118,
+        742.6771653543309,
+        521.5748031496063,
+        779.5275590551183
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_245",
+      "relative_position": [
+        341.1023622047244,
+        -62.36220472440937,
+        484.72440944881885,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "trygghet",
+      "page": 14,
+      "position": [
+        56.69291338582678,
+        682.1574803149608,
+        200.31496062992127,
+        719.0078740157483
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_246",
+      "relative_position": [
+        19.84251968503937,
+        -122.88188976377944,
+        163.46456692913387,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "TRYGGHET",
+      "page": 14,
+      "position": [
+        217.3228346456693,
+        682.1574803149608,
+        360.9448818897638,
+        719.0078740157483
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_247",
+      "relative_position": [
+        180.4724409448819,
+        -122.88188976377944,
+        324.09448818897636,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "hopp",
+      "page": 14,
+      "position": [
+        377.9527559055118,
+        682.1574803149608,
+        521.5748031496063,
+        719.0078740157483
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_248",
+      "relative_position": [
+        341.1023622047244,
+        -122.88188976377944,
+        484.72440944881885,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "HOPP",
+      "page": 14,
+      "position": [
+        56.69291338582678,
+        621.6377952755907,
+        200.31496062992127,
+        658.4881889763782
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_249",
+      "relative_position": [
+        19.84251968503937,
+        -183.40157480314951,
+        163.46456692913387,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "kärlek",
+      "page": 14,
+      "position": [
+        217.3228346456693,
+        621.6377952755907,
+        360.9448818897638,
+        658.4881889763782
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_250",
+      "relative_position": [
+        180.4724409448819,
+        -183.40157480314951,
+        324.09448818897636,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "KÄRLEK",
+      "page": 14,
+      "position": [
+        377.9527559055118,
+        621.6377952755907,
+        521.5748031496063,
+        658.4881889763782
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_251",
+      "relative_position": [
+        341.1023622047244,
+        -183.40157480314951,
+        484.72440944881885,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "värme",
+      "page": 14,
+      "position": [
+        56.69291338582678,
+        561.1181102362207,
+        200.31496062992127,
+        597.9685039370081
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_252",
+      "relative_position": [
+        19.84251968503937,
+        -243.9212598425196,
+        163.46456692913387,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "VÄRME",
+      "page": 14,
+      "position": [
+        217.3228346456693,
+        561.1181102362207,
+        360.9448818897638,
+        597.9685039370081
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_253",
+      "relative_position": [
+        180.4724409448819,
+        -243.9212598425196,
+        324.09448818897636,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "ljus",
+      "page": 14,
+      "position": [
+        377.9527559055118,
+        561.1181102362207,
+        521.5748031496063,
+        597.9685039370081
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_254",
+      "relative_position": [
+        341.1023622047244,
+        -243.9212598425196,
+        484.72440944881885,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "LJUS",
+      "page": 14,
+      "position": [
+        56.69291338582678,
+        500.5984251968506,
+        200.31496062992127,
+        537.448818897638
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_255",
+      "relative_position": [
+        19.84251968503937,
+        -304.44094488188966,
+        163.46456692913387,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "tröst",
+      "page": 14,
+      "position": [
+        217.3228346456693,
+        500.5984251968506,
+        360.9448818897638,
+        537.448818897638
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_256",
+      "relative_position": [
+        180.4724409448819,
+        -304.44094488188966,
+        324.09448818897636,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "TRÖST",
+      "page": 14,
+      "position": [
+        377.9527559055118,
+        500.5984251968506,
+        521.5748031496063,
+        537.448818897638
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_257",
+      "relative_position": [
+        341.1023622047244,
+        -304.44094488188966,
+        484.72440944881885,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "gemenskap",
+      "page": 14,
+      "position": [
+        56.69291338582678,
+        440.07874015748047,
+        200.31496062992127,
+        476.92913385826785
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_258",
+      "relative_position": [
+        19.84251968503937,
+        -364.9606299212598,
+        163.46456692913387,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "GEMENSKAP",
+      "page": 14,
+      "position": [
+        217.3228346456693,
+        440.07874015748047,
+        360.9448818897638,
+        476.92913385826785
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_259",
+      "relative_position": [
+        180.4724409448819,
+        -364.9606299212598,
+        324.09448818897636,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "styrka",
+      "page": 14,
+      "position": [
+        377.9527559055118,
+        440.07874015748047,
+        521.5748031496063,
+        476.92913385826785
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_260",
+      "relative_position": [
+        341.1023622047244,
+        -364.9606299212598,
+        484.72440944881885,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "STYRKA",
+      "page": 14,
+      "position": [
+        56.69291338582678,
+        379.5590551181104,
+        200.31496062992127,
+        416.4094488188978
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_261",
+      "relative_position": [
+        19.84251968503937,
+        -425.48031496062987,
+        163.46456692913387,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "mod",
+      "page": 14,
+      "position": [
+        217.3228346456693,
+        379.5590551181104,
+        360.9448818897638,
+        416.4094488188978
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_262",
+      "relative_position": [
+        180.4724409448819,
+        -425.48031496062987,
+        324.09448818897636,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "MOD",
+      "page": 14,
+      "position": [
+        377.9527559055118,
+        379.5590551181104,
+        521.5748031496063,
+        416.4094488188978
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_263",
+      "relative_position": [
+        341.1023622047244,
+        -425.48031496062987,
+        484.72440944881885,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "ro",
+      "page": 14,
+      "position": [
+        56.69291338582678,
+        319.0393700787403,
+        200.31496062992127,
+        355.8897637795277
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_264",
+      "relative_position": [
+        19.84251968503937,
+        -485.99999999999994,
+        163.46456692913387,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "RO",
+      "page": 14,
+      "position": [
+        217.3228346456693,
+        319.0393700787403,
+        360.9448818897638,
+        355.8897637795277
+      ],
+      "category": "emotional_terms",
+      "subcategory": null,
+      "word_id": "emotional_terms_265",
+      "relative_position": [
+        180.4724409448819,
+        -485.99999999999994,
+        324.09448818897636,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "datum",
+      "page": 15,
+      "position": [
+        56.69291338582678,
+        621.6377952755907,
+        200.31496062992127,
+        658.4881889763782
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_266",
+      "relative_position": [
+        19.84251968503937,
+        -183.40157480314951,
+        163.46456692913387,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "Datum",
+      "page": 15,
+      "position": [
+        217.3228346456693,
+        621.6377952755907,
+        360.9448818897638,
+        658.4881889763782
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_267",
+      "relative_position": [
+        180.4724409448819,
+        -183.40157480314951,
+        324.09448818897636,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "DATUM",
+      "page": 15,
+      "position": [
+        377.9527559055118,
+        621.6377952755907,
+        521.5748031496063,
+        658.4881889763782
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_268",
+      "relative_position": [
+        341.1023622047244,
+        -183.40157480314951,
+        484.72440944881885,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "tid",
+      "page": 15,
+      "position": [
+        56.69291338582678,
+        561.1181102362207,
+        200.31496062992127,
+        597.9685039370081
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_269",
+      "relative_position": [
+        19.84251968503937,
+        -243.9212598425196,
+        163.46456692913387,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "Tid",
+      "page": 15,
+      "position": [
+        217.3228346456693,
+        561.1181102362207,
+        360.9448818897638,
+        597.9685039370081
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_270",
+      "relative_position": [
+        180.4724409448819,
+        -243.9212598425196,
+        324.09448818897636,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "TID",
+      "page": 15,
+      "position": [
+        377.9527559055118,
+        561.1181102362207,
+        521.5748031496063,
+        597.9685039370081
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_271",
+      "relative_position": [
+        341.1023622047244,
+        -243.9212598425196,
+        484.72440944881885,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "program",
+      "page": 15,
+      "position": [
+        56.69291338582678,
+        500.5984251968506,
+        200.31496062992127,
+        537.448818897638
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_272",
+      "relative_position": [
+        19.84251968503937,
+        -304.44094488188966,
+        163.46456692913387,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "Program",
+      "page": 15,
+      "position": [
+        217.3228346456693,
+        500.5984251968506,
+        360.9448818897638,
+        537.448818897638
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_273",
+      "relative_position": [
+        180.4724409448819,
+        -304.44094488188966,
+        324.09448818897636,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "PROGRAM",
+      "page": 15,
+      "position": [
+        377.9527559055118,
+        500.5984251968506,
+        521.5748031496063,
+        537.448818897638
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_274",
+      "relative_position": [
+        341.1023622047244,
+        -304.44094488188966,
+        484.72440944881885,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "musikval",
+      "page": 15,
+      "position": [
+        56.69291338582678,
+        440.07874015748047,
+        200.31496062992127,
+        476.92913385826785
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_275",
+      "relative_position": [
+        19.84251968503937,
+        -364.9606299212598,
+        163.46456692913387,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "Musikval",
+      "page": 15,
+      "position": [
+        217.3228346456693,
+        440.07874015748047,
+        360.9448818897638,
+        476.92913385826785
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_276",
+      "relative_position": [
+        180.4724409448819,
+        -364.9606299212598,
+        324.09448818897636,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "MUSIKVAL",
+      "page": 15,
+      "position": [
+        377.9527559055118,
+        440.07874015748047,
+        521.5748031496063,
+        476.92913385826785
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_277",
+      "relative_position": [
+        341.1023622047244,
+        -364.9606299212598,
+        484.72440944881885,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "detaljer",
+      "page": 15,
+      "position": [
+        56.69291338582678,
+        379.5590551181104,
+        200.31496062992127,
+        416.4094488188978
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_278",
+      "relative_position": [
+        19.84251968503937,
+        -425.48031496062987,
+        163.46456692913387,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "Detaljer",
+      "page": 15,
+      "position": [
+        217.3228346456693,
+        379.5590551181104,
+        360.9448818897638,
+        416.4094488188978
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_279",
+      "relative_position": [
+        180.4724409448819,
+        -425.48031496062987,
+        324.09448818897636,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "DETALJER",
+      "page": 15,
+      "position": [
+        377.9527559055118,
+        379.5590551181104,
+        521.5748031496063,
+        416.4094488188978
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_280",
+      "relative_position": [
+        341.1023622047244,
+        -425.48031496062987,
+        484.72440944881885,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "information",
+      "page": 15,
+      "position": [
+        56.69291338582678,
+        319.0393700787403,
+        200.31496062992127,
+        355.8897637795277
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_281",
+      "relative_position": [
+        19.84251968503937,
+        -485.99999999999994,
+        163.46456692913387,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "Information",
+      "page": 15,
+      "position": [
+        217.3228346456693,
+        319.0393700787403,
+        360.9448818897638,
+        355.8897637795277
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_282",
+      "relative_position": [
+        180.4724409448819,
+        -485.99999999999994,
+        324.09448818897636,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "INFORMATION",
+      "page": 15,
+      "position": [
+        377.9527559055118,
+        319.0393700787403,
+        521.5748031496063,
+        355.8897637795277
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_283",
+      "relative_position": [
+        341.1023622047244,
+        -485.99999999999994,
+        484.72440944881885,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "besked",
+      "page": 15,
+      "position": [
+        56.69291338582678,
+        258.51968503937024,
+        200.31496062992127,
+        295.3700787401576
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_284",
+      "relative_position": [
+        19.84251968503937,
+        -546.51968503937,
+        163.46456692913387,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "Besked",
+      "page": 15,
+      "position": [
+        217.3228346456693,
+        258.51968503937024,
+        360.9448818897638,
+        295.3700787401576
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_285",
+      "relative_position": [
+        180.4724409448819,
+        -546.51968503937,
+        324.09448818897636,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "BESKED",
+      "page": 15,
+      "position": [
+        377.9527559055118,
+        258.51968503937024,
+        521.5748031496063,
+        295.3700787401576
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_286",
+      "relative_position": [
+        341.1023622047244,
+        -546.51968503937,
+        484.72440944881885,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "meddelande",
+      "page": 15,
+      "position": [
+        56.69291338582678,
+        198.0000000000001,
+        200.31496062992127,
+        234.85039370078752
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_287",
+      "relative_position": [
+        19.84251968503937,
+        -607.0393700787401,
+        163.46456692913387,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "Meddelande",
+      "page": 15,
+      "position": [
+        217.3228346456693,
+        198.0000000000001,
+        360.9448818897638,
+        234.85039370078752
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_288",
+      "relative_position": [
+        180.4724409448819,
+        -607.0393700787401,
+        324.09448818897636,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "MEDDELANDE",
+      "page": 15,
+      "position": [
+        377.9527559055118,
+        198.0000000000001,
+        521.5748031496063,
+        234.85039370078752
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_289",
+      "relative_position": [
+        341.1023622047244,
+        -607.0393700787401,
+        484.72440944881885,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "klockringning",
+      "page": 15,
+      "position": [
+        56.69291338582678,
+        137.48031496063004,
+        200.31496062992127,
+        174.33070866141745
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_290",
+      "relative_position": [
+        19.84251968503937,
+        -667.5590551181102,
+        163.46456692913387,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "Klockringning",
+      "page": 15,
+      "position": [
+        217.3228346456693,
+        137.48031496063004,
+        360.9448818897638,
+        174.33070866141745
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_291",
+      "relative_position": [
+        180.4724409448819,
+        -667.5590551181102,
+        324.09448818897636,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "KLOCKRINGNING",
+      "page": 15,
+      "position": [
+        377.9527559055118,
+        137.48031496063004,
+        521.5748031496063,
+        174.33070866141745
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_292",
+      "relative_position": [
+        341.1023622047244,
+        -667.5590551181102,
+        484.72440944881885,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "inledande",
+      "page": 16,
+      "position": [
+        56.69291338582678,
+        742.6771653543309,
+        200.31496062992127,
+        779.5275590551183
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_293",
+      "relative_position": [
+        19.84251968503937,
+        -62.36220472440937,
+        163.46456692913387,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "Inledande",
+      "page": 16,
+      "position": [
+        217.3228346456693,
+        742.6771653543309,
+        360.9448818897638,
+        779.5275590551183
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_294",
+      "relative_position": [
+        180.4724409448819,
+        -62.36220472440937,
+        324.09448818897636,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "INLEDANDE",
+      "page": 16,
+      "position": [
+        377.9527559055118,
+        742.6771653543309,
+        521.5748031496063,
+        779.5275590551183
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_295",
+      "relative_position": [
+        341.1023622047244,
+        -62.36220472440937,
+        484.72440944881885,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "avslutande",
+      "page": 16,
+      "position": [
+        56.69291338582678,
+        682.1574803149608,
+        200.31496062992127,
+        719.0078740157483
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_296",
+      "relative_position": [
+        19.84251968503937,
+        -122.88188976377944,
+        163.46456692913387,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "Avslutande",
+      "page": 16,
+      "position": [
+        217.3228346456693,
+        682.1574803149608,
+        360.9448818897638,
+        719.0078740157483
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_297",
+      "relative_position": [
+        180.4724409448819,
+        -122.88188976377944,
+        324.09448818897636,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "AVSLUTANDE",
+      "page": 16,
+      "position": [
+        377.9527559055118,
+        682.1574803149608,
+        521.5748031496063,
+        719.0078740157483
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_298",
+      "relative_position": [
+        341.1023622047244,
+        -122.88188976377944,
+        484.72440944881885,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "musik",
+      "page": 16,
+      "position": [
+        56.69291338582678,
+        621.6377952755907,
+        200.31496062992127,
+        658.4881889763782
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_299",
+      "relative_position": [
+        19.84251968503937,
+        -183.40157480314951,
+        163.46456692913387,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "Musik",
+      "page": 16,
+      "position": [
+        217.3228346456693,
+        621.6377952755907,
+        360.9448818897638,
+        658.4881889763782
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_300",
+      "relative_position": [
+        180.4724409448819,
+        -183.40157480314951,
+        324.09448818897636,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "MUSIK",
+      "page": 16,
+      "position": [
+        377.9527559055118,
+        621.6377952755907,
+        521.5748031496063,
+        658.4881889763782
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_301",
+      "relative_position": [
+        341.1023622047244,
+        -183.40157480314951,
+        484.72440944881885,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "solo",
+      "page": 16,
+      "position": [
+        56.69291338582678,
+        561.1181102362207,
+        200.31496062992127,
+        597.9685039370081
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_302",
+      "relative_position": [
+        19.84251968503937,
+        -243.9212598425196,
+        163.46456692913387,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "Solo",
+      "page": 16,
+      "position": [
+        217.3228346456693,
+        561.1181102362207,
+        360.9448818897638,
+        597.9685039370081
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_303",
+      "relative_position": [
+        180.4724409448819,
+        -243.9212598425196,
+        324.09448818897636,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "SOLO",
+      "page": 16,
+      "position": [
+        377.9527559055118,
+        561.1181102362207,
+        521.5748031496063,
+        597.9685039370081
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_304",
+      "relative_position": [
+        341.1023622047244,
+        -243.9212598425196,
+        484.72440944881885,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "duett",
+      "page": 16,
+      "position": [
+        56.69291338582678,
+        500.5984251968506,
+        200.31496062992127,
+        537.448818897638
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_305",
+      "relative_position": [
+        19.84251968503937,
+        -304.44094488188966,
+        163.46456692913387,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "Duett",
+      "page": 16,
+      "position": [
+        217.3228346456693,
+        500.5984251968506,
+        360.9448818897638,
+        537.448818897638
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_306",
+      "relative_position": [
+        180.4724409448819,
+        -304.44094488188966,
+        324.09448818897636,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "DUETT",
+      "page": 16,
+      "position": [
+        377.9527559055118,
+        500.5984251968506,
+        521.5748031496063,
+        537.448818897638
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_307",
+      "relative_position": [
+        341.1023622047244,
+        -304.44094488188966,
+        484.72440944881885,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "kör",
+      "page": 16,
+      "position": [
+        56.69291338582678,
+        440.07874015748047,
+        200.31496062992127,
+        476.92913385826785
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_308",
+      "relative_position": [
+        19.84251968503937,
+        -364.9606299212598,
+        163.46456692913387,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "Kör",
+      "page": 16,
+      "position": [
+        217.3228346456693,
+        440.07874015748047,
+        360.9448818897638,
+        476.92913385826785
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_309",
+      "relative_position": [
+        180.4724409448819,
+        -364.9606299212598,
+        324.09448818897636,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "KÖR",
+      "page": 16,
+      "position": [
+        377.9527559055118,
+        440.07874015748047,
+        521.5748031496063,
+        476.92913385826785
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_310",
+      "relative_position": [
+        341.1023622047244,
+        -364.9606299212598,
+        484.72440944881885,
+        -328.1102362204724
+      ]
+    },
+    {
+      "text": "instrumental",
+      "page": 16,
+      "position": [
+        56.69291338582678,
+        379.5590551181104,
+        200.31496062992127,
+        416.4094488188978
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_311",
+      "relative_position": [
+        19.84251968503937,
+        -425.48031496062987,
+        163.46456692913387,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "Instrumental",
+      "page": 16,
+      "position": [
+        217.3228346456693,
+        379.5590551181104,
+        360.9448818897638,
+        416.4094488188978
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_312",
+      "relative_position": [
+        180.4724409448819,
+        -425.48031496062987,
+        324.09448818897636,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "INSTRUMENTAL",
+      "page": 16,
+      "position": [
+        377.9527559055118,
+        379.5590551181104,
+        521.5748031496063,
+        416.4094488188978
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_313",
+      "relative_position": [
+        341.1023622047244,
+        -425.48031496062987,
+        484.72440944881885,
+        -388.6299212598425
+      ]
+    },
+    {
+      "text": "minnesstund",
+      "page": 16,
+      "position": [
+        56.69291338582678,
+        319.0393700787403,
+        200.31496062992127,
+        355.8897637795277
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_314",
+      "relative_position": [
+        19.84251968503937,
+        -485.99999999999994,
+        163.46456692913387,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "Minnesstund",
+      "page": 16,
+      "position": [
+        217.3228346456693,
+        319.0393700787403,
+        360.9448818897638,
+        355.8897637795277
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_315",
+      "relative_position": [
+        180.4724409448819,
+        -485.99999999999994,
+        324.09448818897636,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "MINNESSTUND",
+      "page": 16,
+      "position": [
+        377.9527559055118,
+        319.0393700787403,
+        521.5748031496063,
+        355.8897637795277
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_316",
+      "relative_position": [
+        341.1023622047244,
+        -485.99999999999994,
+        484.72440944881885,
+        -449.14960629921256
+      ]
+    },
+    {
+      "text": "mat",
+      "page": 16,
+      "position": [
+        56.69291338582678,
+        258.51968503937024,
+        200.31496062992127,
+        295.3700787401576
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_317",
+      "relative_position": [
+        19.84251968503937,
+        -546.51968503937,
+        163.46456692913387,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "Mat",
+      "page": 16,
+      "position": [
+        217.3228346456693,
+        258.51968503937024,
+        360.9448818897638,
+        295.3700787401576
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_318",
+      "relative_position": [
+        180.4724409448819,
+        -546.51968503937,
+        324.09448818897636,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "MAT",
+      "page": 16,
+      "position": [
+        377.9527559055118,
+        258.51968503937024,
+        521.5748031496063,
+        295.3700787401576
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_319",
+      "relative_position": [
+        341.1023622047244,
+        -546.51968503937,
+        484.72440944881885,
+        -509.66929133858264
+      ]
+    },
+    {
+      "text": "dryck",
+      "page": 16,
+      "position": [
+        56.69291338582678,
+        198.0000000000001,
+        200.31496062992127,
+        234.85039370078752
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_320",
+      "relative_position": [
+        19.84251968503937,
+        -607.0393700787401,
+        163.46456692913387,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "Dryck",
+      "page": 16,
+      "position": [
+        217.3228346456693,
+        198.0000000000001,
+        360.9448818897638,
+        234.85039370078752
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_321",
+      "relative_position": [
+        180.4724409448819,
+        -607.0393700787401,
+        324.09448818897636,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "DRYCK",
+      "page": 16,
+      "position": [
+        377.9527559055118,
+        198.0000000000001,
+        521.5748031496063,
+        234.85039370078752
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_322",
+      "relative_position": [
+        341.1023622047244,
+        -607.0393700787401,
+        484.72440944881885,
+        -570.1889763779527
+      ]
+    },
+    {
+      "text": "servering",
+      "page": 16,
+      "position": [
+        56.69291338582678,
+        137.48031496063004,
+        200.31496062992127,
+        174.33070866141745
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_323",
+      "relative_position": [
+        19.84251968503937,
+        -667.5590551181102,
+        163.46456692913387,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "Servering",
+      "page": 16,
+      "position": [
+        217.3228346456693,
+        137.48031496063004,
+        360.9448818897638,
+        174.33070866141745
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_324",
+      "relative_position": [
+        180.4724409448819,
+        -667.5590551181102,
+        324.09448818897636,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "SERVERING",
+      "page": 16,
+      "position": [
+        377.9527559055118,
+        137.48031496063004,
+        521.5748031496063,
+        174.33070866141745
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_325",
+      "relative_position": [
+        341.1023622047244,
+        -667.5590551181102,
+        484.72440944881885,
+        -630.7086614173228
+      ]
+    },
+    {
+      "text": "gravnummer",
+      "page": 17,
+      "position": [
+        56.69291338582678,
+        742.6771653543309,
+        200.31496062992127,
+        779.5275590551183
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_326",
+      "relative_position": [
+        19.84251968503937,
+        -62.36220472440937,
+        163.46456692913387,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "Gravnummer",
+      "page": 17,
+      "position": [
+        217.3228346456693,
+        742.6771653543309,
+        360.9448818897638,
+        779.5275590551183
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_327",
+      "relative_position": [
+        180.4724409448819,
+        -62.36220472440937,
+        324.09448818897636,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "GRAVNUMMER",
+      "page": 17,
+      "position": [
+        377.9527559055118,
+        742.6771653543309,
+        521.5748031496063,
+        779.5275590551183
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_328",
+      "relative_position": [
+        341.1023622047244,
+        -62.36220472440937,
+        484.72440944881885,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "sektion",
+      "page": 17,
+      "position": [
+        56.69291338582678,
+        682.1574803149608,
+        200.31496062992127,
+        719.0078740157483
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_329",
+      "relative_position": [
+        19.84251968503937,
+        -122.88188976377944,
+        163.46456692913387,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "Sektion",
+      "page": 17,
+      "position": [
+        217.3228346456693,
+        682.1574803149608,
+        360.9448818897638,
+        719.0078740157483
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_330",
+      "relative_position": [
+        180.4724409448819,
+        -122.88188976377944,
+        324.09448818897636,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "SEKTION",
+      "page": 17,
+      "position": [
+        377.9527559055118,
+        682.1574803149608,
+        521.5748031496063,
+        719.0078740157483
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_331",
+      "relative_position": [
+        341.1023622047244,
+        -122.88188976377944,
+        484.72440944881885,
+        -86.031496062992
+      ]
+    },
+    {
+      "text": "kvarter",
+      "page": 17,
+      "position": [
+        56.69291338582678,
+        621.6377952755907,
+        200.31496062992127,
+        658.4881889763782
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_332",
+      "relative_position": [
+        19.84251968503937,
+        -183.40157480314951,
+        163.46456692913387,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "Kvarter",
+      "page": 17,
+      "position": [
+        217.3228346456693,
+        621.6377952755907,
+        360.9448818897638,
+        658.4881889763782
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_333",
+      "relative_position": [
+        180.4724409448819,
+        -183.40157480314951,
+        324.09448818897636,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "KVARTER",
+      "page": 17,
+      "position": [
+        377.9527559055118,
+        621.6377952755907,
+        521.5748031496063,
+        658.4881889763782
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_334",
+      "relative_position": [
+        341.1023622047244,
+        -183.40157480314951,
+        484.72440944881885,
+        -146.55118110236208
+      ]
+    },
+    {
+      "text": "område",
+      "page": 17,
+      "position": [
+        56.69291338582678,
+        561.1181102362207,
+        200.31496062992127,
+        597.9685039370081
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_335",
+      "relative_position": [
+        19.84251968503937,
+        -243.9212598425196,
+        163.46456692913387,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "Område",
+      "page": 17,
+      "position": [
+        217.3228346456693,
+        561.1181102362207,
+        360.9448818897638,
+        597.9685039370081
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_336",
+      "relative_position": [
+        180.4724409448819,
+        -243.9212598425196,
+        324.09448818897636,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "OMRÅDE",
+      "page": 17,
+      "position": [
+        377.9527559055118,
+        561.1181102362207,
+        521.5748031496063,
+        597.9685039370081
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_337",
+      "relative_position": [
+        341.1023622047244,
+        -243.9212598425196,
+        484.72440944881885,
+        -207.07086614173215
+      ]
+    },
+    {
+      "text": "huvudgång",
+      "page": 17,
+      "position": [
+        56.69291338582678,
+        500.5984251968506,
+        200.31496062992127,
+        537.448818897638
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_338",
+      "relative_position": [
+        19.84251968503937,
+        -304.44094488188966,
+        163.46456692913387,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "Huvudgång",
+      "page": 17,
+      "position": [
+        217.3228346456693,
+        500.5984251968506,
+        360.9448818897638,
+        537.448818897638
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_339",
+      "relative_position": [
+        180.4724409448819,
+        -304.44094488188966,
+        324.09448818897636,
+        -267.5905511811022
+      ]
+    },
+    {
+      "text": "HUVUDGÅNG",
+      "page": 17,
+      "position": [
+        377.9527559055118,
+        500.5984251968506,
+        521.5748031496063,
+        537.448818897638
+      ],
+      "category": "practical_terms",
+      "subcategory": null,
+      "word_id": "practical_terms_340",
+      "relative_position": [
+        341.1023622047244,
+        -304.44094488188966,
+        484.72440944881885,
+        -267.5905511811022
+      ]
+    }
+  ]
+}
