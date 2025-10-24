@@ -79,6 +79,7 @@ config/secrets.yaml
 
 # Planning documents
 TrOCR_Setup_Plan.ipynb
+CRITICAL_VOCAB_ANALYSIS.md
 
 # Azure config
 .azureml
