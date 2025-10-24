@@ -14,14 +14,14 @@ from .data_collator import TrOCRDataCollator
 
 class TrainingConfig:
     # Model settings
-    model_name = 'microsoft/trocr-base-handwritten'
+    model_name = 'microsoft/trocr-base-stage1'
 
     # Training settings - Cloud optimized
-    batch_size = 16
-    eval_batch_size = 32
-    gradient_accumulation_steps = 2  # Effective batch = 32
-    learning_rate = 5e-5
-    num_epochs = 10
+    batch_size = 8 # from 16 for more stable gradients
+    eval_batch_size = 16 # from 32 for consistency
+    gradient_accumulation_steps = 4  # from 2 for bigger effective batch
+    learning_rate = 3e-5 # from 5e-5 for more constistent learning
+    num_epochs = 30 # from 10 for full convergens
     warmup_steps = 500
     
     # Cloud GPU optimizations
@@ -30,9 +30,9 @@ class TrainingConfig:
     
     # Evaluation settings
     eval_steps = 1000 # 200
-    save_steps = 3000
+    save_steps = 1000 # from 3000 for more checkpoints
     save_total_limit = 3 # Added for less hdd
-    logging_steps = 100
+    logging_steps = 250 # from 100 for a more balanced logging
 
     def __init__(self):
         logging.basicConfig(
@@ -77,6 +77,34 @@ def parse_args():
     
     return parser.parse_args()
 
+def validate_swedish_tokenizer(processor, logger):
+    """Validate tokenizer support for swedish chars."""
+    swedish_chars = ['å', 'ä', 'ö', 'Å', 'Ä', 'Ö']
+    tokenizer = processor.tokenizer
+    
+    logger.info("Validating Swedish character support in tokenizer...")
+    missing_chars = []
+    
+    for char in swedish_chars:
+        # Test if character tokenizes properly (not as unknown token)
+        tokens = tokenizer.tokenize(char)
+        token_ids = tokenizer.convert_tokens_to_ids(tokens)
+        
+        # Check if it's tokenized as unknown token
+        if tokenizer.unk_token_id in token_ids or len(tokens) > 1:
+            missing_chars.append(char)
+            logger.warning(f"'{char}' not properly supported: {tokens}")
+        else:
+            logger.info(f"'{char}' supported: {tokens}")
+    
+    if missing_chars:
+        logger.warning(f"Missing Swedish chars: {missing_chars}")
+        logger.info("This may impact Swedish text generation quality")
+    else:
+        logger.info("All Swedish characters properly supported!")
+    
+    return len(missing_chars) == 0
+
 def train_model(args):
     """ Main training function """
 
@@ -94,15 +122,19 @@ def train_model(args):
     model = VisionEncoderDecoderModel.from_pretrained(config.model_name)
     processor = TrOCRProcessor.from_pretrained(config.model_name, use_fast=True)
     
+    # Validate Swedish character support BEFORE training
+    validate_swedish_tokenizer(processor, config.logger)
+    
     # Configure model for Swedish handwriting
     model.config.decoder_start_token_id = processor.tokenizer.cls_token_id
     model.config.pad_token_id = processor.tokenizer.pad_token_id
     model.config.eos_token_id = processor.tokenizer.sep_token_id
 
     # Configure generation settings
-    model.generation_config.max_length = 64
-    model.generation_config.early_stopping = True
-    model.generation_config.num_beams = 4
+    model.generation_config.max_length = 128 # from 64, for connected words
+    model.generation_config.early_stopping = False # from True to let model generate whole word
+    model.generation_config.num_beams = 8 # from 4 for better search
+    model.generation_config.length_penalty = 0.8 # New for avoid too short outputs
     
     model.to(device)
 
