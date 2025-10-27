@@ -13,7 +13,7 @@ from datetime import datetime
 from config.paths import detect_project_environment, get_latest_model, PROJECT_ROOT, DatasetPaths
 from scripts.data_processing.orchestrator.version_manager import get_latest_version_number
 from scripts.training.evaluation.metrics import (
-    cer_metric, wer_metric, bleu_metric,
+    cer_metric, wer_metric,
     clean_text, compute_swedish_accuracy, log_sample_predictions
 )
 import random
@@ -243,7 +243,7 @@ class TrOCRModelEvaluator:
         Evaluate model on full test split
 
         Returns:
-            dict: Comprehensive evaluation results with CER, WER, BLEU, etc.
+            dict: Comprehensive evaluation results with CER, WER, etc.
         """        
         try:
             self.logger.info("=== FULL EVALUATION MODE ===")
@@ -296,11 +296,6 @@ class TrOCRModelEvaluator:
                 cer_score = cer_metric.compute(predictions=predictions_list, references=references_list)
                 wer_score = wer_metric.compute(predictions=predictions_list, references=references_list)
                 
-                # BLEU expects list of lists for references
-                bleu_references = [[ref] for ref in references_list]
-                bleu_score = bleu_metric.compute(predictions=predictions_list, references=bleu_references)
-                bleu_value = bleu_score['bleu'] if isinstance(bleu_score, dict) else bleu_score
-                
                 # Swedish character accuracy
                 swedish_acc = compute_swedish_accuracy(predictions_list, references_list)
                 
@@ -309,7 +304,7 @@ class TrOCRModelEvaluator:
                 exact_match_acc = exact_matches / len(predictions_list)
                 
             else:
-                cer_score = wer_score = bleu_value = swedish_acc = exact_match_acc = 0.0
+                cer_score = wer_score = swedish_acc = exact_match_acc = 0.0
 
             # Final results
             end_time = datetime.now()
@@ -326,8 +321,7 @@ class TrOCRModelEvaluator:
                 },
                 'metrics': {
                     'cer': cer_score,
-                    'wer': wer_score, 
-                    'bleu': bleu_value,
+                    'wer': wer_score,
                     'swedish_character_accuracy': swedish_acc,
                     'exact_match_accuracy': exact_match_acc
                 },
@@ -338,7 +332,6 @@ class TrOCRModelEvaluator:
             self.logger.info("=== EVALUATION RESULTS ===")
             self.logger.info(f"CER: {cer_score:.4f}")
             self.logger.info(f"WER: {wer_score:.4f}")
-            self.logger.info(f"BLEU: {bleu_value:.4f}")
             if swedish_acc is not None:
                 self.logger.info(f"Swedish chars accuracy: {swedish_acc:.4f}")
             self.logger.info(f"Exact match accuracy: {exact_match_acc:.4f}")

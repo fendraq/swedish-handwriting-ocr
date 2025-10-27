@@ -105,9 +105,9 @@ def add_swedish_tokens(model, tokenizer, logger):
         encoded = tokenizer.encode(word, add_special_tokens=False)
         decoded = tokenizer.decode(encoded, skip_special_tokens=True)
         if word == decoded:
-            logger.info(f"✅ '{word}' -> {encoded} -> '{decoded}' (PERFECT)")
+            logger.info(f"PERFECT: '{word}' -> {encoded} -> '{decoded}'")
         else:
-            logger.info(f"❌ '{word}' -> {encoded} -> '{decoded}' (CORRUPTED)")
+            logger.info(f"CORRUPTED: '{word}' -> {encoded} -> '{decoded}'")
     
     # Check if we still need to add tokens
     chars_to_add = []
@@ -140,7 +140,7 @@ def add_swedish_tokens(model, tokenizer, logger):
         
         return True
     else:
-        logger.info("RIKSARKIVET CONFIG SOLVED THE PROBLEM! No token addition needed!")
+        logger.info("RIKSARKIVET CONFIG SOLVED THE PROBLEM: No token addition needed")
         return False
     
 def train_model(args):

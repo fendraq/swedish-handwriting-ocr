@@ -1,5 +1,5 @@
 """
-Metrics for TrOcr SwedishHandwriting - CER, WER, BLEU evaluation
+Metrics for TrOcr SwedishHandwriting - CER, WER evaluation
 """
 
 import logging
@@ -17,7 +17,6 @@ try:
     # Try new evaluation API 
     cer_metric = evaluate.load('cer')
     wer_metric = evaluate.load('wer')
-    bleu_metric = evaluate.load('bleu')
     logger.info("Using new evaluate API for metrics")
 except Exception as e:
     # Fallback: show specific error and required dependencies
@@ -102,11 +101,6 @@ def create_compute_metrics(processor):
         wer_score = wer_metric.compute(predictions=cleaned_preds, references=cleaned_labels)
         metrics['eval_wer'] = wer_score
 
-        # 3. BLEU score
-        bleu_labels = [[label] for label in cleaned_labels]
-        bleu_score = bleu_metric.compute(predictions=cleaned_preds, references=bleu_labels)
-        metrics['eval_bleu'] = bleu_score['bleu'] if isinstance(bleu_score, dict) else bleu_score
-
         # 4. Swedish special chars accuracy
         swedish_accuracy = compute_swedish_accuracy(cleaned_preds, cleaned_labels)
         if swedish_accuracy is not None:
@@ -117,7 +111,7 @@ def create_compute_metrics(processor):
         metrics['eval_exact_match'] = exact_matches / len(cleaned_preds)
 
         # Log for debugging
-        logger.info(f"Evaluation metrics: CER={cer_score:.4f}, WER={wer_score:.4f}, BLEU={metrics['eval_bleu']:.4f}")
+        logger.info(f"Evaluation metrics: CER={cer_score:.4f}, WER={wer_score:.4f}")
 
         return metrics
 
