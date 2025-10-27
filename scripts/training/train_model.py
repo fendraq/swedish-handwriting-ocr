@@ -95,6 +95,7 @@ def add_swedish_tokens(model, tokenizer, logger):
     vocab = tokenizer.get_vocab()
     tokens_to_add = []
     corrupted_tokens = {}
+    corrupted_to_remove = []
 
     for correct_char, variants in swedish_mappings.items():
         found_correct = False
@@ -114,6 +115,7 @@ def add_swedish_tokens(model, tokenizer, logger):
                 if variant in vocab:
                     logger.warning(f"Found corrupted token: '{variant}' for '{correct_char}'")
                     corrupted_tokens[variant] = correct_char
+                    corrupted_to_remove.append(variant)
                     found_corrupted = variant
                     break
         
@@ -135,6 +137,20 @@ def add_swedish_tokens(model, tokenizer, logger):
         return False
     
     logger.info(f"Adding Swedish tokens: {tokens_to_add}")
+
+    if corrupted_to_remove:
+        logger.info(f"Removing corrupted tokens: {corrupted_to_remove}")
+        # Remove from vocabulary by rebuilding without corrupted tokens
+        old_vocab = tokenizer.get_vocab()
+        new_vocab = {token: idx for token, idx in old_vocab.items()
+                     if token not in corrupted_to_remove}
+        
+        tokenizer.vocab = new_vocab
+        if hasattr(tokenizer, '_tokenizer'):
+            tokenizer._tokenizer.get_vocab().clear()
+            tokenizer._tokenizer.get_vocab().update(new_vocab)
+
+        logger.info(f"Removed {len(corrupted_to_remove)} corrupted tokens")
 
     # Save old embedding stat before any changes
     old_embeddings = model.decoder.get_input_embeddings()
@@ -171,8 +187,8 @@ def add_swedish_tokens(model, tokenizer, logger):
                 # Try to find corrupter version to copy from
                 initialized = False
                 for corrupted, correct in corrupted_tokens.items():
-                    if token == correct and corrupted in vocab:
-                        corrupted_idx = vocab[corrupted]
+                    if token == correct and corrupted in old_vocab:
+                        corrupted_idx = old_vocab[corrupted]
                         if corrupted_idx < old_vocab_size:
                             new_embeddings.weight[new_token_idx] = old_embeddings.weight[corrupted_idx]
                             logger.info(f"Initialized '{token}' from corrupted '{corrupted}'")
