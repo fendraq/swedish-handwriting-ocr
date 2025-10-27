@@ -59,6 +59,15 @@ class TrainingConfig:
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Train TrOCR on Swedish handwriting")
+
+    # Model combinations
+    parser.add_argument(
+        "--model_combo",
+        type=str,
+        default="ra_proc_ra_model",
+        choices=["ra_proc_ra_model", "ra_proc_ms_model", "ms_proc_ra_model", "ms_proc_ms_model"],
+        help="Kombination av processor och modell: ra_proc_ra_model, ra_proc_ms_model, ms_proc_ra_model, ms_proc_ms_model"
+    )
     
     # Training parameters
     parser.add_argument("--dry_run", action="store_true", 
@@ -156,10 +165,22 @@ def train_model(args):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     config.logger.info(f"Using device: {device}")
 
-    # Load model and processor
-    model = VisionEncoderDecoderModel.from_pretrained(config.model_name)
-    processor = TrOCRProcessor.from_pretrained(config.model_name, use_fast=True)
-    
+    # Load model and processor according to --model_combo
+    if args.model_combo == "ra_proc_ra_model":
+        processor = TrOCRProcessor.from_pretrained('Riksarkivet/trocr-base-handwritten-hist-swe-2', use_fast=False)
+        model = VisionEncoderDecoderModel.from_pretrained('Riksarkivet/trocr-base-handwritten-hist-swe-2')
+    elif args.model_combo == "ra_proc_ms_model":
+        processor = TrOCRProcessor.from_pretrained('Riksarkivet/trocr-base-handwritten-hist-swe-2', use_fast=False)
+        model = VisionEncoderDecoderModel.from_pretrained('microsoft/trocr-base-handwritten')
+    elif args.model_combo == "ms_proc_ra_model":
+        processor = TrOCRProcessor.from_pretrained('microsoft/trocr-base-handwritten', use_fast=False)
+        model = VisionEncoderDecoderModel.from_pretrained('Riksarkivet/trocr-base-handwritten-hist-swe-2')
+    elif args.model_combo == "ms_proc_ms_model":
+        processor = TrOCRProcessor.from_pretrained('microsoft/trocr-base-handwritten', use_fast=False)
+        model = VisionEncoderDecoderModel.from_pretrained('microsoft/trocr-base-handwritten')
+    else:
+        raise ValueError(f"Okänd model_combo: {args.model_combo}")
+
     # Apply Riksarkivet's exact token configuration BEFORE anything else
     config.logger.info("=== APPLYING RIKSARKIVET TOKEN CONFIGURATION ===")
     
