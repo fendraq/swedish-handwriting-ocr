@@ -82,23 +82,26 @@ def add_swedish_tokens(model, tokenizer, logger):
     """Add missing Swedish tokens to tokenizer and resize model embeddings"""
     new_tokens = ["å", "ä", "ö", "Å", "Ä", "Ö"]  
     
-    # Add tokens
+    # Get old embeddings BEFORE adding tokens to avoid size mismatch
+    old_embeddings = model.decoder.get_input_embeddings()
+    old_size = old_embeddings.weight.size(0)
+    
+    # Add tokens to tokenizer
     added = tokenizer.add_tokens(new_tokens)
     
     if added > 0:
         logger.info(f"Added {added} Swedish tokens: {new_tokens}")
         
-        # Resize DECODER embeddings
-        old_embeddings = model.decoder.get_input_embeddings()
+        # Resize decoder embeddings to match new tokenizer size
         model.decoder.resize_token_embeddings(len(tokenizer))
         
-        # Initiate new embedings
+        # Initialize new embeddings properly
         with torch.no_grad():
             new_embeddings = model.decoder.get_input_embeddings()
-            # Copy old embedings
-            new_embeddings.weight[:-added] = old_embeddings.weight
-            # Initiate new
-            new_embeddings.weight[-added:] = old_embeddings.weight[:-added].mean(dim=0, keepdim=True).expand(added, -1)
+            # Copy old embeddings to correct positions
+            new_embeddings.weight[:old_size] = old_embeddings.weight
+            # Initialize new token embeddings with mean of existing embeddings
+            new_embeddings.weight[old_size:] = old_embeddings.weight.mean(dim=0, keepdim=True).expand(added, -1)
         
         logger.info("Resized decoder token embeddings for Swedish characters")
         return True
