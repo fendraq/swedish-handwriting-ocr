@@ -63,11 +63,11 @@ def parse_args():
     # Training parameters
     parser.add_argument("--dry_run", action="store_true", 
                        help="Run with only 10 samples for testing")
-    parser.add_argument("--batch_size", type=int, default=16,
+    parser.add_argument("--batch_size", type=int, default=8,
                        help="Training batch size")
-    parser.add_argument("--epochs", type=int, default=10,
+    parser.add_argument("--epochs", type=int, default=30,
                        help="Number of training epochs")
-    parser.add_argument("--learning_rate", type=float, default=5e-5,
+    parser.add_argument("--learning_rate", type=float, default=3e-5,
                        help="Learning rate")
     
     # Logging
