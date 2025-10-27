@@ -101,19 +101,24 @@ def add_swedish_tokens(model, tokenizer, logger):
     
     # Add tokens that are missing or map incorrectly
     if chars_to_add:
-        # Log embeddings size before (for VisionEncoderDecoderModel, check decoder)
+        # Log embeddings size before
         old_size = model.decoder.get_input_embeddings().weight.size(0)
         logger.info(f"Decoder embeddings size before: {old_size}")
         
+        # Add tokens to tokenizer
         num_added = tokenizer.add_tokens(chars_to_add)
+        logger.info(f"Tokenizer added {num_added} tokens")
         
-        # For VisionEncoderDecoderModel, resize decoder embeddings specifically
+        # Resize decoder embeddings
         model.decoder.resize_token_embeddings(len(tokenizer))
+        
+        # CRITICAL: Update model config vocab_size to match decoder
+        model.config.vocab_size = model.config.decoder.vocab_size
+        logger.info(f"Updated model.config.vocab_size to {model.config.vocab_size}")
         
         # Log embeddings size after
         new_size = model.decoder.get_input_embeddings().weight.size(0)
         logger.info(f"Decoder embeddings size after: {new_size}")
-        logger.info(f"Added {num_added} Swedish tokens: {chars_to_add}")
         return True
     else:
         logger.info("All Swedish characters correctly supported")
