@@ -78,6 +78,7 @@ config/secrets.yaml
 .env
 
 # Planning documents
+form_print_read_feature_suggestion.ipynb
 TrOCR_Setup_Plan.ipynb
 CRITICAL_VOCAB_ANALYSIS.md
 
