@@ -101,16 +101,18 @@ def add_swedish_tokens(model, tokenizer, logger):
     
     # Add tokens that are missing or map incorrectly
     if chars_to_add:
-        # Log embeddings size before
-        old_size = model.get_input_embeddings().weight.size(0)
-        logger.info(f"Embeddings size before: {old_size}")
+        # Log embeddings size before (for VisionEncoderDecoderModel, check decoder)
+        old_size = model.decoder.get_input_embeddings().weight.size(0)
+        logger.info(f"Decoder embeddings size before: {old_size}")
         
         num_added = tokenizer.add_tokens(chars_to_add)
-        model.resize_token_embeddings(len(tokenizer))
+        
+        # For VisionEncoderDecoderModel, resize decoder embeddings specifically
+        model.decoder.resize_token_embeddings(len(tokenizer))
         
         # Log embeddings size after
-        new_size = model.get_input_embeddings().weight.size(0)
-        logger.info(f"Embeddings size after: {new_size}")
+        new_size = model.decoder.get_input_embeddings().weight.size(0)
+        logger.info(f"Decoder embeddings size after: {new_size}")
         logger.info(f"Added {num_added} Swedish tokens: {chars_to_add}")
         return True
     else:
