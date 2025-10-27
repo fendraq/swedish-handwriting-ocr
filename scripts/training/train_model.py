@@ -1,3 +1,4 @@
+import os
 import torch
 from transformers import VisionEncoderDecoderModel, TrOCRProcessor
 from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments
@@ -77,6 +78,33 @@ def parse_args():
     
     return parser.parse_args()
 
+def add_swedish_tokens(model, tokenizer, logger):
+    """Add missing Swedish tokens to tokenizer and resize model embeddings"""
+    new_tokens = ["å", "ä", "ö", "Å", "Ä", "Ö"]  
+    
+    # Lägg till tokens
+    added = tokenizer.add_tokens(new_tokens)
+    
+    if added > 0:
+        logger.info(f"Added {added} Swedish tokens: {new_tokens}")
+        # Resize model embeddings för nya tokens
+        old_embeddings = model.get_input_embeddings()
+        model.resize_token_embeddings(len(tokenizer))
+        
+        # Initiera nya embeddings med genomsnitt av befintliga (bättre än random)
+        with torch.no_grad():
+            new_embeddings = model.get_input_embeddings()
+            # Kopiera gamla embeddings
+            new_embeddings.weight[:-added] = old_embeddings.weight
+            # Initiera nya med genomsnitt för bättre start
+            new_embeddings.weight[-added:] = old_embeddings.weight[:-added].mean(dim=0, keepdim=True).expand(added, -1)
+        
+        logger.info("Resized token embeddings for Swedish characters")
+        return True
+    else:
+        logger.info("No new tokens were added (already exist)")
+        return False
+
 def validate_swedish_tokenizer(processor, logger):
     """Validate tokenizer support for swedish chars."""
     swedish_chars = ['å', 'ä', 'ö', 'Å', 'Ä', 'Ö']
@@ -89,13 +117,14 @@ def validate_swedish_tokenizer(processor, logger):
         # Test if character tokenizes properly (not as unknown token)
         tokens = tokenizer.tokenize(char)
         token_ids = tokenizer.convert_tokens_to_ids(tokens)
+        decoded = tokenizer.decode(token_ids, skip_special_tokens=True)
         
         # Check if it's tokenized as unknown token
-        if tokenizer.unk_token_id in token_ids or len(tokens) > 1:
+        if decoded != char or tokenizer.unk_token_id in token_ids or len(tokens) > 1:
             missing_chars.append(char)
-            logger.warning(f"'{char}' not properly supported: {tokens}")
+            logger.warning(f"'{char}' not properly supported: {tokens} -> decodes to '{decoded}'")
         else:
-            logger.info(f"'{char}' supported: {tokens}")
+            logger.info(f"'{char}' supported correctly: {tokens} -> '{decoded}'")
     
     if missing_chars:
         logger.warning(f"Missing Swedish chars: {missing_chars}")
@@ -122,7 +151,10 @@ def train_model(args):
     model = VisionEncoderDecoderModel.from_pretrained(config.model_name)
     processor = TrOCRProcessor.from_pretrained(config.model_name, use_fast=True)
     
-    # Validate Swedish character support BEFORE training
+    # Add missing Swedish tokens BEFORE validation
+    add_swedish_tokens(model, processor.tokenizer, config.logger)
+    
+    # Validate Swedish character support AFTER adding tokens
     validate_swedish_tokenizer(processor, config.logger)
     
     # Configure model for Swedish handwriting
@@ -243,6 +275,10 @@ def train_model(args):
         wandb.finish()
 
 def main():
+    # Environment setup
+    os.environ['TOKENIZERS_PARALLELISM'] = 'false'
+    os.environ['HF_HUB_ENABLE_HF_TRANSFER'] ='0'
+
     args = parse_args()
     train_model(args)
 
