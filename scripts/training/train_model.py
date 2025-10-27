@@ -121,21 +121,53 @@ def add_swedish_tokens(model, tokenizer, logger):
         logger.info(f"Decoder embeddings size after: {new_size}")
         
         # VERIFY: Test if the new tokens actually work
-        logger.info("=== TESTING NEW TOKENS ===")
+        logger.info("=== INVESTIGATING TOKENIZER STRUCTURE ===")
         updated_vocab = tokenizer.get_vocab()
+        
+        # Check if new tokens were actually added at the end
+        vocab_size = len(updated_vocab)
+        logger.info(f"Total vocabulary size: {vocab_size}")
+        
+        # Check the last few tokens (where new ones should be)
+        reverse_vocab = {v: k for k, v in updated_vocab.items()}
+        logger.info("Last 10 tokens in vocabulary:")
+        for i in range(max(0, vocab_size-10), vocab_size):
+            token = reverse_vocab.get(i, "MISSING")
+            logger.info(f"  token_id {i}: '{token}'")
+        
+        # Now test the specific Swedish characters
+        logger.info("=== TESTING SWEDISH CHARACTERS ===")
         for char in chars_to_add:
-            # Find the token ID for this character
             if char in updated_vocab:
-                token_id = updated_vocab[char]
-                decoded = tokenizer.decode([token_id], skip_special_tokens=True)
-                logger.info(f"Test: '{char}' -> token_id {token_id} -> decodes to '{decoded}'")
+                old_token_id = updated_vocab[char]
+                decoded = tokenizer.decode([old_token_id], skip_special_tokens=True)
+                logger.info(f"'{char}' -> token_id {old_token_id} -> decodes to '{decoded}'")
                 
-                # Also test if we can encode and decode
-                encoded = tokenizer.encode(char, add_special_tokens=False)
-                redecoded = tokenizer.decode(encoded, skip_special_tokens=True)
-                logger.info(f"Roundtrip: '{char}' -> {encoded} -> '{redecoded}'")
-            else:
-                logger.error(f"'{char}' not found in vocabulary after adding!")
+                # Check if there are multiple token IDs for this character
+                matching_tokens = [tid for token, tid in updated_vocab.items() if token == char]
+                if len(matching_tokens) > 1:
+                    logger.info(f"  MULTIPLE IDs for '{char}': {matching_tokens}")
+                    # Test the highest ID (should be the new one)
+                    highest_id = max(matching_tokens)
+                    new_decoded = tokenizer.decode([highest_id], skip_special_tokens=True)
+                    logger.info(f"  Highest ID {highest_id} decodes to: '{new_decoded}'")
+        
+        # Check if tokenizer has internal converter we can access
+        logger.info("=== TOKENIZER INTERNALS ===")
+        logger.info(f"Tokenizer type: {type(tokenizer)}")
+        if hasattr(tokenizer, '_tokenizer'):
+            logger.info(f"Internal tokenizer type: {type(tokenizer._tokenizer)}")
+            if hasattr(tokenizer._tokenizer, 'decoder'):
+                logger.info(f"Has decoder: {type(tokenizer._tokenizer.decoder)}")
+        
+        # Try to see if we can modify the decoder mapping
+        if hasattr(tokenizer, 'convert_ids_to_tokens'):
+            logger.info("Testing convert_ids_to_tokens for Swedish chars:")
+            for char in ['å', 'ä', 'ö']:
+                if char in updated_vocab:
+                    token_id = updated_vocab[char]
+                    converted = tokenizer.convert_ids_to_tokens([token_id])
+                    logger.info(f"  {token_id} -> {converted}")
         
         return True
     else:
