@@ -119,6 +119,24 @@ def add_swedish_tokens(model, tokenizer, logger):
         # Log embeddings size after
         new_size = model.decoder.get_input_embeddings().weight.size(0)
         logger.info(f"Decoder embeddings size after: {new_size}")
+        
+        # VERIFY: Test if the new tokens actually work
+        logger.info("=== TESTING NEW TOKENS ===")
+        updated_vocab = tokenizer.get_vocab()
+        for char in chars_to_add:
+            # Find the token ID for this character
+            if char in updated_vocab:
+                token_id = updated_vocab[char]
+                decoded = tokenizer.decode([token_id], skip_special_tokens=True)
+                logger.info(f"Test: '{char}' -> token_id {token_id} -> decodes to '{decoded}'")
+                
+                # Also test if we can encode and decode
+                encoded = tokenizer.encode(char, add_special_tokens=False)
+                redecoded = tokenizer.decode(encoded, skip_special_tokens=True)
+                logger.info(f"Roundtrip: '{char}' -> {encoded} -> '{redecoded}'")
+            else:
+                logger.error(f"'{char}' not found in vocabulary after adding!")
+        
         return True
     else:
         logger.info("All Swedish characters correctly supported")
