@@ -428,7 +428,7 @@ class TrOCRModelEvaluator:
         else: """
         return self.evaluate_test_split()
         
-    def compute_word_level_errors(predictions: list[str], references: list[str]) -> dict:
+    def compute_word_level_errors(self, predictions: list[str], references: list[str]) -> dict:
         """
         Analyse errors on word-level to identify problematic words
 
