@@ -79,53 +79,43 @@ def parse_args():
     return parser.parse_args()
 
 def add_swedish_tokens(model, tokenizer, logger):
-    """Add missing Swedish characters using the proper Transformers API"""
+    """Add Swedish characters that decode correctly"""
     swedish_chars = ["å", "ä", "ö", "Å", "Ä", "Ö"]
     
-    logger.info("Checking Swedish character support...")
-    
-    # Check which characters are missing
     vocab = tokenizer.get_vocab()
-    missing_chars = []
+    chars_to_add = []
     
+    # Check each character
     for char in swedish_chars:
-        if char not in vocab:
-            missing_chars.append(char)
-            logger.info(f"'{char}' missing from vocabulary")
-        else:
-            # Test if it decodes correctly
+        if char in vocab:
             token_id = vocab[char]
             decoded = tokenizer.decode([token_id], skip_special_tokens=True)
             if decoded == char:
-                logger.info(f"'{char}' correctly supported")
+                logger.info(f"✓ '{char}' correctly maps to '{decoded}'")
             else:
-                logger.warning(f"'{char}' exists but decodes to '{decoded}'")
+                logger.info(f"✗ '{char}' maps to '{decoded}' - need to add correct version")
+                chars_to_add.append(char)
+        else:
+            logger.info(f"✗ '{char}' missing - need to add")
+            chars_to_add.append(char)
     
-    if not missing_chars:
-        logger.info("All Swedish characters properly supported")
+    # Add tokens that are missing or map incorrectly
+    if chars_to_add:
+        # Log embeddings size before
+        old_size = model.get_input_embeddings().weight.size(0)
+        logger.info(f"Embeddings size before: {old_size}")
+        
+        num_added = tokenizer.add_tokens(chars_to_add)
+        model.resize_token_embeddings(len(tokenizer))
+        
+        # Log embeddings size after
+        new_size = model.get_input_embeddings().weight.size(0)
+        logger.info(f"Embeddings size after: {new_size}")
+        logger.info(f"Added {num_added} Swedish tokens: {chars_to_add}")
+        return True
+    else:
+        logger.info("All Swedish characters correctly supported")
         return False
-    
-    logger.info(f"Adding missing Swedish tokens: {missing_chars}")
-    
-    # Step 1: Add tokens to tokenizer (Transformers API)
-    num_added = tokenizer.add_tokens(missing_chars)
-    logger.info(f"Tokenizer added {num_added} tokens")
-    
-    # Step 2: Resize model embeddings to match new vocabulary (Transformers API)
-    model.resize_token_embeddings(len(tokenizer))
-    logger.info(f"Resized model embeddings to {len(tokenizer)} tokens")
-    
-    # Step 3: Verify everything works
-    logger.info("=== VERIFICATION ===")
-    final_vocab = tokenizer.get_vocab()
-    for char in swedish_chars:
-        if char in final_vocab:
-            token_id = final_vocab[char]
-            decoded = tokenizer.decode([token_id], skip_special_tokens=True)
-            status = "✓" if decoded == char else "✗"
-            logger.info(f"{status} '{char}' -> token_id {token_id} -> decodes to '{decoded}'")
-    
-    return True
     
 def train_model(args):
     """ Main training function """
