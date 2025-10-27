@@ -79,149 +79,52 @@ def parse_args():
     return parser.parse_args()
 
 def add_swedish_tokens(model, tokenizer, logger):
-    """Fix corrupted Swedish tokens and add missing ones"""
-    swedish_mappings = {
-        "å": ["å", "Ã¥"],  # Correct vs corrupted variants
-        "ä": ["ä", "Ã¤"], 
-        "ö": ["ö", "Ã¶"],
-        "Å": ["Å"],        # Missing entirely
-        "Ä": ["Ä"], 
-        "Ö": ["Ö"]
-    }
+    """Add missing Swedish characters using the proper Transformers API"""
+    swedish_chars = ["å", "ä", "ö", "Å", "Ä", "Ö"]
     
-    logger.info("Analyzing Swedish character support...")
-
-    # Analyze current state
+    logger.info("Checking Swedish character support...")
+    
+    # Check which characters are missing
     vocab = tokenizer.get_vocab()
-    tokens_to_add = []
-    corrupted_tokens = {}
-    corrupted_to_remove = []
-
-    for correct_char, variants in swedish_mappings.items():
-        found_correct = False
-        found_corrupted = None
-
-        # Check if correct version exists
-        if correct_char in vocab:
-            # Verify decoding correctly
-            token_id = vocab[correct_char]
+    missing_chars = []
+    
+    for char in swedish_chars:
+        if char not in vocab:
+            missing_chars.append(char)
+            logger.info(f"'{char}' missing from vocabulary")
+        else:
+            # Test if it decodes correctly
+            token_id = vocab[char]
             decoded = tokenizer.decode([token_id], skip_special_tokens=True)
-            if decoded == correct_char:
-                logger.info(f"'{correct_char}' correctly supported")
-                found_correct = True
-
-        if not found_correct:
-            for variant in variants[1:]: # Skip first (correct) variant
-                if variant in vocab:
-                    logger.warning(f"Found corrupted token: '{variant}' for '{correct_char}'")
-                    corrupted_tokens[variant] = correct_char
-                    corrupted_to_remove.append(variant)
-                    found_corrupted = variant
-                    break
-        
-        # If neither correct nor corrupted found, need to add
-        if not found_correct and not found_corrupted:
-            tokens_to_add.append(correct_char)
-            logger.info(f"'{correct_char}' missing - will add")
-
-    # Handle corrupted tokens by adding correct versions
-    if corrupted_tokens:
-        logger.info(f"Adding correct version for corrupted tokens: {list(corrupted_tokens.values())}")
-        for correct_char in corrupted_tokens.values():
-            if correct_char not in tokens_to_add:
-                tokens_to_add.append(correct_char)
-
-    # Add missing tokens if any
-    if not tokens_to_add:
+            if decoded == char:
+                logger.info(f"'{char}' correctly supported")
+            else:
+                logger.warning(f"'{char}' exists but decodes to '{decoded}'")
+    
+    if not missing_chars:
         logger.info("All Swedish characters properly supported")
         return False
     
-    logger.info(f"Adding Swedish tokens: {tokens_to_add}")
-
-    if corrupted_to_remove:
-        logger.info(f"Found corrupted tokens: {corrupted_to_remove}")
-        logger.info("Note: Corrupted tokens cannot be removed from RobertaTokenizerFast")
-        logger.info("Training will learn to prefer correct tokens naturally")
-
-    # Get old vocab for embedding initialization
-    old_vocab = tokenizer.get_vocab()
+    logger.info(f"Adding missing Swedish tokens: {missing_chars}")
     
-    # Debug: Check if tokens already exist before adding
-    logger.info("Checking tokens before adding:")
-    for token in tokens_to_add:
-        if token in old_vocab:
-            logger.warning(f"Token '{token}' already exists in vocabulary at index {old_vocab[token]}")
-        else:
-            logger.info(f"Token '{token}' is truly missing - will be added")
-
-    # Save old embedding stat before any changes
-    old_embeddings = model.decoder.get_input_embeddings()
-    old_vocab_size = old_embeddings.weight.size(0)
-    logger.info(f"Vocabulary size before adding tokens: {len(old_vocab)}")
-
-    # Add new tokens to tokenizer
-    num_added = tokenizer.add_tokens(tokens_to_add)
+    # Step 1: Add tokens to tokenizer (Transformers API)
+    num_added = tokenizer.add_tokens(missing_chars)
+    logger.info(f"Tokenizer added {num_added} tokens")
     
-    # Debug: Check vocabulary after adding
-    new_vocab = tokenizer.get_vocab()
-    logger.info(f"Vocabulary size after adding tokens: {len(new_vocab)}")
-    logger.info(f"Tokens actually added: {num_added}")
-
-    if num_added == 0:
-        logger.warning("No tokens were added - they might already exist")
-        return False
-
-    # Resize model embeddings to match new vocabulary size
-    new_vocab_size = len(tokenizer)
-    logger.info(f"Resizing embeddings: {old_vocab_size} -> {new_vocab_size}")
-
-    model.decoder.resize_token_embeddings(new_vocab_size)
-
-    # Initialize new token embeddings
-    with torch.no_grad():
-        new_embeddings = model.decoder.get_input_embeddings()
-
-        # Copy all old embeddings to their original positions
-        new_embeddings.weight[:old_vocab_size] = old_embeddings.weight
-
-        # Initialize new tokens with smart values
-        if old_vocab_size < new_vocab_size:
-            # For corrupted replacements, copy from corrupted token if possible
-            mean_embedding = old_embeddings.weight.mean(dim=0, keepdim=True)
-
-            for i, token in enumerate(tokens_to_add):
-                new_token_idx = old_vocab_size + i
-
-                # Try to find corrupter version to copy from
-                initialized = False
-                for corrupted, correct in corrupted_tokens.items():
-                    if token == correct and corrupted in old_vocab:
-                        corrupted_idx = old_vocab[corrupted]
-                        if corrupted_idx < old_vocab_size:
-                            new_embeddings.weight[new_token_idx] = old_embeddings.weight[corrupted_idx]
-                            logger.info(f"Initialized '{token}' from corrupted '{corrupted}'")
-                            initialized = True
-                            break
-                
-                if not initialized:
-                    new_embeddings.weight[new_token_idx] = mean_embedding.squeeze(0)
-                    logger.info(f"Initialized '{token}' with mean embedding")
-
-    # Final verification
+    # Step 2: Resize model embeddings to match new vocabulary (Transformers API)
+    model.resize_token_embeddings(len(tokenizer))
+    logger.info(f"Resized model embeddings to {len(tokenizer)} tokens")
+    
+    # Step 3: Verify everything works
+    logger.info("=== VERIFICATION ===")
     final_vocab = tokenizer.get_vocab()
-    logger.info("=== FINAL VERIFICATION ===")
-    logger.info(f"Final vocabulary size: {len(final_vocab)}")
-    
-    for correct_char, variants in swedish_mappings.items():
-        if correct_char in final_vocab:
-            token_id = final_vocab[correct_char]
+    for char in swedish_chars:
+        if char in final_vocab:
+            token_id = final_vocab[char]
             decoded = tokenizer.decode([token_id], skip_special_tokens=True)
-            status = "✓" if decoded == correct_char else "✗"
-            logger.info(f"{status} '{correct_char}' -> token_id {token_id} -> decodes to '{decoded}'")
-        else:
-            logger.warning(f"✗ '{correct_char}' still missing from vocabulary")
+            status = "✓" if decoded == char else "✗"
+            logger.info(f"{status} '{char}' -> token_id {token_id} -> decodes to '{decoded}'")
     
-    logger.info(f"Successfully added {num_added} Swedish tokens and resized embeddings")
     return True
     
 def train_model(args):
