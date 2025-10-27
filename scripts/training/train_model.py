@@ -145,13 +145,27 @@ def add_swedish_tokens(model, tokenizer, logger):
 
     # Get old vocab for embedding initialization
     old_vocab = tokenizer.get_vocab()
+    
+    # Debug: Check if tokens already exist before adding
+    logger.info("Checking tokens before adding:")
+    for token in tokens_to_add:
+        if token in old_vocab:
+            logger.warning(f"Token '{token}' already exists in vocabulary at index {old_vocab[token]}")
+        else:
+            logger.info(f"Token '{token}' is truly missing - will be added")
 
     # Save old embedding stat before any changes
     old_embeddings = model.decoder.get_input_embeddings()
     old_vocab_size = old_embeddings.weight.size(0)
+    logger.info(f"Vocabulary size before adding tokens: {len(old_vocab)}")
 
     # Add new tokens to tokenizer
     num_added = tokenizer.add_tokens(tokens_to_add)
+    
+    # Debug: Check vocabulary after adding
+    new_vocab = tokenizer.get_vocab()
+    logger.info(f"Vocabulary size after adding tokens: {len(new_vocab)}")
+    logger.info(f"Tokens actually added: {num_added}")
 
     if num_added == 0:
         logger.warning("No tokens were added - they might already exist")
@@ -193,6 +207,20 @@ def add_swedish_tokens(model, tokenizer, logger):
                     new_embeddings.weight[new_token_idx] = mean_embedding.squeeze(0)
                     logger.info(f"Initialized '{token}' with mean embedding")
 
+    # Final verification
+    final_vocab = tokenizer.get_vocab()
+    logger.info("=== FINAL VERIFICATION ===")
+    logger.info(f"Final vocabulary size: {len(final_vocab)}")
+    
+    for correct_char, variants in swedish_mappings.items():
+        if correct_char in final_vocab:
+            token_id = final_vocab[correct_char]
+            decoded = tokenizer.decode([token_id], skip_special_tokens=True)
+            status = "✓" if decoded == correct_char else "✗"
+            logger.info(f"{status} '{correct_char}' -> token_id {token_id} -> decodes to '{decoded}'")
+        else:
+            logger.warning(f"✗ '{correct_char}' still missing from vocabulary")
+    
     logger.info(f"Successfully added {num_added} Swedish tokens and resized embeddings")
     return True
     
