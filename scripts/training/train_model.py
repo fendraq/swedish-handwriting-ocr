@@ -15,7 +15,7 @@ from .data_collator import TrOCRDataCollator
 
 class TrainingConfig:
     # Model settings
-    model_name = 'Riksarkivet/trocr-base-handwritten-hist-swe-2'
+    model_name = 'microsoft/trocr-base-handwritten'
 
     # Training settings - Cloud optimized
     batch_size = 8 # from 16 for more stable gradients
@@ -79,99 +79,68 @@ def parse_args():
     return parser.parse_args()
 
 def add_swedish_tokens(model, tokenizer, logger):
-    """Add Swedish characters that decode correctly"""
+    """Test if Riksarkivet token configuration fixes Swedish characters"""
     swedish_chars = ["å", "ä", "ö", "Å", "Ä", "Ö"]
     
+    # First test: Check current state with Riksarkivet config applied
+    logger.info("=== TESTING SWEDISH CHARACTERS WITH RIKSARKIVET CONFIG ===")
     vocab = tokenizer.get_vocab()
-    chars_to_add = []
     
-    # Check each character
     for char in swedish_chars:
         if char in vocab:
             token_id = vocab[char]
             decoded = tokenizer.decode([token_id], skip_special_tokens=True)
             if decoded == char:
-                logger.info(f"✓ '{char}' correctly maps to '{decoded}'")
+                logger.info(f"'{char}' correctly maps to '{decoded}' (token_id: {token_id})")
             else:
-                logger.info(f"✗ '{char}' maps to '{decoded}' - need to add correct version")
+                logger.info(f"'{char}' maps to '{decoded}' (token_id: {token_id})")
+        else:
+            logger.info(f"'{char}' missing from vocabulary")
+    
+    # Test full Swedish words
+    logger.info("=== TESTING FULL SWEDISH WORDS ===")
+    test_words = ["åsa", "kött", "björn", "hälsa", "kärlek", "Göteborg"]
+    
+    for word in test_words:
+        encoded = tokenizer.encode(word, add_special_tokens=False)
+        decoded = tokenizer.decode(encoded, skip_special_tokens=True)
+        if word == decoded:
+            logger.info(f"✅ '{word}' -> {encoded} -> '{decoded}' (PERFECT)")
+        else:
+            logger.info(f"❌ '{word}' -> {encoded} -> '{decoded}' (CORRUPTED)")
+    
+    # Check if we still need to add tokens
+    chars_to_add = []
+    for char in swedish_chars:
+        if char in vocab:
+            token_id = vocab[char]
+            decoded = tokenizer.decode([token_id], skip_special_tokens=True)
+            if decoded != char:
                 chars_to_add.append(char)
         else:
-            logger.info(f"✗ '{char}' missing - need to add")
             chars_to_add.append(char)
     
-    # Add tokens that are missing or map incorrectly
     if chars_to_add:
-        # Log embeddings size before
+        logger.info(f"Still need to add tokens for: {chars_to_add}")
+        logger.info("Proceeding with token addition (legacy approach)...")
+        
+        # Original token addition logic (kept as fallback)
         old_size = model.decoder.get_input_embeddings().weight.size(0)
         logger.info(f"Decoder embeddings size before: {old_size}")
         
-        # Add tokens to tokenizer
         num_added = tokenizer.add_tokens(chars_to_add)
         logger.info(f"Tokenizer added {num_added} tokens")
         
-        # Resize decoder embeddings
         model.decoder.resize_token_embeddings(len(tokenizer))
-        
-        # CRITICAL: Update model config vocab_size to match decoder
         model.config.vocab_size = model.config.decoder.vocab_size
         logger.info(f"Updated model.config.vocab_size to {model.config.vocab_size}")
         
-        # Log embeddings size after
         new_size = model.decoder.get_input_embeddings().weight.size(0)
         logger.info(f"Decoder embeddings size after: {new_size}")
         
-        # VERIFY: Test if the new tokens actually work
-        logger.info("=== INVESTIGATING TOKENIZER STRUCTURE ===")
-        updated_vocab = tokenizer.get_vocab()
-        
-        # Check if new tokens were actually added at the end
-        vocab_size = len(updated_vocab)
-        logger.info(f"Total vocabulary size: {vocab_size}")
-        
-        # Check the last few tokens (where new ones should be)
-        reverse_vocab = {v: k for k, v in updated_vocab.items()}
-        logger.info("Last 10 tokens in vocabulary:")
-        for i in range(max(0, vocab_size-10), vocab_size):
-            token = reverse_vocab.get(i, "MISSING")
-            logger.info(f"  token_id {i}: '{token}'")
-        
-        # Now test the specific Swedish characters
-        logger.info("=== TESTING SWEDISH CHARACTERS ===")
-        for char in chars_to_add:
-            if char in updated_vocab:
-                old_token_id = updated_vocab[char]
-                decoded = tokenizer.decode([old_token_id], skip_special_tokens=True)
-                logger.info(f"'{char}' -> token_id {old_token_id} -> decodes to '{decoded}'")
-                
-                # Check if there are multiple token IDs for this character
-                matching_tokens = [tid for token, tid in updated_vocab.items() if token == char]
-                if len(matching_tokens) > 1:
-                    logger.info(f"  MULTIPLE IDs for '{char}': {matching_tokens}")
-                    # Test the highest ID (should be the new one)
-                    highest_id = max(matching_tokens)
-                    new_decoded = tokenizer.decode([highest_id], skip_special_tokens=True)
-                    logger.info(f"  Highest ID {highest_id} decodes to: '{new_decoded}'")
-        
-        # Check if tokenizer has internal converter we can access
-        logger.info("=== TOKENIZER INTERNALS ===")
-        logger.info(f"Tokenizer type: {type(tokenizer)}")
-        if hasattr(tokenizer, '_tokenizer'):
-            logger.info(f"Internal tokenizer type: {type(tokenizer._tokenizer)}")
-            if hasattr(tokenizer._tokenizer, 'decoder'):
-                logger.info(f"Has decoder: {type(tokenizer._tokenizer.decoder)}")
-        
-        # Try to see if we can modify the decoder mapping
-        if hasattr(tokenizer, 'convert_ids_to_tokens'):
-            logger.info("Testing convert_ids_to_tokens for Swedish chars:")
-            for char in ['å', 'ä', 'ö']:
-                if char in updated_vocab:
-                    token_id = updated_vocab[char]
-                    converted = tokenizer.convert_ids_to_tokens([token_id])
-                    logger.info(f"  {token_id} -> {converted}")
-        
         return True
     else:
-        logger.info("All Swedish characters correctly supported")
+        logger.info("RIKSARKIVET CONFIG SOLVED THE PROBLEM! No token addition needed!")
         return False
     
 def train_model(args):
@@ -191,15 +160,29 @@ def train_model(args):
     model = VisionEncoderDecoderModel.from_pretrained(config.model_name)
     processor = TrOCRProcessor.from_pretrained(config.model_name, use_fast=True)
     
+    # Apply Riksarkivet's exact token configuration BEFORE anything else
+    config.logger.info("=== APPLYING RIKSARKIVET TOKEN CONFIGURATION ===")
+    
+    # Configure model config tokens (exact values from Riksarkivet)
+    model.config.decoder_start_token_id = 0  # Critical: This triggers the alignment!
+    model.config.bos_token_id = 0
+    model.config.eos_token_id = 2  
+    model.config.pad_token_id = 1
+    
+    # Configure generation config tokens
+    model.generation_config.bos_token_id = 0
+    model.generation_config.decoder_start_token_id = 0
+    model.generation_config.eos_token_id = 2
+    model.generation_config.pad_token_id = 1
+    
+    config.logger.info(f"Set model.config.decoder_start_token_id = {model.config.decoder_start_token_id}")
+    config.logger.info(f"Set model.config.bos_token_id = {model.config.bos_token_id}")
+    config.logger.info(f"Set generation_config.bos_token_id = {model.generation_config.bos_token_id}")
+    
     # Add missing Swedish tokens BEFORE validation
     add_swedish_tokens(model, processor.tokenizer, config.logger)
     
-    # Configure model for Swedish handwriting
-    model.config.decoder_start_token_id = processor.tokenizer.cls_token_id
-    model.config.pad_token_id = processor.tokenizer.pad_token_id
-    model.config.eos_token_id = processor.tokenizer.sep_token_id
-
-    # Configure generation settings
+    # Configure generation settings (keep existing optimizations)
     model.generation_config.max_length = 128 # from 64, for connected words
     model.generation_config.early_stopping = False # from True to let model generate whole word
     model.generation_config.num_beams = 8 # from 4 for better search
