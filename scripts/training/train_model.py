@@ -139,18 +139,12 @@ def add_swedish_tokens(model, tokenizer, logger):
     logger.info(f"Adding Swedish tokens: {tokens_to_add}")
 
     if corrupted_to_remove:
-        logger.info(f"Removing corrupted tokens: {corrupted_to_remove}")
-        # Remove from vocabulary by rebuilding without corrupted tokens
-        old_vocab = tokenizer.get_vocab()
-        new_vocab = {token: idx for token, idx in old_vocab.items()
-                     if token not in corrupted_to_remove}
-        
-        tokenizer.vocab = new_vocab
-        if hasattr(tokenizer, '_tokenizer'):
-            tokenizer._tokenizer.get_vocab().clear()
-            tokenizer._tokenizer.get_vocab().update(new_vocab)
+        logger.info(f"Found corrupted tokens: {corrupted_to_remove}")
+        logger.info("Note: Corrupted tokens cannot be removed from RobertaTokenizerFast")
+        logger.info("Training will learn to prefer correct tokens naturally")
 
-        logger.info(f"Removed {len(corrupted_to_remove)} corrupted tokens")
+    # Get old vocab for embedding initialization
+    old_vocab = tokenizer.get_vocab()
 
     # Save old embedding stat before any changes
     old_embeddings = model.decoder.get_input_embeddings()
