@@ -15,7 +15,7 @@ from .data_collator import TrOCRDataCollator
 
 class TrainingConfig:
     # Model settings
-    model_name = 'microsoft/trocr-base-handwritten'
+    model_name = 'microsoft/trocr-base-handwritten-hist-swe-2'
 
     # Training settings - Cloud optimized
     batch_size = 8 # from 16 for more stable gradients
