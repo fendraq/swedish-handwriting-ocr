@@ -302,9 +302,20 @@ class TrOCRModelEvaluator:
                 # Exact match accuracy
                 exact_matches = sum(1 for pred, ref in zip(predictions_list, references_list) if pred == ref)
                 exact_match_acc = exact_matches / len(predictions_list)
+
+                # Word-level error analysis
+                word_analysis = self.compute_word_level_errors(predictions_list, references_list) if predictions_list else {}
                 
+                # Swedish character confusion matrix
+                swedish_confusion = self.compute_swedish_char_confusion(predictions_list, references_list)
+
+                # Generate training recommendations
+                training_recommendations = self.generate_training_recommendations(word_analysis, swedish_confusion)
             else:
                 cer_score = wer_score = swedish_acc = exact_match_acc = 0.0
+                word_analysis = {}
+                swedish_confusion = {}
+                training_recommendations = {}
 
             # Final results
             end_time = datetime.now()
@@ -325,6 +336,9 @@ class TrOCRModelEvaluator:
                     'swedish_character_accuracy': swedish_acc,
                     'exact_match_accuracy': exact_match_acc
                 },
+                'word_level_analysis': word_analysis,
+                'swedish_char_confusion': swedish_confusion,
+                'training_recommendations': training_recommendations,
                 'detailed_predictions': detailed_results
             }
             
@@ -335,6 +349,23 @@ class TrOCRModelEvaluator:
             if swedish_acc is not None:
                 self.logger.info(f"Swedish chars accuracy: {swedish_acc:.4f}")
             self.logger.info(f"Exact match accuracy: {exact_match_acc:.4f}")
+
+            # Log analysis results
+            if word_analysis.get('most_problematic_words'):
+                self.logger.info("=== WORD-LEVEL ANALYSIS ===")
+                self.logger.info(f"Word accuracy: {word_analysis.get('word_accuracy', 0):.4f}")
+                top_problematic = list(word_analysis['most_problematic_words'].items())[:5]
+                self.logger.info(f"Most problematic words: {[f'{word}({count})' for word, count in top_problematic]}")
+
+            if training_recommendations.get('high_priority_words'):
+                self.logger.info("=== TRAINING RECOMMENDATIONS ===")
+                for rec in training_recommendations['high_priority_words'][:3]:
+                    self.logger.info(f"  • {rec['word']}: {rec['error_count']} errors - {rec['suggestion']}")
+
+            if training_recommendations.get('swedish_char_issues'):
+                self.logger.info("=== SWEDISH CHARACTER ISSUES ===")
+                for issue in training_recommendations['swedish_char_issues'][:3]:
+                    self.logger.info(f"  • {issue['character']}: {issue['accuracy']:.1%} accuracy")
             
             # Log sample predictions for debugging
             log_sample_predictions(predictions_list, references_list, max_samples=5)
@@ -397,7 +428,171 @@ class TrOCRModelEvaluator:
         else: """
         return self.evaluate_test_split()
         
+    def compute_word_level_errors(predictions: list[str], references: list[str]) -> dict:
+        """
+        Analyse errors on word-level to identify problematic words
 
+        Args:
+            predictions: List with model predictions
+            references: List with correct words
+
+        Returns:
+            dict: Detailed word-level analysis
+        """
+        word_errors = []
+        total_words = 0
+        correct_words = 0
+        word_error_counts = {}
+
+        for pred, ref in zip(predictions, references):
+            pred_words = pred.split()
+            ref_words = ref.split()
+
+            total_words += len(ref_words)
+
+            # Compare word position by position (simpified alignment)
+            max_len = max(len(pred_words), len(ref_words))
+
+            for i in range(max_len):
+                ref_word = ref_words[i] if i < len(ref_words) else None
+                pred_word = pred_words[i] if i < len(pred_words) else None
+
+                if ref_word is not None:
+                    if pred_word == ref_word:
+                        correct_words += 1
+                    else:
+                        # Count error for this word
+                        word_error_counts[ref_word] = word_error_counts.get(ref_word, 0) + 1
+
+                        word_errors.append({
+                            'reference': ref_word,
+                            'predicted': pred_word if pred_word else "[MISSING]",
+                            'error_type': 'substitution' if pred_word else 'deletion'
+                        })
+                elif pred_word is not None:
+                    # Extra word in prediction
+                    word_errors.append({
+                        'reference': "[NONE]",
+                        'predicted': pred_word,
+                        'error_type': 'insertion'
+                    })
+        
+        # Sort most problematic word
+        most_problematic = dict(sorted(word_error_counts.items(), key=lambda x: x[1], reverse=True)[:20])
+
+        return {
+            'word_accuracy': correct_words / total_words if total_words > 0 else 0,
+            'total_words': total_words,
+            'correct_words': correct_words,
+            'total_errors': len(word_errors),
+            'error_details': word_errors,
+            'most_problematic_words': most_problematic
+        }
+    
+    def compute_swedish_char_confusion(self, predictions: list[str], references: list[str]) -> dict:
+        """
+        Detailed confusion matrix for swedish chars (å, ä, ö, Å, Ä, Ö)
+        
+        Args: 
+            predictions: List with model predictions
+            references: List with correct words
+
+        Returns:
+            dict: Confusion matrix for every swedish char
+        """
+        swedish_chars = ['ä', 'å', 'ö', 'Ä', 'Å', 'Ö']
+        confusion_matrix = {}
+
+        for char in swedish_chars:
+            confusion_matrix[char] = {}
+
+        for pred, ref in zip(predictions, references):
+            # Simple character-by-character comparison
+            min_len = min(len(pred), len(ref))
+
+            for i in range(min_len):
+                ref_char = ref[i]
+                pred_char = pred[i]
+
+                # If reference contains swedish char
+                if ref_char in swedish_chars:
+                    if pred_char not in confusion_matrix[ref_char]:
+                        confusion_matrix[ref_char][pred_char] = 0
+                    confusion_matrix[ref_char][pred_char] += 1
+
+        return confusion_matrix
+    
+    def generate_training_recommendations(self, word_analysis: dict, swedish_confusion: dict) -> dict:
+        """
+        Generates recommendations for further training based on error analysis
+
+        Args: 
+            word_analysis: Results from compute_word_level_errors
+            swedish_confusion: Results from compute_swedish_char_confusion
+
+        Returns:
+            dict: Structured recommendations for further training
+        """
+        recommendations = {
+            'high_priority_words': [],
+            'swedish_char_issues': [],
+            'data_expansion_suggestions': []
+        }
+
+        # Analyse problematic words
+        problematic_words = word_analysis.get('most_problematic_words', {})
+
+        for word, error_count in problematic_words.items():
+            if error_count >= 3:
+                recommendations['high_priority_words'].append({
+                    'word': word,
+                    'error_count': error_count,
+                    'suggestion': f"Needs {error_count * 2} more examples of '{word}'"
+                })
+
+        # Analyse swedish char-problems
+        for char, confusions in swedish_confusion.items():
+            if confusions:
+                total_instances = sum(confusions.values())
+                correct_instances = confusions.get(char, 0)
+
+                if total_instances > 0:
+                    accuracy = correct_instances / total_instances
+
+                    if accuracy < 0.8 and total_instances >=5:
+                        # Find most common error
+                        incorrect_chars = {k: v for k, v in confusions.items() if k != char}
+                        if incorrect_chars:
+                            most_common_error = max(incorrect_chars.keys(), key=lambda k: incorrect_chars[k])
+
+                            recommendations['swedish_char_issues'].append({
+                                'character': char,
+                                'accuracy': round(accuracy, 3),
+                                'total_instances': total_instances,
+                                'most_confused_with': most_common_error,
+                                'suggestion': f"'{char}' förväxlas ofta med '{most_common_error}' - behöver mer distinkt träningsdata"
+                            })
+
+        # Suggestions
+        total_word_errors = len(recommendations['high_priority_words'])
+        total_char_issues = len(recommendations['swedish_char_issues'])
+
+        if total_word_errors > 10:
+            recommendations['data_expansion_suggestions'].append(
+                f"A lot of words ({total_word_errors}) have a high error rate - consider a double dataset size"
+            )
+        if total_char_issues > 3:
+            recommendations['data_expansion_suggestions'].append(
+                f"Svenska tecken ({total_char_issues}) har problem - fokusera på mer handskriven svenska text"
+            )
+        
+        if total_word_errors == 0 and total_char_issues == 0:
+            recommendations['data_expansion_suggestions'].append(
+                "Modellen presterar bra - kan utöka med mer varierad text för generalisering"
+            )
+        
+        return recommendations
+    
 if __name__ == "__main__":
     # Setup logging
     logging.basicConfig(
