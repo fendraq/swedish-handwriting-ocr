@@ -33,6 +33,7 @@ class ImageSegmenter:
         self.viz_output = viz_output
         self.output_paths = None
         self.preprocessor = ImagePreprocessor(target_size=384)
+        self.writer_stats = {}
 
         print("ImageSegmenter initialized:")
         print(f"  Total words in metadata: {self.metadata['total_words']}")
@@ -88,11 +89,14 @@ class ImageSegmenter:
                 
                 # Extract word region
                 word_region = extract_word_region(image, safe_coords)
+
+                h, w = word_region.shape[:2]
+                self.writer_stats.setdefault(writer_id, []).append({'word': word_data['text'], 'h': h, 'w': w})
                 
                 # Enhancing image (volontary)
                 enhanced_word = enhance_word_image(word_region)
 
-                preprocessed_word = self.preprocessor.preprocess_single_image(enhanced_word)
+                preprocessed_word = self.preprocessor.preprocess_single_image(enhanced_word, writer_id=writer_id, word=word_data['text'])
                 
                 # Saving word image
                 saved_path = save_word_segment(
@@ -147,6 +151,7 @@ class ImageSegmenter:
         Returns:
             Dictionary with source_image -> [segmented_files]
         """
+
         # 1. Create output-structure
         self.output_paths = create_output_structure(self.output_dir, writer_id, self.categories)
         
@@ -182,6 +187,13 @@ class ImageSegmenter:
                 print(f"Error processing {image_file}: {e}")
                 results[str(image_file)] = []
         
+        # Find word to reference in size
+        if writer_id in self.writer_stats and self.writer_stats[writer_id]:
+            ref = max(self.writer_stats[writer_id], key=lambda x: x['h'] * x['w'])
+            ref_h, ref_w = ref['h'], ref['w']
+            self.preprocessor.set_writer_reference(writer_id, ref_h, ref_w)
+            print(f"[DEBUG] Writer {writer_id} referensord: '{ref['word']}' storlek: {ref_w}x{ref_h}")
+
         # 5. Generate report
         generate_segmentation_report(results, self.output_dir)
         

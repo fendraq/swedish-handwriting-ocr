@@ -15,6 +15,7 @@ from .annotation_creator import create_annotations_for_version
 from .dataset_splitter import create_dataset_splits
 from .augmentation_manager import create_augmented_training_data
 from ..utils import remove_files_batch, count_total_files, parse_writer_word_input
+from ..syntetic_data.syntetic_data_creator import main as generate_syntetic_data
 
 logger = logging.getLogger(__name__)
 
@@ -101,6 +102,10 @@ class PipelineRunner:
 
             # 3 Run segmentation for new writers
             self._step_run_segmentation(dry_run, report)
+
+            
+            # 3.4 Generate syntetic data
+            self._step_generate_synthetic_data(dry_run, report)
 
             # 3.5 Manual quality control of images
             self._step_interactive_quality_control(dry_run, report)
@@ -254,6 +259,25 @@ class PipelineRunner:
             'duration_seconds': (datetime.now() - step_start).total_seconds(),
             'processed_writers': self.new_writers,
             'total_images': total_images if not dry_run else f"~{total_images} (estimated)"
+        }
+
+    
+    def _step_generate_synthetic_data(self, dry_run: bool, report: dict) -> None:
+        """ Step 3.4: Generate synthetic data if not already present """
+        version_dir = self.config.trocr_ready_dir / f"v{self.current_version}"
+        images_dir = version_dir / "images"
+
+        # Check if synthetic images exist (filename begins with 'synthetic_')
+        already_exists = any(str(f).startswith('synthetic_') for f in images_dir.glob('*.jpg'))
+        if not already_exists and not dry_run:
+            logger.info(f"Generating synthetic images in {images_dir} ...")
+            generate_syntetic_data()
+        else:
+            logger.info("Synthetic images exist or dry_run, skipping generation")
+        
+        report['steps']['synthetic_data'] = {
+            'status': 'completed' if not dry_run else 'skipped',
+            'image_dir': str(images_dir)
         }
 
     def _step_interactive_quality_control(self, dry_run: bool, report: Dict[str, Any]) -> None:
