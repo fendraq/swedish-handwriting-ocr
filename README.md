@@ -318,6 +318,20 @@ python -m scripts.training.train_model --epochs 10 --wandb
 
 # Custom training parameters
 python -m scripts.training.train_model --batch_size 8 --epochs 5 --learning_rate 1e-5
+ 
+# Model/processor kombinationer (experimentellt)
+python -m scripts.training.train_model --model_combo ra_proc_ms_model --dry_run
+python -m scripts.training.train_model --model_combo ms_proc_ra_model --dry_run
+python -m scripts.training.train_model --model_combo ms_proc_ms_model --dry_run
+
+**--model_combo** låter dig välja kombination av processor och modell:
+
+- `ra_proc_ra_model`: Riksarkivet processor + Riksarkivet modell (default)
+- `ra_proc_ms_model`: Riksarkivet processor + Microsoft modell
+- `ms_proc_ra_model`: Microsoft processor + Riksarkivet modell
+- `ms_proc_ms_model`: Microsoft processor + Microsoft modell
+
+Detta gör det enkelt att testa om t.ex. Riksarkivets svenska processor i kombination med Microsofts moderna handskriftsmodell ger bättre resultat på din data. Alla kombinationer är kompatibla eftersom tokenizer och vocab är identiska.
 ```
 
 ### Training Configuration (Validated)
