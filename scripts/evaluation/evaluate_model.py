@@ -596,16 +596,24 @@ class TrOCRModelEvaluator:
 if __name__ == "__main__":
     # Setup logging with UTF-8 encoding for Swedish characters
     import sys
+    import io
+    
+    # Force UTF-8 for stdout FIRST
+    if hasattr(sys.stdout, 'reconfigure'):
+        sys.stdout.reconfigure(encoding='utf-8')
+    else:
+        # Fallback for older Python versions
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', line_buffering=True)
+    
+    # Now configure logging with UTF-8 aware handler
+    handler = logging.StreamHandler(sys.stdout)
+    handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+    
     logging.basicConfig(
         level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s',
-        handlers=[
-            logging.StreamHandler(sys.stdout)
-        ]
+        handlers=[handler],
+        force=True  # Override any existing handlers
     )
-    # Force UTF-8 encoding for stdout
-    if sys.stdout.encoding != 'utf-8':
-        sys.stdout.reconfigure(encoding='utf-8')
     
     # Argument parser
     parser = argparse.ArgumentParser(description="TrOCR Swedish Handwriting Model Evaluation")
