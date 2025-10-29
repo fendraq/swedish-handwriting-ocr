@@ -15,7 +15,7 @@ from .annotation_creator import create_annotations_for_version
 from .dataset_splitter import create_dataset_splits
 from .augmentation_manager import create_augmented_training_data
 from ..utils import remove_files_batch, count_total_files, parse_writer_word_input
-from ..syntetic_data.syntetic_data_creator import main as generate_syntetic_data
+from ..synthetic_data.synthetic_data_creator import generate_synthetic_data
 
 logger = logging.getLogger(__name__)
 
@@ -102,9 +102,8 @@ class PipelineRunner:
 
             # 3 Run segmentation for new writers
             self._step_run_segmentation(dry_run, report)
-
             
-            # 3.4 Generate syntetic data
+            # 3.4 Generate synthetic data
             self._step_generate_synthetic_data(dry_run, report)
 
             # 3.5 Manual quality control of images
@@ -271,7 +270,7 @@ class PipelineRunner:
         already_exists = any(str(f).startswith('synthetic_') for f in images_dir.glob('*.jpg'))
         if not already_exists and not dry_run:
             logger.info(f"Generating synthetic images in {images_dir} ...")
-            generate_syntetic_data()
+            generate_synthetic_data(images_dir)
         else:
             logger.info("Synthetic images exist or dry_run, skipping generation")
         

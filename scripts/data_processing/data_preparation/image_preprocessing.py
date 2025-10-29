@@ -14,7 +14,7 @@ class ImagePreprocessor:
     """
 
     def __init__(self, target_size: int = 384, background_color: Tuple[int, int, int] = (255, 255, 255),
-                 fill_ratio: float = 0.9, max_rel_scale: float = 1.3, min_rel_scale: float = 0.7):
+                 fill_ratio: float = 0.98, max_rel_scale: float = 1.3, min_rel_scale: float = 0.7):
         """
         Initiate preprocessor.
 

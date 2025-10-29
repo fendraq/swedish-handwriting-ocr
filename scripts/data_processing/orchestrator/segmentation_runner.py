@@ -109,7 +109,7 @@ def run_segmentation_for_multiple_writers(
     output_dir: Path,
     enable_references: bool = True,
     enable_visualization: bool = False
-) -> Dict[str, Dict[str, List[str]]]:
+    ) -> Dict[str, Dict[str, List[str]]]:
     """
     Run segmentation for multiple writers from data_detector output.
 
