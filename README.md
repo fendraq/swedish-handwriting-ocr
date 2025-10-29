@@ -512,6 +512,11 @@ python -m scripts.evaluation.evaluate_model --device cpu
 ```bash
 # Same command - automatically detects cloud environment
 python -m scripts.evaluation.evaluate_model --output evaluation_results.json
+
+# Note: If Swedish characters (å, ä, ö) display as � in terminal,
+# this is a terminal encoding issue, NOT a model problem.
+# The model predictions are correct - check the JSON output file
+# which preserves UTF-8 encoding properly.
 ```
 
 ### Evaluation Features

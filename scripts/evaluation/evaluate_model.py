@@ -594,11 +594,18 @@ class TrOCRModelEvaluator:
         return recommendations
     
 if __name__ == "__main__":
-    # Setup logging
+    # Setup logging with UTF-8 encoding for Swedish characters
+    import sys
     logging.basicConfig(
         level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s'
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        handlers=[
+            logging.StreamHandler(sys.stdout)
+        ]
     )
+    # Force UTF-8 encoding for stdout
+    if sys.stdout.encoding != 'utf-8':
+        sys.stdout.reconfigure(encoding='utf-8')
     
     # Argument parser
     parser = argparse.ArgumentParser(description="TrOCR Swedish Handwriting Model Evaluation")
