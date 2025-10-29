@@ -20,3 +20,26 @@ reportlab>=4.0.0  # Required for PDF template generation in template_generator/
 
 # Development tools (for Jupyter notebooks and development)
 jupyter>=1.0.0
+
+# ============================================
+# Azure ML Specific Dependencies
+# ============================================
+# These package versions are required for Azure ML compatibility.
+# Install these after the above packages if you encounter dependency conflicts on Azure ML.
+#
+# Installation command for Azure ML:
+# pip install torch==2.2.2 torchvision==0.17.2 torchaudio==2.2.2 "numpy>=1.24,<1.27" "scipy>=1.11.4" "urllib3<2.0.0" "matplotlib<=3.6.3" "psutil>=5.2.2,<5.9.4" "networkx>=2.5,<3.0" "packaging<25" "azure-storage-blob<=12.19.0" tf-keras
+#
+# Azure ML package constraints:
+# torch==2.2.2  # Azure ML compatibility (avoid 2.7.1+ for torchvision issues)
+# torchvision==0.17.2  # Compatible with torch 2.2.2
+# torchaudio==2.2.2  # Compatible with torch 2.2.2
+# numpy>=1.24,<1.27  # Balance between scikit-image (needs >=1.24) and azureml (needs <1.27)
+# scipy>=1.11.4  # Required by scikit-image
+# urllib3<2.0.0  # Required by azureml and botocore (incompatible with 2.x)
+# matplotlib<=3.6.3  # Required by azureml-datadrift
+# psutil>=5.2.2,<5.9.4  # Required by azureml-training-tabular and azureml-automl-runtime
+# networkx>=2.5,<3.0  # Compromise between responsibleai (needs <=2.5) and scikit-image (needs >=3.0)
+# packaging<25  # Required by mlflow-skinny
+# azure-storage-blob<=12.19.0  # Required by azureml-mlflow
+# tf-keras  # Backwards-compatible Keras for transformers TensorFlow integration
