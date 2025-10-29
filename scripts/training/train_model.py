@@ -19,7 +19,7 @@ class TrainingConfig:
 
     # Training settings - Cloud optimized
     batch_size = 8 # from 16 for more stable gradients
-    eval_batch_size = 16 # from 32 for consistency
+    eval_batch_size = 4 # from 16 and 32 
     gradient_accumulation_steps = 4  # from 2 for bigger effective batch
     learning_rate = 3e-5 # from 5e-5 for more constistent learning
     num_epochs = 30 # from 10 for full convergens
@@ -206,7 +206,7 @@ def train_model(args):
     # Configure generation settings (keep existing optimizations)
     model.generation_config.max_length = 128 # from 64, for connected words
     model.generation_config.early_stopping = False # from True to let model generate whole word
-    model.generation_config.num_beams = 8 # from 4 for better search
+    model.generation_config.num_beams = 4 # from 8 
     model.generation_config.length_penalty = 0.8 # New for avoid too short outputs
     
     model.to(device)
