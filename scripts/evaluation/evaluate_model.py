@@ -147,8 +147,9 @@ class TrOCRModelEvaluator:
             model.to(self.device)
             model.eval()
 
-            # Load processor with use_fast=True (following training setup)
-            processor = TrOCRProcessor.from_pretrained(self.model_path, use_fast=False)
+            # Load processor from Riksarkivet (NOT from trained model) to match training setup
+            # This ensures identical tokenization behavior during evaluation
+            processor = TrOCRProcessor.from_pretrained('Riksarkivet/trocr-base-handwritten-hist-swe-2', use_fast=False)
 
             self.logger.info(f"Model loaded successfully on {self.device}")
             self.logger.info(f"Model parameters: {sum(p.numel() for p in model.parameters()):,}")
