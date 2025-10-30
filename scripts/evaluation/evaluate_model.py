@@ -148,7 +148,7 @@ class TrOCRModelEvaluator:
             model.eval()
 
             # Load processor with use_fast=True (following training setup)
-            processor = TrOCRProcessor.from_pretrained(self.model_path, use_fast=True)
+            processor = TrOCRProcessor.from_pretrained(self.model_path, use_fast=False)
 
             self.logger.info(f"Model loaded successfully on {self.device}")
             self.logger.info(f"Model parameters: {sum(p.numel() for p in model.parameters()):,}")
