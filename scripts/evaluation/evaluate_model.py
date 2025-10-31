@@ -149,8 +149,7 @@ class TrOCRModelEvaluator:
 
             processor = TrOCRProcessor.from_pretrained(self.model_path, use_fast=False)
             
-            # CRITICAL FIX: Apply same generation config as training
-            # This is what makes Swedish subwords work!
+            # Apply same generation config as training
             self.logger.info("=== APPLYING GENERATION CONFIG ===")
             model.config.decoder_start_token_id = 0  # Critical for Swedish!
             model.config.bos_token_id = 0
@@ -226,7 +225,7 @@ class TrOCRModelEvaluator:
             # Generate prediction
             with torch.no_grad():
                 generated_ids = self.model.generate(pixel_values)
-                predicted_text = self.processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
+                predicted_text = self.processor.batch_decode(generated_ids, skip_special_tokens=True, spaces_between_special_tokens=False)[0]
 
             self.logger.info(f"Prediction: '{predicted_text}'")
             return predicted_text
