@@ -148,6 +148,26 @@ class TrOCRModelEvaluator:
             model.eval()
 
             processor = TrOCRProcessor.from_pretrained(self.model_path, use_fast=False)
+            
+            # CRITICAL FIX: Apply same generation config as training
+            # This is what makes Swedish subwords work!
+            self.logger.info("=== APPLYING GENERATION CONFIG ===")
+            model.config.decoder_start_token_id = 0  # Critical for Swedish!
+            model.config.bos_token_id = 0
+            model.config.eos_token_id = 2
+            model.config.pad_token_id = 1
+            
+            model.generation_config.bos_token_id = 0
+            model.generation_config.decoder_start_token_id = 0
+            model.generation_config.eos_token_id = 2
+            model.generation_config.pad_token_id = 1
+            model.generation_config.max_length = 128
+            model.generation_config.early_stopping = False
+            model.generation_config.num_beams = 4
+            model.generation_config.length_penalty = 0.8
+            
+            self.logger.info(f"Set decoder_start_token_id = {model.config.decoder_start_token_id}")
+            self.logger.info(f"Set max_length = {model.generation_config.max_length}")
 
             self.logger.info(f"Model loaded successfully on {self.device}")
             self.logger.info(f"Model parameters: {sum(p.numel() for p in model.parameters()):,}")
