@@ -83,8 +83,8 @@ def create_compute_metrics(processor):
         labels = np.where(labels != -100, labels, 0)
 
         # Decode token IDs to text
-        decoded_preds = processor.batch_decode(predictions, skip_special_tokens=True)
-        decoded_labels = processor.batch_decode(labels, skip_special_tokens=True)
+        decoded_preds = processor.batch_decode(predictions, skip_special_tokens=True, spaces_between_special_tokens=False)
+        decoded_labels = processor.batch_decode(labels, skip_special_tokens=True, spaces_between_special_tokens=False)
 
         # Clean text for consistent evaluation
         cleaned_preds = [clean_text(pred) for pred in decoded_preds]
