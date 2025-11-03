@@ -464,8 +464,8 @@ class TrOCRModelEvaluator:
                 pred_clean = clean_text(predicted_text)
                 ref_clean = clean_text(gt_text)
                 
-                cer = cer_metric.compute(predictions=[pred_clean], references=[ref_clean])['cer']
-                wer = wer_metric.compute(predictions=[pred_clean], references=[ref_clean])['wer']
+                cer = cer_metric.compute(predictions=[pred_clean], references=[ref_clean])
+                wer = wer_metric.compute(predictions=[pred_clean], references=[ref_clean])
                 
                 image_result = {
                     'image_name': image_path.name,
