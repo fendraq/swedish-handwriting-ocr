@@ -155,9 +155,45 @@ def get_template_metadata() -> Path:
     """Get path to complete template metadata."""
     return DocsPaths.GENERATED_TEMPLATES / "complete_template_metadata.json"
 
-def get_version_dir(version: str) -> Path:
+def get_version_dir(version: str = None) -> Path:
     """Get specific version directory in trocr_ready_data."""
+    if version is None:
+        from scripts.data_processing.orchestrator.version_manager import get_latest_version_number
+        version = get_latest_version_number()
     return DatasetPaths.TROCR_READY_DATA / version
+
+def get_next_version() -> str:
+    """
+    Auto-detect latest version and return next version number.
+    DEPRECATED: Use version suffixes instead (e.g., v1_lines, v1_extended).
+    
+    Returns:
+        str: Next version (e.g., 'v2' if 'v1' exists, 'v1' if none exists)
+    """
+    if not DatasetPaths.TROCR_READY_DATA.exists():
+        return 'v1'
+    
+    versions = [d.name for d in DatasetPaths.TROCR_READY_DATA.iterdir() 
+                if d.is_dir() and d.name.startswith('v')]
+    
+    if not versions:
+        return 'v1'
+    
+    # Extract version numbers (v1 -> 1, v2_lines -> 2)
+    version_numbers = []
+    for v in versions:
+        try:
+            # Take first part after 'v' and before '_' (if exists)
+            num_str = v[1:].split('_')[0]
+            version_numbers.append(int(num_str))
+        except (ValueError, IndexError):
+            continue
+    
+    if not version_numbers:
+        return 'v1'
+    
+    latest_num = max(version_numbers)
+    return f'v{latest_num + 1}'
 
 def get_latest_version() -> Path:
     """Get current/latest version directory."""

@@ -599,6 +599,70 @@ The evaluation system seamlessly integrates with the training pipeline:
 - **Version compatibility**: Automatically works with latest dataset versions
 - **Model compatibility**: Evaluates any model trained with the training pipeline
 
+## Synthetic Line Generation (v1 → v2)
+
+**One-time conversion**: Generate synthetic multi-word text lines from existing v1 word images.
+
+> **Note**: This is a temporary solution to enable multi-word training NOW. Future work will include orchestrator updates to handle real scanned text lines directly.
+
+### Quick Start
+
+```bash
+# Test single line first (visual inspection!)
+python -m scripts.data_processing.synthetic_data.line_generator \
+    --test-single --test-writer writer01 --test-words 5
+
+# Check output: test_line.jpg
+# Verify: 1) Clean cropping, 2) Same height (384px), 3) Natural spacing
+
+# If test looks good, run full generation (v1 → v2)
+python -m scripts.data_processing.synthetic_data.line_generator
+```
+
+### How It Works
+
+Converts v1 word images into v2 synthetic text lines:
+
+1. **Load all word images** from v1 (train+val+test splits)
+2. **Crop each word** using threshold-based bounding boxes
+3. **Combine 3-10 words** per line from same writer
+4. **Scale to uniform height** (384px, preserving aspect ratios)
+5. **Add natural spacing** (8-15px scaled proportionally)
+6. **Apply augmentation** (×4: rotation, blur, brightness/contrast)
+7. **Split dataset** (70/15/15 train/val/test)
+8. **Output to v2** directory
+
+### Key Features
+
+- **Hardcoded conversion**: v1 → v2 (run once)
+- **Natural spacing**: Scaled proportionally to maintain visual consistency
+- **Same-writer lines**: Each line uses words from one writer only
+- **Augmentation**: Same pipeline as v1 (×4 multiplier)
+- **Expected output**: ~2,600 words → ~650 base lines → ~3,250 augmented images
+
+### Output Structure
+
+```
+dataset/trocr_ready_data/
+├── v1/                          # Original word images
+│   └── ...
+└── v2/                          # Generated synthetic lines
+    ├── images/                  # Base line images (~650)
+    ├── images_augmented/        # Augmented versions (~2,600)
+    ├── gt_train.txt            # 70% training data
+    ├── gt_val.txt              # 15% validation data
+    └── gt_test.txt             # 15% test data
+```
+
+### Command Options
+
+```bash
+--test-single              Generate single test line (outputs: test_line.jpg)
+--test-writer WRITER_ID    Use specific writer for test (default: random)
+--test-words NUM           Number of words in test line (default: 5)
+--show-image               Display test image (requires X11/display)
+```
+
 ## System Features
 
 ### Data Processing Capabilities
@@ -614,6 +678,11 @@ The evaluation system seamlessly integrates with the training pipeline:
   - Stratified dataset splitting ensuring writer balance and word representation
   - Configurable data augmentation (rotation, blur, brightness/contrast)
   - Version-controlled dataset management with incremental updates
+- **Synthetic line generation**:
+  - Multi-word line generation from word-level data
+  - Natural spacing scaled proportionally to word height
+  - Aspect-ratio-preserving scaling to uniform height
+  - User-controlled versioning for iterative dataset expansion
 
 ### TrOCR Optimization
 - **384x384 preprocessing**: Integrated in segmentation pipeline
