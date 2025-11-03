@@ -255,6 +255,46 @@ class TrOCRModelEvaluator:
             # All test data when Cloud
         self.logger.info(f"Found {len(test_data)} test entries for evaluation")
         return test_data
+    
+    def _load_multiword_test_data(self) -> list[tuple[Path, str]]:
+        """
+        Load all multi-word test images and their ground truth labels
+
+        Returns:
+            list: List of tuples (image_path, ground_truth_text)
+        """
+        latest_version = get_latest_version_number()
+        image_base_path = DatasetPaths.TROCR_READY_DATA / latest_version
+        gt_file = image_base_path / 'gt_multiword_test.txt'
+
+        if not gt_file.exists():
+            raise FileNotFoundError(f"Multi-word test ground truth file not found: {gt_file}")
+
+        test_data = []
+
+        with open(gt_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+            
+                parts = line.split('\t')
+                if len(parts) != 2:
+                    self.logger.warning(f"Invalid line in gt_multiword_test.txt: {line}")
+                    continue
+
+                img_path_str, gt_text = parts
+                image_path = image_base_path / img_path_str
+
+                if not image_path.exists():
+                    self.logger.warning(f"Image not found: {image_path}")
+                    continue
+
+                test_data.append((image_path, gt_text))
+
+        self.logger.info(f"Loaded {len(test_data)} multi-word test images")
+        return test_data
+            
 
     def evaluate_test_split(self) -> dict:
         """
@@ -394,57 +434,106 @@ class TrOCRModelEvaluator:
             self.logger.error(f"Failed to evaluate test split: {e}")
             raise
 
-    def _evaluate_local(self) -> dict:
+    def _evaluate_multiword_test(self) -> dict:
         """
-        Simple local evaluation - just prediction vs ground truth.
-        No metrics calculated since single image metrics aren't meaningful.
+        Evaluate model's capability to handle multi-word input (2-3 words per image).
+        Tests if word-level trained model can generalize to multi-word sequences.
         
         Returns:
-            dict: Simple comparison results
+            dict: Per-image results + summary metrics (CER, WER)
         """
         try:
-            # Get random test entry (both image path and ground truth)
-            image_path, gt_text = self.get_evaluation_data()
+            self.logger.info("=== MULTI-WORD CAPABILITY TEST ===")
             
-            # Get prediction
-            predicted_text = self.predict_single_image(str(image_path))
+            # Load all test data
+            test_data = self._load_multiword_test_data()
             
-            # Simple comparison
-            results = {
-                'mode': 'local_evaluation',
-                'image_name': image_path.name,  
-                'image_path': str(image_path),
-                'predicted_text': predicted_text,
-                'ground_truth': gt_text,
-                'match': predicted_text.strip().upper() == gt_text.strip().upper()
+            if not test_data:
+                raise ValueError("No multi-word test data found")
+            
+            # Process all images
+            results_per_image = []
+            all_predictions = []
+            all_references = []
+            
+            for image_path, gt_text in test_data:
+                # Get prediction
+                predicted_text = self.predict_single_image(str(image_path))
+                
+                # Calculate per-image metrics
+                pred_clean = clean_text(predicted_text)
+                ref_clean = clean_text(gt_text)
+                
+                cer = cer_metric.compute(predictions=[pred_clean], references=[ref_clean])['cer']
+                wer = wer_metric.compute(predictions=[pred_clean], references=[ref_clean])['wer']
+                
+                image_result = {
+                    'image_name': image_path.name,
+                    'predicted': predicted_text,
+                    'ground_truth': gt_text,
+                    'cer': cer * 100,
+                    'wer': wer * 100,
+                    'exact_match': predicted_text.strip() == gt_text.strip()
+                }
+                
+                results_per_image.append(image_result)
+                all_predictions.append(pred_clean)
+                all_references.append(ref_clean)
+                
+                # Print per-image output
+                self.logger.info(f"\n--- {image_path.name} ---")
+                self.logger.info(f"Predicted:    '{predicted_text}'")
+                self.logger.info(f"Ground Truth: '{gt_text}'")
+                self.logger.info(f"CER: {cer*100:.2f}% | WER: {wer*100:.2f}%")
+                if predicted_text.strip() == gt_text.strip():
+                    self.logger.info("✓ EXACT MATCH")
+            
+            # Calculate summary metrics
+            avg_cer = sum(r['cer'] for r in results_per_image) / len(results_per_image)
+            avg_wer = sum(r['wer'] for r in results_per_image) / len(results_per_image)
+            exact_matches = sum(r['exact_match'] for r in results_per_image)
+            
+            # Print summary
+            self.logger.info("\n" + "="*60)
+            self.logger.info("SUMMARY")
+            self.logger.info("="*60)
+            self.logger.info(f"Images tested: {len(results_per_image)}")
+            self.logger.info(f"Average CER: {avg_cer:.2f}%")
+            self.logger.info(f"Average WER: {avg_wer:.2f}%")
+            self.logger.info(f"Exact matches: {exact_matches}/{len(results_per_image)}")
+            self.logger.info("="*60)
+            
+            return {
+                'mode': 'multiword_test',
+                'results_per_image': results_per_image,
+                'summary': {
+                    'num_images': len(results_per_image),
+                    'avg_cer': avg_cer,
+                    'avg_wer': avg_wer,
+                    'exact_matches': exact_matches
+                }
             }
             
-            # Simple logging output
-            self.logger.info("=== LOCAL EVALUATION ===")
-            self.logger.info(f"Image: {image_path.name}")
-            self.logger.info(f"Predicted: '{predicted_text}'")
-            self.logger.info(f"Ground Truth: '{gt_text}'")
-            self.logger.info(f"Match: {'✓' if results['match'] else '✗'}")
-            
-            return results
-            
         except Exception as e:
-            self.logger.error(f"Failed local evaluation: {e}")
+            self.logger.error(f"Multi-word test failed: {e}")
             raise
+                
 
-    def evaluate(self) -> dict:
+    def evaluate(self, test_mode: str = 'full') -> dict:
         """
-        Main evaluation method - automatically adapts to environment.
-        Local: Single random image with ground truth comparison
-        Cloud: Full test split with comprehensive metrics
+        Main evaluation method - routes to appropriate evaluation mode..
+
+        Args:
+            multiword: Test image with multiword
+            full: Full test split with comprehensive metrics
         
         Returns:
-            dict: Evaluation results adapted to environment
+            dict: Evaluation results adapted to test mode
         """
-        """ if self.env_type == 'local':
-            return self._evaluate_local()
-        else: """
-        return self.evaluate_test_split()
+        if test_mode == 'multiword':
+            return self._evaluate_multiword_test()
+        else:
+            return self.evaluate_test_split()
         
     def compute_word_level_errors(self, predictions: list[str], references: list[str]) -> dict:
         """
@@ -638,6 +727,8 @@ if __name__ == "__main__":
     parser.add_argument('--model-path', type=str, help='Path to model (auto-detects latest if not provided)')
     parser.add_argument('--device', type=str, default='auto', choices=['auto', 'cuda', 'cpu'], 
                        help='Device to run on')
+    parser.add_argument('--test-mode', type=str, default='full', choices=['full', 'multiword'],
+                   help='Evaluation mode: full test split or multiword capability test')
     parser.add_argument('--output', type=str, help='Save results to JSON file')
     
     args = parser.parse_args()
@@ -645,7 +736,7 @@ if __name__ == "__main__":
     try:
         # Create evaluator and run
         evaluator = TrOCRModelEvaluator(model_path=args.model_path, device=args.device)
-        results = evaluator.evaluate()
+        results = evaluator.evaluate(test_mode=args.test_mode)
         
         # Save results if requested
         if args.output:
