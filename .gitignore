@@ -84,6 +84,7 @@ CRITICAL_VOCAB_ANALYSIS.md
 nn_explained.ipynb
 *test.ipynb
 *temp*.txt
+*PLAN.md
 
 # Azure config
 .azureml

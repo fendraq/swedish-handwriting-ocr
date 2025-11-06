@@ -78,11 +78,11 @@ pip install -r requirements.txt
 
 ### Basic Usage
 ```bash
-# Generate training data from scanned forms
+# Generate training data from scanned forms (LEGACY: word-level only, will be updated for line-level)
 python -m scripts.data_processing.orchestrator.main --auto-detect
 
 # Train TrOCR model on Swedish handwriting
-python -m scripts.training.train_model --epochs 10 --wandb
+python -m scripts.training.train_model --epochs 30 --wandb
 
 # Evaluate trained model performance
 python -m scripts.evaluation.evaluate_model
@@ -94,10 +94,10 @@ python -m scripts.evaluation.evaluate_model
 **Location**: `scripts/data_processing/`
 
 **Core Components**:
-- **Template Generation**: Creates handwriting collection forms with reference markers
-- **Image Segmentation**: Automatically processes scanned documents into individual word images
+- **Template Generation**: Creates handwriting collection forms with reference markers (LEGACY: word-level templates, will support line-level)
+- **Image Segmentation**: Automatically processes scanned documents (LEGACY: word segmentation, will support line segmentation)
 - **Quality Control**: Interactive and automated tools for dataset curation
-- **Data Orchestration**: End-to-end pipeline from raw scans to TrOCR-ready datasets
+- **Data Orchestration**: End-to-end pipeline from raw scans to TrOCR-ready datasets (LEGACY: will be rebuilt for line-level processing)
 
 ### Training Pipeline
 **Location**: `scripts/training/`
@@ -117,13 +117,16 @@ python -m scripts.evaluation.evaluate_model
 - **Ground Truth Validation**: Comprehensive test split evaluation with proper data isolation
 - **Error Analysis**: Detailed performance analysis and failure pattern identification
 
-## Data Collection and Processing
+## Data Collection and Processing (LEGACY - Word-Level)
+
+> **NOTE**: Current orchestrator processes word-level data. Future versions will support line-level text collection and processing for more realistic training data.
 
 The system uses curated Swedish word collections in `docs/data_collection/word_collections/` containing categorized vocabulary optimized for handwriting recognition, including specialized terminology with focus on Swedish characters (å, ä, ö).
 
-### Phase 1: Template Generation and Data Collection
+### Phase 1: Template Generation and Data Collection (LEGACY - Word-Level)
 **Generate handwriting collection templates:**
 ```bash
+# LEGACY: Word-level templates only
 python -m scripts.data_processing.template_generator.generate_templates
 ```
 
@@ -138,10 +141,10 @@ python -m scripts.data_processing.template_generator.generate_templates
 2. Distribute to 10-20 different writers
 3. Scan completed forms as JPG files in correct page order (Sida 1, Sida 2, etc.)
 
-### Phase 2: Automated Data Processing
+### Phase 2: Automated Data Processing (LEGACY - Word-Level)
 **Run the complete processing pipeline:**
 ```bash
-# Comprehensive pipeline (recommended)
+# Comprehensive pipeline (LEGACY: word-level segmentation)
 python -m scripts.data_processing.orchestrator.main --auto-detect
 
 # Process specific writers
@@ -151,13 +154,13 @@ python -m scripts.data_processing.orchestrator.main --writers writer_01,writer_0
 python -m scripts.data_processing.orchestrator.main --auto-detect --dry-run
 ```
 
-**Pipeline capabilities:**
+**Pipeline capabilities (LEGACY - Word-Level):**
 - **Complete automation**: Auto-detects new writers and processes end-to-end
 - **TrOCR-compatible output**: Creates `gt_train.txt`, `gt_val.txt`, `gt_test.txt` files
 - **Proper dataset splitting**: 70/15/15 train/val/test distribution
 - **Flat output structure**: `trocr_ready_data/vX/images/` optimized for TrOCR training
 - **Clean filename format**: `writer01_page01_001_text.jpg` format
-- **384x384 preprocessing**: Integrated TrOCR-ready image formatting
+- **Word-level segmentation**: 384x384 individual word images (will be updated to line-level)
 - **Automatic annotations**: Extracts ground truth from filename metadata
 - **Data augmentation**: Optional rotation, blur, brightness/contrast variations
 - **Version management**: Incremental dataset versions with cleanup
@@ -227,21 +230,21 @@ python -m scripts.data_processing.image_segmentation.segment_images \
 - `--dry-run`: Preview actions without executing
 - `--keep-versions N`: Keep N most recent dataset versions (default: 3)
 
-**Pipeline Processing Steps:**
+**Pipeline Processing Steps (LEGACY - Word-Level):**
 1. **data_detector.py**: Scans originals/ directory for new writers to process
 2. **version_manager.py**: Creates new dataset version (v1, v2, etc.) with metadata
-3. **segmentation_runner.py**: Converts raw scans to 384x384 segmented word images
+3. **segmentation_runner.py**: Converts raw scans to 384x384 segmented word images (will support line-level)
 4. **Manual Quality Control**: Edit segmented images to remove problematic content
 5. **annotation_creator.py**: Extracts ground truth from filenames to annotations.json
 6. **augmentation_manager.py**: Applies optional data augmentation for training robustness
 7. **dataset_splitter.py**: Creates TrOCR-compatible train/val/test splits to gt_*.txt files
 8. **Validation & Cleanup**: Verifies output files and removes old dataset versions
 
-**Dataset Output Structure:**
+**Dataset Output Structure (Current Word-Level, Will Change to Line-Level):**
 ```
 trocr_ready_data/
-├── v1/
-│   ├── images/                    # All 384x384 segmented images (JPG)
+├── v1/                          # LEGACY: Word-level dataset
+│   ├── images/                    # All 384x384 segmented word images (JPG)
 │   │   ├── writer01_page01_001_Åsa.jpg
 │   │   ├── writer01_page01_002_huvudgång.jpg
 │   │   └── ...
@@ -254,6 +257,9 @@ trocr_ready_data/
 │   ├── metadata.json             # Version metadata (writers, counts, etc.)
 │   ├── augmentation_config.json  # Augmentation parameters
 │   └── segmentation_summary.json # Segmentation statistics
+├── v2/                          # Synthetic multi-word lines (temporary solution)
+│   └── ...
+└── v3+/                         # Future: Real line-level data from updated orchestrator
 ```
 
 **TrOCR Format Example (gt_train.txt):**
@@ -310,51 +316,68 @@ The system includes a complete TrOCR fine-tuning pipeline with cloud platform co
 ### Quick Start Training
 
 ```bash
-# Dry run with small dataset (10 samples)
+# Dry run with small dataset (10 samples) - test setup
 python -m scripts.training.train_model --dry_run --epochs 1
 
-# Full training with WandB logging
-python -m scripts.training.train_model --epochs 10 --wandb
+# Standard training with Riksarkivet base model (RECOMMENDED for Swedish)
+python -m scripts.training.train_model --epochs 30
+
+# Training with WandB experiment tracking
+python -m scripts.training.train_model --epochs 30 --wandb --project_name swedish-handwriting-ocr
 
 # Custom training parameters
-python -m scripts.training.train_model --batch_size 8 --epochs 5 --learning_rate 1e-5
- 
-# Model/processor kombinationer (experimentellt)
+python -m scripts.training.train_model --batch_size 8 --epochs 30 --learning_rate 3e-5
+
+# Model/processor combinations (experimental - test different combinations)
+python -m scripts.training.train_model --model_combo ra_proc_ra_model  # DEFAULT
 python -m scripts.training.train_model --model_combo ra_proc_ms_model --dry_run
 python -m scripts.training.train_model --model_combo ms_proc_ra_model --dry_run
 python -m scripts.training.train_model --model_combo ms_proc_ms_model --dry_run
-
-**--model_combo** låter dig välja kombination av processor och modell:
-
-- `ra_proc_ra_model`: Riksarkivet processor + Riksarkivet modell (default)
-- `ra_proc_ms_model`: Riksarkivet processor + Microsoft modell
-- `ms_proc_ra_model`: Microsoft processor + Riksarkivet modell
-- `ms_proc_ms_model`: Microsoft processor + Microsoft modell
-
-Detta gör det enkelt att testa om t.ex. Riksarkivets svenska processor i kombination med Microsofts moderna handskriftsmodell ger bättre resultat på din data. Alla kombinationer är kompatibla eftersom tokenizer och vocab är identiska.
 ```
 
+### Model/Processor Combinations
+
+Use `--model_combo` to select processor and model combination:
+
+- **`ra_proc_ra_model`** (DEFAULT): Riksarkivet processor + Riksarkivet model
+  - Best for Swedish historical handwriting
+  - Pre-trained on Swedish documents
+  - Optimized tokenizer for Swedish characters (å, ä, ö)
+  
+- `ra_proc_ms_model`: Riksarkivet processor + Microsoft model
+  - Swedish tokenizer + modern handwriting model
+  - Experimental combination
+  
+- `ms_proc_ra_model`: Microsoft processor + Riksarkivet model
+  - Standard tokenizer + Swedish pre-trained weights
+  - May lose Swedish-specific optimizations
+  
+- `ms_proc_ms_model`: Microsoft processor + Microsoft model
+  - Baseline comparison (non-Swedish optimized)
+
+**Recommendation:** Use default `ra_proc_ra_model` for best Swedish performance. Other combinations are available for experimental comparison.
+
 ### Training Configuration (Validated)
-- **Base model**: microsoft/trocr-base-handwritten
-- **Architecture**: VisionEncoderDecoderModel (updated from TrOCRForCausalLM)
-- **Batch size**: 16 (with gradient accumulation for effective batch size of 32)
-- **Learning rate**: 5e-5 with warmup
-- **Mixed precision**: FP16 enabled with use_fast=True for TrOCRProcessor
-- **Evaluation strategy**: Every 200 steps with CER-based best model selection
+- **Base model**: Riksarkivet/trocr-base-handwritten-hist-swe-2 (DEFAULT)
+- **Architecture**: VisionEncoderDecoderModel
+- **Batch size**: 8 (default, configurable)
+- **Learning rate**: 3e-5 (default, configurable)
+- **Epochs**: 30 (default, configurable)
+- **Mixed precision**: FP16 enabled
+- **Evaluation strategy**: Per-epoch with CER-based best model selection
 - **Data collation**: Custom TrOCRDataCollator for pixel_values + labels format
 
 ### Trained Models Available
-Current trained models ready for evaluation:
+Trained models are saved with timestamps and version information:
 ```
 models/
-├── trocr-swedish-handwriting-v3-20251020_091130/
-│   ├── final_model/              # Complete trained model (1.3GB)
-│   │   ├── model.safetensors     # Model weights
-│   │   ├── config.json           # Model configuration
-│   │   ├── tokenizer.json        # Swedish tokenizer
-│   │   └── preprocessor_config.json
-│   └── checkpoint-1/             # Training checkpoint
-└── (other training runs...)
+└── trocr-swedish-handwriting-v{version}-{timestamp}/
+    ├── final_model/              # Complete trained model
+    │   ├── model.safetensors     # Model weights
+    │   ├── config.json           # Model configuration
+    │   ├── tokenizer.json        # Swedish tokenizer
+    │   └── preprocessor_config.json
+    └── checkpoint-{N}/           # Training checkpoints (optional)
 ```
 
 ### Cloud Platform Deployment
@@ -362,7 +385,7 @@ The training pipeline automatically detects cloud environments and adapts paths 
 
 ```bash
 # Local development (automatic detection)
-python -m scripts.training.train_model --epochs 10
+python -m scripts.training.train_model --epochs 30
 
 # Cloud platforms (automatic detection)
 # Works on RunPod, Google Colab, Azure ML, AWS SageMaker, etc.
@@ -370,9 +393,9 @@ python -m scripts.training.train_model --epochs 10
 ```
 
 **Supported Cloud Platforms:**
+- **Azure ML**: Primary cloud platform (enterprise ML platform)
 - **RunPod**: GPU instances for cost-effective training
 - **Google Colab**: Free and Pro tiers with GPU access
-- **Azure ML**: Enterprise machine learning platform
 - **AWS SageMaker**: Amazon's ML training service
 - **Other cloud platforms**: Automatic detection based on environment
 
@@ -398,97 +421,18 @@ eval_exact_match: 0.7890
 Trained models are saved with version information and timestamps:
 ```
 models/
-└── trocr-swedish-handwriting-v3-20241017_143052/
+└── trocr-swedish-handwriting-v{version}-{timestamp}/
     ├── final_model/          # Complete model and tokenizer
-    │   ├── pytorch_model.bin
+    │   ├── model.safetensors or pytorch_model.bin
     │   ├── config.json
     │   └── tokenizer files
-    └── checkpoints/          # Training checkpoints
+    └── checkpoint-{N}/       # Training checkpoints (optional)
 ```
 
 The training system uses intelligent path detection from `config/paths.py`:
 - **Local development**: Uses dataset versions from `dataset/trocr_ready_data/`
 - **Cloud platforms**: Automatically detects cloud environment and adjusts paths
 - **Version management**: Always uses latest dataset version automatically
-
-## Cloud Platform Integration
-
-This project supports cloud-based training and deployment across multiple platforms for scalable model development.
-
-### Quick Cloud Setup
-
-**RunPod (Recommended for cost-effective GPU training):**
-```bash
-# 1. Start GPU instance with PyTorch template
-# 2. Clone project in Jupyter/terminal
-git clone https://github.com/your-username/swedish-handwriting-ocr.git
-cd swedish-handwriting-ocr
-pip install -r requirements.txt
-
-# 3. Upload dataset and start training
-python -m scripts.training.train_model --epochs 10
-```
-
-**Google Colab:**
-```bash
-# 1. Mount Google Drive and clone project
-from google.colab import drive
-drive.mount('/content/drive')
-!git clone https://github.com/your-username/swedish-handwriting-ocr.git
-%cd swedish-handwriting-ocr
-!pip install -r requirements.txt
-
-# 2. Start training with GPU
-!python -m scripts.training.train_model --epochs 10
-```
-
-### Development Workflow
-
-**Recommended approach:**
-- **Local development** - Quick testing with small datasets  
-- **Cloud training** - Full-scale training on complete dataset
-- **Model evaluation** - Automatic adaptation to environment
-
-```bash
-# Local testing (quick iteration)
-python -m scripts.training.train_model --dry_run --epochs 1
-
-# Cloud training (production scale - works on any cloud platform)
-python -m scripts.training.train_model --epochs 10 --wandb
-
-# Model evaluation (adapts automatically to environment)
-python -m scripts.evaluation.evaluate_model --model-path ./models/latest/
-```
-
-### Cloud Platform Comparison
-
-| Platform | Cost | Setup Ease | GPU Availability | Best For |
-|----------|------|------------|------------------|----------|
-| **RunPod** | Very Low ($0.40/hr A40) | Easy | Excellent | Cost-effective training |
-| **Google Colab** | Low (Free/Pro) | Very Easy | Good | Quick experiments |
-| **Azure ML** | Medium-High | Medium | Good | Enterprise integration |
-| **AWS SageMaker** | Medium-High | Medium | Excellent | AWS ecosystem |
-
-### Key Features
-
-- **Universal compatibility** - Works across all major cloud platforms
-- **Automatic environment detection** - No code changes needed for different clouds
-- **Scalable compute** - GPU instances for cost-effective training
-- **Experiment tracking** - Integration with WandB and cloud-native logging
-- **Intelligent evaluation** - Adapts between local and cloud evaluation modes
-
-### Local vs Cloud Development
-
-| Feature | Local Development | Cloud Platforms |
-|---------|------------------|-----------------|
-| **Evaluation Mode** | Single random image | Full test dataset |
-| **Dataset Access** | Local file system | Cloud storage/upload |
-| **Training Command** | Direct Python execution | Same commands, auto-detected |
-| **Model Storage** | Local directory | Cloud instance storage |
-| **Compute Resources** | Local GPU | Cloud GPU instances |
-| **Cost** | Hardware ownership | Pay-per-use |
-
-For detailed Azure ML specific setup, see the Azure ML section below.
 
 ## Model Evaluation
 
@@ -601,9 +545,9 @@ The evaluation system seamlessly integrates with the training pipeline:
 
 ## Synthetic Line Generation (v1 → v2)
 
-**One-time conversion**: Generate synthetic multi-word text lines from existing v1 word images.
+**TEMPORARY SOLUTION**: Generate synthetic multi-word text lines from existing v1 word images.
 
-> **Note**: This is a temporary solution to enable multi-word training NOW. Future work will include orchestrator updates to handle real scanned text lines directly.
+> **Note**: This is a temporary bridge solution to enable multi-word training NOW while we collect real line-level data. Future orchestrator updates will process real scanned text lines directly, making this script obsolete.
 
 ### Quick Start
 
@@ -612,8 +556,8 @@ The evaluation system seamlessly integrates with the training pipeline:
 python -m scripts.data_processing.synthetic_data.line_generator \
     --test-single --test-writer writer01 --test-words 5
 
-# Check output: test_line.jpg
-# Verify: 1) Clean cropping, 2) Same height (384px), 3) Natural spacing
+# Check output: test_line.jpg (should be 1300×256px)
+# Verify: 1) Clean cropping, 2) Consistent case, 3) Natural spacing
 
 # If test looks good, run full generation (v1 → v2)
 python -m scripts.data_processing.synthetic_data.line_generator
@@ -625,34 +569,78 @@ Converts v1 word images into v2 synthetic text lines:
 
 1. **Load all word images** from v1 (train+val+test splits)
 2. **Crop each word** using threshold-based bounding boxes
-3. **Combine 3-10 words** per line from same writer
-4. **Scale to uniform height** (384px, preserving aspect ratios)
-5. **Add natural spacing** (8-15px scaled proportionally)
-6. **Apply augmentation** (×4: rotation, blur, brightness/contrast)
-7. **Split dataset** (70/15/15 train/val/test)
-8. **Output to v2** directory
+3. **Combine words** per line (30-50 characters, typically 4-7 words)
+4. **Scale to target width** (1300px, proportional height scaling)
+5. **Add vertical padding** to 256px height
+6. **Add natural spacing** (8-15px scaled proportionally)
+7. **Apply augmentation** (×4: rotation, blur, brightness/contrast)
+8. **Split dataset** (70/15/15 train/val/test)
+9. **Output to v2** directory
 
 ### Key Features
 
-- **Hardcoded conversion**: v1 → v2 (run once)
+- **Temporary bridge solution**: v1 word-level → v2 line-level (synthetic)
+- **Character-based length control**: 30-50 characters per line
+- **Production-realistic dimensions**: 1300×256px (matches YOLO line detection)
 - **Natural spacing**: Scaled proportionally to maintain visual consistency
 - **Same-writer lines**: Each line uses words from one writer only
+- **Case grouping**: Separate lines for UPPERCASE, lowercase, and Mixed case
 - **Augmentation**: Same pipeline as v1 (×4 multiplier)
-- **Expected output**: ~2,600 words → ~650 base lines → ~3,250 augmented images
+- **Expected output**: ~765 base lines → ~3,825 total with augmentation
+
+### Performance Results (v2 Synthetic Dataset)
+
+Training on 3,825 synthetic lines achieved exceptional results on test split:
+
+**Metrics (Test Split - 574 samples):**
+- **CER**: 0.19% (Character Error Rate)
+- **WER**: 0.52% (Word Error Rate)
+- **Exact Match**: 97.21% (perfect predictions)
+- **Swedish Character Accuracy**: 99.87% (å, ä, ö recognition)
+- **Word Accuracy**: 99.39%
+
+**Most Challenging Words:**
+- Compound names with hyphens: ÅSA-LENA, ÅSA-MAJ
+- Double consonants: DUETT (often predicted as DUET)
+- Context-dependent words: GRAVPLATS, ANDAKT
+
+**Example Predictions:**
+```
+Prediction: 'program bibel sång avtal gravvård styrka besked'
+Prediction: 'VÄSTERÅS TREDJE FÖREVIGT GUD SÖDRA UNDERTECKNAD'
+Prediction: 'instrumental västerås trygghet blomsterarrangemang'
+Prediction: 'kistbärare andra gemenskap klockringning'
+```
+
+**Important Note - Validation Pending:**
+⚠️ These results are on synthetic test data (same distribution as training). **Real-world performance** on YOLO-detected lines from actual scanned documents may differ significantly due to:
+- Different handwriting variations not seen in training
+- YOLO cropping artifacts and boundary effects
+- Text outside the limited funeral-domain vocabulary
+- Natural line breaks and spacing variations
+
+**Next Steps:**
+1. ✅ Baseline established (CER 0.19% on synthetic data)
+2. ⏳ Test with YOLO line detection on real documents
+3. ⏳ Evaluate real-world CER (expected: 5-15% based on domain shift)
+4. ⏳ Collect more diverse line-level data if needed
+5. ⏳ Retrain with expanded dataset for production deployment
 
 ### Output Structure
 
 ```
 dataset/trocr_ready_data/
-├── v1/                          # Original word images
+├── v1/                          # Original word images (LEGACY)
 │   └── ...
-└── v2/                          # Generated synthetic lines
-    ├── images/                  # Base line images (~650)
-    ├── images_augmented/        # Augmented versions (~2,600)
+└── v2/                          # Generated synthetic lines (TEMPORARY)
+    ├── images/                  # Base line images (1300×256px, ~765 lines)
+    ├── images_augmented/        # Augmented versions (~3,060 lines)
     ├── gt_train.txt            # 70% training data
     ├── gt_val.txt              # 15% validation data
     └── gt_test.txt             # 15% test data
 ```
+
+> **Future**: v3+ will contain real line-level data from updated orchestrator (not synthetic).
 
 ### Command Options
 
@@ -666,37 +654,38 @@ dataset/trocr_ready_data/
 ## System Features
 
 ### Data Processing Capabilities
-- **Comprehensive Swedish vocabulary**: 150+ categorized words covering Swedish characters (å, ä, ö), names, places, dates, and specialized terminology
-- **Intelligent template generation**: PDF templates with reference markers, page numbers, and scanning instructions
-- **Advanced image segmentation**:
+- **Comprehensive Swedish vocabulary**: 150+ categorized words covering Swedish characters (å, ä, ö), names, places, dates, and specialized terminology (LEGACY: word-level, will expand for line-level)
+- **Intelligent template generation**: PDF templates with reference markers, page numbers, and scanning instructions (LEGACY: will be updated for line-level collection)
+- **Advanced image segmentation** (LEGACY - Word-Level):
   - Automatic DPI detection and parameter adaptation
   - Reference marker detection for precise coordinate mapping
   - Dynamic margin adjustment (6px inward) to remove border artifacts
   - Fallback coordinate transformation when markers aren't available
 - **Intelligent data pipeline**:
   - Automated annotation generation from filename metadata
-  - Stratified dataset splitting ensuring writer balance and word representation
+  - Stratified dataset splitting ensuring writer balance and representation
   - Configurable data augmentation (rotation, blur, brightness/contrast)
   - Version-controlled dataset management with incremental updates
-- **Synthetic line generation**:
-  - Multi-word line generation from word-level data
-  - Natural spacing scaled proportionally to word height
-  - Aspect-ratio-preserving scaling to uniform height
-  - User-controlled versioning for iterative dataset expansion
+- **Synthetic line generation** (TEMPORARY):
+  - Multi-word line generation from word-level data (bridge solution)
+  - Character-based length control (30-50 chars)
+  - Production-realistic dimensions (1300×256px)
+  - Natural spacing scaled proportionally
 
 ### TrOCR Optimization
-- **384x384 preprocessing**: Integrated in segmentation pipeline
+- **Standard image preprocessing**: TrOCR processor handles resizing to 384×384 automatically
 - **Tab-separated format**: gt_*.txt files following Microsoft TrOCR standard
 - **Proper data distribution**: 70/15/15 train/validation/test splits for robust model training
-- **Clean filename format**: writer01 format for reliable parsing
+- **Clean filename format**: Consistent naming for reliable parsing
 - **Quality assurance**:
-  - Visualization tools for debugging marker detection
-  - Consistent font rendering across all template text
-  - Optimized line thickness (0.5pt) for clean segmentation
+  - Visualization tools for debugging marker detection (LEGACY - word-level)
+  - Consistent font rendering across all template text (LEGACY - word-level)
+  - Optimized line thickness for clean segmentation (LEGACY - word-level)
 
 ### Production Ready Features
 - **Configurable pipeline**: Suitable for large-scale dataset generation
-- **Complete TrOCR pipeline**: Production-ready fine-tuning with Azure ML compatibility
+- **Complete TrOCR pipeline**: Production-ready fine-tuning with cloud platform compatibility
 - **Intelligent path management**: Automatic environment detection for local and cloud deployment
 - **Advanced metrics evaluation**: Swedish-specific accuracy measurements for å, ä, ö characters
 - **Environment awareness**: Seamless transition between development and production environments
+- **Version control**: Incremental dataset versioning with automatic cleanup
