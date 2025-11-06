@@ -1,10 +1,10 @@
 {
-  "pdf_file": "docs/data_collection/generated_templates/swedish_handwriting_text_field.pdf",
-  "total_items": 2,
+  "pdf_file": "docs/data_collection/generated_templates/swedish_handwriting_tf_20251106_150212.pdf",
+  "total_notes": 2,
   "total_pages": 2,
   "categories": [
-    "ceremony_planning",
-    "personal_memories"
+    "personal_memories",
+    "ceremony_planning"
   ],
   "reference_system": {
     "reference_markers": {
@@ -30,7 +30,7 @@
     "cross_size_mm": 2.0,
     "description": "Four corner reference markers for coordinate transformation"
   },
-  "format_type": "text_field",
+  "format_type": "text-field",
   "notes": [
     {
       "text": "Kunden önskar lugn och värdighetsful ceremoni för sin älskade make som gick bort efter lång sjukdom. Musikval har diskuterats noga: Ave Maria av Schubert ska spelas när kistan bärs in, följt av Gabriellas sång som var hans absoluta favoritlåt. Dottern Maria kommer att hålla ett personligt tal om faderns stora kärlek till trädgårdsarbete och hans passion för att hjälpa grannar med olika projekt genom åren. Sonen Erik läser en vacker dikt som fadern skrev för några år sedan om livets värde.",

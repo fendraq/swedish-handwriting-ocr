@@ -90,9 +90,7 @@ def save_word_segment(image: np.ndarray, text: str, category: str, writer_id: st
     if not success:
         raise ValueError(f"Failed to save image: {jpg_path}")
     
-    txt_path = images_dir / f"{base_filename}.txt"
-    with open(txt_path, 'w', encoding='utf-8') as f:
-        f.write(text)
+    # Note: Individual TXT files removed - orchestrator extracts text from filenames
 
     return str(jpg_path)
 

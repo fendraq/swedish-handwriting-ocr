@@ -1,0 +1,1264 @@
+{
+  "pdf_file": "docs/data_collection/generated_templates/swedish_handwriting_sl_20251106_150338.pdf",
+  "total_lines": 49,
+  "total_pages": 5,
+  "categories": [
+    "swedish_character_focus",
+    "general_sentences",
+    "numbers_and_dates",
+    "everyday_phrases",
+    "formal_sentences"
+  ],
+  "reference_system": {
+    "reference_markers": {
+      "top_left": [
+        36.85039370078741,
+        805.0393700787403
+      ],
+      "top_right": [
+        558.4251968503937,
+        805.0393700787403
+      ],
+      "bottom_left": [
+        36.85039370078741,
+        36.85039370078741
+      ],
+      "bottom_right": [
+        558.4251968503937,
+        36.85039370078741
+      ]
+    },
+    "marker_type": "circle_with_cross",
+    "circle_radius_mm": 4.0,
+    "cross_size_mm": 2.0,
+    "description": "Four corner reference markers for coordinate transformation"
+  },
+  "format_type": "single-rows",
+  "lines": [
+    {
+      "text": "Stockholm är Sveriges huvudstad och största stad.",
+      "page": 1,
+      "handwriting_position": [
+        56.69291338582678,
+        734.1732283464569,
+        521.5748031496063,
+        779.5275590551183
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        785.196850393701,
+        521.5748031496063,
+        798.396850393701
+      ],
+      "category": "general_sentences",
+      "subcategory": null,
+      "line_id": "000",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -70.86614173228338,
+        484.72440944881885,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "Göteborg ligger vid västkusten och har en stor hamn",
+      "page": 1,
+      "handwriting_position": [
+        56.69291338582678,
+        669.9496062992127,
+        521.5748031496063,
+        715.3039370078742
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        720.9732283464568,
+        521.5748031496063,
+        734.1732283464569
+      ],
+      "category": "general_sentences",
+      "subcategory": null,
+      "line_id": "001",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -135.08976377952752,
+        484.72440944881885,
+        -89.73543307086607
+      ]
+    },
+    {
+      "text": "som används för internationell handel. Malmö är",
+      "page": 1,
+      "handwriting_position": [
+        56.69291338582678,
+        605.7259842519686,
+        521.5748031496063,
+        651.0803149606301
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        656.7496062992127,
+        521.5748031496063,
+        669.9496062992127
+      ],
+      "category": "general_sentences",
+      "subcategory": null,
+      "line_id": "002",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -199.31338582677165,
+        484.72440944881885,
+        -153.9590551181102
+      ]
+    },
+    {
+      "text": "Sveriges tredje största stad nära Danmark.",
+      "page": 1,
+      "handwriting_position": [
+        56.69291338582678,
+        541.5023622047246,
+        521.5748031496063,
+        586.856692913386
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        592.5259842519687,
+        521.5748031496063,
+        605.7259842519687
+      ],
+      "category": "general_sentences",
+      "subcategory": null,
+      "line_id": "003",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -263.53700787401567,
+        484.72440944881885,
+        -218.18267716535422
+      ]
+    },
+    {
+      "text": "Uppsala är en gammal universitetsstad med rik",
+      "page": 1,
+      "handwriting_position": [
+        56.69291338582678,
+        477.27874015748046,
+        521.5748031496063,
+        522.6330708661419
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        528.3023622047245,
+        521.5748031496063,
+        541.5023622047246
+      ],
+      "category": "general_sentences",
+      "subcategory": null,
+      "line_id": "004",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -327.7606299212598,
+        484.72440944881885,
+        -282.40629921259836
+      ]
+    },
+    {
+      "text": "historia och många studenter. Linköping har en",
+      "page": 1,
+      "handwriting_position": [
+        56.69291338582678,
+        413.0551181102363,
+        521.5748031496063,
+        458.4094488188978
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        464.0787401574804,
+        521.5748031496063,
+        477.2787401574804
+      ],
+      "category": "general_sentences",
+      "subcategory": null,
+      "line_id": "005",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -391.98425196850394,
+        484.72440944881885,
+        -346.6299212598425
+      ]
+    },
+    {
+      "text": "stor flygplansindustri och teknisk högskola.",
+      "page": 1,
+      "handwriting_position": [
+        56.69291338582678,
+        348.83149606299224,
+        521.5748031496063,
+        394.18582677165364
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        399.85511811023633,
+        521.5748031496063,
+        413.0551181102363
+      ],
+      "category": "general_sentences",
+      "subcategory": null,
+      "line_id": "006",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -456.207874015748,
+        484.72440944881885,
+        -410.8535433070866
+      ]
+    },
+    {
+      "text": "Västerås ligger vid Mälaren och är en industristad.",
+      "page": 1,
+      "handwriting_position": [
+        56.69291338582678,
+        284.60787401574817,
+        521.5748031496063,
+        329.9622047244096
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        335.63149606299226,
+        521.5748031496063,
+        348.83149606299224
+      ],
+      "category": "general_sentences",
+      "subcategory": null,
+      "line_id": "007",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -520.4314960629921,
+        484.72440944881885,
+        -475.07716535433065
+      ]
+    },
+    {
+      "text": "Örebro har ett vackert slott mitt i centrum. Jönköping",
+      "page": 1,
+      "handwriting_position": [
+        56.69291338582678,
+        220.38425196850403,
+        521.5748031496063,
+        265.7385826771655
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        271.4078740157481,
+        521.5748031496063,
+        284.6078740157481
+      ],
+      "category": "general_sentences",
+      "subcategory": null,
+      "line_id": "008",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -584.6551181102362,
+        484.72440944881885,
+        -539.3007874015748
+      ]
+    },
+    {
+      "text": "Åsa och Märta åkte till Göteborg på tåget.",
+      "page": 1,
+      "handwriting_position": [
+        56.69291338582678,
+        156.1606299212599,
+        521.5748031496063,
+        201.51496062992132
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        207.184251968504,
+        521.5748031496063,
+        220.38425196850397
+      ],
+      "category": "swedish_character_focus",
+      "subcategory": null,
+      "line_id": "009",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -648.8787401574804,
+        484.72440944881885,
+        -603.5244094488189
+      ]
+    },
+    {
+      "text": "Björn köpte nya skor i en affär på Södermalm",
+      "page": 2,
+      "handwriting_position": [
+        56.69291338582678,
+        734.1732283464569,
+        521.5748031496063,
+        779.5275590551183
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        785.196850393701,
+        521.5748031496063,
+        798.396850393701
+      ],
+      "category": "swedish_character_focus",
+      "subcategory": null,
+      "line_id": "010",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -70.86614173228338,
+        484.72440944881885,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "och betalade med kort. Pär och Göran träffades",
+      "page": 2,
+      "handwriting_position": [
+        56.69291338582678,
+        669.9496062992127,
+        521.5748031496063,
+        715.3039370078742
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        720.9732283464568,
+        521.5748031496063,
+        734.1732283464569
+      ],
+      "category": "swedish_character_focus",
+      "subcategory": null,
+      "line_id": "011",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -135.08976377952752,
+        484.72440944881885,
+        -89.73543307086607
+      ]
+    },
+    {
+      "text": "på en restaurang i Västerås för att äta lunch.",
+      "page": 2,
+      "handwriting_position": [
+        56.69291338582678,
+        605.7259842519686,
+        521.5748031496063,
+        651.0803149606301
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        656.7496062992127,
+        521.5748031496063,
+        669.9496062992127
+      ],
+      "category": "swedish_character_focus",
+      "subcategory": null,
+      "line_id": "012",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -199.31338582677165,
+        484.72440944881885,
+        -153.9590551181102
+      ]
+    },
+    {
+      "text": "Föräldrarna reste till Örebro för att besöka",
+      "page": 2,
+      "handwriting_position": [
+        56.69291338582678,
+        541.5023622047246,
+        521.5748031496063,
+        586.856692913386
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        592.5259842519687,
+        521.5748031496063,
+        605.7259842519687
+      ],
+      "category": "swedish_character_focus",
+      "subcategory": null,
+      "line_id": "013",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -263.53700787401567,
+        484.72440944881885,
+        -218.18267716535422
+      ]
+    },
+    {
+      "text": "släktingar över helgen. Läkaren ordinerade",
+      "page": 2,
+      "handwriting_position": [
+        56.69291338582678,
+        477.27874015748046,
+        521.5748031496063,
+        522.6330708661419
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        528.3023622047245,
+        521.5748031496063,
+        541.5023622047246
+      ],
+      "category": "swedish_character_focus",
+      "subcategory": null,
+      "line_id": "014",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -327.7606299212598,
+        484.72440944881885,
+        -282.40629921259836
+      ]
+    },
+    {
+      "text": "medicin för Ölvers förkylning. Kören sjöng",
+      "page": 2,
+      "handwriting_position": [
+        56.69291338582678,
+        413.0551181102363,
+        521.5748031496063,
+        458.4094488188978
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        464.0787401574804,
+        521.5748031496063,
+        477.2787401574804
+      ],
+      "category": "swedish_character_focus",
+      "subcategory": null,
+      "line_id": "015",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -391.98425196850394,
+        484.72440944881885,
+        -346.6299212598425
+      ]
+    },
+    {
+      "text": "vackra psalmer under högtidliga ceremonier.",
+      "page": 2,
+      "handwriting_position": [
+        56.69291338582678,
+        348.83149606299224,
+        521.5748031496063,
+        394.18582677165364
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        399.85511811023633,
+        521.5748031496063,
+        413.0551181102363
+      ],
+      "category": "swedish_character_focus",
+      "subcategory": null,
+      "line_id": "016",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -456.207874015748,
+        484.72440944881885,
+        -410.8535433070866
+      ]
+    },
+    {
+      "text": "Börje kände stor glädje när han såg sin dotter.",
+      "page": 2,
+      "handwriting_position": [
+        56.69291338582678,
+        284.60787401574817,
+        521.5748031496063,
+        329.9622047244096
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        335.63149606299226,
+        521.5748031496063,
+        348.83149606299224
+      ],
+      "category": "swedish_character_focus",
+      "subcategory": null,
+      "line_id": "017",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -520.4314960629921,
+        484.72440944881885,
+        -475.07716535433065
+      ]
+    },
+    {
+      "text": "Mötet började klockan åtta på kvällen i Stockholm.",
+      "page": 2,
+      "handwriting_position": [
+        56.69291338582678,
+        220.38425196850403,
+        521.5748031496063,
+        265.7385826771655
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        271.4078740157481,
+        521.5748031496063,
+        284.6078740157481
+      ],
+      "category": "swedish_character_focus",
+      "subcategory": null,
+      "line_id": "018",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -584.6551181102362,
+        484.72440944881885,
+        -539.3007874015748
+      ]
+    },
+    {
+      "text": "God morgon och välkommen till vårt kontor.",
+      "page": 2,
+      "handwriting_position": [
+        56.69291338582678,
+        156.1606299212599,
+        521.5748031496063,
+        201.51496062992132
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        207.184251968504,
+        521.5748031496063,
+        220.38425196850397
+      ],
+      "category": "everyday_phrases",
+      "subcategory": null,
+      "line_id": "019",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -648.8787401574804,
+        484.72440944881885,
+        -603.5244094488189
+      ]
+    },
+    {
+      "text": "Tack så mycket för all hjälp under året. Kan du",
+      "page": 3,
+      "handwriting_position": [
+        56.69291338582678,
+        734.1732283464569,
+        521.5748031496063,
+        779.5275590551183
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        785.196850393701,
+        521.5748031496063,
+        798.396850393701
+      ],
+      "category": "everyday_phrases",
+      "subcategory": null,
+      "line_id": "020",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -70.86614173228338,
+        484.72440944881885,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "hjälpa mig med den här uppgiften? Jag skulle",
+      "page": 3,
+      "handwriting_position": [
+        56.69291338582678,
+        669.9496062992127,
+        521.5748031496063,
+        715.3039370078742
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        720.9732283464568,
+        521.5748031496063,
+        734.1732283464569
+      ],
+      "category": "everyday_phrases",
+      "subcategory": null,
+      "line_id": "021",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -135.08976377952752,
+        484.72440944881885,
+        -89.73543307086607
+      ]
+    },
+    {
+      "text": "vilja beställa en kopp kaffe. Vad kostar en",
+      "page": 3,
+      "handwriting_position": [
+        56.69291338582678,
+        605.7259842519686,
+        521.5748031496063,
+        651.0803149606301
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        656.7496062992127,
+        521.5748031496063,
+        669.9496062992127
+      ],
+      "category": "everyday_phrases",
+      "subcategory": null,
+      "line_id": "022",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -199.31338582677165,
+        484.72440944881885,
+        -153.9590551181102
+      ]
+    },
+    {
+      "text": "biljett till Göteborg? Var ligger närmaste",
+      "page": 3,
+      "handwriting_position": [
+        56.69291338582678,
+        541.5023622047246,
+        521.5748031496063,
+        586.856692913386
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        592.5259842519687,
+        521.5748031496063,
+        605.7259842519687
+      ],
+      "category": "everyday_phrases",
+      "subcategory": null,
+      "line_id": "023",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -263.53700787401567,
+        484.72440944881885,
+        -218.18267716535422
+      ]
+    },
+    {
+      "text": "busshållplats härifrån? Hur mår du idag och",
+      "page": 3,
+      "handwriting_position": [
+        56.69291338582678,
+        477.27874015748046,
+        521.5748031496063,
+        522.6330708661419
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        528.3023622047245,
+        521.5748031496063,
+        541.5023622047246
+      ],
+      "category": "everyday_phrases",
+      "subcategory": null,
+      "line_id": "024",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -327.7606299212598,
+        484.72440944881885,
+        -282.40629921259836
+      ]
+    },
+    {
+      "text": "hur går det i skolan? Vi ses imorgon på samma",
+      "page": 3,
+      "handwriting_position": [
+        56.69291338582678,
+        413.0551181102363,
+        521.5748031496063,
+        458.4094488188978
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        464.0787401574804,
+        521.5748031496063,
+        477.2787401574804
+      ],
+      "category": "everyday_phrases",
+      "subcategory": null,
+      "line_id": "025",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -391.98425196850394,
+        484.72440944881885,
+        -346.6299212598425
+      ]
+    },
+    {
+      "text": "plats som vanligt. Glöm inte att ta med dig",
+      "page": 3,
+      "handwriting_position": [
+        56.69291338582678,
+        348.83149606299224,
+        521.5748031496063,
+        394.18582677165364
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        399.85511811023633,
+        521.5748031496063,
+        413.0551181102363
+      ],
+      "category": "everyday_phrases",
+      "subcategory": null,
+      "line_id": "026",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -456.207874015748,
+        484.72440944881885,
+        -410.8535433070866
+      ]
+    },
+    {
+      "text": "nycklarna hem. Jag hoppas att vädret blir bättre",
+      "page": 3,
+      "handwriting_position": [
+        56.69291338582678,
+        284.60787401574817,
+        521.5748031496063,
+        329.9622047244096
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        335.63149606299226,
+        521.5748031496063,
+        348.83149606299224
+      ],
+      "category": "everyday_phrases",
+      "subcategory": null,
+      "line_id": "027",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -520.4314960629921,
+        484.72440944881885,
+        -475.07716535433065
+      ]
+    },
+    {
+      "text": "imorgon så vi kan gå ut och promenera.",
+      "page": 3,
+      "handwriting_position": [
+        56.69291338582678,
+        220.38425196850403,
+        521.5748031496063,
+        265.7385826771655
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        271.4078740157481,
+        521.5748031496063,
+        284.6078740157481
+      ],
+      "category": "everyday_phrases",
+      "subcategory": null,
+      "line_id": "028",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -584.6551181102362,
+        484.72440944881885,
+        -539.3007874015748
+      ]
+    },
+    {
+      "text": "Undertecknad godkänner härmed de föreslagna",
+      "page": 3,
+      "handwriting_position": [
+        56.69291338582678,
+        156.1606299212599,
+        521.5748031496063,
+        201.51496062992132
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        207.184251968504,
+        521.5748031496063,
+        220.38425196850397
+      ],
+      "category": "formal_sentences",
+      "subcategory": null,
+      "line_id": "029",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -648.8787401574804,
+        484.72440944881885,
+        -603.5244094488189
+      ]
+    },
+    {
+      "text": "villkoren. Enligt paragraf tre i avtalet ska",
+      "page": 4,
+      "handwriting_position": [
+        56.69291338582678,
+        734.1732283464569,
+        521.5748031496063,
+        779.5275590551183
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        785.196850393701,
+        521.5748031496063,
+        798.396850393701
+      ],
+      "category": "formal_sentences",
+      "subcategory": null,
+      "line_id": "030",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -70.86614173228338,
+        484.72440944881885,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "ersättning utgå. Styrelsen har beslutat att",
+      "page": 4,
+      "handwriting_position": [
+        56.69291338582678,
+        669.9496062992127,
+        521.5748031496063,
+        715.3039370078742
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        720.9732283464568,
+        521.5748031496063,
+        734.1732283464569
+      ],
+      "category": "formal_sentences",
+      "subcategory": null,
+      "line_id": "031",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -135.08976377952752,
+        484.72440944881885,
+        -89.73543307086607
+      ]
+    },
+    {
+      "text": "genomföra förändringarna omgående. Med anledning",
+      "page": 4,
+      "handwriting_position": [
+        56.69291338582678,
+        605.7259842519686,
+        521.5748031496063,
+        651.0803149606301
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        656.7496062992127,
+        521.5748031496063,
+        669.9496062992127
+      ],
+      "category": "formal_sentences",
+      "subcategory": null,
+      "line_id": "032",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -199.31338582677165,
+        484.72440944881885,
+        -153.9590551181102
+      ]
+    },
+    {
+      "text": "av tidigare överenskommelse bekräftas följande.",
+      "page": 4,
+      "handwriting_position": [
+        56.69291338582678,
+        541.5023622047246,
+        521.5748031496063,
+        586.856692913386
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        592.5259842519687,
+        521.5748031496063,
+        605.7259842519687
+      ],
+      "category": "formal_sentences",
+      "subcategory": null,
+      "line_id": "033",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -263.53700787401567,
+        484.72440944881885,
+        -218.18267716535422
+      ]
+    },
+    {
+      "text": "Den sökande har uppfyllt samtliga krav för",
+      "page": 4,
+      "handwriting_position": [
+        56.69291338582678,
+        477.27874015748046,
+        521.5748031496063,
+        522.6330708661419
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        528.3023622047245,
+        521.5748031496063,
+        541.5023622047246
+      ],
+      "category": "formal_sentences",
+      "subcategory": null,
+      "line_id": "034",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -327.7606299212598,
+        484.72440944881885,
+        -282.40629921259836
+      ]
+    },
+    {
+      "text": "tjänsten. Dokumentet ska undertecknas av båda",
+      "page": 4,
+      "handwriting_position": [
+        56.69291338582678,
+        413.0551181102363,
+        521.5748031496063,
+        458.4094488188978
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        464.0787401574804,
+        521.5748031496063,
+        477.2787401574804
+      ],
+      "category": "formal_sentences",
+      "subcategory": null,
+      "line_id": "035",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -391.98425196850394,
+        484.72440944881885,
+        -346.6299212598425
+      ]
+    },
+    {
+      "text": "parter senast idag. Företaget har rätt att säga",
+      "page": 4,
+      "handwriting_position": [
+        56.69291338582678,
+        348.83149606299224,
+        521.5748031496063,
+        394.18582677165364
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        399.85511811023633,
+        521.5748031496063,
+        413.0551181102363
+      ],
+      "category": "formal_sentences",
+      "subcategory": null,
+      "line_id": "036",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -456.207874015748,
+        484.72440944881885,
+        -410.8535433070866
+      ]
+    },
+    {
+      "text": "upp avtalet med omedelbar verkan. Kostnaden för",
+      "page": 4,
+      "handwriting_position": [
+        56.69291338582678,
+        284.60787401574817,
+        521.5748031496063,
+        329.9622047244096
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        335.63149606299226,
+        521.5748031496063,
+        348.83149606299224
+      ],
+      "category": "formal_sentences",
+      "subcategory": null,
+      "line_id": "037",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -520.4314960629921,
+        484.72440944881885,
+        -475.07716535433065
+      ]
+    },
+    {
+      "text": "tjänsten faktureras enligt gällande prislista.",
+      "page": 4,
+      "handwriting_position": [
+        56.69291338582678,
+        220.38425196850403,
+        521.5748031496063,
+        265.7385826771655
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        271.4078740157481,
+        521.5748031496063,
+        284.6078740157481
+      ],
+      "category": "formal_sentences",
+      "subcategory": null,
+      "line_id": "038",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -584.6551181102362,
+        484.72440944881885,
+        -539.3007874015748
+      ]
+    },
+    {
+      "text": "Mötet är planerat till den tjugonde mars",
+      "page": 4,
+      "handwriting_position": [
+        56.69291338582678,
+        156.1606299212599,
+        521.5748031496063,
+        201.51496062992132
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        207.184251968504,
+        521.5748031496063,
+        220.38425196850397
+      ],
+      "category": "numbers_and_dates",
+      "subcategory": null,
+      "line_id": "039",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -648.8787401574804,
+        484.72440944881885,
+        -603.5244094488189
+      ]
+    },
+    {
+      "text": "klockan två på eftermiddagen. Fakturan på",
+      "page": 5,
+      "handwriting_position": [
+        56.69291338582678,
+        734.1732283464569,
+        521.5748031496063,
+        779.5275590551183
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        785.196850393701,
+        521.5748031496063,
+        798.396850393701
+      ],
+      "category": "numbers_and_dates",
+      "subcategory": null,
+      "line_id": "040",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -70.86614173228338,
+        484.72440944881885,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "femtiotvå tusen kronor förfaller snart. Företaget",
+      "page": 5,
+      "handwriting_position": [
+        56.69291338582678,
+        669.9496062992127,
+        521.5748031496063,
+        715.3039370078742
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        720.9732283464568,
+        521.5748031496063,
+        734.1732283464569
+      ],
+      "category": "numbers_and_dates",
+      "subcategory": null,
+      "line_id": "041",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -135.08976377952752,
+        484.72440944881885,
+        -89.73543307086607
+      ]
+    },
+    {
+      "text": "grundades år nittonhundraåttiosju i Malmö.",
+      "page": 5,
+      "handwriting_position": [
+        56.69291338582678,
+        605.7259842519686,
+        521.5748031496063,
+        651.0803149606301
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        656.7496062992127,
+        521.5748031496063,
+        669.9496062992127
+      ],
+      "category": "numbers_and_dates",
+      "subcategory": null,
+      "line_id": "042",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -199.31338582677165,
+        484.72440944881885,
+        -153.9590551181102
+      ]
+    },
+    {
+      "text": "Det finns trettiotre deltagare anmälda till",
+      "page": 5,
+      "handwriting_position": [
+        56.69291338582678,
+        541.5023622047246,
+        521.5748031496063,
+        586.856692913386
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        592.5259842519687,
+        521.5748031496063,
+        605.7259842519687
+      ],
+      "category": "numbers_and_dates",
+      "subcategory": null,
+      "line_id": "043",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -263.53700787401567,
+        484.72440944881885,
+        -218.18267716535422
+      ]
+    },
+    {
+      "text": "kursen. Byggnaden uppfördes mellan åren",
+      "page": 5,
+      "handwriting_position": [
+        56.69291338582678,
+        477.27874015748046,
+        521.5748031496063,
+        522.6330708661419
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        528.3023622047245,
+        521.5748031496063,
+        541.5023622047246
+      ],
+      "category": "numbers_and_dates",
+      "subcategory": null,
+      "line_id": "044",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -327.7606299212598,
+        484.72440944881885,
+        -282.40629921259836
+      ]
+    },
+    {
+      "text": "nittonhundrafjorton och nitton. Totalt investerades",
+      "page": 5,
+      "handwriting_position": [
+        56.69291338582678,
+        413.0551181102363,
+        521.5748031496063,
+        458.4094488188978
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        464.0787401574804,
+        521.5748031496063,
+        477.2787401574804
+      ],
+      "category": "numbers_and_dates",
+      "subcategory": null,
+      "line_id": "045",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -391.98425196850394,
+        484.72440944881885,
+        -346.6299212598425
+      ]
+    },
+    {
+      "text": "åttiofyra miljoner kronor i projektet. Den första",
+      "page": 5,
+      "handwriting_position": [
+        56.69291338582678,
+        348.83149606299224,
+        521.5748031496063,
+        394.18582677165364
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        399.85511811023633,
+        521.5748031496063,
+        413.0551181102363
+      ],
+      "category": "numbers_and_dates",
+      "subcategory": null,
+      "line_id": "046",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -456.207874015748,
+        484.72440944881885,
+        -410.8535433070866
+      ]
+    },
+    {
+      "text": "januari börjar det nya räkenskapsåret. Temperaturen",
+      "page": 5,
+      "handwriting_position": [
+        56.69291338582678,
+        284.60787401574817,
+        521.5748031496063,
+        329.9622047244096
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        335.63149606299226,
+        521.5748031496063,
+        348.83149606299224
+      ],
+      "category": "numbers_and_dates",
+      "subcategory": null,
+      "line_id": "047",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -520.4314960629921,
+        484.72440944881885,
+        -475.07716535433065
+      ]
+    },
+    {
+      "text": "sjönk till minus femton grader i natt igår.",
+      "page": 5,
+      "handwriting_position": [
+        56.69291338582678,
+        220.38425196850403,
+        521.5748031496063,
+        265.7385826771655
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        271.4078740157481,
+        521.5748031496063,
+        284.6078740157481
+      ],
+      "category": "numbers_and_dates",
+      "subcategory": null,
+      "line_id": "048",
+      "relative_handwriting_position": [
+        19.84251968503937,
+        -584.6551181102362,
+        484.72440944881885,
+        -539.3007874015748
+      ]
+    }
+  ]
+}

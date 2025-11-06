@@ -1,7 +1,7 @@
 import json
 
 def analyze_json_structure(json_file_path):
-    """Analyze the JSON structure to understand the data."""
+    """Analyze the JSON structure to understand the data (line-level only)."""
     with open(json_file_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
 
@@ -16,14 +16,14 @@ def analyze_json_structure(json_file_path):
         print(f" Description: {category_data['description']}")
         print(f" Layout: {category_data['template_layout']}")
         print(f" Difficulty: {category_data['difficulty']}")
-
-        # Count items
-        if 'items' in category_data:
-            item_count = len(category_data['items'])
-            print(f" Items: {item_count}")
-        elif 'subcategories' in category_data:
-            total_items = sum(len(subcat) for subcat in category_data['subcategories'].values())
-            print(f" Total items in subcategories: {total_items}")
+        
+        # Count lines or notes
+        if 'lines' in category_data:
+            line_count = len(category_data['lines'])
+            print(f" Lines: {line_count}")
+        elif 'notes' in category_data:
+            note_count = len(category_data['notes'])
+            print(f" Notes: {note_count}")
 
     return data
 
@@ -34,34 +34,26 @@ def load_json(file_path):
         return json.load(f)
 
 
-def extract_items_from_category(category_data):
-    """ Extract all file items from category, handling different structures. """
+def extract_items_from_category(category_data, format_type='single-rows'):
+    """ 
+    Extract items from category based on format type.
+    
+    Args:
+        category_data: Category data from JSON
+        format_type: 'single-rows' or 'text-field'
+    
+    Returns:
+        list: Items with 'text' and 'subcategory' fields
+    """
     items = []
     
-    if 'items' in category_data:
-        # Direct items list
-        for item in category_data['items']:
-            if 'variants' in item:
-                # Word with variants
-                for variant in item['variants']:
-                    items.append({'text': variant, 'subcategory': None})
-            elif 'text' in item:
-                # Sentence or complex text
-                items.append({'text': item['text'], 'subcategory': None})
-    
-    elif 'subcategories' in category_data:
-        # Handle subcategories
-        for subcat_name, subcat_items in category_data['subcategories'].items():
-            if isinstance(subcat_items, list):
-                if len(subcat_items) > 0 and isinstance(subcat_items[0], dict):
-                    # List of objects with variants
-                    for item in subcat_items:
-                        # Add subcategory info to each item
-                        for variant in item['variants']:
-                            items.append({'text': variant, 'subcategory': subcat_name})
-                else:
-                    # Simple string list
-                    for text_item in subcat_items:
-                        items.append({'text': text_item, 'subcategory': subcat_name})
+    if format_type == 'text-field':
+        # Extract notes for text-field format
+        for note_text in category_data['notes']:
+            items.append({'text': note_text, 'subcategory': None})
+    else:
+        # Extract lines for single-rows format
+        for line_text in category_data['lines']:
+            items.append({'text': line_text, 'subcategory': None})
     
     return items

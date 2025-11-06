@@ -2,7 +2,8 @@ from .coordinate_converter import get_words_for_page, load_metadata, pdf_to_pixe
 from .image_processor import load_scanned_image, extract_word_region, enhance_word_image
 from .file_manager import create_output_structure, save_word_segment, generate_segmentation_report
 from .coordinate_converter import get_coordinates_with_fallback
-from ..data_preparation.image_preprocessing import ImagePreprocessor
+from ..data_preparation.line_preprocessing import LinePreprocessor
+from ..data_preparation.textfield_preprocessing import TextFieldPreprocessor
 
 from pathlib import Path
 from typing import Dict, List
@@ -32,7 +33,18 @@ class ImageSegmenter:
         self.enable_visualization = enable_visualization
         self.viz_output = viz_output
         self.output_paths = None
-        self.preprocessor = ImagePreprocessor(target_size=384)
+        
+        # Choose preprocessor based on format type
+        format_type = self.metadata.get('format_type', 'word-level')  # Default to word-level for backward compatibility
+        if format_type == 'single-rows':
+            # Use line preprocessor for line-level OCR (384px height, max 2000px width)
+            self.preprocessor = LinePreprocessor(target_height=384, max_width=2000)
+            print(f"  Using LinePreprocessor for format: {format_type}")
+        else:
+            # Use minimal preprocessor for text-field processing (YOLO handles preprocessing)
+            self.preprocessor = TextFieldPreprocessor()
+            print(f"  Using TextFieldPreprocessor for format: {format_type}")
+        
         self.writer_stats = {}
 
         print("ImageSegmenter initialized:")
@@ -54,6 +66,10 @@ class ImageSegmenter:
         Returns:
             List with path to segmented word images 
         """
+        # 0. Initialize output paths if not already done
+        if self.output_paths is None:
+            self.output_paths = create_output_structure(self.output_dir, writer_id, self.categories)
+        
         # 1. Collect words of page (before loading image)
         page_words = get_words_for_page(self.metadata, page_number)
         
