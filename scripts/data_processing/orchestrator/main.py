@@ -24,6 +24,7 @@ class PipelineConfig:
         self.originals_dir = DatasetPaths.ORIGINALS
         self.trocr_ready_dir = DatasetPaths.TROCR_READY_DATA
         self.metadata_file = get_template_metadata()
+        self.template_id = None  # Optional template ID for specific template selection
 
         # Pipeline settings
         self.auto_detect = True
@@ -246,7 +247,7 @@ class PipelineRunner:
                 output_dir=version_dir,
                 enable_references=True,
                 enable_visualization=True,
-                metadata_path=get_single_line_metadata()
+                metadata_path=get_single_line_metadata(self.config.template_id)
             )
 
             total_images = sum(result.get('total_images', 0) for result in segmentation_report.values()) ##
@@ -603,6 +604,8 @@ def main():
                         help='Auto-detect new writers (default: True)')
     parser.add_argument('--writers', type=str, 
                         help='Comma-separated list of specific writers (e.g., writer_01,writer_02)')
+    parser.add_argument('--template-id', type=str, default=None,
+                        help='Specify template ID to use (e.g., swedish_handwriting_sl_20251106_152131). If not specified, uses latest template.')
     parser.add_argument('--no-augmentation', action='store_true',
                         help='Skip data augmentation step')
     parser.add_argument('--dry-run', action='store_true',
@@ -616,6 +619,7 @@ def main():
     config = PipelineConfig()
     config.apply_augmentation = not args.no_augmentation
     config.keep_versions = args.keep_versions
+    config.template_id = args.template_id  # Store template_id in config
 
     # Parse writers if specified
     writers = None

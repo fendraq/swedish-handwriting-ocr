@@ -1,0 +1,106 @@
+{
+  "dataset_info": {
+    "name": "Swedish Handwriting Dataset - Funeral Form Lines",
+    "version": "3.0",
+    "description": "Dataset med realistiska svenska meningar för handskrivna formulär hos begravningsbyråer; mix av friare meningar, formulärfält och radbrytna rader för TrOCR fine‑tuning",
+    "purpose": "Fine‑tuning TrOCR för modern svensk handskrift med fokus på både fritextinmatningar och formulärfält i samtal med anhöriga",
+    "target_domain": "Formulär och samtal hos begravningsbyrå — personuppgifter, önskemål, praxis, datum, belopp och signaturtexter",
+    "total_lines": 50
+  },
+  "template_config": {
+    "page_size": "A4",
+    "margin": "20mm",
+    "font_size": 11,
+    "handwriting_space": "18mm",
+    "layouts": {
+      "lines_per_page": "1_line_per_row"
+    }
+  },
+  "categories": {
+    "general_sentences": {
+      "description": "Generella meningar som används i samtal och anteckningar men inte trivialt småprat",
+      "template_layout": "1_line_per_row",
+      "difficulty": "medium",
+      "lines": [
+        "Vi går igenom personuppgifterna tillsammans så allt blir",
+        "säkert och korrekt, och jag ställer frågor om eventuella tidigare namn eller adresser.",
+        "Jag noterar om familjen önskar en kyrklig eller borgerlig ceremoni.",
+        "Familjen föredrar en diskret minnesstund i mindre krets,",
+        "utan större mottagning eller offentliga arrangemang, tack.",
+        "Anhöriga får en skriftlig bekräftelse när allt är bokat.",
+        "Vi kan erbjuda olika musikförslag som passar ceremonin, exempelvis",
+        "piano eller stråkensemble, beroende på lokalens förutsättningar och akustik.",
+        "Observera att vissa tjänster kan kräva separat godkännande och avgifter.",
+        "Vi antecknar särskilda önskemål och går igenom dem i slutet av mötet."
+      ]
+    },
+    "form_field_entries": {
+      "description": "Kortare fritextinmatningar och typiska formulärtexter som kan skrivas i fält",
+      "template_layout": "1_line_per_row",
+      "difficulty": "easy",
+      "lines": [
+        "Namn på gravstenen: 'Far, älskad och saknad'.",
+        "Minnestext för programblad: Tack för alla minnen, vi saknar dig.",
+        "Adress för faktura: Storgatan 12, 111 22 Stockholm.",
+        "Önskemål om donation: Gåvor till Hjärtfonden önskas, inget krav.",
+        "Kontaktperson: Åsa Andersson, dotter, 070-234 56 78.",
+        "Programblad ska innehålla kort biografi, psalmer och bild.",
+        "Önskad musik: instrumental låt före ingång, gärna piano eller cello.",
+        "Begravningsplats: familjegrav på Norra kyrkogården i Örebro.",
+        "Särskilda önskemål: inga religiösa symboler på kistan, tack.",
+        "Anteckning: fullmakt bifogas i original till byrån, vid behov."
+      ]
+    },
+    "service_and_ceremony_details": {
+      "description": "Detaljer kring ceremoni, transporter och praktiska arrangemang",
+      "template_layout": "1_line_per_row",
+      "difficulty": "medium",
+      "lines": [
+        "Transporter: kista hämtas från vårdinstans och körs",
+        "till kapellet samma dag; transporttid uppskattas till 45 minuter.",
+        "Ceremoniens längd uppskattas till cirka trettio minuter.",
+        "Plats för ceremoni: församlingskyrkan eller kommunalt kapell.",
+        "Kistklädsel: enkel vit inredning, ingen extra prydnad.",
+        "Präst/ceremoniledare bestäms efter församlingens tillgänglighet, vi",
+        "hjälper gärna med kontakt och tidsbokning till rätt präst.",
+        "Minnesstund planeras i församlingshemmet, med kaffe och smörgåsar.",
+        "Blommor levereras till kapellet en timme före ceremonin, familjen",
+        "anges som avsändare på kransar, buketter och minnesblad."
+      ]
+    },
+    "contacts_and_administrative": {
+      "description": "Kontaktuppgifter, myndighetskontakter och administrativa anteckningar",
+      "template_layout": "1_line_per_row",
+      "difficulty": "medium",
+      "lines": [
+        "Anmälan till folkbokföringen sköts av byrån efter mottaget intyg.",
+        "Anhörigs adress: Lilla Vägen 5, 211 33 Malmö, e‑post maria@ex.se.",
+        "Kontakt för juridiska frågor: advokat erhåller kopia vid begäran.",
+        "Behörig att skriva under: närmast anhörig eller fullmaktshavare.",
+        "Kontaktperson på byrån: Johan Ek, handläggare, 08-765 43 21.",
+        "Behov av tolk: ange språk i fritextfältet, t.ex. arabiska eller finska.",
+        "Bankuppgifter för återbetalning anges på separat formulär, inkl. IBAN.",
+        "Vi kontaktar arbetsgivare efter överenskommelse med familjen, endast",
+        "med uttryckligt samtycke från anhörig antecknas denna information.",
+        "Sekretessrutiner följs enligt gällande lagar, GDPR och interna policys."
+      ]
+    },
+    "dates_amounts_and_signatures": {
+      "description": "Datum, kostnader, betalningsvillkor och signaturstexter",
+      "template_layout": "1_line_per_row",
+      "difficulty": "hard",
+      "lines": [
+        "Förslag till begravningsdatum: fredag 24 oktober klockan 11.00.",
+        "Kostnad för grundpaket enligt prislista: 18 500 kr inklusive moms.",
+        "Betalningsvillkor: 30 dagar netto från fakturadatum.",
+        "Fakturaadress: Storgatan 12, 111 22 Stockholm. Referens: VS-2025.",
+        "Möte bokat: 1 oktober klockan 14:30 i våra lokaler, bekräftelse skickas.",
+        "Eventuell tilläggskostnad för minnesstund faktureras separat.",
+        "Fullmakt för hantering av dödsbo är mottagen, kopia sparas i arkiv.",
+        "Registrerat av: Anna Berg, handläggare, underskrift och datum,",
+        "nedan anges namnteckning samt datum för godkännande och signering.",
+        "Dödsdag: 12 oktober 2025. Dödsplats: hemmet i Göteborg."
+      ]
+    }
+  }
+}

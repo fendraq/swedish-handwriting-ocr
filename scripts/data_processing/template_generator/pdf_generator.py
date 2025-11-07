@@ -23,6 +23,30 @@ def add_page_number(c, page_number, pdf_config):
     c.drawString(page_num_x, page_num_y, page_num_text)
     c.setFont("Helvetica", pdf_config['font_size'])
 
+def add_footer_filename(c, filename, pdf_config):
+    """
+    Helper function to add template filename to footer (centered at bottom).
+    
+    Args:
+        c: ReportLab canvas object
+        filename: Template filename to display
+        pdf_config: PDF configuration dictionary
+    """
+    footer_text = f"Template: {filename}"
+    footer_font_size = 8
+    c.setFont("Helvetica", footer_font_size)
+    c.setFillColorRGB(0.5, 0.5, 0.5)  # Gray color
+    
+    # Position footer at bottom center
+    footer_width = c.stringWidth(footer_text, "Helvetica", footer_font_size)
+    footer_x = (pdf_config['page_width'] - footer_width) / 2
+    footer_y = 15 * mm  # 15mm from bottom
+    c.drawString(footer_x, footer_y, footer_text)
+    
+    # Reset to default color and font
+    c.setFillColorRGB(0, 0, 0)  # Back to black
+    c.setFont("Helvetica", pdf_config['font_size'])
+
 def create_template_pdf(all_items, output_dir, pdf_config, format_type='single-rows', output_name='template'):
     """ Create a template PDF with specified format """
     from datetime import datetime
@@ -94,6 +118,8 @@ def create_template_pdf(all_items, output_dir, pdf_config, format_type='single-r
             
             # Start new page for each note
             if len(metadata) > 0:  # Not the first item
+                # Add footer before showing next page
+                add_footer_filename(c, f"{base_name}.pdf", pdf_config)
                 c.showPage()
                 page_number += 1
                 marker_gen.draw_markers(c)
@@ -162,6 +188,8 @@ def create_template_pdf(all_items, output_dir, pdf_config, format_type='single-r
 
             # Check if new page is needed
             if current_row >= max_rows:
+                # Add footer before showing next page
+                add_footer_filename(c, f"{base_name}.pdf", pdf_config)
                 c.showPage()
                 page_number += 1
                 current_row = 0
@@ -208,6 +236,9 @@ def create_template_pdf(all_items, output_dir, pdf_config, format_type='single-r
                 current_col = 0
                 current_row += 1
 
+    # Add footer to final page
+    add_footer_filename(c, f"{base_name}.pdf", pdf_config)
+    
     # Save PDF after all items are processed
     c.save()
     print(f"Complete PDF created: {filename}")

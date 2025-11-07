@@ -236,8 +236,8 @@ class ImageSegmenter:
             page_number: Page number
             word_id: Word ID from metadata
         """
-        # Get relative path from output_dir/images
-        rel_path = Path(image_path).relative_to(Path(self.output_dir).parent)
+        # Get relative path from output_dir
+        rel_path = Path(image_path).relative_to(Path(self.output_dir))
         
         annotation = {
             "image_path": str(rel_path),
