@@ -8,6 +8,7 @@ from ..data_preparation.textfield_preprocessing import TextFieldPreprocessor
 from pathlib import Path
 from typing import Dict, List
 import re
+import json
 
 class ImageSegmenter:
     """
@@ -33,6 +34,9 @@ class ImageSegmenter:
         self.enable_visualization = enable_visualization
         self.viz_output = viz_output
         self.output_paths = None
+        
+        # New: Store annotations data for all segmented images
+        self.annotations_data = []
         
         # Choose preprocessor based on format type
         format_type = self.metadata.get('format_type', 'word-level')  # Default to word-level for backward compatibility
@@ -125,6 +129,9 @@ class ImageSegmenter:
                     page_number
                 )
                 
+                # Store annotation data for this segmented image
+                self._add_annotation_data(saved_path, word_data['text'], writer_id, page_number, word_data['word_id'])
+                
                 segmented_files.append(saved_path)
                 
             except Exception as e:
@@ -213,4 +220,49 @@ class ImageSegmenter:
         # 5. Generate report
         generate_segmentation_report(results, self.output_dir)
         
+        # 6. Save segmentation annotations
+        self._save_segmentation_annotations()
+        
         return results
+    
+    def _add_annotation_data(self, image_path: str, text: str, writer_id: str, page_number: int, word_id: int):
+        """
+        Add annotation data for a segmented image
+        
+        Args:
+            image_path: Path to saved image
+            text: Ground truth text
+            writer_id: Writer ID
+            page_number: Page number
+            word_id: Word ID from metadata
+        """
+        # Get relative path from output_dir/images
+        rel_path = Path(image_path).relative_to(Path(self.output_dir).parent)
+        
+        annotation = {
+            "image_path": str(rel_path),
+            "ground_truth_text": text,
+            "writer_id": writer_id,
+            "page_number": page_number,
+            "word_id": word_id,
+            "category": "word",
+            "confidence": 1.0
+        }
+        
+        self.annotations_data.append(annotation)
+    
+    def _save_segmentation_annotations(self):
+        """
+        Save all segmentation annotations to segmentation_annotations.json
+        """
+        if not self.annotations_data:
+            print("No annotation data to save")
+            return
+        
+        # Save to output_dir (version directory)
+        annotations_file = Path(self.output_dir) / 'segmentation_annotations.json'
+        
+        with open(annotations_file, 'w', encoding='utf-8') as f:
+            json.dump(self.annotations_data, f, indent=2, ensure_ascii=False)
+        
+        print(f"Saved {len(self.annotations_data)} segmentation annotations to {annotations_file}")

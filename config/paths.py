@@ -155,6 +155,17 @@ def get_template_metadata() -> Path:
     """Get path to complete template metadata."""
     return DocsPaths.GENERATED_TEMPLATES / "complete_template_metadata.json"
 
+def get_single_line_metadata() -> Path:
+    """Get path to latest single-line template metadata."""
+    template_dir = DocsPaths.GENERATED_TEMPLATES
+    sl_files = list(template_dir.glob("swedish_handwriting_sl_*.json"))
+    if not sl_files:
+        raise FileNotFoundError("No single-line metadata files found")
+    
+    # Return the most recent single-line metadata file
+    latest_sl_file = sorted(sl_files)[-1]
+    return latest_sl_file
+
 def get_version_dir(version: str = None) -> Path:
     """Get specific version directory in trocr_ready_data."""
     if version is None:

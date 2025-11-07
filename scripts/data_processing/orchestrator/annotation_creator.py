@@ -30,73 +30,103 @@ class WordAnnotation:
         }
     
 class AnnotationCreator:
-    """ Create annotations from segmented images and metadata """
-    def __init__(self, images_dir: Path, metadata_dir: Path):
+    """ Create annotations from segmented images and ground truth files """
+    def __init__(self, images_dir: Path, gt_file_path: Path):
         self.images_dir = Path(images_dir)
-        self.metadata_dir = Path(metadata_dir)
+        self.gt_file_path = Path(gt_file_path)
         self.annotations: List[WordAnnotation] = []
 
-    def parse_filename(self, filename: str) -> Dict[str, Any]:
+    def parse_date_filename(self, filename: str) -> Dict[str, Any]:
         """
-        Parse segmented image filename to extract metadata
-        Expected format: {writer_id}_page{page}_{word_id}_{text}
-        Example: writer01_page01_000_Åsa.jpg
+        Parse new date-based image filename to extract basic metadata
+        Expected format: YYYYMMDD_sl_000.jpg
+        Example: 20251107_sl_048.jpg
         """
         stem = Path(filename).stem
         parts = stem.split('_')
 
-        if len(parts) < 4:
-            raise ValueError(f"Invalid filename format: {filename}")
+        if len(parts) != 3 or parts[1] != 'sl':
+            raise ValueError(f"Invalid date-based filename format: {filename}")
 
-        writer_id = parts[0]
-        
-        # Extract page number from "page01" -> 1
-        page_part = parts[1]
-        if page_part.startswith('page'):
-            page_number = int(page_part[4:])  # Remove "page" prefix
-        else:
-            page_number = int(page_part)  # Fallback for old format
-        
-        word_id = int(parts[2])
-        text = '_'.join(parts[3:])
+        date_str = parts[0]
+        sequence_id = int(parts[2])
 
         return {
-            'writer_id': writer_id,
-            'page_number': page_number,
-            'word_id': word_id,
-            'text': text
+            'date': date_str,
+            'sequence_id': sequence_id,
+            'category': 'word'  # All new segments are single-line words
         }
+
+    def load_ground_truth_mapping(self) -> Dict[str, str]:
+        """
+        Load ground truth mapping from gt_*.txt file
+        Format: image_path<TAB>ground_truth_text
+        """
+        if not self.gt_file_path.exists():
+            raise FileNotFoundError(f"Ground truth file not found: {self.gt_file_path}")
+        
+        gt_mapping = {}
+        with open(self.gt_file_path, 'r', encoding='utf-8') as f:
+            for line_num, line in enumerate(f, 1):
+                line = line.strip()
+                if not line or line.startswith('#'):  # Skip empty lines and comments
+                    continue
+                
+                parts = line.split('\t')
+                if len(parts) != 2:
+                    logger.warning(f"Invalid line {line_num} in {self.gt_file_path}: {line}")
+                    continue
+                
+                image_path, ground_truth = parts
+                gt_mapping[Path(image_path).name] = ground_truth
+        
+        logger.info(f"Loaded {len(gt_mapping)} ground truth entries from {self.gt_file_path}")
+        return gt_mapping
     
     def create_annotations_from_images(self) -> None:
         """
         Scan images directory and create annotations for all segmented images
+        using ground truth mapping from gt file
         """
         if not self.images_dir.exists():
             raise FileNotFoundError(f"Images directory not found: {self.images_dir}")
         
+        # Load ground truth mapping
+        gt_mapping = self.load_ground_truth_mapping()
+        
         image_files = list(self.images_dir.glob('*.jpg'))
         logger.info(f"Found {len(image_files)} image files to process")
 
+        matched_files = 0
         for image_file in image_files:
             try:
-                file_info = self.parse_filename(image_file.name)
+                # Check if we have ground truth for this image
+                if image_file.name not in gt_mapping:
+                    logger.debug(f"No ground truth found for {image_file.name}")
+                    continue
+                
+                ground_truth_text = gt_mapping[image_file.name]
+                
+                # Parse the date-based filename for metadata
+                file_info = self.parse_date_filename(image_file.name)
 
                 annotation = WordAnnotation(
                     image_path=str(image_file.relative_to(self.images_dir.parent)),
-                    ground_truth_text=file_info['text'],
-                    writer_id=file_info['writer_id'],
-                    page_number=file_info['page_number'],
-                    word_id=file_info['word_id'],
-                    category="word",  
+                    ground_truth_text=ground_truth_text,
+                    writer_id=f"date_{file_info['date']}",  # Use date as writer_id for now
+                    page_number=1,  # Default page number for date-based segments
+                    word_id=file_info['sequence_id'],
+                    category=file_info['category'],
                     confidence=1.0  # Manual annotations = 100% confidence
                 )
                 self.annotations.append(annotation)
+                matched_files += 1
 
             except Exception as e:
                 logger.warning(f"Failed to process {image_file.name}: {e}")
                 continue
 
-        logger.info(f"Created {len(self.annotations)} annotations")
+        logger.info(f"Created {len(self.annotations)} annotations from {matched_files} matched files")
 
     def save_annotations(self, output_path: Path) -> None:
         """ Save all annotations to JSON file """
@@ -132,21 +162,22 @@ class AnnotationCreator:
             "avg_text_length": sum(len(ann.ground_truth_text) for ann in self.annotations) / len(self.annotations)
         }
     
-def create_annotations_for_version(images_dir: Path, output_dir: Path, metadata_dir: Path = None) -> Path:
+def create_annotations_for_version(images_dir: Path, output_dir: Path, gt_file_path: Path) -> Path:
     """
     Main function to create annotations for a version directory
 
     Args:
         images_dir: Path to directory containing segmented images
         output_dir: Path where annotations.json will be saved
-        metadata_dir: Optional path to metadata directoory (for future expansion)
+        gt_file_path: Path to ground truth file (gt_*.txt)
 
     Returns:
-        Path to create annotations.json fil
+        Path to created annotations.json file
     """
     logger.info(f"Creating annotations for images in: {images_dir}")
+    logger.info(f"Using ground truth file: {gt_file_path}")
 
-    creator = AnnotationCreator(images_dir, metadata_dir or images_dir.parent)
+    creator = AnnotationCreator(images_dir, gt_file_path)
 
     creator.create_annotations_from_images()
 
@@ -160,9 +191,10 @@ def create_annotations_for_version(images_dir: Path, output_dir: Path, metadata_
     
 if __name__ == '__main__':
     # Example usage
-    images_dir = Path('trocr_ready_data/v1/images')
-    output_dir = Path('trocr_ready_data/v1')
+    images_dir = Path('dataset/trocr_ready_data/v1/images')
+    output_dir = Path('dataset/trocr_ready_data/v1')
+    gt_file_path = Path('dataset/trocr_ready_data/v1/gt_train.txt')
 
-    annotations_file = create_annotations_for_version(images_dir, output_dir)
+    annotations_file = create_annotations_for_version(images_dir, output_dir, gt_file_path)
     print(f"Created annotations: {annotations_file}")
             

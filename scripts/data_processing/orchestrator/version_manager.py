@@ -138,6 +138,16 @@ def  copy_existing_data(from_version: str, to_version: str) -> bool:
                 else:
                     logger.debug(f"Skipping existing file: {image_file.name}")
 
+        # Copy annotations.json if it exists
+        from_annotations = from_path / 'annotations.json'
+        to_annotations = to_path / 'annotations.json'
+        
+        if from_annotations.exists():
+            shutil.copy2(from_annotations, to_annotations)
+            logger.info(f"Copied annotations.json from {from_version} to {to_version}")
+        else:
+            logger.warning(f"No annotations.json found in {from_version}")
+
         logger.info(f"Copied {copied_count} images from {from_version} to {to_version}")
         return True
     except Exception as e:

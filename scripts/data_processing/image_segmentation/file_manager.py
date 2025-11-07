@@ -2,9 +2,29 @@ import cv2
 import json
 from pathlib import Path
 from typing import Dict, List
-import re
 import numpy as np
+from datetime import datetime
 from config.paths import ensure_dir
+
+# Global counter for date-based segment IDs 
+_daily_segment_counter = {}
+
+def get_next_segment_id() -> str:
+    """
+    Generate next segment ID in format: YYYYMMDD_sl_000
+    Counter continues for all segmentations on the same day.
+    
+    Returns:
+        Unique segment ID for today
+    """
+    today = datetime.now().strftime("%Y%m%d")
+    
+    if today not in _daily_segment_counter:
+        _daily_segment_counter[today] = 0
+    else:
+        _daily_segment_counter[today] += 1
+    
+    return f"{today}_sl_{_daily_segment_counter[today]:03d}"
 
 def create_output_structure(base_path: str, writer_id: str = None, categories: List[str] = None) -> str:
     """
@@ -24,73 +44,36 @@ def create_output_structure(base_path: str, writer_id: str = None, categories: L
 
     return str(images_dir)
 
-def clean_filename(text: str) -> str:
-    """
-    Clean string for us in file name
-    
-    Args:
-        text: Original text from metadata
-        
-    Returns:
-        Secure text for file name
-    """
-    clean_text = re.sub(r'[/\\:*?"<>|]', '_', text)
-    
-    clean_text = clean_text.replace(' ', '_')
-    
-    clean_text = re.sub(r'_+', '_', clean_text)
-    
-    clean_text = clean_text.strip('_')
-    
-    if len(clean_text) > 50:
-        clean_text = clean_text[:50].rstrip('_')
-    
-    if not clean_text:
-        clean_text = "unknown"
-    
-    return clean_text
-
 def save_word_segment(image: np.ndarray, text: str, category: str, writer_id: str, word_id: str, output_path: str, page_number: int = None) -> str:
     """
-    Saves JPG-image + TXT-label in flat structure with extended naming.
+    Saves JPG-image with date-based unique ID naming.
+    New format: YYYYMMDD_sl_000.jpg (continues counter per day)
 
     Args:
         image: Word region as NumPy array
-        text: Text label of word
-        category: Category (saved in txt but not filename)
-        writer_id: Writer id
-        word_id: Unique word-ID from Meta data
+        text: Text label of word (not used in filename anymore)
+        category: Category (for metadata)
+        writer_id: Writer id (for metadata)
+        word_id: Unique word-ID from metadata (for metadata)
         output_path: Path to images directory 
-        page_number: Page number for filename
+        page_number: Page number (for metadata)
 
     Returns:
         Path to saved image file
     """
 
-    clean_text = clean_filename(text)
-    
-    # Extract numeric part from word_id (remove category prefix like "practical_terms_")
-    if '_' in word_id:
-        numeric_word_id = word_id.split('_')[-1]  # Get last part after underscore
-    else:
-        numeric_word_id = word_id
-
-    # Remove underscores from writer_id for clean filenames (writer_01 -> writer01)
-    clean_writer_id = writer_id.replace('_', '')
-
-    if page_number is not None:
-        base_filename = f"{clean_writer_id}_page{page_number:02d}_{numeric_word_id}_{clean_text}"
-    else: 
-        base_filename = f"{clean_writer_id}_{numeric_word_id}_{clean_text}"
+    # Generate unique segment ID for today
+    segment_id = get_next_segment_id()
     
     images_dir = Path(output_path)
-
-    jpg_path = images_dir / f"{base_filename}.jpg"
+    jpg_path = images_dir / f"{segment_id}.jpg"
+    
     success = cv2.imwrite(str(jpg_path), image)
     if not success:
         raise ValueError(f"Failed to save image: {jpg_path}")
     
-    # Note: Individual TXT files removed - orchestrator extracts text from filenames
+    # Note: Text content now stored in gt_*.txt files, not filenames
+    # Filename is just unique ID: 20251107_sl_000.jpg
 
     return str(jpg_path)
 

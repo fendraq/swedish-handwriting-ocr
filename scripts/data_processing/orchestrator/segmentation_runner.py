@@ -29,6 +29,7 @@ def run_segmentation_for_writer(
     writer_path: Path,
     output_dir: Path,
     writer_id: str,
+    metadata_path: Path = None,
     enable_references: bool = True,
     enable_visualization: bool = False
 ) -> Dict[str, List[str]]:
@@ -39,10 +40,11 @@ def run_segmentation_for_writer(
         writer_path: Path to writer's original images directory
         output_dir: Output directory for segmented images (should be trocr_ready_data/vX/images)
         writer_id: Writer identifier (e.g., 'writer01')
+        metadata_path: Path to specific metadata file (if None, uses complete_template_metadata.json)
         enable_references: Use reference marker detection for coordinate transformation
         enable_visualization: Generate visualization images for debugging
 
-    Retuns:
+    Returns:
         Dictionary mapping source images to list of segmented file paths
 
     Raises: 
@@ -61,7 +63,12 @@ def run_segmentation_for_writer(
     if not writer_path.is_dir():
         raise ValueError(f"Writer path is not a directory: {writer_path}")
 
-    metadata_path = get_metadata_path()
+    # Use provided metadata_path or fallback to default
+    if metadata_path is None:
+        metadata_path = get_metadata_path()
+    elif not metadata_path.exists():
+        raise FileNotFoundError(f"Specified metadata file not found: {metadata_path}")
+        
     logger.info(f"Using metadata: {metadata_path}")
 
     ensure_dir(output_dir)
@@ -107,6 +114,7 @@ def run_segmentation_for_writer(
 def run_segmentation_for_multiple_writers(
     writers_data: List[Dict],
     output_dir: Path,
+    metadata_path: Path = None,
     enable_references: bool = True,
     enable_visualization: bool = False
     ) -> Dict[str, Dict[str, List[str]]]:
@@ -117,6 +125,7 @@ def run_segmentation_for_multiple_writers(
         writers_data: List of writer dictionaries from data_detector.detect_new_writers()
                      Each dict should have 'writer_id' and 'path' keys
         output_dir: Base output directory (trocr_ready_data/vX/images)
+        metadata_path: Path to specific metadata file (if None, uses complete_template_metadata.json)
         enable_references: Use reference marker detection
         enable_visualization: Generate visualization images
         
@@ -140,6 +149,7 @@ def run_segmentation_for_multiple_writers(
                 writer_path=writer_path,
                 output_dir=output_dir,
                 writer_id=writer_id,
+                metadata_path=metadata_path,
                 enable_references=enable_references,
                 enable_visualization=enable_visualization
             )
@@ -170,18 +180,19 @@ class SegmentationRunner:
     Provides stateful interface for batch processing and configuration.
     """
 
-    def __init__(self, enable_references: bool = True, enable_visualization: bool = False):
+    def __init__(self, metadata_path: Path = None, enable_references: bool = True, enable_visualization: bool = False):
         """
         Initialize segmentation runner
 
         Args:
+            metadata_path: Path to specific metadata file (if None, uses complete_template_metadata.json)
             enable_references: Use reference marker detection for coordinate transformation
             enable_visualization: Generate visualization images for debugging
         """
         self.enable_references = enable_references
         self.enable_visualization = enable_visualization
         self.logger = logging.getLogger(__name__)
-        self.metadata_path = None
+        self.metadata_path = metadata_path
 
     def get_metadata_path(self) -> Path:
         """
@@ -211,7 +222,8 @@ class SegmentationRunner:
             output_dir=output_dir,
             writer_id=writer_id,
             enable_references=self.enable_references,
-            enable_visualization=self.enable_visualization
+            enable_visualization=self.enable_visualization,
+            metadata_path=self.metadata_path
         )
     
     def process_multiple_writers(self, writers_data: List[Dict], output_dir: Path) -> Dict[str, Dict[str, List[str]]]:
@@ -229,5 +241,6 @@ class SegmentationRunner:
             writers_data=writers_data,
             output_dir=output_dir,
             enable_references=self.enable_references,
-            enable_visualization=self.enable_visualization
+            enable_visualization=self.enable_visualization,
+            metadata_path=self.metadata_path
         )
