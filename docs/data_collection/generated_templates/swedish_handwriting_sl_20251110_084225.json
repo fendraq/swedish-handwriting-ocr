@@ -1,0 +1,1589 @@
+{
+  "pdf_file": "/home/fendraq/wsl_projects/swedish_handwritten_ocr/docs/data_collection/generated_templates/swedish_handwriting_sl_20251110_084225.pdf",
+  "total_words": 50,
+  "total_pages": 5,
+  "categories": [
+    "dates_amounts_and_signatures",
+    "contacts_and_administrative",
+    "form_field_entries",
+    "general_sentences",
+    "service_and_ceremony_details"
+  ],
+  "reference_system": {
+    "reference_markers": {
+      "top_left": [
+        36.85039370078741,
+        805.0393700787403
+      ],
+      "top_right": [
+        558.4251968503937,
+        805.0393700787403
+      ],
+      "bottom_left": [
+        36.85039370078741,
+        36.85039370078741
+      ],
+      "bottom_right": [
+        558.4251968503937,
+        36.85039370078741
+      ]
+    },
+    "marker_type": "circle_with_cross",
+    "circle_radius_mm": 4.0,
+    "cross_size_mm": 2.0,
+    "description": "Four corner reference markers for coordinate transformation"
+  },
+  "format_type": "single-rows",
+  "words": [
+    {
+      "text": "Vi går igenom personuppgifterna tillsammans så allt blir",
+      "page": 1,
+      "position": [
+        56.69291338582678,
+        734.1732283464569,
+        521.5748031496063,
+        779.5275590551183
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        734.1732283464569,
+        521.5748031496063,
+        779.5275590551183
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        785.196850393701,
+        521.5748031496063,
+        798.396850393701
+      ],
+      "category": "general_sentences",
+      "subcategory": null,
+      "word_id": "000",
+      "relative_position": [
+        19.84251968503937,
+        -70.86614173228338,
+        484.72440944881885,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "säkert och korrekt, och jag ställer frågor om eventuella tidigare namn eller adresser.",
+      "page": 1,
+      "position": [
+        56.69291338582678,
+        669.9496062992127,
+        521.5748031496063,
+        715.3039370078742
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        669.9496062992127,
+        521.5748031496063,
+        715.3039370078742
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        720.9732283464568,
+        521.5748031496063,
+        734.1732283464569
+      ],
+      "category": "general_sentences",
+      "subcategory": null,
+      "word_id": "001",
+      "relative_position": [
+        19.84251968503937,
+        -135.08976377952752,
+        484.72440944881885,
+        -89.73543307086607
+      ]
+    },
+    {
+      "text": "Jag noterar om familjen önskar en kyrklig eller borgerlig ceremoni.",
+      "page": 1,
+      "position": [
+        56.69291338582678,
+        605.7259842519686,
+        521.5748031496063,
+        651.0803149606301
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        605.7259842519686,
+        521.5748031496063,
+        651.0803149606301
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        656.7496062992127,
+        521.5748031496063,
+        669.9496062992127
+      ],
+      "category": "general_sentences",
+      "subcategory": null,
+      "word_id": "002",
+      "relative_position": [
+        19.84251968503937,
+        -199.31338582677165,
+        484.72440944881885,
+        -153.9590551181102
+      ]
+    },
+    {
+      "text": "Familjen föredrar en diskret minnesstund i mindre krets,",
+      "page": 1,
+      "position": [
+        56.69291338582678,
+        541.5023622047246,
+        521.5748031496063,
+        586.856692913386
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        541.5023622047246,
+        521.5748031496063,
+        586.856692913386
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        592.5259842519687,
+        521.5748031496063,
+        605.7259842519687
+      ],
+      "category": "general_sentences",
+      "subcategory": null,
+      "word_id": "003",
+      "relative_position": [
+        19.84251968503937,
+        -263.53700787401567,
+        484.72440944881885,
+        -218.18267716535422
+      ]
+    },
+    {
+      "text": "utan större mottagning eller offentliga arrangemang, tack.",
+      "page": 1,
+      "position": [
+        56.69291338582678,
+        477.27874015748046,
+        521.5748031496063,
+        522.6330708661419
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        477.27874015748046,
+        521.5748031496063,
+        522.6330708661419
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        528.3023622047245,
+        521.5748031496063,
+        541.5023622047246
+      ],
+      "category": "general_sentences",
+      "subcategory": null,
+      "word_id": "004",
+      "relative_position": [
+        19.84251968503937,
+        -327.7606299212598,
+        484.72440944881885,
+        -282.40629921259836
+      ]
+    },
+    {
+      "text": "Anhöriga får en skriftlig bekräftelse när allt är bokat.",
+      "page": 1,
+      "position": [
+        56.69291338582678,
+        413.0551181102363,
+        521.5748031496063,
+        458.4094488188978
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        413.0551181102363,
+        521.5748031496063,
+        458.4094488188978
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        464.0787401574804,
+        521.5748031496063,
+        477.2787401574804
+      ],
+      "category": "general_sentences",
+      "subcategory": null,
+      "word_id": "005",
+      "relative_position": [
+        19.84251968503937,
+        -391.98425196850394,
+        484.72440944881885,
+        -346.6299212598425
+      ]
+    },
+    {
+      "text": "Vi kan erbjuda olika musikförslag som passar ceremonin, exempelvis",
+      "page": 1,
+      "position": [
+        56.69291338582678,
+        348.83149606299224,
+        521.5748031496063,
+        394.18582677165364
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        348.83149606299224,
+        521.5748031496063,
+        394.18582677165364
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        399.85511811023633,
+        521.5748031496063,
+        413.0551181102363
+      ],
+      "category": "general_sentences",
+      "subcategory": null,
+      "word_id": "006",
+      "relative_position": [
+        19.84251968503937,
+        -456.207874015748,
+        484.72440944881885,
+        -410.8535433070866
+      ]
+    },
+    {
+      "text": "piano eller stråkensemble, beroende på lokalens förutsättningar och akustik.",
+      "page": 1,
+      "position": [
+        56.69291338582678,
+        284.60787401574817,
+        521.5748031496063,
+        329.9622047244096
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        284.60787401574817,
+        521.5748031496063,
+        329.9622047244096
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        335.63149606299226,
+        521.5748031496063,
+        348.83149606299224
+      ],
+      "category": "general_sentences",
+      "subcategory": null,
+      "word_id": "007",
+      "relative_position": [
+        19.84251968503937,
+        -520.4314960629921,
+        484.72440944881885,
+        -475.07716535433065
+      ]
+    },
+    {
+      "text": "Observera att vissa tjänster kan kräva separat godkännande och avgifter.",
+      "page": 1,
+      "position": [
+        56.69291338582678,
+        220.38425196850403,
+        521.5748031496063,
+        265.7385826771655
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        220.38425196850403,
+        521.5748031496063,
+        265.7385826771655
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        271.4078740157481,
+        521.5748031496063,
+        284.6078740157481
+      ],
+      "category": "general_sentences",
+      "subcategory": null,
+      "word_id": "008",
+      "relative_position": [
+        19.84251968503937,
+        -584.6551181102362,
+        484.72440944881885,
+        -539.3007874015748
+      ]
+    },
+    {
+      "text": "Vi antecknar särskilda önskemål och går igenom dem i slutet av mötet.",
+      "page": 1,
+      "position": [
+        56.69291338582678,
+        156.1606299212599,
+        521.5748031496063,
+        201.51496062992132
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        156.1606299212599,
+        521.5748031496063,
+        201.51496062992132
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        207.184251968504,
+        521.5748031496063,
+        220.38425196850397
+      ],
+      "category": "general_sentences",
+      "subcategory": null,
+      "word_id": "009",
+      "relative_position": [
+        19.84251968503937,
+        -648.8787401574804,
+        484.72440944881885,
+        -603.5244094488189
+      ]
+    },
+    {
+      "text": "Namn på gravstenen: 'Far, älskad och saknad'.",
+      "page": 2,
+      "position": [
+        56.69291338582678,
+        734.1732283464569,
+        521.5748031496063,
+        779.5275590551183
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        734.1732283464569,
+        521.5748031496063,
+        779.5275590551183
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        785.196850393701,
+        521.5748031496063,
+        798.396850393701
+      ],
+      "category": "form_field_entries",
+      "subcategory": null,
+      "word_id": "010",
+      "relative_position": [
+        19.84251968503937,
+        -70.86614173228338,
+        484.72440944881885,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "Minnestext för programblad: Tack för alla minnen, vi saknar dig.",
+      "page": 2,
+      "position": [
+        56.69291338582678,
+        669.9496062992127,
+        521.5748031496063,
+        715.3039370078742
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        669.9496062992127,
+        521.5748031496063,
+        715.3039370078742
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        720.9732283464568,
+        521.5748031496063,
+        734.1732283464569
+      ],
+      "category": "form_field_entries",
+      "subcategory": null,
+      "word_id": "011",
+      "relative_position": [
+        19.84251968503937,
+        -135.08976377952752,
+        484.72440944881885,
+        -89.73543307086607
+      ]
+    },
+    {
+      "text": "Adress för faktura: Storgatan 12, 111 22 Stockholm.",
+      "page": 2,
+      "position": [
+        56.69291338582678,
+        605.7259842519686,
+        521.5748031496063,
+        651.0803149606301
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        605.7259842519686,
+        521.5748031496063,
+        651.0803149606301
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        656.7496062992127,
+        521.5748031496063,
+        669.9496062992127
+      ],
+      "category": "form_field_entries",
+      "subcategory": null,
+      "word_id": "012",
+      "relative_position": [
+        19.84251968503937,
+        -199.31338582677165,
+        484.72440944881885,
+        -153.9590551181102
+      ]
+    },
+    {
+      "text": "Önskemål om donation: Gåvor till Hjärtfonden önskas, inget krav.",
+      "page": 2,
+      "position": [
+        56.69291338582678,
+        541.5023622047246,
+        521.5748031496063,
+        586.856692913386
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        541.5023622047246,
+        521.5748031496063,
+        586.856692913386
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        592.5259842519687,
+        521.5748031496063,
+        605.7259842519687
+      ],
+      "category": "form_field_entries",
+      "subcategory": null,
+      "word_id": "013",
+      "relative_position": [
+        19.84251968503937,
+        -263.53700787401567,
+        484.72440944881885,
+        -218.18267716535422
+      ]
+    },
+    {
+      "text": "Kontaktperson: Åsa Andersson, dotter, 070-234 56 78.",
+      "page": 2,
+      "position": [
+        56.69291338582678,
+        477.27874015748046,
+        521.5748031496063,
+        522.6330708661419
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        477.27874015748046,
+        521.5748031496063,
+        522.6330708661419
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        528.3023622047245,
+        521.5748031496063,
+        541.5023622047246
+      ],
+      "category": "form_field_entries",
+      "subcategory": null,
+      "word_id": "014",
+      "relative_position": [
+        19.84251968503937,
+        -327.7606299212598,
+        484.72440944881885,
+        -282.40629921259836
+      ]
+    },
+    {
+      "text": "Programblad ska innehålla kort biografi, psalmer och bild.",
+      "page": 2,
+      "position": [
+        56.69291338582678,
+        413.0551181102363,
+        521.5748031496063,
+        458.4094488188978
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        413.0551181102363,
+        521.5748031496063,
+        458.4094488188978
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        464.0787401574804,
+        521.5748031496063,
+        477.2787401574804
+      ],
+      "category": "form_field_entries",
+      "subcategory": null,
+      "word_id": "015",
+      "relative_position": [
+        19.84251968503937,
+        -391.98425196850394,
+        484.72440944881885,
+        -346.6299212598425
+      ]
+    },
+    {
+      "text": "Önskad musik: instrumental låt före ingång, gärna piano eller cello.",
+      "page": 2,
+      "position": [
+        56.69291338582678,
+        348.83149606299224,
+        521.5748031496063,
+        394.18582677165364
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        348.83149606299224,
+        521.5748031496063,
+        394.18582677165364
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        399.85511811023633,
+        521.5748031496063,
+        413.0551181102363
+      ],
+      "category": "form_field_entries",
+      "subcategory": null,
+      "word_id": "016",
+      "relative_position": [
+        19.84251968503937,
+        -456.207874015748,
+        484.72440944881885,
+        -410.8535433070866
+      ]
+    },
+    {
+      "text": "Begravningsplats: familjegrav på Norra kyrkogården i Örebro.",
+      "page": 2,
+      "position": [
+        56.69291338582678,
+        284.60787401574817,
+        521.5748031496063,
+        329.9622047244096
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        284.60787401574817,
+        521.5748031496063,
+        329.9622047244096
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        335.63149606299226,
+        521.5748031496063,
+        348.83149606299224
+      ],
+      "category": "form_field_entries",
+      "subcategory": null,
+      "word_id": "017",
+      "relative_position": [
+        19.84251968503937,
+        -520.4314960629921,
+        484.72440944881885,
+        -475.07716535433065
+      ]
+    },
+    {
+      "text": "Särskilda önskemål: inga religiösa symboler på kistan, tack.",
+      "page": 2,
+      "position": [
+        56.69291338582678,
+        220.38425196850403,
+        521.5748031496063,
+        265.7385826771655
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        220.38425196850403,
+        521.5748031496063,
+        265.7385826771655
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        271.4078740157481,
+        521.5748031496063,
+        284.6078740157481
+      ],
+      "category": "form_field_entries",
+      "subcategory": null,
+      "word_id": "018",
+      "relative_position": [
+        19.84251968503937,
+        -584.6551181102362,
+        484.72440944881885,
+        -539.3007874015748
+      ]
+    },
+    {
+      "text": "Anteckning: fullmakt bifogas i original till byrån, vid behov.",
+      "page": 2,
+      "position": [
+        56.69291338582678,
+        156.1606299212599,
+        521.5748031496063,
+        201.51496062992132
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        156.1606299212599,
+        521.5748031496063,
+        201.51496062992132
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        207.184251968504,
+        521.5748031496063,
+        220.38425196850397
+      ],
+      "category": "form_field_entries",
+      "subcategory": null,
+      "word_id": "019",
+      "relative_position": [
+        19.84251968503937,
+        -648.8787401574804,
+        484.72440944881885,
+        -603.5244094488189
+      ]
+    },
+    {
+      "text": "Transporter: kista hämtas från vårdinstans och körs",
+      "page": 3,
+      "position": [
+        56.69291338582678,
+        734.1732283464569,
+        521.5748031496063,
+        779.5275590551183
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        734.1732283464569,
+        521.5748031496063,
+        779.5275590551183
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        785.196850393701,
+        521.5748031496063,
+        798.396850393701
+      ],
+      "category": "service_and_ceremony_details",
+      "subcategory": null,
+      "word_id": "020",
+      "relative_position": [
+        19.84251968503937,
+        -70.86614173228338,
+        484.72440944881885,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "till kapellet samma dag; transporttid uppskattas till 45 minuter.",
+      "page": 3,
+      "position": [
+        56.69291338582678,
+        669.9496062992127,
+        521.5748031496063,
+        715.3039370078742
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        669.9496062992127,
+        521.5748031496063,
+        715.3039370078742
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        720.9732283464568,
+        521.5748031496063,
+        734.1732283464569
+      ],
+      "category": "service_and_ceremony_details",
+      "subcategory": null,
+      "word_id": "021",
+      "relative_position": [
+        19.84251968503937,
+        -135.08976377952752,
+        484.72440944881885,
+        -89.73543307086607
+      ]
+    },
+    {
+      "text": "Ceremoniens längd uppskattas till cirka trettio minuter.",
+      "page": 3,
+      "position": [
+        56.69291338582678,
+        605.7259842519686,
+        521.5748031496063,
+        651.0803149606301
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        605.7259842519686,
+        521.5748031496063,
+        651.0803149606301
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        656.7496062992127,
+        521.5748031496063,
+        669.9496062992127
+      ],
+      "category": "service_and_ceremony_details",
+      "subcategory": null,
+      "word_id": "022",
+      "relative_position": [
+        19.84251968503937,
+        -199.31338582677165,
+        484.72440944881885,
+        -153.9590551181102
+      ]
+    },
+    {
+      "text": "Plats för ceremoni: församlingskyrkan eller kommunalt kapell.",
+      "page": 3,
+      "position": [
+        56.69291338582678,
+        541.5023622047246,
+        521.5748031496063,
+        586.856692913386
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        541.5023622047246,
+        521.5748031496063,
+        586.856692913386
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        592.5259842519687,
+        521.5748031496063,
+        605.7259842519687
+      ],
+      "category": "service_and_ceremony_details",
+      "subcategory": null,
+      "word_id": "023",
+      "relative_position": [
+        19.84251968503937,
+        -263.53700787401567,
+        484.72440944881885,
+        -218.18267716535422
+      ]
+    },
+    {
+      "text": "Kistklädsel: enkel vit inredning, ingen extra prydnad.",
+      "page": 3,
+      "position": [
+        56.69291338582678,
+        477.27874015748046,
+        521.5748031496063,
+        522.6330708661419
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        477.27874015748046,
+        521.5748031496063,
+        522.6330708661419
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        528.3023622047245,
+        521.5748031496063,
+        541.5023622047246
+      ],
+      "category": "service_and_ceremony_details",
+      "subcategory": null,
+      "word_id": "024",
+      "relative_position": [
+        19.84251968503937,
+        -327.7606299212598,
+        484.72440944881885,
+        -282.40629921259836
+      ]
+    },
+    {
+      "text": "Präst/ceremoniledare bestäms efter församlingens tillgänglighet, vi",
+      "page": 3,
+      "position": [
+        56.69291338582678,
+        413.0551181102363,
+        521.5748031496063,
+        458.4094488188978
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        413.0551181102363,
+        521.5748031496063,
+        458.4094488188978
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        464.0787401574804,
+        521.5748031496063,
+        477.2787401574804
+      ],
+      "category": "service_and_ceremony_details",
+      "subcategory": null,
+      "word_id": "025",
+      "relative_position": [
+        19.84251968503937,
+        -391.98425196850394,
+        484.72440944881885,
+        -346.6299212598425
+      ]
+    },
+    {
+      "text": "hjälper gärna med kontakt och tidsbokning till rätt präst.",
+      "page": 3,
+      "position": [
+        56.69291338582678,
+        348.83149606299224,
+        521.5748031496063,
+        394.18582677165364
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        348.83149606299224,
+        521.5748031496063,
+        394.18582677165364
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        399.85511811023633,
+        521.5748031496063,
+        413.0551181102363
+      ],
+      "category": "service_and_ceremony_details",
+      "subcategory": null,
+      "word_id": "026",
+      "relative_position": [
+        19.84251968503937,
+        -456.207874015748,
+        484.72440944881885,
+        -410.8535433070866
+      ]
+    },
+    {
+      "text": "Minnesstund planeras i församlingshemmet, med kaffe och smörgåsar.",
+      "page": 3,
+      "position": [
+        56.69291338582678,
+        284.60787401574817,
+        521.5748031496063,
+        329.9622047244096
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        284.60787401574817,
+        521.5748031496063,
+        329.9622047244096
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        335.63149606299226,
+        521.5748031496063,
+        348.83149606299224
+      ],
+      "category": "service_and_ceremony_details",
+      "subcategory": null,
+      "word_id": "027",
+      "relative_position": [
+        19.84251968503937,
+        -520.4314960629921,
+        484.72440944881885,
+        -475.07716535433065
+      ]
+    },
+    {
+      "text": "Blommor levereras till kapellet en timme före ceremonin, familjen",
+      "page": 3,
+      "position": [
+        56.69291338582678,
+        220.38425196850403,
+        521.5748031496063,
+        265.7385826771655
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        220.38425196850403,
+        521.5748031496063,
+        265.7385826771655
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        271.4078740157481,
+        521.5748031496063,
+        284.6078740157481
+      ],
+      "category": "service_and_ceremony_details",
+      "subcategory": null,
+      "word_id": "028",
+      "relative_position": [
+        19.84251968503937,
+        -584.6551181102362,
+        484.72440944881885,
+        -539.3007874015748
+      ]
+    },
+    {
+      "text": "anges som avsändare på kransar, buketter och minnesblad.",
+      "page": 3,
+      "position": [
+        56.69291338582678,
+        156.1606299212599,
+        521.5748031496063,
+        201.51496062992132
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        156.1606299212599,
+        521.5748031496063,
+        201.51496062992132
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        207.184251968504,
+        521.5748031496063,
+        220.38425196850397
+      ],
+      "category": "service_and_ceremony_details",
+      "subcategory": null,
+      "word_id": "029",
+      "relative_position": [
+        19.84251968503937,
+        -648.8787401574804,
+        484.72440944881885,
+        -603.5244094488189
+      ]
+    },
+    {
+      "text": "Anmälan till folkbokföringen sköts av byrån efter mottaget intyg.",
+      "page": 4,
+      "position": [
+        56.69291338582678,
+        734.1732283464569,
+        521.5748031496063,
+        779.5275590551183
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        734.1732283464569,
+        521.5748031496063,
+        779.5275590551183
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        785.196850393701,
+        521.5748031496063,
+        798.396850393701
+      ],
+      "category": "contacts_and_administrative",
+      "subcategory": null,
+      "word_id": "030",
+      "relative_position": [
+        19.84251968503937,
+        -70.86614173228338,
+        484.72440944881885,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "Anhörigs adress: Lilla Vägen 5, 211 33 Malmö, e-post maria@ex.se.",
+      "page": 4,
+      "position": [
+        56.69291338582678,
+        669.9496062992127,
+        521.5748031496063,
+        715.3039370078742
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        669.9496062992127,
+        521.5748031496063,
+        715.3039370078742
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        720.9732283464568,
+        521.5748031496063,
+        734.1732283464569
+      ],
+      "category": "contacts_and_administrative",
+      "subcategory": null,
+      "word_id": "031",
+      "relative_position": [
+        19.84251968503937,
+        -135.08976377952752,
+        484.72440944881885,
+        -89.73543307086607
+      ]
+    },
+    {
+      "text": "Kontakt för juridiska frågor: advokat erhåller kopia vid begäran.",
+      "page": 4,
+      "position": [
+        56.69291338582678,
+        605.7259842519686,
+        521.5748031496063,
+        651.0803149606301
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        605.7259842519686,
+        521.5748031496063,
+        651.0803149606301
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        656.7496062992127,
+        521.5748031496063,
+        669.9496062992127
+      ],
+      "category": "contacts_and_administrative",
+      "subcategory": null,
+      "word_id": "032",
+      "relative_position": [
+        19.84251968503937,
+        -199.31338582677165,
+        484.72440944881885,
+        -153.9590551181102
+      ]
+    },
+    {
+      "text": "Behörig att skriva under: närmast anhörig eller fullmaktshavare.",
+      "page": 4,
+      "position": [
+        56.69291338582678,
+        541.5023622047246,
+        521.5748031496063,
+        586.856692913386
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        541.5023622047246,
+        521.5748031496063,
+        586.856692913386
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        592.5259842519687,
+        521.5748031496063,
+        605.7259842519687
+      ],
+      "category": "contacts_and_administrative",
+      "subcategory": null,
+      "word_id": "033",
+      "relative_position": [
+        19.84251968503937,
+        -263.53700787401567,
+        484.72440944881885,
+        -218.18267716535422
+      ]
+    },
+    {
+      "text": "Kontaktperson på byrån: Johan Ek, handläggare, 08-765 43 21.",
+      "page": 4,
+      "position": [
+        56.69291338582678,
+        477.27874015748046,
+        521.5748031496063,
+        522.6330708661419
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        477.27874015748046,
+        521.5748031496063,
+        522.6330708661419
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        528.3023622047245,
+        521.5748031496063,
+        541.5023622047246
+      ],
+      "category": "contacts_and_administrative",
+      "subcategory": null,
+      "word_id": "034",
+      "relative_position": [
+        19.84251968503937,
+        -327.7606299212598,
+        484.72440944881885,
+        -282.40629921259836
+      ]
+    },
+    {
+      "text": "Behov av tolk: ange språk i fritextfältet, t.ex. arabiska eller finska.",
+      "page": 4,
+      "position": [
+        56.69291338582678,
+        413.0551181102363,
+        521.5748031496063,
+        458.4094488188978
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        413.0551181102363,
+        521.5748031496063,
+        458.4094488188978
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        464.0787401574804,
+        521.5748031496063,
+        477.2787401574804
+      ],
+      "category": "contacts_and_administrative",
+      "subcategory": null,
+      "word_id": "035",
+      "relative_position": [
+        19.84251968503937,
+        -391.98425196850394,
+        484.72440944881885,
+        -346.6299212598425
+      ]
+    },
+    {
+      "text": "Bankuppgifter för återbetalning anges på separat formulär, inkl. IBAN.",
+      "page": 4,
+      "position": [
+        56.69291338582678,
+        348.83149606299224,
+        521.5748031496063,
+        394.18582677165364
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        348.83149606299224,
+        521.5748031496063,
+        394.18582677165364
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        399.85511811023633,
+        521.5748031496063,
+        413.0551181102363
+      ],
+      "category": "contacts_and_administrative",
+      "subcategory": null,
+      "word_id": "036",
+      "relative_position": [
+        19.84251968503937,
+        -456.207874015748,
+        484.72440944881885,
+        -410.8535433070866
+      ]
+    },
+    {
+      "text": "Vi kontaktar arbetsgivare efter överenskommelse med familjen, endast",
+      "page": 4,
+      "position": [
+        56.69291338582678,
+        284.60787401574817,
+        521.5748031496063,
+        329.9622047244096
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        284.60787401574817,
+        521.5748031496063,
+        329.9622047244096
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        335.63149606299226,
+        521.5748031496063,
+        348.83149606299224
+      ],
+      "category": "contacts_and_administrative",
+      "subcategory": null,
+      "word_id": "037",
+      "relative_position": [
+        19.84251968503937,
+        -520.4314960629921,
+        484.72440944881885,
+        -475.07716535433065
+      ]
+    },
+    {
+      "text": "med uttryckligt samtycke från anhörig antecknas denna information.",
+      "page": 4,
+      "position": [
+        56.69291338582678,
+        220.38425196850403,
+        521.5748031496063,
+        265.7385826771655
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        220.38425196850403,
+        521.5748031496063,
+        265.7385826771655
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        271.4078740157481,
+        521.5748031496063,
+        284.6078740157481
+      ],
+      "category": "contacts_and_administrative",
+      "subcategory": null,
+      "word_id": "038",
+      "relative_position": [
+        19.84251968503937,
+        -584.6551181102362,
+        484.72440944881885,
+        -539.3007874015748
+      ]
+    },
+    {
+      "text": "Sekretessrutiner följs enligt gällande lagar, GDPR och interna policys.",
+      "page": 4,
+      "position": [
+        56.69291338582678,
+        156.1606299212599,
+        521.5748031496063,
+        201.51496062992132
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        156.1606299212599,
+        521.5748031496063,
+        201.51496062992132
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        207.184251968504,
+        521.5748031496063,
+        220.38425196850397
+      ],
+      "category": "contacts_and_administrative",
+      "subcategory": null,
+      "word_id": "039",
+      "relative_position": [
+        19.84251968503937,
+        -648.8787401574804,
+        484.72440944881885,
+        -603.5244094488189
+      ]
+    },
+    {
+      "text": "Förslag till begravningsdatum: fredag 24 oktober klockan 11.00.",
+      "page": 5,
+      "position": [
+        56.69291338582678,
+        734.1732283464569,
+        521.5748031496063,
+        779.5275590551183
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        734.1732283464569,
+        521.5748031496063,
+        779.5275590551183
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        785.196850393701,
+        521.5748031496063,
+        798.396850393701
+      ],
+      "category": "dates_amounts_and_signatures",
+      "subcategory": null,
+      "word_id": "040",
+      "relative_position": [
+        19.84251968503937,
+        -70.86614173228338,
+        484.72440944881885,
+        -25.51181102362193
+      ]
+    },
+    {
+      "text": "Kostnad för grundpaket enligt prislista: 18 500 kr inklusive moms.",
+      "page": 5,
+      "position": [
+        56.69291338582678,
+        669.9496062992127,
+        521.5748031496063,
+        715.3039370078742
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        669.9496062992127,
+        521.5748031496063,
+        715.3039370078742
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        720.9732283464568,
+        521.5748031496063,
+        734.1732283464569
+      ],
+      "category": "dates_amounts_and_signatures",
+      "subcategory": null,
+      "word_id": "041",
+      "relative_position": [
+        19.84251968503937,
+        -135.08976377952752,
+        484.72440944881885,
+        -89.73543307086607
+      ]
+    },
+    {
+      "text": "Betalningsvillkor: 30 dagar netto från fakturadatum.",
+      "page": 5,
+      "position": [
+        56.69291338582678,
+        605.7259842519686,
+        521.5748031496063,
+        651.0803149606301
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        605.7259842519686,
+        521.5748031496063,
+        651.0803149606301
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        656.7496062992127,
+        521.5748031496063,
+        669.9496062992127
+      ],
+      "category": "dates_amounts_and_signatures",
+      "subcategory": null,
+      "word_id": "042",
+      "relative_position": [
+        19.84251968503937,
+        -199.31338582677165,
+        484.72440944881885,
+        -153.9590551181102
+      ]
+    },
+    {
+      "text": "Fakturaadress: Storgatan 12, 111 22 Stockholm. Referens: VS-2025.",
+      "page": 5,
+      "position": [
+        56.69291338582678,
+        541.5023622047246,
+        521.5748031496063,
+        586.856692913386
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        541.5023622047246,
+        521.5748031496063,
+        586.856692913386
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        592.5259842519687,
+        521.5748031496063,
+        605.7259842519687
+      ],
+      "category": "dates_amounts_and_signatures",
+      "subcategory": null,
+      "word_id": "043",
+      "relative_position": [
+        19.84251968503937,
+        -263.53700787401567,
+        484.72440944881885,
+        -218.18267716535422
+      ]
+    },
+    {
+      "text": "Möte bokat: 1 oktober klockan 14:30 i våra lokaler, bekräftelse skickas.",
+      "page": 5,
+      "position": [
+        56.69291338582678,
+        477.27874015748046,
+        521.5748031496063,
+        522.6330708661419
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        477.27874015748046,
+        521.5748031496063,
+        522.6330708661419
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        528.3023622047245,
+        521.5748031496063,
+        541.5023622047246
+      ],
+      "category": "dates_amounts_and_signatures",
+      "subcategory": null,
+      "word_id": "044",
+      "relative_position": [
+        19.84251968503937,
+        -327.7606299212598,
+        484.72440944881885,
+        -282.40629921259836
+      ]
+    },
+    {
+      "text": "Eventuell tilläggskostnad för minnesstund faktureras separat.",
+      "page": 5,
+      "position": [
+        56.69291338582678,
+        413.0551181102363,
+        521.5748031496063,
+        458.4094488188978
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        413.0551181102363,
+        521.5748031496063,
+        458.4094488188978
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        464.0787401574804,
+        521.5748031496063,
+        477.2787401574804
+      ],
+      "category": "dates_amounts_and_signatures",
+      "subcategory": null,
+      "word_id": "045",
+      "relative_position": [
+        19.84251968503937,
+        -391.98425196850394,
+        484.72440944881885,
+        -346.6299212598425
+      ]
+    },
+    {
+      "text": "Fullmakt för hantering av dödsbo är mottagen, kopia sparas i arkiv.",
+      "page": 5,
+      "position": [
+        56.69291338582678,
+        348.83149606299224,
+        521.5748031496063,
+        394.18582677165364
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        348.83149606299224,
+        521.5748031496063,
+        394.18582677165364
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        399.85511811023633,
+        521.5748031496063,
+        413.0551181102363
+      ],
+      "category": "dates_amounts_and_signatures",
+      "subcategory": null,
+      "word_id": "046",
+      "relative_position": [
+        19.84251968503937,
+        -456.207874015748,
+        484.72440944881885,
+        -410.8535433070866
+      ]
+    },
+    {
+      "text": "Registrerat av: Anna Berg, handläggare, underskrift och datum,",
+      "page": 5,
+      "position": [
+        56.69291338582678,
+        284.60787401574817,
+        521.5748031496063,
+        329.9622047244096
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        284.60787401574817,
+        521.5748031496063,
+        329.9622047244096
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        335.63149606299226,
+        521.5748031496063,
+        348.83149606299224
+      ],
+      "category": "dates_amounts_and_signatures",
+      "subcategory": null,
+      "word_id": "047",
+      "relative_position": [
+        19.84251968503937,
+        -520.4314960629921,
+        484.72440944881885,
+        -475.07716535433065
+      ]
+    },
+    {
+      "text": "nedan anges namnteckning samt datum för godkännande och signering.",
+      "page": 5,
+      "position": [
+        56.69291338582678,
+        220.38425196850403,
+        521.5748031496063,
+        265.7385826771655
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        220.38425196850403,
+        521.5748031496063,
+        265.7385826771655
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        271.4078740157481,
+        521.5748031496063,
+        284.6078740157481
+      ],
+      "category": "dates_amounts_and_signatures",
+      "subcategory": null,
+      "word_id": "048",
+      "relative_position": [
+        19.84251968503937,
+        -584.6551181102362,
+        484.72440944881885,
+        -539.3007874015748
+      ]
+    },
+    {
+      "text": "Dödsdag: 12 oktober 2025. Dödsplats: hemmet i Göteborg.",
+      "page": 5,
+      "position": [
+        56.69291338582678,
+        156.1606299212599,
+        521.5748031496063,
+        201.51496062992132
+      ],
+      "handwriting_position": [
+        56.69291338582678,
+        156.1606299212599,
+        521.5748031496063,
+        201.51496062992132
+      ],
+      "reference_text_position": [
+        56.69291338582678,
+        207.184251968504,
+        521.5748031496063,
+        220.38425196850397
+      ],
+      "category": "dates_amounts_and_signatures",
+      "subcategory": null,
+      "word_id": "049",
+      "relative_position": [
+        19.84251968503937,
+        -648.8787401574804,
+        484.72440944881885,
+        -603.5244094488189
+      ]
+    }
+  ]
+}

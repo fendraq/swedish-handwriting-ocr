@@ -53,7 +53,10 @@ def create_template_pdf(all_items, output_dir, pdf_config, format_type='single-r
     
     # Generate unique timestamp-based filename
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    base_name = f"swedish_handwriting_{output_name}_{timestamp}"
+    
+    # Map format_type to short suffix for filename (matches orchestrator expectations)
+    format_suffix = 'sl' if format_type == 'single-rows' else 'tf'
+    base_name = f"swedish_handwriting_{format_suffix}_{timestamp}"
     
     # Path for PDF
     filename = f"{output_dir}/{base_name}.pdf"

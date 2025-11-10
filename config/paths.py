@@ -124,6 +124,7 @@ class DocsPaths:
     DATA_COLLECTION = DOCS_ROOT / "data_collection"
     GENERATED_TEMPLATES = DATA_COLLECTION / "generated_templates"
     WORD_COLLECTIONS = DATA_COLLECTION / "word_collections"
+    LINE_TEXTS = DATA_COLLECTION / "line_texts"
 
 # Scripts paths
 class ScriptsPaths:
