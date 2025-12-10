@@ -90,3 +90,7 @@ nn_explained.ipynb
 
 # .tar files
 *.tar.gz
+*.amlignore
+*.amltmp
+evaluation_results*.json
+test_fixed*.json
