@@ -79,11 +79,11 @@ config/secrets.yaml
 
 # Planning documents
 form_print_read_feature_suggestion.ipynb
-TrOCR_Setup_Plan.ipynb
 CRITICAL_VOCAB_ANALYSIS.md
 nn_explained.ipynb
 *test.ipynb
 *temp*.txt
+*PLAN.md
 
 # Azure config
 .azureml

@@ -1,0 +1,105 @@
+{
+  "dataset_info": {
+    "name": "Swedish Handwriting Dataset - Line Level",
+    "version": "3.0",
+    "description": "Dataset with complete Swedish sentences for line-level OCR training",
+    "purpose": "Fine-tuning TrOCR for Swedish handwritten text recognition at line level",
+    "target_domain": "General Swedish text with special characters å, ä, ö",
+    "total_lines": 50
+  },
+  "template_config": {
+    "page_size": "A4",
+    "margin": "20mm",
+    "font_size": 11,
+    "handwriting_space": "18mm",
+    "layouts": {
+      "lines_per_page": "1_line_per_row"
+    }
+  },
+  "categories": {
+    "general_sentences": {
+      "description": "General Swedish sentences with varied vocabulary",
+      "template_layout": "1_line_per_row",
+      "difficulty": "medium",
+      "lines": [
+        "Stockholm är Sveriges huvudstad och största stad.",
+        "Göteborg ligger vid västkusten och har en stor hamn",
+        "som används för internationell handel. Malmö är",
+        "Sveriges tredje största stad nära Danmark.",
+        "Uppsala är en gammal universitetsstad med rik",
+        "historia och många studenter. Linköping har en",
+        "stor flygplansindustri och teknisk högskola.",
+        "Västerås ligger vid Mälaren och är en industristad.",
+        "Örebro har ett vackert slott mitt i centrum. Jönköping"
+      ]
+    },
+    "swedish_character_focus": {
+      "description": "Sentences emphasizing Swedish special characters",
+      "template_layout": "1_line_per_row",
+      "difficulty": "medium",
+      "lines": [
+        "Åsa och Märta åkte till Göteborg på tåget.",
+        "Björn köpte nya skor i en affär på Södermalm",
+        "och betalade med kort. Pär och Göran träffades",
+        "på en restaurang i Västerås för att äta lunch.",
+        "Föräldrarna reste till Örebro för att besöka",
+        "släktingar över helgen. Läkaren ordinerade",
+        "medicin för Ölvers förkylning. Kören sjöng",
+        "vackra psalmer under högtidliga ceremonier.",
+        "Börje kände stor glädje när han såg sin dotter.",
+        "Mötet började klockan åtta på kvällen i Stockholm."
+      ]
+    },
+    "everyday_phrases": {
+      "description": "Common everyday Swedish sentences",
+      "template_layout": "1_line_per_row",
+      "difficulty": "easy",
+      "lines": [
+        "God morgon och välkommen till vårt kontor.",
+        "Tack så mycket för all hjälp under året. Kan du",
+        "hjälpa mig med den här uppgiften? Jag skulle",
+        "vilja beställa en kopp kaffe. Vad kostar en",
+        "biljett till Göteborg? Var ligger närmaste",
+        "busshållplats härifrån? Hur mår du idag och",
+        "hur går det i skolan? Vi ses imorgon på samma",
+        "plats som vanligt. Glöm inte att ta med dig",
+        "nycklarna hem. Jag hoppas att vädret blir bättre",
+        "imorgon så vi kan gå ut och promenera."
+      ]
+    },
+    "formal_sentences": {
+      "description": "More formal Swedish text for official documents",
+      "template_layout": "1_line_per_row",
+      "difficulty": "hard",
+      "lines": [
+        "Undertecknad godkänner härmed de föreslagna",
+        "villkoren. Enligt paragraf tre i avtalet ska",
+        "ersättning utgå. Styrelsen har beslutat att",
+        "genomföra förändringarna omgående. Med anledning",
+        "av tidigare överenskommelse bekräftas följande.",
+        "Den sökande har uppfyllt samtliga krav för",
+        "tjänsten. Dokumentet ska undertecknas av båda",
+        "parter senast idag. Företaget har rätt att säga",
+        "upp avtalet med omedelbar verkan. Kostnaden för",
+        "tjänsten faktureras enligt gällande prislista."
+      ]
+    },
+    "numbers_and_dates": {
+      "description": "Sentences with numbers and dates",
+      "template_layout": "1_line_per_row",
+      "difficulty": "medium",
+      "lines": [
+        "Mötet är planerat till den tjugonde mars",
+        "klockan två på eftermiddagen. Fakturan på",
+        "femtiotvå tusen kronor förfaller snart. Företaget",
+        "grundades år nittonhundraåttiosju i Malmö.",
+        "Det finns trettiotre deltagare anmälda till",
+        "kursen. Byggnaden uppfördes mellan åren",
+        "nittonhundrafjorton och nitton. Totalt investerades",
+        "åttiofyra miljoner kronor i projektet. Den första",
+        "januari börjar det nya räkenskapsåret. Temperaturen",
+        "sjönk till minus femton grader i natt igår."
+      ]
+    }
+  }
+}

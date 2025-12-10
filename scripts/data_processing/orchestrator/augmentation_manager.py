@@ -22,11 +22,11 @@ class AugmentationConfig:
     blur_sigma_range: Tuple[float, float] = (0.3, 0.8)
     blur_probability: float = 0.5
 
-    # Brightness/contrast settings
-    brightness_range: Tuple[float, float] = (0.85, 1.15)
-    contrast_range: Tuple[float, float] = (0.85, 1.15)
+    # Brightness/contrast settings - More conservative for better readability
+    brightness_range: Tuple[float, float] = (0.90, 1.10)  # ±10% instead of ±15%
+    contrast_range: Tuple[float, float] = (0.95, 1.15)    # Better contrast range
     brightness_probability: float = 0.6
-    contrast_probability: float = 0.6
+    contrast_probability: float = 0.8  # Higher chance for contrast improvement
 
     # General settings
     random_seed: int = 42
@@ -194,12 +194,16 @@ class AugmentationManager:
 
             if original_name in aug_groups:
                 for aug_path in aug_groups[original_name]:
-                    aug_annotation = original_ann.copy()
-                    aug_annotation['image_path'] = str(aug_path.relative_to(aug_path.parent.parent))
-                    aug_annotation['category'] = 'word_augmented' # Mark as augmented
-                    aug_annotation['confidence'] = original_ann.get('confidence', 1.0) * 0.95 # Slightly lower confidence
+                    # Only create annotation if the augmented file actually exists
+                    if aug_path.exists():
+                        aug_annotation = original_ann.copy()
+                        aug_annotation['image_path'] = str(aug_path.relative_to(aug_path.parent.parent))
+                        aug_annotation['category'] = 'word_augmented' # Mark as augmented
+                        aug_annotation['confidence'] = original_ann.get('confidence', 1.0) * 0.95 # Slightly lower confidence
 
-                    updated_annotations.append(aug_annotation)
+                        updated_annotations.append(aug_annotation)
+                    else:
+                        logger.warning(f"Augmented file does not exist: {aug_path}")
 
         logger.info(f"Added {len(updated_annotations) - len(original_annotations)} augmented annotations")
         return updated_annotations

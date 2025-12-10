@@ -2,11 +2,13 @@ from .coordinate_converter import get_words_for_page, load_metadata, pdf_to_pixe
 from .image_processor import load_scanned_image, extract_word_region, enhance_word_image
 from .file_manager import create_output_structure, save_word_segment, generate_segmentation_report
 from .coordinate_converter import get_coordinates_with_fallback
-from ..data_preparation.image_preprocessing import ImagePreprocessor
+from ..data_preparation.line_preprocessing import LinePreprocessor
+from ..data_preparation.textfield_preprocessing import TextFieldPreprocessor
 
 from pathlib import Path
 from typing import Dict, List
 import re
+import json
 
 class ImageSegmenter:
     """
@@ -32,7 +34,21 @@ class ImageSegmenter:
         self.enable_visualization = enable_visualization
         self.viz_output = viz_output
         self.output_paths = None
-        self.preprocessor = ImagePreprocessor(target_size=384)
+        
+        # New: Store annotations data for all segmented images
+        self.annotations_data = []
+        
+        # Choose preprocessor based on format type
+        format_type = self.metadata.get('format_type', 'word-level')  # Default to word-level for backward compatibility
+        if format_type == 'single-rows':
+            # Use line preprocessor for line-level OCR (384px height, max 2000px width)
+            self.preprocessor = LinePreprocessor(target_height=384, max_width=2000)
+            print(f"  Using LinePreprocessor for format: {format_type}")
+        else:
+            # Use minimal preprocessor for text-field processing (YOLO handles preprocessing)
+            self.preprocessor = TextFieldPreprocessor()
+            print(f"  Using TextFieldPreprocessor for format: {format_type}")
+        
         self.writer_stats = {}
 
         print("ImageSegmenter initialized:")
@@ -54,6 +70,10 @@ class ImageSegmenter:
         Returns:
             List with path to segmented word images 
         """
+        # 0. Initialize output paths if not already done
+        if self.output_paths is None:
+            self.output_paths = create_output_structure(self.output_dir, writer_id, self.categories)
+        
         # 1. Collect words of page (before loading image)
         page_words = get_words_for_page(self.metadata, page_number)
         
@@ -108,6 +128,9 @@ class ImageSegmenter:
                     self.output_paths,
                     page_number
                 )
+                
+                # Store annotation data for this segmented image
+                self._add_annotation_data(saved_path, word_data['text'], writer_id, page_number, word_data['word_id'])
                 
                 segmented_files.append(saved_path)
                 
@@ -197,4 +220,49 @@ class ImageSegmenter:
         # 5. Generate report
         generate_segmentation_report(results, self.output_dir)
         
+        # 6. Save segmentation annotations
+        self._save_segmentation_annotations()
+        
         return results
+    
+    def _add_annotation_data(self, image_path: str, text: str, writer_id: str, page_number: int, word_id: int):
+        """
+        Add annotation data for a segmented image
+        
+        Args:
+            image_path: Path to saved image
+            text: Ground truth text
+            writer_id: Writer ID
+            page_number: Page number
+            word_id: Word ID from metadata
+        """
+        # Get relative path from output_dir
+        rel_path = Path(image_path).relative_to(Path(self.output_dir))
+        
+        annotation = {
+            "image_path": str(rel_path),
+            "ground_truth_text": text,
+            "writer_id": writer_id,
+            "page_number": page_number,
+            "word_id": word_id,
+            "category": "word",
+            "confidence": 1.0
+        }
+        
+        self.annotations_data.append(annotation)
+    
+    def _save_segmentation_annotations(self):
+        """
+        Save all segmentation annotations to segmentation_annotations.json
+        """
+        if not self.annotations_data:
+            print("No annotation data to save")
+            return
+        
+        # Save to output_dir (version directory)
+        annotations_file = Path(self.output_dir) / 'segmentation_annotations.json'
+        
+        with open(annotations_file, 'w', encoding='utf-8') as f:
+            json.dump(self.annotations_data, f, indent=2, ensure_ascii=False)
+        
+        print(f"Saved {len(self.annotations_data)} segmentation annotations to {annotations_file}")

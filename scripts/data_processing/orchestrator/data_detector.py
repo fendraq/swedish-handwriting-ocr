@@ -17,28 +17,30 @@ logger = logging.getLogger(__name__)
 
 def scan_originals_directory() -> List[str]:
     """
-    Scan originals/ directory for all writer directories.
+    Scan originals/single_line/ directory for new writer directories.
+    Only looks for single-line handwriting data, not old word-level data.
 
     Returns:
-        List of writer IDs found in original directory.
+        List of writer IDs found in single_line directory.
     """
 
-    originals_path = DatasetPaths.ORIGINALS
+    # Look specifically in single_line subdirectory for new single-line data
+    single_line_path = DatasetPaths.ORIGINALS / 'single_line'
 
-    if not originals_path.exists():
-        logger.warning(f"Originals directory not found {originals_path}")
+    if not single_line_path.exists():
+        logger.warning(f"Single line directory not found {single_line_path}")
         return []
     
     writers = []
-    for item in originals_path.iterdir():
+    for item in single_line_path.iterdir():
         if item.is_dir() and item.name.startswith('writer'):
             # Always return clean writer names without underscores for consistency
-            # This handles both writer_01 and writer01 folder formats
+            # This handles both writer_01 and writer001 folder formats
             clean_name = item.name.replace('_', '')
             writers.append(clean_name)
 
     writers.sort()
-    logger.info(f"Found {len(writers)} writers in originals: {writers}")
+    logger.info(f"Found {len(writers)} writers in single_line: {writers}")
     return writers
 
 def get_existing_writers(version_dir: Path) -> List[str]:
@@ -130,25 +132,28 @@ def detect_new_writers() -> List[str]:
 
 def validate_new_writer_data(writer_id: str) -> bool:
     """
-    Validate that writer has valid JPG files in their directory
+    Validate that writer has valid JPG files in single_line directory
 
     Args:
-        writer_id: Writer ID to validate (e.g., 'writer_03')
+        writer_id: Writer ID to validate (e.g., 'writer001')
 
     Returns:
         True if writer has valid data, False otherwise
     """
 
-    # Try to find the actual folder (could be writer01 or writer_01)
+    # Look specifically in single_line subdirectory for new writers
+    single_line_path = DatasetPaths.ORIGINALS / 'single_line'
+    
+    # Try to find the actual folder (could be writer001 or writer_001)
     writer_path = None
     for folder_format in [writer_id, f'writer_{writer_id[6:]}']:
-        potential_path = DatasetPaths.ORIGINALS / folder_format
+        potential_path = single_line_path / folder_format
         if potential_path.exists():
             writer_path = potential_path
             break
     
     if writer_path is None:
-        logger.error(f"Writer directory not found for: {writer_id}")
+        logger.error(f"Writer directory not found in single_line for: {writer_id}")
         return False
     
     if not writer_path.is_dir():

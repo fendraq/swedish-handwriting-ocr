@@ -7,11 +7,10 @@ import json
 from datetime import datetime
 import shutil
 
-from config.paths import DatasetPaths, get_template_metadata
+from config.paths import DatasetPaths, get_template_metadata, get_single_line_metadata
 from .data_detector import detect_new_writers
 from .version_manager import create_new_version, get_latest_version_number, copy_existing_data
 from .segmentation_runner import run_segmentation_for_multiple_writers
-from .annotation_creator import create_annotations_for_version
 from .dataset_splitter import create_dataset_splits
 from .augmentation_manager import create_augmented_training_data
 from ..utils import remove_files_batch, count_total_files, parse_writer_word_input
@@ -25,6 +24,7 @@ class PipelineConfig:
         self.originals_dir = DatasetPaths.ORIGINALS
         self.trocr_ready_dir = DatasetPaths.TROCR_READY_DATA
         self.metadata_file = get_template_metadata()
+        self.template_id = None  # Optional template ID for specific template selection
 
         # Pipeline settings
         self.auto_detect = True
@@ -221,29 +221,33 @@ class PipelineRunner:
 
         if not dry_run:
             # Convert List[str] to List[Dict]
-            # Note: w is already clean (writer01), but original folder might be writer_01
+            # Note: w is already clean (writer001), but original folder might be writer_001
             writers_data = []
             for w in self.new_writers:
-                # Try to find the actual folder (could be writer01 or writer_01)
+                # Look specifically in single_line subdirectory for new writers
+                single_line_path = self.config.originals_dir / 'single_line'
+                
+                # Try to find the actual folder (could be writer001 or writer_001)
                 original_folder = None
-                for folder_name in [w, f'writer_{w[6:]}']:  # Try writer01, then writer_01
-                    potential_path = self.config.originals_dir / folder_name
+                for folder_name in [w, f'writer_{w[6:]}']:  # Try writer001, then writer_001
+                    potential_path = single_line_path / folder_name
                     if potential_path.exists():
                         original_folder = folder_name
                         break
                 
                 if original_folder is None:
-                    logger.warning(f"Could not find folder for writer {w}")
+                    logger.warning(f"Could not find folder for writer {w} in single_line")
                     continue
                     
-                writers_data.append({'writer_id': w, 'path': self.config.originals_dir / original_folder})
+                writers_data.append({'writer_id': w, 'path': single_line_path / original_folder})
 
             # Run segmentation for new writers
             segmentation_report = run_segmentation_for_multiple_writers(
                 writers_data=writers_data,
                 output_dir=version_dir,
                 enable_references=True,
-                enable_visualization=True
+                enable_visualization=True,
+                metadata_path=get_single_line_metadata(self.config.template_id)
             )
 
             total_images = sum(result.get('total_images', 0) for result in segmentation_report.values()) ##
@@ -336,8 +340,56 @@ class PipelineRunner:
             'original_count': original_count
         }
 
+    def _merge_annotations(self, version_dir: Path) -> Path:
+        """
+        Merge existing annotations.json with new segmentation annotations.
+        
+        Args:
+            version_dir: Version directory containing images and annotations
+            
+        Returns:
+            Path to merged annotations file
+        """
+        annotations_file = version_dir / 'annotations.json'
+        segmentation_annotations_file = version_dir / 'segmentation_annotations.json'
+        
+        # Load existing annotations (copied from previous version)
+        existing_annotations = []
+        if annotations_file.exists():
+            try:
+                with open(annotations_file, 'r', encoding='utf-8') as f:
+                    existing_annotations = json.load(f)
+                logger.info(f"Loaded {len(existing_annotations)} existing annotations")
+            except Exception as e:
+                logger.warning(f"Failed to load existing annotations: {e}")
+        
+        # Load new segmentation annotations
+        new_annotations = []
+        if segmentation_annotations_file.exists():
+            try:
+                with open(segmentation_annotations_file, 'r', encoding='utf-8') as f:
+                    new_annotations = json.load(f)
+                logger.info(f"Loaded {len(new_annotations)} new segmentation annotations")
+            except Exception as e:
+                logger.warning(f"Failed to load segmentation annotations: {e}")
+        
+        # Merge annotations
+        all_annotations = existing_annotations + new_annotations
+        
+        # Save merged annotations
+        with open(annotations_file, 'w', encoding='utf-8') as f:
+            json.dump(all_annotations, f, indent=2, ensure_ascii=False)
+        
+        logger.info(f"Merged annotations: {len(existing_annotations)} existing + {len(new_annotations)} new = {len(all_annotations)} total")
+        
+        # Clean up temporary segmentation annotations file
+        if segmentation_annotations_file.exists():
+            segmentation_annotations_file.unlink()
+        
+        return annotations_file
+
     def _step_create_annotations(self, dry_run: bool, report: Dict[str, Any]) -> None:
-        """ Step 4: Create complrehensive annotations for all data """
+        """ Step 4: Create comprehensive annotations for all data """
         logger.info("Step 4: Creating annotations")
         step_start = datetime.now()
 
@@ -346,11 +398,15 @@ class PipelineRunner:
 
         if not dry_run:
             # Create annotations from all images in version directory
-            annotations_file = create_annotations_for_version(
-                images_dir=images_dir,
-                output_dir=version_dir,
-                metadata_dir=None # Use images_dir parent as fallback
-            )
+            # This will combine old annotations.json (copied from previous version)
+            # with new segmentation annotations
+            annotations_file = self._merge_annotations(version_dir)
+            
+            if not annotations_file:
+                # Fallback: create empty annotations if merge fails
+                annotations_file = version_dir / 'annotations.json'
+                with open(annotations_file, 'w', encoding='utf-8') as f:
+                    json.dump([], f)
 
             # Load and count annotations
             with open(annotations_file, 'r', encoding='utf-8') as f:
@@ -548,6 +604,8 @@ def main():
                         help='Auto-detect new writers (default: True)')
     parser.add_argument('--writers', type=str, 
                         help='Comma-separated list of specific writers (e.g., writer_01,writer_02)')
+    parser.add_argument('--template-id', type=str, default=None,
+                        help='Specify template ID to use (e.g., swedish_handwriting_sl_20251106_152131). If not specified, uses latest template.')
     parser.add_argument('--no-augmentation', action='store_true',
                         help='Skip data augmentation step')
     parser.add_argument('--dry-run', action='store_true',
@@ -561,6 +619,7 @@ def main():
     config = PipelineConfig()
     config.apply_augmentation = not args.no_augmentation
     config.keep_versions = args.keep_versions
+    config.template_id = args.template_id  # Store template_id in config
 
     # Parse writers if specified
     writers = None

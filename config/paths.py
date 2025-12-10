@@ -124,6 +124,7 @@ class DocsPaths:
     DATA_COLLECTION = DOCS_ROOT / "data_collection"
     GENERATED_TEMPLATES = DATA_COLLECTION / "generated_templates"
     WORD_COLLECTIONS = DATA_COLLECTION / "word_collections"
+    LINE_TEXTS = DATA_COLLECTION / "line_texts"
 
 # Scripts paths
 class ScriptsPaths:
@@ -154,6 +155,72 @@ def get_writer_segmented_dir(writer_id: str) -> Path:
 def get_template_metadata() -> Path:
     """Get path to complete template metadata."""
     return DocsPaths.GENERATED_TEMPLATES / "complete_template_metadata.json"
+
+def get_single_line_metadata(template_id: str = None) -> Path:
+    """
+    Get path to single-line template metadata JSON file.
+    
+    Args:
+        template_id: Optional template ID (e.g., 'swedish_handwriting_sl_20251106_152131')
+                    If not provided, returns latest template.
+    
+    Returns:
+        Path to metadata JSON file
+    
+    Raises:
+        FileNotFoundError: If template not found
+    """
+    template_dir = DocsPaths.GENERATED_TEMPLATES
+    
+    if template_id:
+        # Look for specific template
+        json_path = template_dir / f"{template_id}.json"
+        if json_path.exists():
+            return json_path
+        else:
+            raise FileNotFoundError(f"Template not found: {template_id}.json in {template_dir}")
+    
+    # Return latest template
+    sl_files = list(template_dir.glob("swedish_handwriting_sl_*.json"))
+    if not sl_files:
+        raise FileNotFoundError(f"No single-line metadata files found in {template_dir}")
+    
+    # Return the most recent single-line metadata file
+    latest_sl_file = sorted(sl_files)[-1]
+    return latest_sl_file
+
+def get_text_field_metadata(template_id: str = None) -> Path:
+    """
+    Get path to text-field template metadata JSON file.
+    
+    Args:
+        template_id: Optional template ID (e.g., 'swedish_handwriting_tf_20251106_150212')
+                    If not provided, returns latest template.
+    
+    Returns:
+        Path to metadata JSON file
+    
+    Raises:
+        FileNotFoundError: If template not found
+    """
+    template_dir = DocsPaths.GENERATED_TEMPLATES
+    
+    if template_id:
+        # Look for specific template
+        json_path = template_dir / f"{template_id}.json"
+        if json_path.exists():
+            return json_path
+        else:
+            raise FileNotFoundError(f"Template not found: {template_id}.json in {template_dir}")
+    
+    # Return latest template
+    tf_files = list(template_dir.glob("swedish_handwriting_tf_*.json"))
+    if not tf_files:
+        raise FileNotFoundError(f"No text-field metadata files found in {template_dir}")
+    
+    # Return the most recent text-field metadata file
+    latest_tf_file = sorted(tf_files)[-1]
+    return latest_tf_file
 
 def get_version_dir(version: str = None) -> Path:
     """Get specific version directory in trocr_ready_data."""

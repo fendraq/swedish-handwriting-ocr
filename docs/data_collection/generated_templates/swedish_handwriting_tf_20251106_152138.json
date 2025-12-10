@@ -1,6 +1,6 @@
 {
-  "pdf_file": "docs/data_collection/generated_templates/swedish_handwriting_text_field.pdf",
-  "total_items": 2,
+  "pdf_file": "docs/data_collection/generated_templates/swedish_handwriting_tf_20251106_152138.pdf",
+  "total_words": 2,
   "total_pages": 2,
   "categories": [
     "ceremony_planning",
@@ -30,11 +30,17 @@
     "cross_size_mm": 2.0,
     "description": "Four corner reference markers for coordinate transformation"
   },
-  "format_type": "text_field",
-  "notes": [
+  "format_type": "text-field",
+  "words": [
     {
       "text": "Kunden önskar lugn och värdighetsful ceremoni för sin älskade make som gick bort efter lång sjukdom. Musikval har diskuterats noga: Ave Maria av Schubert ska spelas när kistan bärs in, följt av Gabriellas sång som var hans absoluta favoritlåt. Dottern Maria kommer att hålla ett personligt tal om faderns stora kärlek till trädgårdsarbete och hans passion för att hjälpa grannar med olika projekt genom åren. Sonen Erik läser en vacker dikt som fadern skrev för några år sedan om livets värde.",
       "page": 1,
+      "position": [
+        56.69291338582678,
+        113.38582677165356,
+        538.5826771653543,
+        453.5433070866142
+      ],
       "handwriting_position": [
         56.69291338582678,
         113.38582677165356,
@@ -49,8 +55,8 @@
       ],
       "category": "ceremony_planning",
       "subcategory": null,
-      "note_id": "000",
-      "relative_handwriting_position": [
+      "word_id": "000",
+      "relative_position": [
         19.84251968503937,
         -691.6535433070867,
         501.7322834645669,
@@ -60,6 +66,12 @@
     {
       "text": "Rörande ceremoni planerad för en ung far som gick bort oväntat i en bilolycka. Familjen vill att öppningen ska vara med hans favoritlåt från bandet han spelade i under ungdomsåren - Sweet Child O' Mine som betyder otroligt mycket för hela familjen. Bästa vännen Johan kommer att läsa upp texter från sånger som den avlidne skrev själv under åren. Hustrun vill dela djupa minnen från deras första träff på universitetet och alla deras drömmar om framtiden tillsammans som nu aldrig blir av.",
       "page": 2,
+      "position": [
+        56.69291338582678,
+        113.38582677165356,
+        538.5826771653543,
+        453.5433070866142
+      ],
       "handwriting_position": [
         56.69291338582678,
         113.38582677165356,
@@ -74,8 +86,8 @@
       ],
       "category": "personal_memories",
       "subcategory": null,
-      "note_id": "001",
-      "relative_handwriting_position": [
+      "word_id": "001",
+      "relative_position": [
         19.84251968503937,
         -691.6535433070867,
         501.7322834645669,
