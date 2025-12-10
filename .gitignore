@@ -90,7 +90,12 @@ nn_explained.ipynb
 
 # .tar files
 *.tar.gz
+
+# Azure ML files
 *.amlignore
 *.amltmp
 evaluation_results*.json
 test_fixed*.json
+
+# LLM files
+LLM_*
