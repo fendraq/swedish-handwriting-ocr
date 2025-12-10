@@ -1,0 +1,40 @@
+{
+  "dataset_info": {
+    "name": "Swedish Handwriting Dataset - CRM Textfield Notes",
+    "version": "3.0",
+    "description": "Realistiska styckeanteckningar från begravningsbyrå CRM-system för YOLO textfältsegmentering",
+    "purpose": "Träna YOLO att identifiera och segmentera textfält-områden på formulär",
+    "target_domain": "CRM case notes med sammanhängande text (inte raduppdelad)",
+    "total_notes": 6,
+    "language_mix": "70% Swedish / 30% Mixed (Swedish with international names)"
+  },
+  "template_config": {
+    "page_size": "A4",
+    "margin": "20mm",
+    "font_size": 11,
+    "layout": "paragraph_format"
+  },
+  "categories": {
+    "ceremony_planning": {
+      "description": "Anteckningar om ceremoniplanering och musikval",
+      "notes": [
+        "Möte med familjen Johansson idag kl 14. De önskar en värdighetsful ceremoni på Skogskapellet nästa torsdag kl 13. Musikval har diskuterats noga: Amazing Grace vid inledningen, därefter What a Wonderful World vid utgången. Familjen berättar att avlidne älskade jazzmusik och särskilt Miles Davis album Kind of Blue. Vi överväger att spela ett utdrag därifrån under samlingen före ceremonin. Enbart närmaste familj, cirka 8 personer förväntas närvara. Blommor från familjen, inga kransar. De vill ha en enkel och lugn ceremoni utan för många inslag. Efter ceremonin samlas familjen hemma hos dottern för privat minnesstund.",
+        "Samtal med Anna Ibrahim om hennes makes begravning. Hon önskar solosång vid ceremonin och har nämnt operasångaren Marco Bellini som möjlig artist. Vi kontrollerar om Marco är tillgänglig för datum 15 november. Anna berättar att maken spelade fiol och hon vill gärna ha violinmusik. Vi diskuterar möjlighet att hyra en Guarneri-fiol från 1890-talet för särskild klang. Nessun Dorma ska sjungas som avslutningsnummer. Körverksamhet från kyrkan har erbjudit sig att medverka gratis som hyllning till makens långvariga engagemang där. Totalt förväntas 45 gäster närvara vilket kräver större kapell. Bokat Västra kyrkogården istället för Skogskapellet."
+      ]
+    },
+    "practical_arrangements": {
+      "description": "Praktiska arrangemang och logistik",
+      "notes": [
+        "Eftermiddagskaffet efter ceremonin för familjen Svensson är bokat på Hotell Bishops Arms kl 15. De förväntar cirka 25-30 gäster. Menyn består av smörgåstårta och kaffe med dopp. Familjen har bett om vegetariskt alternativ för tre personer och vi har bekräftat detta med hotellet. Transport från sjukhuskapellet till hotellet tar cirka 15 minuter med bil. Familjen ordnar egen transport men vi informerar alla gäster om parkeringsmöjligheter bakom hotellet. Dödsbodelägaren Peter Andersson betalar direkt till hotellet dagen efter ceremonin enligt överenskommelse. De vill ha stillsamma musikval bakgrund under kaffet och hotellet fixar detta. Vi skickar detaljerad tidplan till kontaktperson Sofia dagen före ceremonin.",
+        "Blommor och foto ska arrangeras vid ingången till kapellet enligt önskemål från familj Berg. Blomsterhandlare Petronella kontaktas för leverans senast kl 11 på ceremonidag. Ett stort porträttfoto på 50x70 cm ska ställas på staffli bredvid kistan. Familjen levererar foto i förväg och vi ordnar inramning och staffli. Ljusmanskar kommer från kapellets eget förråd. Begravningsentreprenören hämtar kistan från bårhuset kl 09 på morgonen samma dag. Nyckel till bårhus finns i låda utanför entrén. Konfirmerad tid för ceremoni kl 14 och alla praktiska detaljer är klara. Familjen informerad om att komma 30 minuter i förväg för avsked i sidorum."
+      ]
+    },
+    "financial_and_family": {
+      "description": "Ekonomi och familjedynamik",
+      "notes": [
+        "Familjen Lindström har komplicerad ekonomisk situation. De tre syskonen ska dela på kostnaden men ena brodern har betalningssvårigheter. Systern Maria erbjuder sig att betala hela summan först och sedan ordna det sinsemellan. Total kostnad 28500 kr vilket inkluderar ceremoni, transport, blommor och kaffeservering. Faktura skickas till Maria Lindström med två veckors betalningsvillkor. Hon vill ha specificerad kostnadsnota för att kunna dela upp beloppet rättvist mellan syskon senare. Vi upprättar detaljerad specifikation där varje post är tydligt angiven. Dödsboet har tillgångar men de är ännu inte tillgängliga så privat finansiering krävs initialt. Bouppteckning pågår hos tingsrätten.",
+        "Planering för ceremoni familj Eriksson går smidigt. Alla tre döttrarna deltar aktivt och de är överens om upplägg. De vill ha personliga tal från två av döttrarna och ett från arbetskollega. Varje tal cirka 5 minuter långt. Vi diskuterar också musikval: klassisk körmusik med texter från psalmboken passar familjens önskemål. Ingen solist utan enbart körmusik. Kapellkörmästaren Anna Bergström kontaktas för tillgänglighet. Efter ceremonin ordnar familjen gemensam middag på restaurang för 40 personer. Det är skilt från våra tjänster men familjen frågade om rekommendation och vi föreslog Restaurang Herrgården. De verkar nöjda med alla arrangemang och väntar på bekräftelse av datum från oss senast i morgon."
+      ]
+    }
+  }
+}

@@ -1,0 +1,196 @@
+{
+  "dataset_info": {
+    "name": "Swedish Handwriting Dataset - CRM Notes Simulation v2",
+    "version": "3.0",
+    "description": "Realistiskt innehåll för begravningsbyrå CRM-system med fokus på familjerelationer och kontaktinformation",
+    "purpose": "Träna TrOCR på free-form notes (60%), korta instruktioner (30%), och strukturerade fält (10%)",
+    "target_domain": "CRM case notes, arrangement notes, och formulärfält - familj/arbete tema",
+    "total_lines": 100,
+    "content_distribution": {
+      "free_form_notes": "60 lines (6 pages × 10 lines)",
+      "short_instructions": "30 lines (3 pages × 10 lines)",
+      "structured_fields": "10 lines (1 page × 10 lines)"
+    },
+    "language_mix": "70% Swedish / 30% Mixed (Swedish with international names and occasional English words)"
+  },
+  "template_config": {
+    "page_size": "A4",
+    "margin": "20mm",
+    "font_size": 11,
+    "handwriting_space": "18mm",
+    "layout": "1_line_per_row"
+  },
+  "categories": {
+    "free_form_notes": {
+      "description": "Sammanhängande anteckningar om familj och kontakter",
+      "template_layout": "1_line_per_row",
+      "difficulty": "hard",
+      "pages": [
+        {
+          "page_id": 1,
+          "lines": [
+            "Familjen består av tre vuxna barn och åtta",
+            "barnbarn. Dottern Sofia är kontaktperson och",
+            "ordnar allt praktiskt. Hon bor i Stockholm",
+            "men övriga syskon finns i Göteborg och Malmö.",
+            "Alla vill delta i planeringen. Avliden har",
+            "bott på vårdhem de senaste två åren.",
+            "Personalen där har varit mycket omtänksamma",
+            "och familjen vill tacka dem genom att bjuda",
+            "in fyra representanter till ceremonin.",
+            "Kontaktperson är undersköterskan Fatima Hassan."
+          ]
+        },
+        {
+          "page_id": 2,
+          "lines": [
+            "Arvsförhållanden är komplicerade. Testamente",
+            "finns hos advokat Lindström på Advokatbyrån",
+            "Justitia. Vi behöver inte hantera det men",
+            "familjen frågat om hjälp med kontakt till",
+            "bouppteckningsförrättare. Anhöriga vill ha",
+            "tid för avsked dagen före ceremonin. De är",
+            "totalt 12 personer i kärnfamiljen som vill",
+            "komma och det tar cirka två timmar. Vi bokar",
+            "tid kl 16 på fredag så att alla hinner efter",
+            "arbetet. Kapellet är ledigt då."
+          ]
+        },
+        {
+          "page_id": 3,
+          "lines": [
+            "Kontakt till sonen Michael: han bor i London",
+            "men kommer till Sverige för ceremonin. Hans",
+            "adress är 42 Baker Street och telefon +44",
+            "7700 900123. Han behöver kvitto för resan för",
+            "försäkringen och vill ha det skickat till",
+            "michael.berg@gmail.com. Familjen har",
+            "diskuterat kostnaden och är överens om att",
+            "dela lika mellan syskonen. Faktura ska",
+            "skickas till Sofia som koordinerar betalning.",
+            "De betalar inom två veckor efter ceremonin."
+          ]
+        },
+        {
+          "page_id": 4,
+          "lines": [
+            "Avlidens syster bor på äldreboende och kan",
+            "inte närvara fysiskt. Vi ordnar streaming av",
+            "ceremonin så att hon kan följa via iPad.",
+            "Personalen på boendet hjälper till med",
+            "tekniken. Döttrarna besöker henne direkt",
+            "efter ceremonin. Kontaktperson på",
+            "arbetsplatsen där avliden jobbade i 35 år är",
+            "Magnus Eriksson. Han vill hålla tal om",
+            "kollegor och arbetsgemenskapen. Familjen",
+            "tycker det är fint. Magnus nås på 08-765 43 21."
+          ]
+        },
+        {
+          "page_id": 5,
+          "lines": [
+            "Barnbarnen vill göra något speciellt vid",
+            "ceremonin. De har valt att tillsammans tända",
+            "ljus och ställa fram ett gemensamt foto. Det",
+            "yngsta barnbarnet är bara sju år så de äldre",
+            "hjälper till. Familjen tycker det blir vackert",
+            "och personligt. Dödsbodelägare är de tre",
+            "syskonen enligt testamente. Sofia Andersson,",
+            "Michael Berg och Emma Lindqvist ska alla få",
+            "kopia av alla dokument. Adressen till Emma är",
+            "Strandvägen 45 i Göteborg. Hon sköter bank."
+          ]
+        },
+        {
+          "page_id": 6,
+          "lines": [
+            "Familjen har vänner i olika trossamfund. Både",
+            "kristna, muslimska och judiska vänner väntas",
+            "komma. Ceremonin ska vara helt sekulär för",
+            "att alla ska känna sig välkomna. Fokus på",
+            "minnen och inte religion enligt familjens",
+            "önskemål och avlidens vilja. Praktisk",
+            "information: parkering finns bakom kapellet",
+            "och det tar fem minuter att gå därifrån.",
+            "Familjen ordnar skyltar. Efter ceremonin",
+            "samlas alla på Grand Hotel för kaffe."
+          ]
+        }
+      ]
+    },
+    "short_instructions": {
+      "description": "Korta anteckningar om familj och kontakter",
+      "template_layout": "1_line_per_row",
+      "difficulty": "medium",
+      "pages": [
+        {
+          "page_id": 7,
+          "lines": [
+            "Kontakta Sofia om ändringar. Huvudkontakt.",
+            "Michael från London. Behöver kvitto.",
+            "Advokat Lindström har testamente.",
+            "Avsked fredag kl 16 för 12 personer.",
+            "Fatima Hassan på vårdhem ska bjudas in.",
+            "Streaming till syster. iPad äldreboende.",
+            "Magnus Eriksson håller tal. Bekräfta tid.",
+            "Barnbarnen tänder ljus. Organisera detta.",
+            "Faktura till Sofia. Tre syskon delar.",
+            "Emma i Göteborg sköter bank och försäkring."
+          ]
+        },
+        {
+          "page_id": 8,
+          "lines": [
+            "Grand Hotel sal bokad för 80 personer.",
+            "Sekulär ceremoni. Inga religiösa inslag.",
+            "Parkering bakom kapell. Skyltar med pilar.",
+            "Totalkostnad 32000 kr. Betalning 2 veckor.",
+            "Adress Michael: 42 Baker Street, London.",
+            "Email kvitto till michael.berg@gmail.com.",
+            "Dödsbo: tre delägare, alla får dokument.",
+            "Vårdhem bjuds in. Max fyra representanter.",
+            "Alla syskon deltar i planering. Gruppmöte?",
+            "Foto från barnbarn ställs fram vid kistan."
+          ]
+        },
+        {
+          "page_id": 9,
+          "lines": [
+            "Kontakt arbetsplats: 08-765 43 21.",
+            "Sofia ordnar betalning. Kontakta henne.",
+            "Två timmar avsked. Kapell ledigt fredag.",
+            "Emma Strandvägen 45, Göteborg. Postadress.",
+            "Bouppteckning: familjen frågat om kontakt.",
+            "Yngsta barnbarn 7 år. Äldre hjälper till.",
+            "Teknisk utrustning för streaming. iPad.",
+            "35 års arbetsplats. Kollegor bjuds in.",
+            "Olika trossamfund bland gäster. Respekt.",
+            "Grand Hotel kl 15 efter ceremoni. Fika."
+          ]
+        }
+      ]
+    },
+    "structured_fields": {
+      "description": "Kontaktuppgifter och nyckelinformation",
+      "template_layout": "1_line_per_row",
+      "difficulty": "easy",
+      "pages": [
+        {
+          "page_id": 10,
+          "lines": [
+            "Sofia Andersson, dotter, 070-234 56 78",
+            "Michael Berg, son, +44 7700 900123, London",
+            "Emma Lindqvist, dotter, Strandvägen 45 Göteborg",
+            "Fatima Hassan, vårdhem, underskötare",
+            "Magnus Eriksson, 08-765 43 21, kollega",
+            "Advokat Lindström, Advokatbyrån Justitia",
+            "Grand Hotel, sal bokad, 80 personer kl 15",
+            "michael.berg@gmail.com, kvitto reseersättning",
+            "Strandvägen 45, 411 23 Göteborg",
+            "Avsked fredag kl 16, 12 personer, två timmar"
+          ]
+        }
+      ]
+    }
+  }
+}

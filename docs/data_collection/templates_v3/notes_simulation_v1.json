@@ -1,0 +1,196 @@
+{
+  "dataset_info": {
+    "name": "Swedish Handwriting Dataset - CRM Notes Simulation v1",
+    "version": "3.0",
+    "description": "Realistiskt innehåll för begravningsbyrå CRM-system med fokus på ceremonier och musikval",
+    "purpose": "Träna TrOCR på free-form notes (60%), korta instruktioner (30%), och strukturerade fält (10%)",
+    "target_domain": "CRM case notes, arrangement notes, och formulärfält - musik/kultur tema",
+    "total_lines": 100,
+    "content_distribution": {
+      "free_form_notes": "60 lines (6 pages × 10 lines)",
+      "short_instructions": "30 lines (3 pages × 10 lines)",
+      "structured_fields": "10 lines (1 page × 10 lines)"
+    },
+    "language_mix": "70% Swedish / 30% Mixed (Swedish with English music titles)"
+  },
+  "template_config": {
+    "page_size": "A4",
+    "margin": "20mm",
+    "font_size": 11,
+    "handwriting_space": "18mm",
+    "layout": "1_line_per_row"
+  },
+  "categories": {
+    "free_form_notes": {
+      "description": "Sammanhängande anteckningar om ceremonier och musikval",
+      "template_layout": "1_line_per_row",
+      "difficulty": "hard",
+      "pages": [
+        {
+          "page_id": 1,
+          "lines": [
+            "Möte med familjen idag kl 14. De önskar en",
+            "ceremoni på Skogskapellet den 18 mars.",
+            "Musik: Amazing Grace och Den blomstertid nu",
+            "kommer. Dottern vill läsa en dikt. Familjen",
+            "är överens om vit kistklädsel. Avliden var",
+            "mycket musikintresserad. Familjen berättar",
+            "att han älskade klassisk musik och jazz.",
+            "Särskilt Miles Davis och Kind of Blue var",
+            "favoriter. Organisten kan spela jazzversion",
+            "av Amazing Grace om familjen önskar det."
+          ]
+        },
+        {
+          "page_id": 2,
+          "lines": [
+            "Grav finns redan på Norra begravningsplatsen.",
+            "Makans grav från 2018. Gravsten ska",
+            "kompletteras med nya datum och namnskylt.",
+            "Ring stenhuggare för offert på gravering.",
+            "Familjen vill ha texten 'Återförenade' under",
+            "båda namnen. Ceremoniledare Maria Svensson",
+            "är bokad för den 18 mars kl 13.00. Hon har",
+            "träffat familjen tidigare och känner till",
+            "önskemålen. Ingen religiös ceremoni, fokus",
+            "på minnen och musik. Cirka 45 personer."
+          ]
+        },
+        {
+          "page_id": 3,
+          "lines": [
+            "Transport från sjukhuset till kapellet",
+            "samma dag. Avsked för familjen kl 11 innan",
+            "ceremonin. Enbart närmaste familj, ca 8",
+            "personer. Blommor från familjen, gäster",
+            "ombeds ge gåva till Cancerfonden istället.",
+            "Kontaktperson är dottern Anna på telefon",
+            "070-123 45 67. Musikval diskuterat med",
+            "familjen. Förutom Amazing Grace vill de ha",
+            "What a Wonderful World vid utgången.",
+            "Organist bekräftar att hon kan spela den."
+          ]
+        },
+        {
+          "page_id": 4,
+          "lines": [
+            "Programblad ska innehålla foto från 70-talet",
+            "när avliden var aktiv i körverksamhet. Text",
+            "önskas: 'Älskad far och farfar, vi saknar",
+            "dig'. Inga psalmer men dikten 'Aftonen' av",
+            "Karlfeldt ska läsas. Familjen ordnar bildval",
+            "själva. Kremering efter ceremonin. Aska ska",
+            "spridas i minneslunden vid Västra kyrkogård",
+            "enligt önskemål från avliden själv. Ingen",
+            "gravsten men namnskylt i minneslundens",
+            "register. Familjen vill närvara vid det."
+          ]
+        },
+        {
+          "page_id": 5,
+          "lines": [
+            "Specialönskemål: Avlidens favoritviolin ska",
+            "vara framställd vid kistan under ceremonin.",
+            "Sonen Peter tar med instrumentet. Det var",
+            "en Guarneri från 1890-talet som far spelade",
+            "på i 50 år. Mycket emotionellt viktigt för",
+            "familjen. Begravningskaffe på Hotell Bishops",
+            "Arms efter ceremonin. Familjen har bokat för",
+            "40 personer kl 15.00. Enkel servering med",
+            "smörgåstårta och kaffe. Räkning skickas till",
+            "Anna Ibrahim som är kontaktperson."
+          ]
+        },
+        {
+          "page_id": 6,
+          "lines": [
+            "Avliden var operasångare och familjen vill",
+            "att en kollega sjunger Nessun Dorma från",
+            "Turandot under ceremonin. Sångaren heter",
+            "Marco Bellini och är kontaktad och",
+            "bekräftad. Han kommer 30 min före för",
+            "ljudcheck med organist. Tyst minut önskas",
+            "där ingen musik spelas. Bara stillhet för",
+            "eftertanke. Detta ska vara mitt i ceremonin",
+            "efter att sonen talat. Familjen tycker det",
+            "är viktigt med det lugna ögonblicket."
+          ]
+        }
+      ]
+    },
+    "short_instructions": {
+      "description": "Korta anteckningar och instruktioner",
+      "template_layout": "1_line_per_row",
+      "difficulty": "medium",
+      "pages": [
+        {
+          "page_id": 7,
+          "lines": [
+            "Ring familjen före besöket. Tid kl 14.",
+            "Boka organist för 18 mars. Fråga om Grace.",
+            "Stenhuggare ska kontaktas. Offert 3 dagar.",
+            "Allergier: nötter, laktos, gluten.",
+            "Transport från sjukhus kl 09. Nyckel låda.",
+            "Blommor beställs Interflora. Budget 3000 kr.",
+            "Kontakta prästen om fredag fm.",
+            "Programblad klart torsdag. Korrektur Anna.",
+            "Faktura till Anna Ibrahim. 30 dagar netto.",
+            "Kremering bokad 15.30 samma dag."
+          ]
+        },
+        {
+          "page_id": 8,
+          "lines": [
+            "Avsked kl 11 närmaste familj. Max 8 pers.",
+            "Musikval: What a Wonderful World, psalmer.",
+            "Kaffe Bishops Arms för 40 personer kl 15.",
+            "Namnskylt minneslund. Bronsskylt önskas.",
+            "Marco Bellini kommer 12.30 för ljudcheck.",
+            "Ring dottern vid ändring. Tel 070-123 45 67.",
+            "Vit kista med enkla handtag. Standard.",
+            "Foto programblad: svartvitt från 70-talet.",
+            "Violin vid kistan. Sonen tar med den.",
+            "Tyst minut i mitten. 2 minuter stillhet."
+          ]
+        },
+        {
+          "page_id": 9,
+          "lines": [
+            "Parkering bakom kapellet. Inga reserverade.",
+            "Ljudanläggning klar 12.30. Testa före.",
+            "Dottern läser dikt framme vid kistan.",
+            "Urna enkel keramik. Ingen dekoration.",
+            "Begravningsbil hämtar kl 14.30.",
+            "Avtala kyrkogård om minneslundsnedläggning.",
+            "Be Still My Soul som avslutning.",
+            "Blommor levereras före kl 12.",
+            "Organist spelar 15 min innan. Tyst musik.",
+            "Ceremoniledare träffat familjen. Ingen brief."
+          ]
+        }
+      ]
+    },
+    "structured_fields": {
+      "description": "Enskilda namn, datum, platser",
+      "template_layout": "1_line_per_row",
+      "difficulty": "easy",
+      "pages": [
+        {
+          "page_id": 10,
+          "lines": [
+            "Anna Ibrahim, dotter, 070-123 45 67",
+            "Skogskapellet, 18 mars 2024, kl 13.00",
+            "Maria Svensson, ceremoniledare, bekräftad",
+            "Norra begravningsplatsen, sektion C, grav 145",
+            "Cancerfonden, gåvor istället för blommor",
+            "Marco Bellini, operasångare, ljudcheck 12.30",
+            "Hotell Bishops Arms, 40 personer, kl 15.00",
+            "Peter Andersson, son, kontakt för violin",
+            "Västra kyrkogården, minneslund, askspridning",
+            "Interflora, blomsterbudget 3000 kr"
+          ]
+        }
+      ]
+    }
+  }
+}
